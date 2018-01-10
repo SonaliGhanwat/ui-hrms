@@ -1,0 +1,60 @@
+.main-class {
+    /* display: inline-block; */
+    margin-top: 50px;
+    width: 85%;
+    padding-left: 2%;
+    padding-right: 2%;
+    margin-left: 14.5%;
+    height: 100%;
+    overflow-y: scroll;
+    background: rgb(230, 230, 230);
+    position: fixed;
+}
+.primary-container {
+    height: 100%;
+    margin-left: 20px;
+    margin-top: 20px;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0px 1px 3px rgba(49, 51, 58, 0.2);
+}
+.header {
+    padding: 40px;
+    background-color: #f2f3f5;
+}
+.heading4 {
+    font-size: 1.6rem;
+    color: #444c5c;
+}
+.addbtn{
+    margin-top: 6%;
+    margin-left: 5.5%;
+}
+.adduser{
+    
+    width: 17%;
+    height: 40px;
+}
+.userlist {
+    margin-left: 2.5%;
+    font-size: 2.3rem;
+    color: #444c5c;
+    font-weight: 600;
+    margin-bottom: 15px;
+    padding: 25px;
+}
+.settable{
+    margin-left: 5%;
+    width: 93%;
+}
+.tablerow{
+   
+    text-align: left;
+    line-height: 3.5rem;
+}
+.action-link {
+    color: #111;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 2px;
+}

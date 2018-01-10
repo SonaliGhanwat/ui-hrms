@@ -1,0 +1,11 @@
+{
+  "LOGIN": {
+    "TITLE": "Bonjour Angular 2 avec ng2-translate !",
+    "Userid":"ccc",
+    "Password":"ccccc",
+    "HRMS":"cccc",
+    "ResetPassword":"ccccc",
+    "SignUp":"ccccc",
+    "SignIn":"cccc"
+  }
+}

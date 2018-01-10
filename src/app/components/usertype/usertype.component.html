@@ -1,0 +1,31 @@
+<app-home></app-home>
+<div class=" main-class">
+  <div class="primary-container">
+    <header class="header">
+      <div class="heading4">User Types</div>
+    </header>
+    <div class="addbtn">
+      <button class="btn btn-primary adduser" type="button">Add New User
+      </button>
+    </div>
+    <div layout="row" class="userlist ">User Type List</div>
+    <table class="table table-striped table-hover settable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th style="margin-left: 60%">Action</th>
+        </tr>
+      </thead>
+      <tr *ngFor="let usertype of allUsertypes">
+        <td class="tablerow">{{usertype.usertypeName}}</td>
+        <td>{{usertype.description}}</td>
+        <td>
+          <span  class="action-link" role="button" tabindex="0">Edit</span>
+          <span> | </span>
+          <span  class="action-link" role="button" tabindex="0">Delete</span>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
