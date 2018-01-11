@@ -7,6 +7,11 @@
       "ResetPassword":"Rset Password",
       "SignUp":"SignUp",
       "SignIn":"SignIn"
+    },
+    "USERTYPE":{
+       "NameRequired":"User Type Name Required",
+       "Description":"Description Required"
+        
 
     }
   }

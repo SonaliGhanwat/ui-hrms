@@ -64,9 +64,6 @@ export class HomeComponent implements OnInit {
       "subMenu": [{
         "name": " User Type",
         "link": "/usertype"
-      }, {
-        "name": "View All User Type",
-        "link": "/home"
       }]
     },{
       "name": "Holiday",

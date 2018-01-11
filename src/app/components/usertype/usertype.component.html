@@ -5,27 +5,67 @@
       <div class="heading4">User Types</div>
     </header>
     <div class="addbtn">
-      <button class="btn btn-primary adduser" type="button">Add New User
+      <button class="btn btn-primary adduser"  type="button" data-toggle="modal" data-target="#myModal">Add New User
       </button>
     </div>
     <div layout="row" class="userlist ">User Type List</div>
     <table class="table table-striped table-hover settable">
       <thead>
         <tr>
+            <th>No</th>
           <th>Name</th>
           <th>Description</th>
           <th style="margin-left: 60%">Action</th>
         </tr>
       </thead>
       <tr *ngFor="let usertype of allUsertypes">
+          <td class="tablerow">{{usertype.id}}</td>
+          
         <td class="tablerow">{{usertype.usertypeName}}</td>
         <td>{{usertype.description}}</td>
         <td>
-          <span  class="action-link" role="button" tabindex="0">Edit</span>
+          <span class="action-link" role="button" tabindex="0" (click)="loadUserTypeToEdit(usertype.id)" data-toggle="modal" data-target="#myModal">Edit</span>
           <span> | </span>
-          <span  class="action-link" role="button" tabindex="0">Delete</span>
+          <span class="action-link" role="button" tabindex="0" (click)="deleteUserType(usertype.id)">Delete</span>
         </td>
       </tr>
     </table>
   </div>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <form [formGroup]="usertypeForm" (ngSubmit)="onUserTypeFormSubmit()">
+
+  
+  <div class="modal-dialog modaldialog">
+    <div class="modal-content" style="    height: 500px;">
+      <div class="modal-header dialog">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h2 class="modal-title modaltitle">Add New User Type</h2>
+      </div>
+      <div class="modal-body">
+        <div class="row" style="    margin-top: 30px">
+          <div class=" form-group col-lg-6" style="margin-left: 35px;">
+            <label class="label-name " > Name</label>
+            <br>
+            <input type="text" *ngIf="usertypeForm.get('usertypeName')" formControlName="usertypeName" id="usertypeName" name="usertypeName" class="loginUserid" placeholder="Name">
+            <app-control-messages [control]="usertypeForm.controls.usertypeName"></app-control-messages>
+          </div>
+
+          <div class="col-lg-offset-5">
+            <div class=" form-group col-lg-6">
+              <label class="label-name " > Description</label>
+              <input type="text" *ngIf="usertypeForm.get('description')" formControlName="description" id="description" name="description" class="loginUserid" placeholder="Description">
+              <app-control-messages [control]="usertypeForm.controls.description"></app-control-messages>
+            </div>
+          </div>
+        </div>
+        <div class="savebtn">
+          <button type="submit" class="btn btn-secondary" style="width: 30%;" [disabled]="!usertypeForm.valid">Save</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" style="width: 30%;
+        margin-left: 20px;">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
 </div>
