@@ -4,51 +4,52 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import { UserType } from './usertype';
+import { EmployeeType} from '../../models/EmployeeType/Employee.model';
 
 @Injectable()
-export class UsertypeService {
+export class EmployeetypeService {
 
-  allUserTypeUrl = "http://localhost:8085/HRMS/usertype/list";
-  usertypeUrl = "http://localhost:8085/HRMS/usertype/create";
-  usertypeDeleteUrl = "http://localhost:8085/HRMS/usertype/delete/";
-  UserTypegetById ="http://localhost:8085/HRMS/usertype/";
-  usertypeUpdateUrl = "http://localhost:8085/HRMS/usertype/update"
+  allEmployeeTypeListUrl = "http://localhost:8085/HRMS/employeetype/list";
+  employeeTypeCreateUrl = "http://localhost:8085/HRMS/employeetype/create";
+  employeeTypeDeleteUrl = "http://localhost:8085/HRMS/employeetype/delete/";
+  employeeTypegetById ="http://localhost:8085/HRMS/employeetype/";
+  employeeTypeUpdateUrl = "http://localhost:8085/HRMS/employeetype/update"
+ 
   constructor(private http: Http) { }
-
-  getAllUserTypes(): Observable<UserType[]> {
-    return this.http.get(this.allUserTypeUrl)
+  
+  getAllEmployeeTypeList(): Observable<EmployeeType[]> {
+    return this.http.get(this.allEmployeeTypeListUrl)
       .map(this.extractData)
       .catch(this.handleError);
   }
-  createUserType(userType: UserType): Observable<number> {
+  createUserType(employeeType: EmployeeType): Observable<number> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: cpHeaders });
-    return this.http.post(this.usertypeUrl, userType, options)
+    return this.http.post(this.employeeTypeCreateUrl, employeeType, options)
       .map(success => success.status)
       .catch(this.handleError);
   }
 
   deleteUserTypeById(id: string): Observable<number> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
-    return this.http.delete(this.usertypeDeleteUrl+id)
+    return this.http.delete(this.employeeTypeDeleteUrl+id)
       .map(success => success.status)
       .catch(this.handleError);
   }
-  getUserTypeById(id: string): Observable<UserType> {
+  getUserTypeById(id: string): Observable<EmployeeType> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
     let cpParams = new URLSearchParams();
     cpParams.set('id', id);			
     let options = new RequestOptions({ headers: cpHeaders, params: cpParams });
-    return this.http.get(this.UserTypegetById+id)
+    return this.http.get(this.employeeTypegetById+id)
       .map(this.extractData)
       .catch(this.handleError);
       }	
 
-  updateUserType(userType: UserType):Observable<number> {
+  updateUserType(employeeType: EmployeeType):Observable<number> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
           let options = new RequestOptions({ headers: cpHeaders });
-          return this.http.put(this.usertypeUpdateUrl, userType, options)
+          return this.http.put(this.employeeTypeUpdateUrl, employeeType, options)
                  .map(success => success.status)
                  .catch(this.handleError);
       }
@@ -62,5 +63,3 @@ export class UsertypeService {
     return Observable.throw(error.status);
   }
 }
-
-

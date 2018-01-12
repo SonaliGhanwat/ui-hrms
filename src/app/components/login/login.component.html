@@ -5,14 +5,14 @@
     <div class="col-lg-12">
       <div class=" form-group col-lg-7">
         <div class=" form-control  loginForm">
-          <h1 align="center">{{ 'LOGIN.HRMS' | translate }}</h1>
+          <h1 align="center">{{ 'HRMS' | translate }}</h1>
           <div class="logininside">
             <p>Access and manage your instances from this HRMS account.</p>
           </div>
           <br>
           <div class="form-group ">
             <div class=" form-group col-lg-6">
-              <label class="loginlabel required "> {{ 'LOGIN.Userid' | translate }}</label>
+              <label class="loginlabel required "> {{ 'Userid' | translate }}</label>
               <br>
               <input formControlName="userid" id="userid" class="loginUserid" >
               <app-control-messages [control]="userForm.controls.userid"></app-control-messages>
@@ -21,18 +21,18 @@
 
           <div class="form-group ">
             <div class=" form-group col-lg-6 " style="margin-right: 30px">
-              <label class=" required loginlabel"> {{ 'LOGIN.Password' | translate }} </label>
+              <label class=" required loginlabel"> {{ 'Password' | translate }} </label>
               <br>
               <input  type = "password" formControlName="password" id="password" class="loginUserid">
               <app-control-messages [control]="userForm.controls.password"></app-control-messages>
             </div>
           </div>
           <div>
-            <a class="reset" href="ResetPassword.html">{{ 'LOGIN.ResetPassword' | translate }}</a>
-            <a class="reset" href="/web/signup" data-original-title="" title="">{{ 'LOGIN.SignUp' | translate }}</a>
+            <a class="reset" href="ResetPassword.html">{{ 'ResetPassword' | translate }}</a>
+            <a class="reset" href="/web/signup" data-original-title="" title="">{{ 'SignUp' | translate }}</a>
           </div>
           <div>
-            <button type="submit" class=" btncolor" [disabled]="!userForm.valid">{{ 'LOGIN.SignIn' | translate }}</button>
+            <button type="submit" class=" btncolor" [disabled]="!userForm.valid">{{ 'SignIn' | translate }}</button>
 
           </div>
         </div>

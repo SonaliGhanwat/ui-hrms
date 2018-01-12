@@ -17,23 +17,20 @@ export class HomeComponent implements OnInit {
     this.menuList = [{
       "name": "Employee",
       "subMenu": [{
-        "name": "Add Employee",
+        "name": "Employee",
         "link": '/usertype'
       }, {
-        "name": "View All Employee",
-        "link": "/home"
-      }, {
-        "name": "Add Employee Type",
-        "link": "/home"
+        "name": "Employee Type",
+        "link": "/employeeType"
       }, {
         "name": "Add Designation",
-        "link": "/home"
+        "link": "/designation"
       }]
     }, {
       "name": "Attendance",
       "subMenu": [{
         "name": "Add Employee Attendance",
-        "link": "/home"
+        "link": "/attendance"
       }, {
         "name": "View All Employee Attendance",
         "link": "/home"
@@ -50,14 +47,11 @@ export class HomeComponent implements OnInit {
     },{
       "name": "Leave",
       "subMenu": [{
-        "name": "Add Employee Leave",
-        "link": "/home"
-      }, {
-        "name": "View All Employee Leave",
+        "name": " Employee Leave",
         "link": "/home"
       },{
-        "name": "Add Leave Type",
-        "link": "/home"
+        "name": " Leave Type",
+        "link": "/leaveType"
       }]
     },{
       "name": "User Managment",
@@ -69,10 +63,7 @@ export class HomeComponent implements OnInit {
       "name": "Holiday",
       "subMenu": [{
         "name": "Add Holiday",
-        "link": "/home"
-      }, {
-        "name": "View All Holiday",
-        "link": "/home"
+        "link": "/holiday"
       }]
     }]
   }

@@ -1,17 +1,22 @@
 {
-    "LOGIN": {
-      "TITLE": "Hello Angular 2 with ng2-translate!",
-      "Userid":"UserId",
-      "Password":"Password",
-      "HRMS":"HRMS",
-      "ResetPassword":"Rset Password",
-      "SignUp":"SignUp",
-      "SignIn":"SignIn"
-    },
-    "USERTYPE":{
-       "NameRequired":"User Type Name Required",
-       "Description":"Description Required"
-        
-
-    }
-  }
+  "TITLE": "Hello Angular 2 with ng2-translate!",
+  "Userid": "UserId",
+  "Password": "Password",
+  "HRMS": "HRMS",
+  "ResetPassword": "Rset Password",
+  "SignUp": "SignUp",
+  "SignIn": "SignIn",
+  "Description": "Description ",
+  "Name": "Name",
+  "No":"No",
+  "Action":"Action",
+  "Date":"Date",
+  " HolidayName":"HolidayName",
+  "SeekLeave":"SeekLeave",
+  "PaidLeave":"PaidLeave",
+  "TotalLeave":"TotalLeave",
+  "EmployeeTypeName":"EmployeeTypeName",
+  "Band":"Band",
+  "Level":"level"
+  
+}

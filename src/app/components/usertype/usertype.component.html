@@ -12,10 +12,10 @@
     <table class="table table-striped table-hover settable">
       <thead>
         <tr>
-            <th>No</th>
-          <th>Name</th>
-          <th>Description</th>
-          <th style="margin-left: 60%">Action</th>
+            <th>{{ 'No' | translate }}</th>
+          <th>{{ 'Name' | translate }}</th>
+          <th>{{ 'Description' | translate }}</th>
+          <th style="margin-left: 60%">{{ 'Action' | translate }}</th>
         </tr>
       </thead>
       <tr *ngFor="let usertype of allUsertypes">
@@ -34,8 +34,6 @@
 </div>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <form [formGroup]="usertypeForm" (ngSubmit)="onUserTypeFormSubmit()">
-
-  
   <div class="modal-dialog modaldialog">
     <div class="modal-content" style="    height: 500px;">
       <div class="modal-header dialog">
@@ -45,7 +43,7 @@
       <div class="modal-body">
         <div class="row" style="    margin-top: 30px">
           <div class=" form-group col-lg-6" style="margin-left: 35px;">
-            <label class="label-name " > Name</label>
+            <label class="label-name " >{{ 'Name' | translate }}</label>
             <br>
             <input type="text" *ngIf="usertypeForm.get('usertypeName')" formControlName="usertypeName" id="usertypeName" name="usertypeName" class="loginUserid" placeholder="Name">
             <app-control-messages [control]="usertypeForm.controls.usertypeName"></app-control-messages>
@@ -53,7 +51,7 @@
 
           <div class="col-lg-offset-5">
             <div class=" form-group col-lg-6">
-              <label class="label-name " > Description</label>
+              <label class="label-name " > {{ 'Description' | translate }}</label>
               <input type="text" *ngIf="usertypeForm.get('description')" formControlName="description" id="description" name="description" class="loginUserid" placeholder="Description">
               <app-control-messages [control]="usertypeForm.controls.description"></app-control-messages>
             </div>
