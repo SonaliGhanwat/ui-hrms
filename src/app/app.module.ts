@@ -22,7 +22,13 @@ import { EmployeetypeService } from './services/EmployeeType/employeetype.servic
 import { DesignationComponent } from './components/designation/designation.component'
 import { DesignationService } from './services/Designation/designation.service';
 import { LeavetypeComponent } from './components/leavetype/leavetype.component';
-import { LeavetypeService } from './services/LeaveType/leavetype.service'
+import { LeavetypeService } from './services/LeaveType/leavetype.service';
+import { EmployeeComponent } from './components/employee/employee.component'
+import { EmployeeService} from './services/Employee/employee.service';
+import { DailyTaskComponent } from './components/daily-task/daily-task.component';
+import {DailytaskService}from './services/DailyTask/dailytask.service';
+import { LeaveComponent } from './components/leave/leave.component'
+import{LeaveService} from './services/Leave/leave.service'
 
 
 
@@ -38,10 +44,14 @@ import { LeavetypeService } from './services/LeaveType/leavetype.service'
     EmployeeTypeComponent,
     DesignationComponent,
     LeavetypeComponent,
+    EmployeeComponent,
+    DailyTaskComponent,
+    LeaveComponent,
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
+    FormsModule,
     AppRoutingModule,
     HttpModule,
     TranslateModule.forRoot({
@@ -58,7 +68,10 @@ import { LeavetypeService } from './services/LeaveType/leavetype.service'
     AttendanceService,
     EmployeetypeService,
     DesignationService,
-    LeavetypeService
+    LeavetypeService,
+    EmployeeService,
+    DailytaskService,
+    LeaveService
   ],
   bootstrap: [AppComponent]
 })

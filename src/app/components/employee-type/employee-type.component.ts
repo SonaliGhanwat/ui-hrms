@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { EmployeetypeService } from '../../services/EmployeeType/employeetype.service';
-import { EmployeeType } from '../../models/EmployeeType/Employee.model';
+import { EmployeeType } from '../../models/EmployeeType/EmployeeType.model';
 
 @Component({
   selector: 'app-employee-type',
@@ -42,7 +42,7 @@ export class EmployeeTypeComponent implements OnInit {
     let totalLeave = this.employeetypeForm.get('totalLeave').value;
     if (this.articleIdToUpdate === null) {
       let userType = new EmployeeType(null, type, seekLeave, paidLeave, totalLeave);
-      this.employeetypeService.createUserType(userType)
+      this.employeetypeService.createEmployeeType(userType)
         .subscribe(successCode => {
           this.statusCode = successCode;
           this.getAllEmployeetype();
@@ -53,7 +53,7 @@ export class EmployeeTypeComponent implements OnInit {
     } else {
       //Handle update article
       let userType = new EmployeeType(this.articleIdToUpdate, type, seekLeave, paidLeave, totalLeave);
-      this.employeetypeService.updateUserType(userType)
+      this.employeetypeService.updateEmployeeType(userType)
         .subscribe(successCode => {
           this.statusCode = successCode;
           this.getAllEmployeetype();
@@ -64,7 +64,7 @@ export class EmployeeTypeComponent implements OnInit {
   }
   deleteEmployeeType(id: string) {
     this.preProcessConfigurations();
-    this.employeetypeService.deleteUserTypeById(id)
+    this.employeetypeService.deleteEmployeeTypeById(id)
       .subscribe(successCode => {
         this.statusCode = successCode;
         this.getAllEmployeetype();
@@ -75,7 +75,7 @@ export class EmployeeTypeComponent implements OnInit {
   }
   loadEmployeeTypeToEdit(id: string) {
     this.preProcessConfigurations();
-    this.employeetypeService.getUserTypeById(id)
+    this.employeetypeService.getEmployeeTypeById(id)
       .subscribe(employeeType => {
 
         this.articleIdToUpdate = employeeType.id;

@@ -4,52 +4,59 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import { EmployeeType} from '../../models/EmployeeType/EmployeeType.model';
+import { Employee } from '../../models/Employee/Employee.model';
 
 @Injectable()
-export class EmployeetypeService {
+export class EmployeeService {
 
-  allEmployeeTypeListUrl = "http://localhost:8085/HRMS/employeetype/list";
-  employeeTypeCreateUrl = "http://localhost:8085/HRMS/employeetype/create";
-  employeeTypeDeleteUrl = "http://localhost:8085/HRMS/employeetype/delete/";
-  employeeTypegetById ="http://localhost:8085/HRMS/employeetype/";
-  employeeTypeUpdateUrl = "http://localhost:8085/HRMS/employeetype/update"
+  allEmployeeListUrl = "http://localhost:8085/HRMS/employee/list";
+  employeeCreateUrl = "http://localhost:8085/HRMS/employee/create";
+  employeeDeleteUrl = "http://localhost:8085/HRMS/employee/delete/";
+  employeegetById ="http://localhost:8085/HRMS/employee/";
+  employeeeUpdateUrl = "http://localhost:8085/HRMS/employee/update"
+  reportTo="http://localhost:8085/HRMS/designation/reportTo/"
  
   constructor(private http: Http) { }
   
-  getAllEmployeeTypeList(): Observable<EmployeeType[]> {
-    return this.http.get(this.allEmployeeTypeListUrl)
+  getAllEmployeeList(): Observable<Employee[]> {
+    return this.http.get(this.allEmployeeListUrl)
       .map(this.extractData)
       .catch(this.handleError);
   }
-  createEmployeeType(employeeType: EmployeeType): Observable<number> {
+  createEmployee(employee: Employee): Observable<number> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: cpHeaders });
-    return this.http.post(this.employeeTypeCreateUrl, employeeType, options)
+    return this.http.post(this.employeeCreateUrl, employee, options)
       .map(success => success.status)
       .catch(this.handleError);
   }
 
-  deleteEmployeeTypeById(id: string): Observable<number> {
+  deleteEmployeeById(id: string): Observable<number> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
-    return this.http.delete(this.employeeTypeDeleteUrl+id)
+    return this.http.delete(this.employeeDeleteUrl+id)
       .map(success => success.status)
       .catch(this.handleError);
   }
-  getEmployeeTypeById(id: string): Observable<EmployeeType> {
+  employeeForReportTo(id: number): Observable<number> {
+    let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
+    return this.http.get(this.reportTo+id)
+    .map(this.extractData)
+    .catch(this.handleError);
+  }
+  getEmployeeById(id: string): Observable<Employee> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
     let cpParams = new URLSearchParams();
     cpParams.set('id', id);			
     let options = new RequestOptions({ headers: cpHeaders, params: cpParams });
-    return this.http.get(this.employeeTypegetById+id)
+    return this.http.get(this.employeegetById+id)
       .map(this.extractData)
       .catch(this.handleError);
       }	
 
-  updateEmployeeType(employeeType: EmployeeType):Observable<number> {
+  updateEmployee(employee: Employee):Observable<number> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
           let options = new RequestOptions({ headers: cpHeaders });
-          return this.http.put(this.employeeTypeUpdateUrl, employeeType, options)
+          return this.http.put(this.employeeeUpdateUrl, employee, options)
                  .map(success => success.status)
                  .catch(this.handleError);
       }

@@ -280,7 +280,7 @@ background-color: #fff;
 
 ul li{cursor:pointer;}
 .active{
-    color:blue;
+    color:white;
   }
 .active div{
     display:inline-block !important;

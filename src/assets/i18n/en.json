@@ -17,6 +17,21 @@
   "TotalLeave":"TotalLeave",
   "EmployeeTypeName":"EmployeeTypeName",
   "Band":"Band",
-  "Level":"level"
+  "Level":"level",
+  "UserId":"UserId",
+  "FirstName":"FirstName",
+  "LastName":"LastName",
+  "PhoneNumber":"PhoneNumber",
+  "DateOfJoining":"DateOfJoining",
+  "DateOfBirth":"DateOfBirth",
+  "UserType":"UserType",
+  "Intime":"InTime",
+  "OutTime":"OutTime",
+  "TotalTime":"TotalTime",
+  "Status":"Status",
+  "TaskName":"TaskName",
+  "StartTime":"StartTime",
+  "EndTime":"EndTime"
+  
   
 }

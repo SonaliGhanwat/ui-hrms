@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
       "name": "Employee",
       "subMenu": [{
         "name": "Employee",
-        "link": '/usertype'
+        "link": '/employee'
       }, {
         "name": "Employee Type",
         "link": "/employeeType"
@@ -29,26 +29,20 @@ export class HomeComponent implements OnInit {
     }, {
       "name": "Attendance",
       "subMenu": [{
-        "name": "Add Employee Attendance",
+        "name": " Employee Attendance",
         "link": "/attendance"
-      }, {
-        "name": "View All Employee Attendance",
-        "link": "/home"
       }]
     },{
       "name": "Daily Task",
       "subMenu": [{
         "name": "Add Employee Daily Task",
-        "link": "/home"
-      }, {
-        "name": "View All Employee Daily Task",
-        "link": "/home"
-      }]
+        "link": "/dailyTask"
+      },]
     },{
       "name": "Leave",
       "subMenu": [{
         "name": " Employee Leave",
-        "link": "/home"
+        "link": "/leave"
       },{
         "name": " Leave Type",
         "link": "/leaveType"

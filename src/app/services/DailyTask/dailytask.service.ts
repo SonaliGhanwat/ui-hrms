@@ -4,52 +4,52 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import { EmployeeType} from '../../models/EmployeeType/EmployeeType.model';
+import { DailyTask} from '../../models/DailyTask/DailyTask.model';
 
 @Injectable()
-export class EmployeetypeService {
+export class DailytaskService {
 
-  allEmployeeTypeListUrl = "http://localhost:8085/HRMS/employeetype/list";
-  employeeTypeCreateUrl = "http://localhost:8085/HRMS/employeetype/create";
-  employeeTypeDeleteUrl = "http://localhost:8085/HRMS/employeetype/delete/";
-  employeeTypegetById ="http://localhost:8085/HRMS/employeetype/";
-  employeeTypeUpdateUrl = "http://localhost:8085/HRMS/employeetype/update"
+  allDailyTaskListUrl = "http://localhost:8085/HRMS/employeedailytask/list";
+  dailyTaskCreateUrl = "http://localhost:8085/HRMS/employeedailytask/create";
+  dailyTaskDeleteUrl = "http://localhost:8085/HRMS/employeedailytask/delete/";
+  dailyTaskgetById ="http://localhost:8085/HRMS/employeedailytask/";
+  dailyTaskUpdateUrl = "http://localhost:8085/HRMS/employeedailytask/update"
  
   constructor(private http: Http) { }
   
-  getAllEmployeeTypeList(): Observable<EmployeeType[]> {
-    return this.http.get(this.allEmployeeTypeListUrl)
+  getAllDailyTaskList(): Observable<DailyTask[]> {
+    return this.http.get(this.allDailyTaskListUrl)
       .map(this.extractData)
       .catch(this.handleError);
   }
-  createEmployeeType(employeeType: EmployeeType): Observable<number> {
+  createDailyTask(dailyTask: DailyTask): Observable<number> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: cpHeaders });
-    return this.http.post(this.employeeTypeCreateUrl, employeeType, options)
+    return this.http.post(this.dailyTaskCreateUrl, dailyTask, options)
       .map(success => success.status)
       .catch(this.handleError);
   }
 
-  deleteEmployeeTypeById(id: string): Observable<number> {
+  deleteDailyTaskById(id: string): Observable<number> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
-    return this.http.delete(this.employeeTypeDeleteUrl+id)
+    return this.http.delete(this.dailyTaskDeleteUrl+id)
       .map(success => success.status)
       .catch(this.handleError);
   }
-  getEmployeeTypeById(id: string): Observable<EmployeeType> {
+  getDailyTaskById(id: string): Observable<DailyTask> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
     let cpParams = new URLSearchParams();
     cpParams.set('id', id);			
     let options = new RequestOptions({ headers: cpHeaders, params: cpParams });
-    return this.http.get(this.employeeTypegetById+id)
+    return this.http.get(this.dailyTaskgetById+id)
       .map(this.extractData)
       .catch(this.handleError);
       }	
 
-  updateEmployeeType(employeeType: EmployeeType):Observable<number> {
+  updateDailyTask(dailyTask: DailyTask):Observable<number> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
           let options = new RequestOptions({ headers: cpHeaders });
-          return this.http.put(this.employeeTypeUpdateUrl, employeeType, options)
+          return this.http.put(this.dailyTaskUpdateUrl, dailyTask, options)
                  .map(success => success.status)
                  .catch(this.handleError);
       }
@@ -62,4 +62,5 @@ export class EmployeetypeService {
     console.error(error.message || error);
     return Observable.throw(error.status);
   }
+
 }

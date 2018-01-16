@@ -1,0 +1,239 @@
+<app-home></app-home>
+<div class=" main-class">
+  <div class="primary-container">
+    <header class="header">
+      <div class="heading4">Employee </div>
+    </header>
+    <div class="addbtn">
+      <button class="btn btn-primary adduser" type="button" data-toggle="modal" data-target="#myModal">Add New Employee
+      </button>
+    </div>
+    <div layout="row" class="userlist ">Employee List</div>
+    <table class="table table-striped table-hover settable">
+      <thead>
+        <tr>
+          <th>{{ 'No' | translate }}</th>
+          <th>{{ 'UserId' | translate }}</th>
+          <th>{{ 'FirstName' | translate }}</th>
+          <th>{{ 'LastName' | translate }}</th>
+          <th>{{ 'PhoneNumber' | translate }}</th>
+          <th>{{ 'DateOfJoining' | translate }}</th>
+          <th>{{ 'UserType' | translate }}</th>
+          <th>{{ 'EmployeeType' | translate }}</th>
+          <th style="margin-left: 60%">{{ 'Action' | translate }}</th>
+        </tr>
+      </thead>
+      <tr *ngFor="let employee of allEmployee">
+        <td class="tablerow">{{employee.id}}</td>
+        <td class="tablerow">{{employee.userid}}</td>
+        <td>{{employee.firstName}}</td>
+        <td>{{employee.lastName}}</td>
+        <td>{{employee.phoneNumber}}</td>
+        <td>{{employee.dateOfJoining}}</td>
+        <td>{{employee.usertype.id}}</td>
+        <td>{{employee.employeetype.type}}</td>
+
+        <td>
+          <span class="action-link" role="button" tabindex="0" (click)="loadEmployeeToEdit(employee.id)" data-toggle="modal"
+            data-target="#myModal">Edit</span>
+          <span> | </span>
+          <span class="action-link" role="button" tabindex="0" (click)="deleteEmployee(employee.id)">Delete</span>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <form [formGroup]="employeeForm" (ngSubmit)="onEmployeeFormSubmit()">
+    <div class="modal-dialog modaldialog">
+      <div class="modal-content">
+        <div class="modal-header dialog">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h2 class="modal-title modaltitle">Add New Attendance</h2>
+        </div>
+        <div class="modal-body">
+          <h6 class=" form-horizontal">
+            <span class="basicinfo">Basic Info</span>
+          </h6>
+
+          <div class="row" style="    margin-top: 30px">
+            <div class=" form-group col-lg-6" style="margin-left: 35px;">
+              <label class="label-name ">{{ 'UserId' | translate }}</label>
+              <br>
+              <input type="text" *ngIf="employeeForm.get('userid')" formControlName="userid" class="loginUserid">
+              <app-control-messages [control]="employeeForm.controls.userid"></app-control-messages>
+            </div>
+
+            <div class="col-lg-offset-5">
+              <div class=" form-group col-lg-6">
+                <label class="label-name "> {{ 'Password' | translate }}</label>
+                <input type="password" *ngIf="employeeForm.get('password')" formControlName="password" class="loginUserid">
+                <app-control-messages [control]="employeeForm.controls.password"></app-control-messages>
+              </div>
+            </div>
+          </div>
+          <div class="row" style="    margin-top: 30px">
+            <div class=" form-group col-lg-6" style="margin-left: 35px;">
+              <label class="label-name ">{{ 'FirstName' | translate }}</label>
+              <br>
+              <input type="text" *ngIf="employeeForm.get('firstName')" formControlName="firstName" class="loginUserid">
+              <app-control-messages [control]="employeeForm.controls.firstName"></app-control-messages>
+            </div>
+
+            <div class="col-lg-offset-5">
+              <div class=" form-group col-lg-6">
+                <label class="label-name "> {{ 'LastName' | translate }}</label>
+                <input type="text" *ngIf="employeeForm.get('lastName')" formControlName="lastName" class="loginUserid">
+                <app-control-messages [control]="employeeForm.controls.lastName"></app-control-messages>
+              </div>
+            </div>
+          </div>
+          <div class="row" style="    margin-top: 30px">
+            <div class=" form-group col-lg-6" style="margin-left: 35px;">
+              <label class="label-name ">{{ 'EmailId' | translate }}</label>
+              <br>
+              <input type="text" *ngIf="employeeForm.get('emailid')" formControlName="emailid" class="loginUserid">
+              <app-control-messages [control]="employeeForm.controls.emailid"></app-control-messages>
+            </div>
+
+            <div class="col-lg-offset-5">
+              <div class=" form-group col-lg-6">
+                <label class="label-name "> Gender :</label>
+                <div style="margin-left: 10px;">
+                  <input type="radio" name="gender" value="male"> Male
+                  <br>
+                  <input type="radio" name="gender" value="female"> Female
+                  <br>
+                </div>
+              </div>
+            </div>
+          </div>
+          <h6 class=" form-horizontal">
+            <span class="basicinfo">Work</span>
+          </h6>
+          <div class="row" style="    margin-top: 30px">
+            <div class=" form-group col-lg-6" style="margin-left: 35px;">
+              <label class="label-name ">{{ 'Source of hire' | translate }}</label>
+              <br>
+              <select class="loginUserid" style="width: 250px">
+                <option value="volvo">Direct</option>
+                <option value="saab">Referral</option>
+                <option value="mercedes">Web</option>
+                <option value="audi">NewsPaper</option>
+              </select>
+            </div>
+            <div class="col-lg-offset-5">
+              <div class=" form-group col-lg-6">
+                <label class="label-name "> {{ 'Date Of Joining' | translate }}</label>
+                <input type="date" *ngIf="employeeForm.get('dateOfJoining')" formControlName="dateOfJoining" class="loginUserid">
+                <app-control-messages [control]="employeeForm.controls.dateOfJoining"></app-control-messages>
+              </div>
+            </div>
+          </div>
+          <div class="row" style="    margin-top: 30px">
+            <div class=" form-group col-lg-6" style="margin-left: 35px;">
+              <label class="label-name ">{{ 'EmployeeType' | translate }}</label>
+              <select class="loginUserid"  formControlName="employeetype" >
+                <option *ngFor=" let employeetype of allEmployeetype" [value]="employeetype.id">
+                  {{employeetype.type}}
+                </option>
+              </select>
+
+            </div>
+
+            <div class="col-lg-offset-5">
+              <div class=" form-group col-lg-6">
+                <label class="label-name "> {{ 'Workphone' | translate }}</label>
+                <input type="text"   class="loginUserid">
+                
+              </div>
+            </div>
+          </div>
+          <div class="row" style="    margin-top: 30px">
+            <div class=" form-group col-lg-6" style="margin-left: 35px;">
+              <label class="label-name ">{{ 'User Type' | translate }}</label>
+              <select class="loginUserid"  formControlName="usertype">
+                <option *ngFor=" let usertype of allUsertypes" [value]="usertype.id">
+                  {{usertype.usertypeName}}
+                </option>
+              </select>
+
+            </div>
+
+            <div class="col-lg-offset-5">
+              <div class=" form-group col-lg-6">
+                <label class="label-name "> {{ 'Designation' | translate }}</label>
+                <select    class="loginUserid" formControlName="designation" >
+                    <option *ngFor=" let designation of allDesignation" [value]="designation.id"   >
+                       {{designation.name}}
+                    </option>
+                  
+                </select>
+                
+              </div>
+            </div>
+          </div>
+          <div class="row" style="    margin-top: 30px">
+              <div class=" form-group col-lg-6" style="margin-left: 35px;">
+                <label class="label-name ">{{ 'ReportTo' | translate }}</label>
+                <select class="loginUserid"  formControlName="reportTo"  (click)="reportTo()" >
+                  <option *ngFor=" let employee of allEmployee" [value]="employee.id">
+                    {{employee.userid}}
+                  </option>
+                </select>
+  
+              </div>
+  
+              <div class="col-lg-offset-5">
+                <div class=" form-group col-lg-6">
+                  <label class="label-name "> {{ 'Department' | translate }}</label>
+                  <input type="text" *ngIf="employeeForm.get('department')"  formControlName="department" class="loginUserid">
+                  <app-control-messages [control]="employeeForm.controls.department"></app-control-messages>
+                </div>
+              </div>
+            </div>
+            <h6 class=" form-horizontal">
+                <span class="basicinfo">Personal</span>
+              </h6>
+              <div class="row" style="    margin-top: 30px">
+                  <div class=" form-group col-lg-6" style="margin-left: 35px;">
+                    <label class="label-name ">{{ 'Mobile Number' | translate }}</label>
+                    <br>
+                    <input type="text" *ngIf="employeeForm.get('phoneNumber')" formControlName="phoneNumber" class="loginUserid">
+                    <app-control-messages [control]="employeeForm.controls.phoneNumber"></app-control-messages>
+                  </div>
+      
+                  <div class="col-lg-offset-5">
+                    <div class=" form-group col-lg-6">
+                      <label class="label-name "> {{ 'Address' | translate }}</label>
+                      <input type="text" *ngIf="employeeForm.get('address')" formControlName="address" class="loginUserid">
+                      <app-control-messages [control]="employeeForm.controls.address"></app-control-messages>
+                    </div>
+                  </div>
+                </div>
+                <div class="row" style="    margin-top: 30px">
+                    <div class=" form-group col-lg-6" style="margin-left: 35px;">
+                      <label class="label-name ">{{ 'Date Of Birth' | translate }}</label>
+                      <br>
+                      <input type="date" *ngIf="employeeForm.get('dateOfBirth')" formControlName="dateOfBirth" class="loginUserid">
+                      <app-control-messages [control]="employeeForm.controls.dateOfBirth"></app-control-messages>
+                    </div>
+        
+                    <div class="col-lg-offset-5">
+                      <div class=" form-group col-lg-6">
+                        <label class="label-name "> {{ 'Salary' | translate }}</label>
+                        <input type="number" *ngIf="employeeForm.get('salary')" formControlName="salary" class="loginUserid">
+                        <app-control-messages [control]="employeeForm.controls.salary"></app-control-messages>
+                      </div>
+                    </div>
+                  </div>
+          <div class="savebtn">
+            <button type="submit" class="btn btn-secondary" style="width: 30%;" [disabled]="!employeeForm.valid">Save</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" style="width: 30%;
+      margin-left: 20px;">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

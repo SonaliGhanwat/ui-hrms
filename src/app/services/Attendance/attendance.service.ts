@@ -9,10 +9,10 @@ import { Attendance} from '../../models/Attendance/Attendance.model';
 export class AttendanceService {
 
   allAttendanceListUrl = "http://localhost:8085/HRMS/employeeattendance/list";
-  holidayCreateUrl = "http://localhost:8085/HRMS/holiday/create";
-  holidayDeleteUrl = "http://localhost:8085/HRMS/holiday/delete/";
-  holidaygetById ="http://localhost:8085/HRMS/holiday/";
-  holidayUpdateUrl = "http://localhost:8085/HRMS/holiday/update"
+  attendanceCreateUrl = "http://localhost:8085/HRMS/employeeattendance/create";
+  attendanceDeleteUrl = "http://localhost:8085/HRMS/employeeattendance/delete/";
+  attendancegetById ="http://localhost:8085/HRMS/employeeattendance/";
+  attendanceUpdateUrl = "http://localhost:8085/HRMS/employeeattendance/update"
   
   constructor(private http: Http) { }
   
@@ -21,6 +21,38 @@ export class AttendanceService {
       .map(this.extractData)
       .catch(this.handleError);
   }
+
+  createEmployeeAttendance(attendance: Attendance): Observable<number> {
+    let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: cpHeaders });
+    return this.http.post(this.attendanceCreateUrl, attendance, options)
+      .map(success => success.status)
+      .catch(this.handleError);
+  }
+
+  deleteEmployeeAttendanceById(id: string): Observable<number> {
+    let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
+    return this.http.delete(this.attendanceDeleteUrl+id)
+      .map(success => success.status)
+      .catch(this.handleError);
+  }
+  getEmployeeAttendanceById(id: string): Observable<Attendance> {
+    let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
+    let cpParams = new URLSearchParams();
+    cpParams.set('id', id);			
+    let options = new RequestOptions({ headers: cpHeaders, params: cpParams });
+    return this.http.get(this.attendancegetById+id)
+      .map(this.extractData)
+      .catch(this.handleError);
+      }	
+
+  updateEmployeeAttendance(attendance: Attendance):Observable<number> {
+    let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
+          let options = new RequestOptions({ headers: cpHeaders });
+          return this.http.put(this.attendanceUpdateUrl, attendance, options)
+                 .map(success => success.status)
+                 .catch(this.handleError);
+      }
 
   private extractData(res: Response) {
     let body = res.json();
