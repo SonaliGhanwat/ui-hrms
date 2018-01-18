@@ -8,6 +8,7 @@ import { UsertypeService } from '../../services/UserType/usertype.service';
 import { UserType } from '../../models/UserType/UserType.model';
 import { DesignationService } from '../../services/Designation/designation.service';
 import { Designation } from '../../models/designation/Designation.model';
+import { ValidationService } from '../../services/validation.service';
 
 @Component({
   selector: 'app-employee',
@@ -35,7 +36,7 @@ export class EmployeeComponent implements OnInit {
     'firstName': ['', [Validators.required]],
     'lastName': ['', [Validators.required]],
     'phoneNumber': ['', ([Validators.required])],
-    'emailid': ['', [Validators.required]],
+    'emailid': ['', [Validators.required,ValidationService.emailValidator]],
     'dateOfJoining': ['', [Validators.required]],
     'dateOfBirth': ['', [Validators.required]],
     'address': ['', ([Validators.required])],
@@ -46,11 +47,6 @@ export class EmployeeComponent implements OnInit {
     'designation': ['', [Validators.required]],
     'reportTo': ['', [Validators.required]],
     
-    
-   
-   
-
-
   });
   ngOnInit(): void {
     this.getAllEmployee();

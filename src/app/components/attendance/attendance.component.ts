@@ -4,6 +4,7 @@ import { AttendanceService } from '../../services/Attendance/attendance.service'
 import { Attendance } from '../../models/Attendance/Attendance.model';
 import { EmployeeService } from '../../services/Employee/employee.service';
 import { Employee } from '../../models/Employee/Employee.model';
+import { ValidationService } from '../../services/validation.service';
 @Component({
   selector: 'app-attendance',
   templateUrl: './attendance.component.html',
@@ -11,19 +12,20 @@ import { Employee } from '../../models/Employee/Employee.model';
 })
 export class AttendanceComponent implements OnInit {
 
+  
   allAttendance: Attendance[];
   allEmployee:Employee[]
   statusCode: number;
   requestProcessing = false;
   articleIdToUpdate = null;
   processValidation = false;
+  
   constructor(private attendanceService: AttendanceService, private formBuilder: FormBuilder,private employeeService: EmployeeService) { }
   attendanceForm = this.formBuilder.group({
     'employee': ['', ([Validators.required])],
     'intime': ['', ([Validators.required])],
     'outtime': ['', [Validators.required]],
-    'date': ['', [Validators.required]],
-
+    'date': ['', [Validators.required,ValidationService.currentDateValidation]],
 
   });
 
@@ -54,14 +56,13 @@ export class AttendanceComponent implements OnInit {
     if (this.articleIdToUpdate === null) {
       let attendance = new Attendance(null, employee, intime, outtime, date);
       console.log("attendance0",attendance)
-      this.attendanceService.createEmployeeAttendance(attendance)
-        .subscribe(successCode => {
-          this.statusCode = successCode;
-          this.getAllAttendanceList();
-          this.backToCreateArticle();
-        },
-        errorCode => this.statusCode = errorCode);
-      console.log("successCode");
+      this.attendanceService.createEmployeeAttendance(attendance) .subscribe(data => {
+     console.log("data",data)
+      this.getAllAttendanceList();
+      this.backToCreateArticle();
+       
+      });
+     
     } else {
       //Handle update article
       let userType = new Attendance(this.articleIdToUpdate, employee, intime, outtime, date);
@@ -70,6 +71,7 @@ export class AttendanceComponent implements OnInit {
           this.statusCode = successCode;
           this.getAllAttendanceList();
           this.backToCreateArticle();
+
         },
         errorCode => this.statusCode = errorCode);
     }
@@ -108,7 +110,13 @@ export class AttendanceComponent implements OnInit {
     this.attendanceForm.reset();
     this.processValidation = false;
   }
-  
+   myFunction() {
+   let x = document.getElementById("snackbar")
+    x.className = "show";
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+}
+
+
 }
 
 

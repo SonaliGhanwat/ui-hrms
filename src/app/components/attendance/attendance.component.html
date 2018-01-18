@@ -51,7 +51,7 @@
       <div class="row" style="    margin-top: 30px">
         <div class=" form-group col-lg-6" style="margin-left: 35px;">
           <label class="label-name " >{{ 'EmployeeId' | translate }}</label>
-          <select    class="loginUserid" id="emp" formControlName="employee" >
+          <select    class="loginUserid"  formControlName="employee" >
             <option *ngFor=" let employee of allEmployee" [value]="employee.id"  >
                {{employee.userid}}
             </option>
@@ -62,7 +62,7 @@
         <div class="col-lg-offset-5">
           <div class=" form-group col-lg-6">
             <label class="label-name " > {{ 'Intime' | translate }}</label>
-            <input type="time" *ngIf="attendanceForm.get('intime')" step="2" formControlName="intime"  class="loginUserid"  >
+            <input type="time" *ngIf="attendanceForm.get('intime')" step="2" id="intime" formControlName="intime"  class="loginUserid"  >
             <app-control-messages [control]="attendanceForm.controls.intime"></app-control-messages>
           </div>
         </div>
@@ -79,12 +79,13 @@
             <div class=" form-group col-lg-6">
               <label class="label-name " > {{ 'Date' | translate }}</label>
               <input type="date" *ngIf="attendanceForm.get('date')" formControlName="date"  class="loginUserid" >
-              <app-control-messages [control]="attendanceForm.controls.date"></app-control-messages>
+              <app-control-messages [control]="attendanceForm.controls.date" (blur)="dateValidation()" (change)="dateValidation()"></app-control-messages>
+             
             </div>
           </div>
         </div>
       <div class="savebtn">
-        <button type="submit" class="btn btn-secondary" style="width: 30%;" [disabled]="!attendanceForm.valid">Save</button>
+        <button type="submit" class="btn btn-secondary" style="width: 30%;" [disabled]="!attendanceForm.valid" >Save</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal" style="width: 30%;
       margin-left: 20px;">Close</button>
       </div>
@@ -93,6 +94,7 @@
 </div>
 </form>
 </div>
+<div id="snackbar" ></div>
 
 
 

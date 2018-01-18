@@ -22,12 +22,13 @@ export class AttendanceService {
       .catch(this.handleError);
   }
 
-  createEmployeeAttendance(attendance: Attendance): Observable<number> {
+  createEmployeeAttendance(attendance: Attendance): Observable<any> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: cpHeaders });
     return this.http.post(this.attendanceCreateUrl, attendance, options)
-      .map(success => success.status)
+      .map(success => success)
       .catch(this.handleError);
+      
   }
 
   deleteEmployeeAttendanceById(id: string): Observable<number> {
@@ -52,6 +53,7 @@ export class AttendanceService {
           return this.http.put(this.attendanceUpdateUrl, attendance, options)
                  .map(success => success.status)
                  .catch(this.handleError);
+                 
       }
 
   private extractData(res: Response) {
@@ -62,4 +64,5 @@ export class AttendanceService {
     console.error(error.message || error);
     return Observable.throw(error.status);
   }
+  
 }

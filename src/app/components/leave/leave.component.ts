@@ -6,6 +6,7 @@ import { EmployeeService } from '../../services/Employee/employee.service';
 import { Employee } from '../../models/Employee/Employee.model';
 import { LeavetypeService } from '../../services/LeaveType/leavetype.service'
 import { LeaveType } from '../../models/LeaveType/Leavetype.model';
+import { ValidationService } from '../../services/validation.service';
 @Component({
   selector: 'app-leave',
   templateUrl: './leave.component.html',
@@ -25,8 +26,8 @@ export class LeaveComponent implements OnInit {
   leaveForm = this.formBuilder.group({
     'employee': ['', ([Validators.required])],
     'subject': ['', ([Validators.required])],
-    'fromDate': ['', [Validators.required]],
-    'toDate': ['', [Validators.required]],
+    'fromDate': ['', [Validators.required,ValidationService.dateValidation]],
+    'toDate': ['', [Validators.required,ValidationService.dateValidation]],
     'leavetype': ['', ([Validators.required])],
 
 
