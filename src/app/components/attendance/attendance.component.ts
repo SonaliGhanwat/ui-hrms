@@ -19,6 +19,7 @@ export class AttendanceComponent implements OnInit {
   requestProcessing = false;
   articleIdToUpdate = null;
   processValidation = false;
+  //intime : any;
   
   constructor(private attendanceService: AttendanceService, private formBuilder: FormBuilder,private employeeService: EmployeeService) { }
   attendanceForm = this.formBuilder.group({
@@ -51,7 +52,18 @@ export class AttendanceComponent implements OnInit {
     let employee =  parseInt(employeeId);
     console.log("employee",employee);
     let intime = this.attendanceForm.get('intime').value;
+    if(intime.split(":").length===2){
+       intime = this.attendanceForm.get('intime').value + ':00';
+    }else{
+      intime = this.attendanceForm.get('intime').value ;
+    }
     let outtime = this.attendanceForm.get('outtime').value;
+    if(outtime.split(":").length===2){
+      outtime = this.attendanceForm.get('outtime').value + ':00';
+    }else{
+       outtime = this.attendanceForm.get('outtime').value ;
+    }
+   
     let date = this.attendanceForm.get('date').value;
     if (this.articleIdToUpdate === null) {
       let attendance = new Attendance(null, employee, intime, outtime, date);

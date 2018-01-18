@@ -38,7 +38,7 @@ export class EmployeeComponent implements OnInit {
     'phoneNumber': ['', ([Validators.required])],
     'emailid': ['', [Validators.required,ValidationService.emailValidator]],
     'dateOfJoining': ['', [Validators.required]],
-    'dateOfBirth': ['', [Validators.required]],
+    'dateOfBirth': ['', [Validators.required,ValidationService.dateOfBirthValidation]],
     'address': ['', ([Validators.required])],
     'department': ['', [Validators.required]],
     'salary': ['', [Validators.required]],

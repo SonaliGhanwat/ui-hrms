@@ -1,0 +1,131 @@
+.main-class {
+    /* display: inline-block; */
+    margin-top: 50px;
+    width: 83%;
+    padding-left: 2%;
+    padding-right: 2%;
+    margin-left: 16.5%;
+    height: 100%;
+    overflow-y: scroll;
+    background: rgb(230, 230, 230);
+    position: fixed;
+}
+.primary-container {
+    
+    margin-left: 20px;
+    margin-top: 20px;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0px 1px 3px rgba(49, 51, 58, 0.2);
+}
+.header {
+    padding: 40px;
+    background-color: #f2f3f5;
+}
+.heading4 {
+    font-size: 1.6rem;
+    color: #444c5c;
+}
+.addbtn{
+    margin-top: 6%;
+    width: 110%;
+    margin-left: 5.5%;
+}
+.adduser{
+    
+    width: 17%;
+    height: 40px;
+}
+.userlist {
+    margin-left: 2.5%;
+    font-size: 2.3rem;
+    color: #444c5c;
+    font-weight: 600;
+    margin-bottom: 15px;
+    padding: 25px;
+}
+.settable{
+    margin-left: 5%;
+    width: 93%;
+}
+.tablerow{
+   
+    text-align: left;
+    line-height: 3.5rem;
+}
+.action-link {
+    color: #111;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 2px;
+}
+.dialog{
+    height: 64px;
+    background-color: #f2f3f5;
+    padding: 0 16px;
+}
+.modaldialog{
+    width: 80%;
+    margin-left: 17.4%;
+    margin-top: 7.5%;  
+}
+.modaltitle{
+    margin-top: 1.7%;
+    font-size: inherit;
+    font-weight: inherit;
+    font-size: 150%;
+}
+.loginUserid{
+    margin-left: 4.5%;
+    display: block;
+   width: 380px;;
+   height: 30px;
+   padding: 6px 12px;
+   font-size: 14px;
+   line-height: 1.42857143;
+   color: #555;
+   background-color: #fff;
+   background-image: none;
+   border: 1px solid #ccc;
+   border-radius: 1px;
+  
+}
+.label-name {
+	display: inline-block;
+	max-width: 100%;
+	margin-bottom: 5px;
+	font-weight: bold;
+    margin-left: 4.8%;
+    }
+.savebtn{
+    margin-left: 70%;
+    margin-top: 6%;
+}
+
+#snackbar {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    top: 60px;
+    left: 50%;
+
+    font-size: 17px;
+}
+
+#snackbar.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+.passvalidation {
+    color:red;
+ padding-top: 7px;
+ width: 250px 
+}

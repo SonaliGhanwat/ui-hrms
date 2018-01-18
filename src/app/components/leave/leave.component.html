@@ -2,13 +2,13 @@
 <div class=" main-class">
   <div class="primary-container">
     <header class="header">
-      <div class="heading4">Employee Leave</div>
+      <div class="heading4">{{'Employee Leave'|translate}}</div>
     </header>
     <div class="addbtn">
       <button class="btn btn-primary adduser" type="button" data-toggle="modal" data-target="#myModal">Add Employee Leave
       </button>
     </div>
-    <div layout="row" class="userlist ">Employeee Leave List</div>
+    <div layout="row" class="userlist ">{{'Employeee Leave List'|translate}}</div>
     <table class="table table-striped table-hover settable">
       <thead>
         <tr>
@@ -31,9 +31,9 @@
         <td>{{leave.leavetype.name}}</td>
 
         <td>
-          <span class="action-link" role="button" tabindex="0" (click)="loadLeaveToEdit(attendance.id)" data-toggle="modal" data-target="#myModal">Edit</span>
+          <span class="action-link" role="button" tabindex="0" (click)="loadLeaveToEdit(leave.id)" data-toggle="modal" data-target="#myModal">{{'Edit'|translate}}</span>
           <span> | </span>
-          <span class="action-link" role="button" tabindex="0" (click)="deleteLeave(attendance.id)">Delete</span>
+          <span class="action-link" role="button" tabindex="0" (click)="deleteLeave(leave.id)">{{'Delete'|translate}}</span>
         </td>
       </tr>
     </table>
@@ -45,7 +45,7 @@
       <div class="modal-content" style="    height: 500px;">
         <div class="modal-header dialog">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h2 class="modal-title modaltitle">Add New Leave</h2>
+          <h2 class="modal-title modaltitle">{{'Add New Leave'|translate}}</h2>
         </div>
         <div class="modal-body">
           <div class="row" style="    margin-top: 30px">
@@ -94,7 +94,7 @@
             </div>
           </div>
           <div class="savebtn">
-            <button type="submit" class="btn btn-secondary" style="width: 30%;" [disabled]="!leaveForm.valid">Save</button>
+            <button type="submit" class="btn btn-secondary" style="width: 30%;" [disabled]="!leaveForm.valid">{{'Save'|translate}}</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal" style="width: 30%;
         margin-left: 20px;">Close</button>
           </div>

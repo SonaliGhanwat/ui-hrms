@@ -5,19 +5,22 @@ import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Leave} from '../../models/Leave/Leave.model';
+import { BaseService } from '../base.service';
 @Injectable()
-export class LeaveService {
+export class LeaveService extends BaseService{
 
-  allLeaveListUrl = "http://localhost:8085/HRMS/employeeleave/list";
-  leaveCreateUrl = "http://localhost:8085/HRMS/employeeleave/create";
-  leaveDeleteUrl = "http://localhost:8085/HRMS/employeeleave/delete/";
-  leavegetById ="http://localhost:8085/HRMS/employeeleave/";
-  leaveUpdateUrl = "http://localhost:8085/HRMS/employeeleave/update"
+  allLeaveListUrl = "employeeleave/list";
+  leaveCreateUrl = "employeeleave/create";
+  leaveDeleteUrl = "employeeleave/delete/";
+  leavegetById ="employeeleave/";
+  leaveUpdateUrl = "employeeleave/update"
   
-  constructor(private http: Http) { }
+  constructor(protected http: Http) {
+    super(http);
+  }
   
   getAllLeave(): Observable<Leave[]> {
-    return this.http.get(this.allLeaveListUrl)
+    return this.http.get(this.buidURL(this.allLeaveListUrl))
       .map(this.extractData)
       .catch(this.handleError);
   }
@@ -25,14 +28,14 @@ export class LeaveService {
   createLeave(leave: Leave): Observable<number> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: cpHeaders });
-    return this.http.post(this.leaveCreateUrl, leave, options)
+    return this.http.post(this.buidURL(this.leaveCreateUrl), leave, options)
       .map(success => success.status)
       .catch(this.handleError);
   }
 
   deleteLeaveById(id: string): Observable<number> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
-    return this.http.delete(this.leaveDeleteUrl+id)
+    return this.http.delete(this.buidURL(this.leaveDeleteUrl+id))
       .map(success => success.status)
       .catch(this.handleError);
   }
@@ -41,7 +44,7 @@ export class LeaveService {
     let cpParams = new URLSearchParams();
     cpParams.set('id', id);			
     let options = new RequestOptions({ headers: cpHeaders, params: cpParams });
-    return this.http.get(this.leavegetById+id)
+    return this.http.get(this.buidURL(this.leavegetById+id))
       .map(this.extractData)
       .catch(this.handleError);
       }	
@@ -49,16 +52,16 @@ export class LeaveService {
   updateLeave(leave: Leave):Observable<number> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
           let options = new RequestOptions({ headers: cpHeaders });
-          return this.http.put(this.leaveUpdateUrl, leave, options)
+          return this.http.put(this.buidURL(this.leaveUpdateUrl), leave, options)
                  .map(success => success.status)
                  .catch(this.handleError);
       }
 
-  private extractData(res: Response) {
+  protected extractData(res: Response) {
     let body = res.json();
     return body;
   }
-  private handleError(error: Response | any) {
+  protected handleError(error: Response | any) {
     console.error(error.message || error);
     return Observable.throw(error.status);
   }

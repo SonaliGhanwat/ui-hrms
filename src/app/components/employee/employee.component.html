@@ -2,13 +2,13 @@
 <div class=" main-class">
   <div class="primary-container">
     <header class="header">
-      <div class="heading4">Employee </div>
+      <div class="heading4">{{'Employee'|translate}} </div>
     </header>
     <div class="addbtn">
-      <button class="btn btn-primary adduser" type="button" data-toggle="modal" data-target="#myModal">Add New Employee
+      <button class="btn btn-primary adduser" type="button" data-toggle="modal" data-target="#myModal">{{'Add New Employee'|translate}}
       </button>
     </div>
-    <div layout="row" class="userlist ">Employee List</div>
+    <div layout="row" class="userlist ">{{'Employee List'|translate}}</div>
     <table class="table table-striped table-hover settable">
       <thead>
         <tr>
@@ -35,9 +35,9 @@
 
         <td>
           <span class="action-link" role="button" tabindex="0" (click)="loadEmployeeToEdit(employee.id)" data-toggle="modal"
-            data-target="#myModal">Edit</span>
+            data-target="#myModal">{{'Edit'|translate}}</span>
           <span> | </span>
-          <span class="action-link" role="button" tabindex="0" (click)="deleteEmployee(employee.id)">Delete</span>
+          <span class="action-link" role="button" tabindex="0" (click)="deleteEmployee(employee.id)">{{'Delete'|translate}}</span>
         </td>
       </tr>
     </table>
@@ -49,7 +49,7 @@
       <div class="modal-content">
         <div class="modal-header dialog">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h2 class="modal-title modaltitle">Add New Attendance</h2>
+          <h2 class="modal-title modaltitle">{{'Add New Employee'|translate}}</h2>
         </div>
         <div class="modal-body">
           <h6 class=" form-horizontal">
@@ -76,14 +76,14 @@
             <div class=" form-group col-lg-6" style="margin-left: 35px;">
               <label class="label-name ">{{ 'FirstName' | translate }}</label>
               <br>
-              <input type="text" *ngIf="employeeForm.get('firstName')" formControlName="firstName" class="loginUserid">
+              <input type="text" *ngIf="employeeForm.get('firstName')" formControlName="firstName" class="loginUserid" onkeypress='return event.charCode >= 65 && event.charCode <= 122'>
               <app-control-messages [control]="employeeForm.controls.firstName"></app-control-messages>
             </div>
 
             <div class="col-lg-offset-5">
               <div class=" form-group col-lg-6">
                 <label class="label-name "> {{ 'LastName' | translate }}</label>
-                <input type="text" *ngIf="employeeForm.get('lastName')" formControlName="lastName" class="loginUserid">
+                <input type="text" *ngIf="employeeForm.get('lastName')" formControlName="lastName" class="loginUserid" onkeypress='return event.charCode >= 65 && event.charCode <= 122'>
                 <app-control-messages [control]="employeeForm.controls.lastName"></app-control-messages>
               </div>
             </div>
@@ -199,7 +199,7 @@
                   <div class=" form-group col-lg-6" style="margin-left: 35px;">
                     <label class="label-name ">{{ 'Mobile Number' | translate }}</label>
                     <br>
-                    <input type="text" *ngIf="employeeForm.get('phoneNumber')" formControlName="phoneNumber" class="loginUserid">
+                    <input type="text" *ngIf="employeeForm.get('phoneNumber')"maxlength="10" formControlName="phoneNumber" class="loginUserid" onkeypress='return event.charCode >= 48 && event.charCode <= 57' >
                     <app-control-messages [control]="employeeForm.controls.phoneNumber"></app-control-messages>
                   </div>
       
@@ -228,7 +228,7 @@
                     </div>
                   </div>
           <div class="savebtn">
-            <button type="submit" class="btn btn-secondary" style="width: 30%;" [disabled]="!employeeForm.valid">Save</button>
+            <button type="submit" class="btn btn-secondary" style="width: 30%;" [disabled]="!employeeForm.valid">{{'Save'|translate}}</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal" style="width: 30%;
       margin-left: 20px;">Close</button>
           </div>

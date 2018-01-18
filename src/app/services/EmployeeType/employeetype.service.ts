@@ -5,34 +5,38 @@ import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { EmployeeType} from '../../models/EmployeeType/EmployeeType.model';
+import { BaseService } from '../base.service';
 
 @Injectable()
-export class EmployeetypeService {
+export class EmployeetypeService extends BaseService{
 
-  allEmployeeTypeListUrl = "http://localhost:8085/HRMS/employeetype/list";
-  employeeTypeCreateUrl = "http://localhost:8085/HRMS/employeetype/create";
-  employeeTypeDeleteUrl = "http://localhost:8085/HRMS/employeetype/delete/";
-  employeeTypegetById ="http://localhost:8085/HRMS/employeetype/";
-  employeeTypeUpdateUrl = "http://localhost:8085/HRMS/employeetype/update"
+  allEmployeeTypeListUrl = "employeetype/list";
+  employeeTypeCreateUrl = "employeetype/create";
+  employeeTypeDeleteUrl = "employeetype/delete/";
+  employeeTypegetById ="employeetype/";
+  employeeTypeUpdateUrl = "employeetype/update"
  
-  constructor(private http: Http) { }
+  constructor(protected http: Http) {
+    super(http);
+  }
+  
   
   getAllEmployeeTypeList(): Observable<EmployeeType[]> {
-    return this.http.get(this.allEmployeeTypeListUrl)
+    return this.http.get(this.buidURL(this.allEmployeeTypeListUrl))
       .map(this.extractData)
       .catch(this.handleError);
   }
   createEmployeeType(employeeType: EmployeeType): Observable<number> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: cpHeaders });
-    return this.http.post(this.employeeTypeCreateUrl, employeeType, options)
+    return this.http.post(this.buidURL(this.employeeTypeCreateUrl), employeeType, options)
       .map(success => success.status)
       .catch(this.handleError);
   }
 
   deleteEmployeeTypeById(id: string): Observable<number> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
-    return this.http.delete(this.employeeTypeDeleteUrl+id)
+    return this.http.delete(this.buidURL(this.employeeTypeDeleteUrl+id))
       .map(success => success.status)
       .catch(this.handleError);
   }
@@ -41,7 +45,7 @@ export class EmployeetypeService {
     let cpParams = new URLSearchParams();
     cpParams.set('id', id);			
     let options = new RequestOptions({ headers: cpHeaders, params: cpParams });
-    return this.http.get(this.employeeTypegetById+id)
+    return this.http.get(this.buidURL(this.employeeTypegetById+id))
       .map(this.extractData)
       .catch(this.handleError);
       }	
@@ -49,16 +53,16 @@ export class EmployeetypeService {
   updateEmployeeType(employeeType: EmployeeType):Observable<number> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
           let options = new RequestOptions({ headers: cpHeaders });
-          return this.http.put(this.employeeTypeUpdateUrl, employeeType, options)
+          return this.http.put(this.buidURL(this.employeeTypeUpdateUrl), employeeType, options)
                  .map(success => success.status)
                  .catch(this.handleError);
       }
 
-  private extractData(res: Response) {
+  protected extractData(res: Response) {
     let body = res.json();
     return body;
   }
-  private handleError(error: Response | any) {
+  protected handleError(error: Response | any) {
     console.error(error.message || error);
     return Observable.throw(error.status);
   }
