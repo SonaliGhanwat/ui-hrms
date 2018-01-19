@@ -13,7 +13,7 @@ export class ValidationService {
             'required': 'Required',
             'invalidPassword': 'Password must be at least 6 characters long',
             'invalidEmail': 'EmailId Not Valid',
-            'invalidDate': 'Enter Current date',
+            // 'invalidDate': 'Enter Current date',
             'pastDate': 'Do not Enter Past Date',
             'ToDate': 'Invalid Date! To joining date  should be greater then from date',
             'minlength': `Minimum length ${validatorValue.requiredLength}`,
@@ -94,5 +94,9 @@ export class ValidationService {
         else {
             return { 'dateOfBirth': true };
         }
+    }
+
+    static outTimeValidation(control) {
+        console.log('control :', control);
     }
 }

@@ -115,7 +115,7 @@ export class DailyTaskComponent implements OnInit {
       .subscribe(dailyTask => {
 
         this.articleIdToUpdate = dailyTask.id;
-        this.dailyTaskForm.setValue({ employee: dailyTask.employee, date: dailyTask.date, taskName: dailyTask.taskName, estimationTime: dailyTask.estimationTime, starttime: dailyTask.starttime, endtime: dailyTask.endtime, status: dailyTask.status, description: dailyTask.description });
+        this.dailyTaskForm.setValue({ employee:dailyTask.employee, date: dailyTask.date, taskName: dailyTask.taskName, estimationTime: dailyTask.estimationTime, starttime: dailyTask.starttime, endtime: dailyTask.endtime, status: dailyTask.status, description: dailyTask.description });
 
         this.processValidation = true;
         this.requestProcessing = false;

@@ -9,18 +9,15 @@ import { BaseService } from '../base.service';
 @Injectable()
 export class AttendanceService extends BaseService {
 
-  allAttendanceListUrl = "employeeattendance/list";
-  attendanceCreateUrl = "employeeattendance/create";
-  attendanceDeleteUrl = "employeeattendance/delete/";
-  attendancegetById = "employeeattendance/";
-  attendanceUpdateUrl = "employeeattendance/update"
+  attendanceUrl = "employeeattendance/";
+  
 
   constructor(protected http: Http) {
     super(http);
   }
 
   getAllAttendance(): Observable<Attendance[]> {
-    return this.http.get(this.buidURL(this.allAttendanceListUrl))
+    return this.http.get(this.buidURL(this.attendanceUrl+this.list_url))
       .map(this.extractData)
       .catch(this.handleError);
   }
@@ -29,7 +26,7 @@ export class AttendanceService extends BaseService {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: cpHeaders });
 
-    return this.http.post(this.buidURL(this.attendanceCreateUrl), attendance, options)
+    return this.http.post(this.buidURL(this.attendanceUrl+this.create_url), attendance, options)
       .map(success => success.status)
 
       .catch(this.handleError);
@@ -38,7 +35,7 @@ export class AttendanceService extends BaseService {
 
   deleteEmployeeAttendanceById(id: string): Observable<number> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
-    return this.http.delete(this.buidURL(this.attendanceDeleteUrl + id))
+    return this.http.delete(this.buidURL(this.attendanceUrl+this.delete_url + id))
       .map(success => success.status)
       .catch(this.handleError);
   }
@@ -47,7 +44,7 @@ export class AttendanceService extends BaseService {
     let cpParams = new URLSearchParams();
     cpParams.set('id', id);
     let options = new RequestOptions({ headers: cpHeaders, params: cpParams });
-    return this.http.get(this.buidURL(this.attendancegetById + id))
+    return this.http.get(this.buidURL(this.attendanceUrl + id))
       .map(this.extractData)
       .catch(this.handleError);
   }
@@ -56,7 +53,7 @@ export class AttendanceService extends BaseService {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
 
           let options = new RequestOptions({ headers: cpHeaders });
-          return this.http.put(this.buidURL(this.attendanceUpdateUrl), attendance, options)
+          return this.http.put(this.buidURL(this.attendanceUrl+this.update_url), attendance, options)
                  .map(success => success.status)
                  .catch(this.handleError);
                  

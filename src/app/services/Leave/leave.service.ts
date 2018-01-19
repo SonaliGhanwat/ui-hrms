@@ -9,18 +9,15 @@ import { BaseService } from '../base.service';
 @Injectable()
 export class LeaveService extends BaseService{
 
-  allLeaveListUrl = "employeeleave/list";
-  leaveCreateUrl = "employeeleave/create";
-  leaveDeleteUrl = "employeeleave/delete/";
-  leavegetById ="employeeleave/";
-  leaveUpdateUrl = "employeeleave/update"
+  leaveUrl = "employeeleave/";
+  
   
   constructor(protected http: Http) {
     super(http);
   }
   
   getAllLeave(): Observable<Leave[]> {
-    return this.http.get(this.buidURL(this.allLeaveListUrl))
+    return this.http.get(this.buidURL(this.leaveUrl+this.list_url))
       .map(this.extractData)
       .catch(this.handleError);
   }
@@ -28,14 +25,14 @@ export class LeaveService extends BaseService{
   createLeave(leave: Leave): Observable<number> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: cpHeaders });
-    return this.http.post(this.buidURL(this.leaveCreateUrl), leave, options)
+    return this.http.post(this.buidURL(this.leaveUrl+this.create_url), leave, options)
       .map(success => success.status)
       .catch(this.handleError);
   }
 
   deleteLeaveById(id: string): Observable<number> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
-    return this.http.delete(this.buidURL(this.leaveDeleteUrl+id))
+    return this.http.delete(this.buidURL(this.leaveUrl+this.delete_url+id))
       .map(success => success.status)
       .catch(this.handleError);
   }
@@ -44,7 +41,7 @@ export class LeaveService extends BaseService{
     let cpParams = new URLSearchParams();
     cpParams.set('id', id);			
     let options = new RequestOptions({ headers: cpHeaders, params: cpParams });
-    return this.http.get(this.buidURL(this.leavegetById+id))
+    return this.http.get(this.buidURL(this.leaveUrl+id))
       .map(this.extractData)
       .catch(this.handleError);
       }	
@@ -52,7 +49,7 @@ export class LeaveService extends BaseService{
   updateLeave(leave: Leave):Observable<number> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
           let options = new RequestOptions({ headers: cpHeaders });
-          return this.http.put(this.buidURL(this.leaveUpdateUrl), leave, options)
+          return this.http.put(this.buidURL(this.leaveUrl+this.update_url), leave, options)
                  .map(success => success.status)
                  .catch(this.handleError);
       }

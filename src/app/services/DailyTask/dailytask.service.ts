@@ -10,32 +10,29 @@ import { BaseService } from '../base.service';
 @Injectable()
 export class DailytaskService extends BaseService {
 
-  allDailyTaskListUrl = "employeedailytask/list";
-  dailyTaskCreateUrl = "employeedailytask/create";
-  dailyTaskDeleteUrl = "employeedailytask/delete/";
-  dailyTaskgetById ="employeedailytask/";
-  dailyTaskUpdateUrl = "employeedailytask/update"
+  dailyTaskUrl= "employeedailytask/";
+
  
   constructor(protected http: Http) {
     super(http);
   }
   
   getAllDailyTaskList(): Observable<DailyTask[]> {
-    return this.http.get(this.buidURL(this.allDailyTaskListUrl))
+    return this.http.get(this.buidURL(this.dailyTaskUrl+this.list_url))
       .map(this.extractData)
       .catch(this.handleError);
   }
   createDailyTask(dailyTask: DailyTask): Observable<number> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: cpHeaders });
-    return this.http.post(this.buidURL(this.dailyTaskCreateUrl), dailyTask, options)
+    return this.http.post(this.buidURL(this.dailyTaskUrl+this.create_url), dailyTask, options)
       .map(success => success.status)
       .catch(this.handleError);
   }
 
   deleteDailyTaskById(id: string): Observable<number> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
-    return this.http.delete(this.buidURL(this.dailyTaskDeleteUrl+id))
+    return this.http.delete(this.buidURL(this.dailyTaskUrl+this.delete_url+id))
       .map(success => success.status)
       .catch(this.handleError);
   }
@@ -44,7 +41,7 @@ export class DailytaskService extends BaseService {
     let cpParams = new URLSearchParams();
     cpParams.set('id', id);			
     let options = new RequestOptions({ headers: cpHeaders, params: cpParams });
-    return this.http.get(this.buidURL(this.dailyTaskgetById+id))
+    return this.http.get(this.buidURL(this.dailyTaskUrl+id))
       .map(this.extractData)
       .catch(this.handleError);
       }	
@@ -52,7 +49,7 @@ export class DailytaskService extends BaseService {
   updateDailyTask(dailyTask: DailyTask):Observable<number> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
           let options = new RequestOptions({ headers: cpHeaders });
-          return this.http.put(this.buidURL(this.dailyTaskUpdateUrl), dailyTask, options)
+          return this.http.put(this.buidURL(this.dailyTaskUrl+this.update_url), dailyTask, options)
                  .map(success => success.status)
                  .catch(this.handleError);
       }

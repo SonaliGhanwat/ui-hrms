@@ -26,13 +26,13 @@
       <tr *ngFor="let dailyTask of allDailyTask">
         <td class="tablerow">{{dailyTask.id}}</td>
         <td class="tablerow">{{dailyTask.employee.userid}}</td>
-        <td>{{dailyTask.date}}</td>
-        <td>{{dailyTask.taskName}}</td>
-        <td>{{dailyTask.estimationTime}}</td>
-        <td>{{dailyTask.starttime}}</td>
-        <td>{{dailyTask.endtime}}</td>
-        <td>{{dailyTask.status}}</td>
-        <td>
+        <td class="tablerow">{{dailyTask.date}}</td>
+        <td class="tablerow">{{dailyTask.taskName}}</td>
+        <td class="tablerow">{{dailyTask.estimationTime}}</td>
+        <td class="tablerow">{{dailyTask.starttime}}</td>
+        <td class="tablerow">{{dailyTask.endtime}}</td>
+        <td class="tablerow">{{dailyTask.status}}</td>
+        <td class="tablerow">
           <span class="action-link" role="button" tabindex="0" (click)="loadDailyTaskToEdit(dailyTask.id)" data-toggle="modal" data-target="#myModal">{{'Edit'|translate}}</span>
           <span> | </span>
           <span class="action-link" role="button" tabindex="0" (click)="deleteDailyTask(dailyTask.id)">{{'Delete'|translate}}</span>
@@ -50,10 +50,10 @@
           <h2 class="modal-title modaltitle">{{'Add New Daily Task'| translate}}</h2>
         </div>
         <div class="modal-body">
-          <div class="row" style="    margin-top: 30px">
+          <div class="row" style="margin-top: 30px">
             <div class=" form-group col-lg-6" style="margin-left: 35px;">
               <label class="label-name ">{{ 'EmployeeId' | translate }}</label>
-              <select class="loginUserid" formControlName="employee">
+              <select id="employee" class="loginUserid" formControlName="employee">
                 <option *ngFor=" let employee of allEmployee" [value]="employee.id">
                   {{employee.userid}}
                 </option>
@@ -64,16 +64,16 @@
             <div class="col-lg-offset-5">
               <div class=" form-group col-lg-6">
                 <label class="label-name "> {{ 'Date' | translate }}</label>
-                <input type="date" *ngIf="dailyTaskForm.get('date')"  formControlName="date" class="loginUserid">
+                <input type="date" *ngIf="dailyTaskForm.get('date')" formControlName="date" class="loginUserid">
                 <app-control-messages [control]="dailyTaskForm.controls.date"></app-control-messages>
               </div>
             </div>
           </div>
-          <div class="row" style="    margin-top: 30px">
+          <div class="row" style="margin-top: 30px">
             <div class=" form-group col-lg-6" style="margin-left: 35px;">
               <label class="label-name ">{{ 'TaskName' | translate }}</label>
               <br>
-              <input type="text" *ngIf="dailyTaskForm.get('taskName')"  formControlName="taskName" class="loginUserid">
+              <input type="text" *ngIf="dailyTaskForm.get('taskName')" formControlName="taskName" class="loginUserid">
               <app-control-messages [control]="dailyTaskForm.controls.taskName"></app-control-messages>
             </div>
 
@@ -105,22 +105,26 @@
             <div class=" form-group col-lg-6" style="margin-left: 35px;">
               <label class="label-name ">{{ 'Description' | translate }}</label>
               <br>
-              <input type="text" *ngIf="dailyTaskForm.get('description')"  formControlName="description" class="loginUserid">
-              <app-control-messages [control]="dailyTaskForm.controls.description"></app-control-messages>
+              <textarea type="text" rows="4" cols="50" name="comment" form="usrform" *ngIf="dailyTaskForm.get('description')" formControlName="description"
+                style=" margin-left: 23px"></textarea>
+              <app-control-messages  [control]="dailyTaskForm.controls.description"></app-control-messages>
             </div>
             <div class="col-lg-offset-5">
               <div class=" form-group col-lg-6">
                 <label class="label-name "> {{ 'Status' | translate }}</label>
-                <input type="text" *ngIf="dailyTaskForm.get('status')" formControlName="status" class="loginUserid">
-                <app-control-messages [control]="dailyTaskForm.controls.status"></app-control-messages>
+                <select  class=" loginUserid" formControlName="status">
+                  <option value="">--Select--</option>
+                  <option value="Completed">Completed</option>
+                  <option value="InComplete">InComplete</option>
+                <app-control-messages [control]="dailyTaskForm.controls.description"></app-control-messages>
+                </select>
               </div>
             </div>
           </div>
 
           <div class="savebtn">
             <button type="submit" class="btn btn-secondary" style="width: 30%;" [disabled]="!dailyTaskForm.valid">{{'Save'|translate}}</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal" style="width: 30%;
-      margin-left: 20px;">Close</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" style="width: 30%;margin-left: 20px;">Close</button>
           </div>
         </div>
       </div>

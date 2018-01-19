@@ -23,3 +23,16 @@
    border-radius: 1px;
   
 }
+
+#usertypeForm.has-error .control-label,
+#usertypeForm.has-error .help-block,
+#usertypeForm.has-error .form-control-feedback {
+    color: #a94442;
+}
+
+/* Color of valid field */
+#usertypeForm.has-success .control-label,
+#usertypeForm.has-success .help-block,
+#usertypeForm.has-success .form-control-feedback {
+    color: #3c763d;
+}

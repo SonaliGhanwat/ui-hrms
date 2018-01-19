@@ -7,6 +7,12 @@
     <div class="addbtn">
       <button class="btn btn-primary adduser"  type="button" data-toggle="modal" data-target="#myModal">{{'Add Employee Attendance'| translate}}
       </button>
+      <div class="input-group input-group-lg searchButton">
+        <input type="date" class="form-control" style="height: 40px" placeholder="Search By Name" [(ngModel)]="date">
+        <div class="input-group-btn">
+          <button class="btn btn-default" style="height: 40px" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+        </div>
+      </div>
     </div>
     <div layout="row" class="userlist ">{{'Attendance List' | translate}}</div>
     <table class="table table-striped table-hover settable">
@@ -22,15 +28,15 @@
           <th style="margin-left: 60%">Action</th>
         </tr>
       </thead>
-      <tr *ngFor="let attendance of allAttendance">
+      <tr *ngFor="let attendance of allAttendance |filter:date">
           <td class="tablerow">{{attendance.id}}</td>
         <td class="tablerow">{{attendance.employee.userid}}</td>
-        <td>{{attendance.intime}}</td>
-        <td>{{attendance.outtime}}</td>
-        <td>{{attendance.totaltime}}</td>
-        <td>{{attendance.date}}</td>
-        <td>{{attendance.status}}</td>
-        <td>
+        <td class="tablerow">{{attendance.intime}}</td>
+        <td class="tablerow">{{attendance.outtime}}</td>
+        <td class="tablerow">{{attendance.totaltime}}</td>
+        <td class="tablerow">{{attendance.date}}</td>
+        <td class="tablerow">{{attendance.status}}</td>
+        <td class="tablerow">
           <span class="action-link" role="button" tabindex="0" (click)="loadEmployeeAttendanceToEdit(attendance.id)" data-toggle="modal" data-target="#myModal">{{'Edit'| translate}}</span>
           <span> | </span>
           <span class="action-link" role="button" tabindex="0" (click)="deleteEmployeeAttendance(attendance.id)">{{'Delete'|translate}}</span>
@@ -56,7 +62,6 @@
                {{employee.userid}}
             </option>
           </select>
-         
         </div>
 
         <div class="col-lg-offset-5">
@@ -79,7 +84,7 @@
             <div class=" form-group col-lg-6">
               <label class="label-name " > {{ 'Date' | translate }}</label>
               <input type="date" *ngIf="attendanceForm.get('date')" formControlName="date"  class="loginUserid" >
-              <app-control-messages [control]="attendanceForm.controls.date" (blur)="dateValidation()" (change)="dateValidation()"></app-control-messages>
+              <app-control-messages [control]="attendanceForm.controls.date" [group]="attendanceForm" ></app-control-messages>
              
             </div>
           </div>

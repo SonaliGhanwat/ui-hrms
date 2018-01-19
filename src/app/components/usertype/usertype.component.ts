@@ -12,12 +12,12 @@ import { UserType } from '../../models/UserType/UserType.model';
 })
 export class UsertypeComponent implements OnInit {
 
-  allUsertypes: UserType[];
+  allUsertypes: UserType[]
   statusCode: number;
   requestProcessing = false;
   articleIdToUpdate = null;
   processValidation = false;
-
+  
   constructor(private usertypeService: UsertypeService, private formBuilder: FormBuilder) { }
   usertypeForm = this.formBuilder.group({
     'usertypeName': ['', ([Validators.required])],
@@ -44,6 +44,7 @@ export class UsertypeComponent implements OnInit {
       let userType = new UserType(null, usertypeName, description);
       this.usertypeService.createUserType(userType)
         .subscribe(successCode => {
+          console.log("successCode",successCode);
           this.statusCode = successCode;
           this.getAllUserTypes();
           this.backToCreateArticle();
@@ -56,6 +57,7 @@ export class UsertypeComponent implements OnInit {
       this.usertypeService.updateUserType(userType)
         .subscribe(successCode => {
           this.statusCode = successCode;
+         
           this.getAllUserTypes();
           this.backToCreateArticle();
         },
@@ -88,6 +90,7 @@ export class UsertypeComponent implements OnInit {
   }
 
   preProcessConfigurations() {
+
     this.statusCode = null;
     this.requestProcessing = true;
   }
@@ -96,6 +99,10 @@ export class UsertypeComponent implements OnInit {
     this.usertypeForm.reset();
     this.processValidation = false;
   }
-
+   myFunction() {
+    var x = document.getElementById("snackbar")
+    x.className = "show";
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+}
 }
 

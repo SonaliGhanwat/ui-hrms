@@ -9,32 +9,30 @@ import { BaseService } from '../base.service';
 @Injectable()
 export class UsertypeService extends BaseService {
 
-  allUserTypeUrl = "usertype/list";
-  usertypeUrl = "usertype/create";
-  usertypeDeleteUrl = "usertype/delete/";
-  UserTypegetById ="usertype/";
-  usertypeUpdateUrl = "usertype/update"
+ 
+  usertypeUrl = "usertype/";
+ 
 
   constructor(protected http: Http) {
     super(http);
   }
 
   getAllUserTypes(): Observable<UserType[]> {
-    return this.http.get(this.buidURL(this.allUserTypeUrl))
+    return this.http.get(this.buidURL(this.usertypeUrl+this.list_url))
       .map(this.extractData)
       .catch(this.handleError);
   }
   createUserType(userType: UserType): Observable<number> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: cpHeaders });
-    return this.http.post(this.buidURL(this.usertypeUrl), userType, options)
-      .map(success => success.status)
+    return this.http.post(this.buidURL(this.usertypeUrl+this.create_url), userType, options)
+      .map(success => success)
       .catch(this.handleError);
   }
 
   deleteUserTypeById(id: string): Observable<number> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
-    return this.http.delete(this.buidURL(this.usertypeDeleteUrl+id))
+    return this.http.delete(this.buidURL(this.usertypeUrl+this.delete_url+id))
       .map(success => success.status)
       .catch(this.handleError);
   }
@@ -43,7 +41,7 @@ export class UsertypeService extends BaseService {
     let cpParams = new URLSearchParams();
     cpParams.set('id', id);			
     let options = new RequestOptions({ headers: cpHeaders, params: cpParams });
-    return this.http.get(this.buidURL(this.UserTypegetById+id))
+    return this.http.get(this.buidURL(this.usertypeUrl+id))
       .map(this.extractData)
       .catch(this.handleError);
       }	
@@ -51,7 +49,7 @@ export class UsertypeService extends BaseService {
   updateUserType(userType: UserType):Observable<number> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
           let options = new RequestOptions({ headers: cpHeaders });
-          return this.http.put(this.buidURL(this.usertypeUpdateUrl), userType, options)
+          return this.http.put(this.buidURL(this.usertypeUrl+this.update_url), userType, options)
                  .map(success => success.status)
                  .catch(this.handleError);
       }

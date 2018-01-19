@@ -22,18 +22,23 @@ export class AttendanceComponent implements OnInit {
   //intime : any;
   
   constructor(private attendanceService: AttendanceService, private formBuilder: FormBuilder,private employeeService: EmployeeService) { }
-  attendanceForm = this.formBuilder.group({
-    'employee': ['', ([Validators.required])],
-    'intime': ['', ([Validators.required])],
-    'outtime': ['', [Validators.required]],
-    'date': ['', [Validators.required,ValidationService.currentDateValidation]],
+    attendanceForm = this.formBuilder.group({
+      'employee': ['', ([Validators.required])],
+      'intime': ['', ([Validators.required])],
+      'outtime': ['', [Validators.required, ValidationService.outTimeValidation]],
+      'date': ['', [Validators.required,ValidationService.currentDateValidation]],
 
-  });
+    });
 
   ngOnInit(): void {
     this.getAllAttendanceList();
     this.getAllEmployeeList();
   }
+
+  customOutTimeValidation(){
+    
+  }
+
   getAllAttendanceList() {
     this.attendanceService.getAllAttendance()
       .subscribe(

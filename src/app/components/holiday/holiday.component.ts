@@ -48,7 +48,7 @@ export class HolidayComponent implements OnInit {
         errorCode => this.statusCode = errorCode);
       console.log("successCode");
     } else {
-      //Handle update article
+      
       let holiday = new Holiday(this.articleIdToUpdate, holidayName, holidayDate);
       this.holidayService.updateHoliday(holiday)
         .subscribe(successCode => {

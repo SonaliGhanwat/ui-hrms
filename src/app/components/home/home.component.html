@@ -9,8 +9,7 @@
             imgtype="thumb" aria-expanded="false">
     </div>
 </div>
-
-<div id="myDIV" class="sidenav ">
+<div id="myDIV" class="sidenav " style="margin-top: 43px">
     <ul style="    margin-left: -40px;margin-top: -20px;">
         <div class="dropbtn " *ngFor="let n of menuList" (click)="select(n.name);" [ngClass]="{active: isSelect(n.name)}">
             <li style="padding: 10px 25px">{{n.name}}

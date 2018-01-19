@@ -10,11 +10,8 @@ import { BaseService } from '../base.service';
 @Injectable()
 export class EmployeeService extends BaseService{
 
-  allEmployeeListUrl = "employee/list";
-  employeeCreateUrl = "employee/create";
-  employeeDeleteUrl = "employee/delete/";
-  employeegetById ="employee/";
-  employeeeUpdateUrl = "employee/update"
+  employeeUrl = "employee/";
+ 
   reportTo="http://localhost:8085/HRMS/designation/reportTo/"
  
   constructor(protected http: Http) {
@@ -22,21 +19,21 @@ export class EmployeeService extends BaseService{
   }
   
   getAllEmployeeList(): Observable<Employee[]> {
-    return this.http.get(this.buidURL(this.allEmployeeListUrl))
+    return this.http.get(this.buidURL(this.employeeUrl+this.list_url))
       .map(this.extractData)
       .catch(this.handleError);
   }
   createEmployee(employee: Employee): Observable<number> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: cpHeaders });
-    return this.http.post(this.buidURL(this.employeeCreateUrl), employee, options)
+    return this.http.post(this.buidURL(this.employeeUrl+this.create_url), employee, options)
       .map(success => success.status)
       .catch(this.handleError);
   }
 
   deleteEmployeeById(id: string): Observable<number> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
-    return this.http.delete(this.buidURL(this.employeeDeleteUrl+id))
+    return this.http.delete(this.buidURL(this.employeeUrl+this.delete_url+id))
       .map(success => success.status)
       .catch(this.handleError);
   }
@@ -51,7 +48,7 @@ export class EmployeeService extends BaseService{
     let cpParams = new URLSearchParams();
     cpParams.set('id', id);			
     let options = new RequestOptions({ headers: cpHeaders, params: cpParams });
-    return this.http.get(this.buidURL(this.employeegetById+id))
+    return this.http.get(this.buidURL(this.employeeUrl+id))
       .map(this.extractData)
       .catch(this.handleError);
       }	
@@ -59,7 +56,7 @@ export class EmployeeService extends BaseService{
   updateEmployee(employee: Employee):Observable<number> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
           let options = new RequestOptions({ headers: cpHeaders });
-          return this.http.put(this.buidURL(this.employeeeUpdateUrl), employee, options)
+          return this.http.put(this.buidURL(this.employeeUrl+this.update_url), employee, options)
                  .map(success => success.status)
                  .catch(this.handleError);
       }

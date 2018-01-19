@@ -8,32 +8,30 @@ import { Designation } from '../../models/designation/Designation.model';
 import { BaseService } from '../base.service';
 @Injectable()
 export class DesignationService extends BaseService{
-  allDesignationListUrl = "designation/list";
-  designationCreateUrl = "designation/create";
-  designationDeleteUrl = "designation/delete/";
-  designationgetById ="designation/";
-  designationUpdateUrl = "designation/update"
+
+  designationUrl= "designation/";
+ 
  
   constructor(protected http: Http) {
     super(http);
   }
   
   getAllDesignationList(): Observable<Designation[]> {
-    return this.http.get(this.buidURL(this.allDesignationListUrl))
+    return this.http.get(this.buidURL(this.designationUrl+this.list_url))
       .map(this.extractData)
       .catch(this.handleError);
   }
   createDesignation(designation: Designation): Observable<number> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: cpHeaders });
-    return this.http.post(this.buidURL(this.designationCreateUrl), designation, options)
+    return this.http.post(this.buidURL(this.designationUrl+this.create_url), designation, options)
       .map(success => success.status)
       .catch(this.handleError);
   }
 
   deleteDesignationById(id: string): Observable<number> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
-    return this.http.delete(this.buidURL(this.designationDeleteUrl+id))
+    return this.http.delete(this.buidURL(this.designationUrl+this.delete_url+id))
       .map(success => success.status)
       .catch(this.handleError);
   }
@@ -42,7 +40,7 @@ export class DesignationService extends BaseService{
     let cpParams = new URLSearchParams();
     cpParams.set('id', id);			
     let options = new RequestOptions({ headers: cpHeaders, params: cpParams });
-    return this.http.get(this.buidURL(this.designationgetById+id))
+    return this.http.get(this.buidURL(this.designationUrl+id))
       .map(this.extractData)
       .catch(this.handleError);
       }	
@@ -50,7 +48,7 @@ export class DesignationService extends BaseService{
   updateDesignation(designation: Designation):Observable<number> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
           let options = new RequestOptions({ headers: cpHeaders });
-          return this.http.put(this.buidURL(this.designationUpdateUrl), designation, options)
+          return this.http.put(this.buidURL(this.designationUrl+this.update_url), designation, options)
                  .map(success => success.status)
                  .catch(this.handleError);
       }

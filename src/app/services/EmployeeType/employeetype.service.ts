@@ -10,11 +10,8 @@ import { BaseService } from '../base.service';
 @Injectable()
 export class EmployeetypeService extends BaseService{
 
-  allEmployeeTypeListUrl = "employeetype/list";
-  employeeTypeCreateUrl = "employeetype/create";
-  employeeTypeDeleteUrl = "employeetype/delete/";
-  employeeTypegetById ="employeetype/";
-  employeeTypeUpdateUrl = "employeetype/update"
+  employeeTypeUrl = "employeetype/";
+ 
  
   constructor(protected http: Http) {
     super(http);
@@ -22,21 +19,21 @@ export class EmployeetypeService extends BaseService{
   
   
   getAllEmployeeTypeList(): Observable<EmployeeType[]> {
-    return this.http.get(this.buidURL(this.allEmployeeTypeListUrl))
+    return this.http.get(this.buidURL(this.employeeTypeUrl+this.list_url))
       .map(this.extractData)
       .catch(this.handleError);
   }
   createEmployeeType(employeeType: EmployeeType): Observable<number> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: cpHeaders });
-    return this.http.post(this.buidURL(this.employeeTypeCreateUrl), employeeType, options)
+    return this.http.post(this.buidURL(this.employeeTypeUrl+this.create_url), employeeType, options)
       .map(success => success.status)
       .catch(this.handleError);
   }
 
   deleteEmployeeTypeById(id: string): Observable<number> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
-    return this.http.delete(this.buidURL(this.employeeTypeDeleteUrl+id))
+    return this.http.delete(this.buidURL(this.employeeTypeUrl+this.delete_url+id))
       .map(success => success.status)
       .catch(this.handleError);
   }
@@ -45,7 +42,7 @@ export class EmployeetypeService extends BaseService{
     let cpParams = new URLSearchParams();
     cpParams.set('id', id);			
     let options = new RequestOptions({ headers: cpHeaders, params: cpParams });
-    return this.http.get(this.buidURL(this.employeeTypegetById+id))
+    return this.http.get(this.buidURL(this.employeeTypeUrl+id))
       .map(this.extractData)
       .catch(this.handleError);
       }	
@@ -53,7 +50,7 @@ export class EmployeetypeService extends BaseService{
   updateEmployeeType(employeeType: EmployeeType):Observable<number> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
           let options = new RequestOptions({ headers: cpHeaders });
-          return this.http.put(this.buidURL(this.employeeTypeUpdateUrl), employeeType, options)
+          return this.http.put(this.buidURL(this.employeeTypeUrl+this.update_url), employeeType, options)
                  .map(success => success.status)
                  .catch(this.handleError);
       }

@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
     },{
       "name": "Daily Task",
       "subMenu": [{
-        "name": "Add Employee Daily Task",
+        "name": "Employee Daily Task",
         "link": "/dailyTask"
       },]
     },{

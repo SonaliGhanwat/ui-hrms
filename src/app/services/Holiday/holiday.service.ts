@@ -11,30 +11,27 @@ import { BaseService } from '../base.service';
 @Injectable()
 export class HolidayService extends BaseService{
 
-  allHolidayListUrl = "holiday/list";
-  holidayCreateUrl = "holiday/create";
-  holidayDeleteUrl = "holiday/delete/";
-  holidaygetById ="holiday/";
-  holidayUpdateUrl = "holiday/update"
+  holidayUrl = "holiday/";
+  
   constructor(protected http: Http) {
     super(http);
   }
   getAllHolidayList(): Observable<Holiday[]> {
-    return this.http.get(this.buidURL(this.allHolidayListUrl))
+    return this.http.get(this.buidURL(this.holidayUrl+this.list_url))
       .map(this.extractData)
       .catch(this.handleError);
   }
   createHoliday(holiday: Holiday): Observable<number> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: cpHeaders });
-    return this.http.post(this.buidURL(this.holidayCreateUrl), holiday, options)
+    return this.http.post(this.buidURL(this.holidayUrl+this.create_url), holiday, options)
       .map(success => success.status)
       .catch(this.handleError);
   }
 
   deleteHolidayById(id: string): Observable<number> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
-    return this.http.delete(this.buidURL(this.holidayDeleteUrl+id))
+    return this.http.delete(this.buidURL(this.holidayUrl+this.delete_url+id))
       .map(success => success.status)
       .catch(this.handleError);
   }
@@ -43,7 +40,7 @@ export class HolidayService extends BaseService{
     let cpParams = new URLSearchParams();
     cpParams.set('id', id);			
     let options = new RequestOptions({ headers: cpHeaders, params: cpParams });
-    return this.http.get(this.buidURL(this.holidaygetById+id))
+    return this.http.get(this.buidURL(this.holidayUrl+id))
       .map(this.extractData)
       .catch(this.handleError);
       }	
@@ -51,7 +48,7 @@ export class HolidayService extends BaseService{
   updateHoliday(holiday: Holiday):Observable<number> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
           let options = new RequestOptions({ headers: cpHeaders });
-          return this.http.put(this.buidURL(this.holidayUpdateUrl), holiday, options)
+          return this.http.put(this.buidURL(this.holidayUrl+this.update_url), holiday, options)
                  .map(success => success.status)
                  .catch(this.handleError);
       }

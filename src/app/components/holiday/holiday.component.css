@@ -4,3 +4,12 @@
     text-align: left;
     line-height: 3.5rem;
 }
+.searchButton{
+    margin-left: 30%;
+    width: 24%;
+    height: 20%;
+    margin-top: -3.5%;
+}
+.butHeight{
+    height: 40px;
+}

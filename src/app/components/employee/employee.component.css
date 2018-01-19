@@ -11,3 +11,12 @@
     border-bottom: 2px solid #F6F7F8;
     padding-bottom: 4px;
 }
+.searchButton{
+    margin-left: 30%;
+    width: 24%;
+    height: 20%;
+    margin-top: -3.5%;
+}
+.butHeight{
+    height: 40px;
+}
