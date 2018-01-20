@@ -3,10 +3,10 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule, Http } from '@angular/http';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import { MatFormFieldModule } from '@angular/material';
-import { MatInputModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate';
+import { Ng2OrderModule } from 'ng2-order-pipe';
+import {DataTableModule} from "angular2-datatable";
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
@@ -59,9 +59,9 @@ import{LeaveService} from './services/Leave/leave.service'
     Ng2SearchPipeModule,
     AppRoutingModule,
     HttpModule,
-    MatFormFieldModule,
-    MatInputModule,
+    Ng2OrderModule,
     BrowserAnimationsModule,
+    DataTableModule,
     TranslateModule.forRoot({
       provide: TranslateLoader,
       useFactory: (http: Http) => new TranslateStaticLoader(http, '/assets/i18n', '.json'),

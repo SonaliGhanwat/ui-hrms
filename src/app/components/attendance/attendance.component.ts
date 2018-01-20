@@ -5,6 +5,7 @@ import { Attendance } from '../../models/Attendance/Attendance.model';
 import { EmployeeService } from '../../services/Employee/employee.service';
 import { Employee } from '../../models/Employee/Employee.model';
 import { ValidationService } from '../../services/validation.service';
+import {Http} from "@angular/http";
 @Component({
   selector: 'app-attendance',
   templateUrl: './attendance.component.html',
@@ -12,16 +13,16 @@ import { ValidationService } from '../../services/validation.service';
 })
 export class AttendanceComponent implements OnInit {
 
-  
+  public  allAttendance1;
   allAttendance: Attendance[];
   allEmployee:Employee[]
   statusCode: number;
   requestProcessing = false;
   articleIdToUpdate = null;
   processValidation = false;
-  //intime : any;
-  
-  constructor(private attendanceService: AttendanceService, private formBuilder: FormBuilder,private employeeService: EmployeeService) { }
+  selectedEntities: any[];
+  Attendance: string = 'status';
+  constructor(private http: Http,private attendanceService: AttendanceService, private formBuilder: FormBuilder,private employeeService: EmployeeService) {   }
     attendanceForm = this.formBuilder.group({
       'employee': ['', ([Validators.required])],
       'intime': ['', ([Validators.required])],
@@ -33,6 +34,7 @@ export class AttendanceComponent implements OnInit {
   ngOnInit(): void {
     this.getAllAttendanceList();
     this.getAllEmployeeList();
+  
   }
 
   customOutTimeValidation(){
@@ -40,11 +42,13 @@ export class AttendanceComponent implements OnInit {
   }
 
   getAllAttendanceList() {
+    
     this.attendanceService.getAllAttendance()
       .subscribe(
       data => this.allAttendance = data,
       errorCode => this.statusCode = errorCode);
   }
+  
   getAllEmployeeList() {
     this.employeeService.getAllEmployeeList()
       .subscribe(
@@ -133,7 +137,9 @@ export class AttendanceComponent implements OnInit {
     setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
 }
 
-
+public setSelectedEntities($event: any) {
+  this.selectedEntities = $event;
+}
 }
 
 
