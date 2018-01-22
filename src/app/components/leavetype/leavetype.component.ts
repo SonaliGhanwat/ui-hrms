@@ -15,6 +15,7 @@ export class LeavetypeComponent implements OnInit {
   requestProcessing = false;
   articleIdToUpdate = null;
   processValidation = false;
+  collection = [];
 
   constructor(private leavetypeService: LeavetypeService, private formBuilder: FormBuilder) { }
   leavetypeForm = this.formBuilder.group({
@@ -24,6 +25,7 @@ export class LeavetypeComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllLeaveTypes();
+    this.onPreviousNextPage();
   }
   getAllLeaveTypes() {
     this.leavetypeService.getAllLeaveTypeList()
@@ -92,7 +94,11 @@ export class LeavetypeComponent implements OnInit {
     this.leavetypeForm.reset();
     this.processValidation = false;
   }
-
+  onPreviousNextPage(){
+    for (let i = 1; i <= 100; i++) {
+      this.collection.push(`attendance ${i}`);
+    }
+  }
 }
 
 

@@ -12,12 +12,14 @@ import { LoginModel } from '../../models/login/login.model';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
+  
+  
   data:any;
   userForm: any;
   statusCode: number;
   requestProcessing = false;
-
+  toastMessage :string
+  
   constructor(private formBuilder: FormBuilder, private router: Router,
     private loginService: LoginService) {
 
@@ -38,7 +40,9 @@ export class LoginComponent implements OnInit {
     let password = this.userForm.get('password').value.trim();
     let loginModel = new LoginModel(userid, password);
     this.loginService.post(loginModel).subscribe(data => {
-      console.log("data", data);
+      let message = data.message;
+       this.toastMessage = message;
+      console.log("data", message);
       this.redirectToHomePage();
     });
   }
@@ -52,4 +56,9 @@ export class LoginComponent implements OnInit {
   redirectToHomePage() {
     this.router.navigate(['/home']);
   }
+   myFunction() {
+    var x = document.getElementById("snackbar")
+    x.className = "show";
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 9000);
+}
 }

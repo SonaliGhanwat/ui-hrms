@@ -11,7 +11,7 @@
     position: fixed;
 }
 .primary-container {
-    
+    height: 100%;
     margin-left: 20px;
     margin-top: 20px;
     width: 100%;
@@ -105,9 +105,10 @@
 }
 
 #snackbar {
+    z-index: 1;
     visibility: hidden;
     min-width: 250px;
-    margin-left: -125px;
+    margin-left: 200px;
     background-color: #333;
     color: #fff;
     text-align: center;
@@ -115,9 +116,8 @@
     padding: 16px;
     position: fixed;
     z-index: 1;
-    top: 60px;
-    left: 50%;
-
+    top: 50px;
+    left: 60%;
     font-size: 17px;
 }
 
@@ -136,4 +136,25 @@
     width: 24%;
     height: 20%;
     margin-top: -3.9%;
+}
+
+.table-fixed thead {
+    width: 97%;
+   
+  }
+  .table-fixed tbody {
+    height: 330px;
+    overflow-y: auto;
+    width: 100%;
+    
+  }
+  .table-fixed thead, .table-fixed tbody, .table-fixed tr, .table-fixed td, .table-fixed th {
+    display: block;
+  }
+  .table-fixed tbody td, .table-fixed thead > tr> th {
+    float: left;
+    border-bottom-width: 0;
+  }
+.tableft{
+    margin-left: 3%
 }

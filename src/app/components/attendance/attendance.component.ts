@@ -22,18 +22,26 @@ export class AttendanceComponent implements OnInit {
   processValidation = false;
   selectedEntities: any[];
   Attendance: string = 'status';
-  constructor(private http: Http,private attendanceService: AttendanceService, private formBuilder: FormBuilder,private employeeService: EmployeeService) {   }
+  collection = [];
+  toastMessage:string;
+  constructor(private http: Http,private attendanceService: AttendanceService, private formBuilder: FormBuilder,private employeeService: EmployeeService) {
+    
+     }
     attendanceForm = this.formBuilder.group({
+      
       'employee': ['', ([Validators.required])],
       'intime': ['', ([Validators.required])],
       'outtime': ['', [Validators.required, ValidationService.outTimeValidation]],
       'date': ['', [Validators.required,ValidationService.currentDateValidation]],
+     
 
     });
+    
 
   ngOnInit(): void {
     this.getAllAttendanceList();
     this.getAllEmployeeList();
+    this.onPreviousNextPage();
   
   }
 
@@ -78,7 +86,9 @@ export class AttendanceComponent implements OnInit {
       let attendance = new Attendance(null, employee, intime, outtime, date);
       console.log("attendance0",attendance)
       this.attendanceService.createEmployeeAttendance(attendance) .subscribe(data => {
-     console.log("data",data)
+        let message = data.message;
+        this.toastMessage = message;
+       console.log("data", message);
       this.getAllAttendanceList();
       this.backToCreateArticle();
        
@@ -134,12 +144,18 @@ export class AttendanceComponent implements OnInit {
    myFunction() {
    let x = document.getElementById("snackbar")
     x.className = "show";
-    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 10000);
 }
 
 public setSelectedEntities($event: any) {
   this.selectedEntities = $event;
 }
+onPreviousNextPage(){
+  for (let i = 1; i <= 100; i++) {
+    this.collection.push(`attendance ${i}`);
+  }
+}
+
 }
 
 

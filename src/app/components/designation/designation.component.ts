@@ -15,6 +15,7 @@ export class DesignationComponent implements OnInit {
   requestProcessing = false;
   articleIdToUpdate = null;
   processValidation = false;
+  collection=[];
   constructor(private designationService: DesignationService, private formBuilder: FormBuilder) { }
   designationForm = this.formBuilder.group({
     'name': ['', ([Validators.required])],
@@ -26,6 +27,7 @@ export class DesignationComponent implements OnInit {
   });
   ngOnInit(): void {
     this.getAllDesignation();
+    this.onPreviousNextPage();
   }
   getAllDesignation() {
     this.designationService.getAllDesignationList()
@@ -96,5 +98,9 @@ export class DesignationComponent implements OnInit {
     this.processValidation = false;
   }
 
-
+  onPreviousNextPage(){
+    for (let i = 1; i <= 100; i++) {
+      this.collection.push(`dailyTask ${i}`);
+    }
+  }
 }

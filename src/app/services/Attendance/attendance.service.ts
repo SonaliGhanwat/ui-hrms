@@ -27,7 +27,7 @@ export class AttendanceService extends BaseService {
     let options = new RequestOptions({ headers: cpHeaders });
 
     return this.http.post(this.buidURL(this.attendanceUrl+this.create_url), attendance, options)
-      .map(success => success.status)
+      .map(success => success.json())
 
       .catch(this.handleError);
       

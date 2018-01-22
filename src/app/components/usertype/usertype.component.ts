@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UsertypeService } from '../../services/UserType/usertype.service';
 import { UserType } from '../../models/UserType/UserType.model';
+import {Http} from "@angular/http";
+
 
 
 @Component({
@@ -17,8 +19,13 @@ export class UsertypeComponent implements OnInit {
   requestProcessing = false;
   articleIdToUpdate = null;
   processValidation = false;
+  collection = [];
+   isDesc: boolean = false;
+   UserType: string = 'usertypeName';
   
-  constructor(private usertypeService: UsertypeService, private formBuilder: FormBuilder) { }
+  constructor(private http:Http,private usertypeService: UsertypeService, private formBuilder: FormBuilder) {
+   
+   }
   usertypeForm = this.formBuilder.group({
     'usertypeName': ['', ([Validators.required])],
     'description': ['', [Validators.required]],
@@ -28,6 +35,7 @@ export class UsertypeComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllUserTypes();
+    this.onPreviousNextPage();
   }
   getAllUserTypes() {
     this.usertypeService.getAllUserTypes()
@@ -103,6 +111,11 @@ export class UsertypeComponent implements OnInit {
     var x = document.getElementById("snackbar")
     x.className = "show";
     setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+}
+onPreviousNextPage(){
+  for (let i = 1; i <= 100; i++) {
+    this.collection.push(`attendance ${i}`);
+  }
 }
 }
 

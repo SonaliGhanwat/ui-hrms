@@ -15,7 +15,7 @@ export class EmployeeTypeComponent implements OnInit {
   requestProcessing = false;
   articleIdToUpdate = null;
   processValidation = false;
-
+  collection=[];
   constructor(private employeetypeService: EmployeetypeService, private formBuilder: FormBuilder) { }
   employeetypeForm = this.formBuilder.group({
     'type': ['', ([Validators.required])],
@@ -27,6 +27,7 @@ export class EmployeeTypeComponent implements OnInit {
   });
   ngOnInit(): void {
     this.getAllEmployeetype();
+    this.onPreviousNextPage();
   }
   getAllEmployeetype() {
     this.employeetypeService.getAllEmployeeTypeList()
@@ -96,5 +97,9 @@ export class EmployeeTypeComponent implements OnInit {
     this.employeetypeForm.reset();
     this.processValidation = false;
   }
-
+  onPreviousNextPage(){
+    for (let i = 1; i <= 100; i++) {
+      this.collection.push(`attendance ${i}`);
+    }
+  }
 }

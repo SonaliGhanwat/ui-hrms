@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate';
 import { Ng2OrderModule } from 'ng2-order-pipe';
 import {DataTableModule} from "angular2-datatable";
+import {Ng2PaginationModule} from 'ng2-pagination';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
@@ -36,6 +37,8 @@ import{LeaveService} from './services/Leave/leave.service'
 
 
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,6 +65,8 @@ import{LeaveService} from './services/Leave/leave.service'
     Ng2OrderModule,
     BrowserAnimationsModule,
     DataTableModule,
+    Ng2PaginationModule,
+    
     TranslateModule.forRoot({
       provide: TranslateLoader,
       useFactory: (http: Http) => new TranslateStaticLoader(http, '/assets/i18n', '.json'),
@@ -79,7 +84,8 @@ import{LeaveService} from './services/Leave/leave.service'
     LeavetypeService,
     EmployeeService,
     DailytaskService,
-    LeaveService
+    LeaveService,
+    
   ],
   bootstrap: [AppComponent]
 })

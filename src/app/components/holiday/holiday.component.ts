@@ -14,6 +14,7 @@ export class HolidayComponent implements OnInit {
   requestProcessing = false;
   articleIdToUpdate = null;
   processValidation = false;
+  collection = []
 
   constructor(private holidayService: HolidayService, private formBuilder: FormBuilder) { }
   holidayForm   = this.formBuilder.group({
@@ -25,6 +26,7 @@ export class HolidayComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllHolidayList();
+    this.onPreviousNextPage();
   }
   getAllHolidayList() {
     this.holidayService.getAllHolidayList()
@@ -93,6 +95,10 @@ export class HolidayComponent implements OnInit {
     this.holidayForm.reset();
     this.processValidation = false;
   }
-
+  onPreviousNextPage(){
+    for (let i = 1; i <= 100; i++) {
+      this.collection.push(`attendance ${i}`);
+    }
+  }
 
 }

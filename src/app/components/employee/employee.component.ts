@@ -25,7 +25,7 @@ export class EmployeeComponent implements OnInit {
   requestProcessing = false;
   articleIdToUpdate = null;
   processValidation = false;
-  
+  collection=[];
 
   constructor(private employeeService: EmployeeService, private formBuilder: FormBuilder,
     private employeetypeService: EmployeetypeService,private usertypeService: UsertypeService,
@@ -53,6 +53,7 @@ export class EmployeeComponent implements OnInit {
     this.getAllEmployeetype();
     this.getAllUserTypes();
     this.getAllDesignation();
+    this.onPreviousNextPage();
   }
   getAllEmployee() {
     this.employeeService.getAllEmployeeList()
@@ -205,5 +206,9 @@ export class EmployeeComponent implements OnInit {
     this.employeeForm.reset();
     this.processValidation = false;
   }
-
+  onPreviousNextPage(){
+    for (let i = 1; i <= 100; i++) {
+      this.collection.push(`attendance ${i}`);
+    }
+  }
 }

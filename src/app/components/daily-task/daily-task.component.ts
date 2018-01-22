@@ -18,6 +18,7 @@ export class DailyTaskComponent implements OnInit {
   requestProcessing = false;
   articleIdToUpdate = null;
   processValidation = false;
+  collection=[];
   constructor(private dailytaskService: DailytaskService, private formBuilder: FormBuilder, private employeeService: EmployeeService) { }
   dailyTaskForm = this.formBuilder.group({
     'employee': ['', ([Validators.required])],
@@ -35,6 +36,7 @@ export class DailyTaskComponent implements OnInit {
   ngOnInit(): void {
     this.getAllDailyTask();
     this.getAllEmployeeList();
+    this.onPreviousNextPage();
   }
   getAllDailyTask() {
     this.dailytaskService.getAllDailyTaskList()
@@ -133,6 +135,9 @@ export class DailyTaskComponent implements OnInit {
     this.processValidation = false;
   }
 
-
-
+  onPreviousNextPage(){
+    for (let i = 1; i <= 100; i++) {
+      this.collection.push(`dailyTask ${i}`);
+    }
+  }
 }

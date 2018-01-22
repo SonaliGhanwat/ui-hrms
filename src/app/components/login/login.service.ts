@@ -15,7 +15,7 @@ post(login: LoginModel):Observable<any> {
 	let Headers1 = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: Headers1 });
         return this.http.post(this.loginUrl, login,options)
-               .map(success => success)
+               .map(success => success.json())
                .catch(this.handleError);
                
                

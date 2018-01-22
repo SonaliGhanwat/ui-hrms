@@ -21,6 +21,7 @@ export class LeaveComponent implements OnInit {
   requestProcessing = false;
   articleIdToUpdate = null;
   processValidation = false;
+  collection = [];
   constructor(private leaveService: LeaveService, private formBuilder: FormBuilder,
     private employeeService: EmployeeService, private leavetypeService: LeavetypeService) { }
   leaveForm = this.formBuilder.group({
@@ -37,6 +38,7 @@ export class LeaveComponent implements OnInit {
     this.getAllLeaveList();
     this.getAllEmployeeList();
     this.getAllLeaveTypes();
+    this.onPreviousNextPage();
   }
   getAllLeaveList() {
     this.leaveService.getAllLeave()
@@ -128,5 +130,9 @@ export class LeaveComponent implements OnInit {
     this.leaveForm.reset();
     this.processValidation = false;
   }
-
+  onPreviousNextPage(){
+    for (let i = 1; i <= 100; i++) {
+      this.collection.push(`attendance ${i}`);
+    }
+  }
 }

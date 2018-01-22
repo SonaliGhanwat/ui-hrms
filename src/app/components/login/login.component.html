@@ -32,7 +32,7 @@
             <a class="reset" href="/web/signup" data-original-title="" title="">{{ 'SignUp' | translate }}</a>
           </div>
           <div>
-            <button type="submit" class=" btncolor" [disabled]="!userForm.valid">{{ 'SignIn' | translate }}</button>
+            <button type="submit" class=" btncolor" [disabled]="!userForm.valid" (click)="myFunction()">{{ 'SignIn' | translate }}</button>
 
           </div>
         </div>
@@ -41,3 +41,4 @@
 
   </div>
 </form>
+<div id="snackbar"[innerHTML]="toastMessage"></div>
