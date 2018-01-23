@@ -34,7 +34,7 @@ import { DailyTaskComponent } from './components/daily-task/daily-task.component
 import {DailytaskService}from './services/DailyTask/dailytask.service';
 import { LeaveComponent } from './components/leave/leave.component'
 import{LeaveService} from './services/Leave/leave.service'
-
+import{CommonService} from './services/common service/common.service'
 
 
 
@@ -85,6 +85,7 @@ import{LeaveService} from './services/Leave/leave.service'
     EmployeeService,
     DailytaskService,
     LeaveService,
+    CommonService
     
   ],
   bootstrap: [AppComponent]

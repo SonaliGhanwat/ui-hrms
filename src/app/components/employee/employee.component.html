@@ -48,6 +48,7 @@
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <form [formGroup]="employeeForm" (ngSubmit)="onEmployeeFormSubmit()">
     <div class="modal-dialog modaldialog">
+        <div id="snackbar"[innerHTML]="toastMessage"></div>
       <div class="modal-content">
         <div class="modal-header dialog">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -62,14 +63,14 @@
             <div class=" form-group col-lg-6" style="margin-left: 35px;">
               <label class="label-name ">{{ 'UserId' | translate }}</label>
               <br>
-              <input type="text" *ngIf="employeeForm.get('userid')" formControlName="userid" class="loginUserid">
+              <input type="text" formControlName="userid" class="loginUserid">
               <app-control-messages [control]="employeeForm.controls.userid"></app-control-messages>
             </div>
 
             <div class="col-lg-offset-5">
               <div class=" form-group col-lg-6">
                 <label class="label-name "> {{ 'Password' | translate }}</label>
-                <input type="password" *ngIf="employeeForm.get('password')" formControlName="password" class="loginUserid">
+                <input type="password"  formControlName="password" class="loginUserid">
                 <app-control-messages [control]="employeeForm.controls.password"></app-control-messages>
               </div>
             </div>
@@ -78,14 +79,14 @@
             <div class=" form-group col-lg-6" style="margin-left: 35px;">
               <label class="label-name ">{{ 'FirstName' | translate }}</label>
               <br>
-              <input type="text" *ngIf="employeeForm.get('firstName')" formControlName="firstName" class="loginUserid" onkeypress='return event.charCode >= 65 && event.charCode <= 122'>
+              <input type="text"  formControlName="firstName" class="loginUserid" onkeypress='return event.charCode >= 65 && event.charCode <= 122'>
               <app-control-messages [control]="employeeForm.controls.firstName"></app-control-messages>
             </div>
 
             <div class="col-lg-offset-5">
               <div class=" form-group col-lg-6">
                 <label class="label-name "> {{ 'LastName' | translate }}</label>
-                <input type="text" *ngIf="employeeForm.get('lastName')" formControlName="lastName" class="loginUserid" onkeypress='return event.charCode >= 65 && event.charCode <= 122'>
+                <input type="text" formControlName="lastName" class="loginUserid" onkeypress='return event.charCode >= 65 && event.charCode <= 122'>
                 <app-control-messages [control]="employeeForm.controls.lastName"></app-control-messages>
               </div>
             </div>
@@ -94,7 +95,7 @@
             <div class=" form-group col-lg-6" style="margin-left: 35px;">
               <label class="label-name ">{{ 'EmailId' | translate }}</label>
               <br>
-              <input type="text" *ngIf="employeeForm.get('emailid')" formControlName="emailid" class="loginUserid">
+              <input type="text"  formControlName="emailid" class="loginUserid">
               <app-control-messages [control]="employeeForm.controls.emailid"></app-control-messages>
             </div>
 
@@ -127,7 +128,7 @@
             <div class="col-lg-offset-5">
               <div class=" form-group col-lg-6">
                 <label class="label-name "> {{ 'Date Of Joining' | translate }}</label>
-                <input type="date" *ngIf="employeeForm.get('dateOfJoining')" formControlName="dateOfJoining" class="loginUserid">
+                <input type="date" formControlName="dateOfJoining" class="loginUserid">
                 <app-control-messages [control]="employeeForm.controls.dateOfJoining"></app-control-messages>
               </div>
             </div>
@@ -189,7 +190,7 @@
               <div class="col-lg-offset-5">
                 <div class=" form-group col-lg-6">
                   <label class="label-name "> {{ 'Department' | translate }}</label>
-                  <input type="text" *ngIf="employeeForm.get('department')"  formControlName="department" class="loginUserid">
+                  <input type="text"   formControlName="department" class="loginUserid">
                   <app-control-messages [control]="employeeForm.controls.department"></app-control-messages>
                 </div>
               </div>
@@ -201,14 +202,14 @@
                   <div class=" form-group col-lg-6" style="margin-left: 35px;">
                     <label class="label-name ">{{ 'Mobile Number' | translate }}</label>
                     <br>
-                    <input type="text" *ngIf="employeeForm.get('phoneNumber')"maxlength="10" formControlName="phoneNumber" class="loginUserid" onkeypress='return event.charCode >= 48 && event.charCode <= 57' >
+                    <input type="text" maxlength="10" formControlName="phoneNumber" class="loginUserid" onkeypress='return event.charCode >= 48 && event.charCode <= 57' >
                     <app-control-messages [control]="employeeForm.controls.phoneNumber"></app-control-messages>
                   </div>
       
                   <div class="col-lg-offset-5">
                     <div class=" form-group col-lg-6">
                       <label class="label-name "> {{ 'Address' | translate }}</label>
-                      <input type="text" *ngIf="employeeForm.get('address')" formControlName="address" class="loginUserid">
+                      <input type="text"  formControlName="address" class="loginUserid">
                       <app-control-messages [control]="employeeForm.controls.address"></app-control-messages>
                     </div>
                   </div>
@@ -217,20 +218,20 @@
                     <div class=" form-group col-lg-6" style="margin-left: 35px;">
                       <label class="label-name ">{{ 'Date Of Birth' | translate }}</label>
                       <br>
-                      <input type="date" *ngIf="employeeForm.get('dateOfBirth')" formControlName="dateOfBirth" class="loginUserid">
+                      <input type="date" formControlName="dateOfBirth" class="loginUserid">
                       <app-control-messages [control]="employeeForm.controls.dateOfBirth"></app-control-messages>
                     </div>
         
                     <div class="col-lg-offset-5">
                       <div class=" form-group col-lg-6">
                         <label class="label-name "> {{ 'Salary' | translate }}</label>
-                        <input type="number" *ngIf="employeeForm.get('salary')" formControlName="salary" class="loginUserid">
+                        <input type="number" formControlName="salary" class="loginUserid">
                         <app-control-messages [control]="employeeForm.controls.salary"></app-control-messages>
                       </div>
                     </div>
                   </div>
           <div class="savebtn">
-            <button type="submit" class="btn btn-secondary" style="width: 30%;" [disabled]="!employeeForm.valid">{{'Save'|translate}}</button>
+            <button type="submit" class="btn btn-secondary" style="width: 30%;" [disabled]="!employeeForm.valid" (click)="toastMessageDisplay()">{{'Save'|translate}}</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal" style="width: 30%;
       margin-left: 20px;">Close</button>
           </div>

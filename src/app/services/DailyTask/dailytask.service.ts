@@ -22,18 +22,18 @@ export class DailytaskService extends BaseService {
       .map(this.extractData)
       .catch(this.handleError);
   }
-  createDailyTask(dailyTask: DailyTask): Observable<number> {
+  createDailyTask(dailyTask: DailyTask): Observable<any> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: cpHeaders });
     return this.http.post(this.buidURL(this.dailyTaskUrl+this.create_url), dailyTask, options)
-      .map(success => success.status)
+      .map(success => success.json())
       .catch(this.handleError);
   }
 
-  deleteDailyTaskById(id: string): Observable<number> {
+  deleteDailyTaskById(id: string): Observable<any> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
     return this.http.delete(this.buidURL(this.dailyTaskUrl+this.delete_url+id))
-      .map(success => success.status)
+      .map(success => success.json())
       .catch(this.handleError);
   }
   getDailyTaskById(id: string): Observable<DailyTask> {
@@ -46,11 +46,11 @@ export class DailytaskService extends BaseService {
       .catch(this.handleError);
       }	
 
-  updateDailyTask(dailyTask: DailyTask):Observable<number> {
+  updateDailyTask(dailyTask: DailyTask):Observable<any> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
           let options = new RequestOptions({ headers: cpHeaders });
           return this.http.put(this.buidURL(this.dailyTaskUrl+this.update_url), dailyTask, options)
-                 .map(success => success.status)
+                 .map(success => success.json())
                  .catch(this.handleError);
       }
 

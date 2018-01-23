@@ -8,7 +8,7 @@ export class BaseService {
     protected list_url="list"
     protected delete_url="delete/"
     protected update_url="update"
-  
+   
   constructor(protected http: Http) { }
 
   protected buidURL(endpoint: string): string{
@@ -24,4 +24,5 @@ export class BaseService {
     return Observable.throw(error.status);
   }
 
+ 
 }

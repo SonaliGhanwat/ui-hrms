@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { HolidayService } from '../../services/Holiday/holiday.service';
 import { Holiday } from '../../models/Holiday/Holiday.model';
-
+import{CommonService} from '../../services/common service/common.service'
 @Component({
   selector: 'app-holiday',
   templateUrl: './holiday.component.html',
@@ -14,9 +14,10 @@ export class HolidayComponent implements OnInit {
   requestProcessing = false;
   articleIdToUpdate = null;
   processValidation = false;
-  collection = []
+  collection = [];
+  toastMessage:string;
 
-  constructor(private holidayService: HolidayService, private formBuilder: FormBuilder) { }
+  constructor(private commonService:CommonService,private holidayService: HolidayService, private formBuilder: FormBuilder) { }
   holidayForm   = this.formBuilder.group({
     'holidayName': ['',([Validators.required])],
     'holidayDate': ['', [Validators.required]],
@@ -26,7 +27,7 @@ export class HolidayComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllHolidayList();
-    this.onPreviousNextPage();
+    this.commonService.onPreviousNextPage();
   }
   getAllHolidayList() {
     this.holidayService.getAllHolidayList()
@@ -43,7 +44,8 @@ export class HolidayComponent implements OnInit {
       let userType = new Holiday(null, holidayName, holidayDate);
       this.holidayService.createHoliday(userType)
         .subscribe(successCode => {
-          this.statusCode = successCode;
+          let message = successCode.message;
+          this.toastMessage = message;
           this.getAllHolidayList();
           this.backToCreateArticle();
         },
@@ -54,7 +56,8 @@ export class HolidayComponent implements OnInit {
       let holiday = new Holiday(this.articleIdToUpdate, holidayName, holidayDate);
       this.holidayService.updateHoliday(holiday)
         .subscribe(successCode => {
-          this.statusCode = successCode;
+          let message = successCode.message;
+          this.toastMessage = message;
           this.getAllHolidayList();
           this.backToCreateArticle();
         },
@@ -65,7 +68,8 @@ export class HolidayComponent implements OnInit {
     this.preProcessConfigurations();
     this.holidayService.deleteHolidayById(id)
       .subscribe(successCode => {
-        this.statusCode = successCode;
+        let message = successCode.message;
+        this.toastMessage = message;
         this.getAllHolidayList();
         this.backToCreateArticle();
       },
@@ -95,10 +99,7 @@ export class HolidayComponent implements OnInit {
     this.holidayForm.reset();
     this.processValidation = false;
   }
-  onPreviousNextPage(){
-    for (let i = 1; i <= 100; i++) {
-      this.collection.push(`attendance ${i}`);
-    }
-  }
-
+  toastMessageDisplay(){
+    this.commonService.displayMessage();
+   }
 }

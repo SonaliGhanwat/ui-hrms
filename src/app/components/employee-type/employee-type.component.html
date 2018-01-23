@@ -50,6 +50,7 @@
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <form [formGroup]="employeetypeForm" (ngSubmit)="onEmployeeTypeFormSubmit()">
     <div class="modal-dialog modaldialog">
+        <div id="snackbar"[innerHTML]="toastMessage"></div>
       <div class="modal-content" style="    height: 500px;">
         <div class="modal-header dialog">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -60,7 +61,7 @@
             <div class=" form-group col-lg-6" style="margin-left: 35px;">
               <label class="label-name ">{{ 'EmployeeTypeName' | translate }}</label>
               <br>
-              <input type="text" *ngIf="employeetypeForm.get('type')" formControlName="type" id="type" name="type" class="loginUserid"
+              <input type="text"  formControlName="type" id="type" name="type" class="loginUserid"
                 placeholder="Employeetype">
               <app-control-messages [control]="employeetypeForm.controls.type"></app-control-messages>
             </div>
@@ -68,7 +69,7 @@
             <div class="col-lg-offset-5">
               <div class=" form-group col-lg-6">
                 <label class="label-name "> {{ 'SeekLeave' | translate }}</label>
-                <input type="number" *ngIf="employeetypeForm.get('seekLeave')" formControlName="seekLeave" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                <input type="number" formControlName="seekLeave" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
                   class="loginUserid" placeholder="Seek Leave">
                 <app-control-messages [control]="employeetypeForm.controls.seekLeave"></app-control-messages>
               </div>
@@ -78,7 +79,7 @@
             <div class=" form-group col-lg-6" style="margin-left: 35px;">
               <label class="label-name ">{{ 'PaidLeave' | translate }}</label>
               <br>
-              <input type="number" *ngIf="employeetypeForm.get('paidLeave')" formControlName="paidLeave" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+              <input type="number"  formControlName="paidLeave" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
                 class="loginUserid" placeholder="Paid Leave">
               <app-control-messages [control]="employeetypeForm.controls.paidLeave"></app-control-messages>
             </div>
@@ -86,14 +87,14 @@
             <div class="col-lg-offset-5">
               <div class=" form-group col-lg-6">
                 <label class="label-name "> {{ 'TotalLeave' | translate }}</label>
-                <input type="number" *ngIf="employeetypeForm.get('totalLeave')" formControlName="totalLeave" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                <input type="number"  formControlName="totalLeave" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
                   class="loginUserid" placeholder="Total Leave">
                 <app-control-messages [control]="employeetypeForm.controls.totalLeave"></app-control-messages>
               </div>
             </div>
           </div>
           <div class="savebtn">
-            <button type="submit" class="btn btn-secondary" style="width: 30%;" [disabled]="!employeetypeForm.valid">{{'Save'|translate}}</button>
+            <button type="submit" class="btn btn-secondary" style="width: 30%;" [disabled]="!employeetypeForm.valid" (click)="toastMessageDisplay()">{{'Save'|translate}}</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal" style="width: 30%;
         margin-left: 20px;">Close</button>
           </div>

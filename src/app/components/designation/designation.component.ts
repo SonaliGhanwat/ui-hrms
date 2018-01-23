@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DesignationService } from '../../services/Designation/designation.service';
 import { Designation } from '../../models/designation/Designation.model';
-
+import{CommonService} from '../../services/common service/common.service'
 @Component({
   selector: 'app-designation',
   templateUrl: './designation.component.html',
@@ -16,7 +16,8 @@ export class DesignationComponent implements OnInit {
   articleIdToUpdate = null;
   processValidation = false;
   collection=[];
-  constructor(private designationService: DesignationService, private formBuilder: FormBuilder) { }
+  toastMessage:string;
+  constructor(private commonService:CommonService,private designationService: DesignationService, private formBuilder: FormBuilder) { }
   designationForm = this.formBuilder.group({
     'name': ['', ([Validators.required])],
     'band': ['', [Validators.required]],
@@ -27,7 +28,7 @@ export class DesignationComponent implements OnInit {
   });
   ngOnInit(): void {
     this.getAllDesignation();
-    this.onPreviousNextPage();
+    this.commonService.onPreviousNextPage();
   }
   getAllDesignation() {
     this.designationService.getAllDesignationList()
@@ -45,7 +46,8 @@ export class DesignationComponent implements OnInit {
       let userType = new Designation(null, name, band, level);
       this.designationService.createDesignation(userType)
         .subscribe(successCode => {
-          this.statusCode = successCode;
+          let message = successCode.message;
+          this.toastMessage = message;
           this.getAllDesignation();
           this.backToCreateArticle();
         },
@@ -56,7 +58,8 @@ export class DesignationComponent implements OnInit {
       let designation = new Designation(this.articleIdToUpdate,name, band, level);
       this.designationService.updateDesignation(designation)
         .subscribe(successCode => {
-          this.statusCode = successCode;
+          let message = successCode.message;
+          this.toastMessage = message;
           this.getAllDesignation();
           this.backToCreateArticle();
         },
@@ -67,7 +70,8 @@ export class DesignationComponent implements OnInit {
     this.preProcessConfigurations();
     this.designationService.deleteDesignationById(id)
       .subscribe(successCode => {
-        this.statusCode = successCode;
+        let message = successCode.message;
+        this.toastMessage = message;
         this.getAllDesignation();
         this.backToCreateArticle();
       },
@@ -98,9 +102,7 @@ export class DesignationComponent implements OnInit {
     this.processValidation = false;
   }
 
-  onPreviousNextPage(){
-    for (let i = 1; i <= 100; i++) {
-      this.collection.push(`dailyTask ${i}`);
-    }
-  }
+  toastMessageDisplay(){
+    this.commonService.displayMessage();
+   }
 }

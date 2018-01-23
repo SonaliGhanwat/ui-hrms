@@ -21,18 +21,18 @@ export class DesignationService extends BaseService{
       .map(this.extractData)
       .catch(this.handleError);
   }
-  createDesignation(designation: Designation): Observable<number> {
+  createDesignation(designation: Designation): Observable<any> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: cpHeaders });
     return this.http.post(this.buidURL(this.designationUrl+this.create_url), designation, options)
-      .map(success => success.status)
+      .map(success => success.json())
       .catch(this.handleError);
   }
 
-  deleteDesignationById(id: string): Observable<number> {
+  deleteDesignationById(id: string): Observable<any> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
     return this.http.delete(this.buidURL(this.designationUrl+this.delete_url+id))
-      .map(success => success.status)
+      .map(success => success.json())
       .catch(this.handleError);
   }
   getDesignationById(id: string): Observable<Designation> {
@@ -45,11 +45,11 @@ export class DesignationService extends BaseService{
       .catch(this.handleError);
       }	
 
-  updateDesignation(designation: Designation):Observable<number> {
+  updateDesignation(designation: Designation):Observable<any> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
           let options = new RequestOptions({ headers: cpHeaders });
           return this.http.put(this.buidURL(this.designationUrl+this.update_url), designation, options)
-                 .map(success => success.status)
+                 .map(success => success.json())
                  .catch(this.handleError);
       }
 

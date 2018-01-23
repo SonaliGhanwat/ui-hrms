@@ -10,33 +10,26 @@ import { BaseService } from '../base.service';
 export class AttendanceService extends BaseService {
 
   attendanceUrl = "employeeattendance/";
-  
-
   constructor(protected http: Http) {
     super(http);
   }
-
   getAllAttendance(): Observable<Attendance[]> {
-    return this.http.get(this.buidURL(this.attendanceUrl+this.list_url))
+    return this.http.get(this.buidURL(this.attendanceUrl + this.list_url))
       .map(this.extractData)
       .catch(this.handleError);
   }
-
   createEmployeeAttendance(attendance: Attendance): Observable<any> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: cpHeaders });
-
-    return this.http.post(this.buidURL(this.attendanceUrl+this.create_url), attendance, options)
+    return this.http.post(this.buidURL(this.attendanceUrl + this.create_url), attendance, options)
       .map(success => success.json())
-
       .catch(this.handleError);
-      
   }
 
-  deleteEmployeeAttendanceById(id: string): Observable<number> {
+  deleteEmployeeAttendanceById(id: string): Observable<any> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
-    return this.http.delete(this.buidURL(this.attendanceUrl+this.delete_url + id))
-      .map(success => success.status)
+    return this.http.delete(this.buidURL(this.attendanceUrl + this.delete_url + id))
+      .map(success => success.json())
       .catch(this.handleError);
   }
   getEmployeeAttendanceById(id: string): Observable<Attendance> {
@@ -49,18 +42,16 @@ export class AttendanceService extends BaseService {
       .catch(this.handleError);
   }
 
-  updateEmployeeAttendance(attendance: Attendance): Observable<number> {
+  updateEmployeeAttendance(attendance: Attendance): Observable<any> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
-
-          let options = new RequestOptions({ headers: cpHeaders });
-          return this.http.put(this.buidURL(this.attendanceUrl+this.update_url), attendance, options)
-                 .map(success => success.status)
-                 .catch(this.handleError);
-                 
-      }
-
-      protected extractData(res: Response) {
+    let options = new RequestOptions({ headers: cpHeaders });
+    return this.http.put(this.buidURL(this.attendanceUrl + this.update_url), attendance, options)
+      .map(success => success.json())
+      .catch(this.handleError);
+  }
+  protected extractData(res: Response) {
     let body = res.json();
+    console.log("body:",body)
     return body;
   }
   protected handleError(error: Response | any) {

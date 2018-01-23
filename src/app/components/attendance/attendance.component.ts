@@ -5,6 +5,7 @@ import { Attendance } from '../../models/Attendance/Attendance.model';
 import { EmployeeService } from '../../services/Employee/employee.service';
 import { Employee } from '../../models/Employee/Employee.model';
 import { ValidationService } from '../../services/validation.service';
+import{CommonService} from '../../services/common service/common.service'
 import {Http} from "@angular/http";
 @Component({
   selector: 'app-attendance',
@@ -24,7 +25,8 @@ export class AttendanceComponent implements OnInit {
   Attendance: string = 'status';
   collection = [];
   toastMessage:string;
-  constructor(private http: Http,private attendanceService: AttendanceService, private formBuilder: FormBuilder,private employeeService: EmployeeService) {
+  userid:any;
+  constructor(private commonService: CommonService,private attendanceService: AttendanceService, private formBuilder: FormBuilder,private employeeService: EmployeeService) {
     
      }
     attendanceForm = this.formBuilder.group({
@@ -33,15 +35,13 @@ export class AttendanceComponent implements OnInit {
       'intime': ['', ([Validators.required])],
       'outtime': ['', [Validators.required, ValidationService.outTimeValidation]],
       'date': ['', [Validators.required,ValidationService.currentDateValidation]],
-     
-
     });
     
 
   ngOnInit(): void {
     this.getAllAttendanceList();
     this.getAllEmployeeList();
-    this.onPreviousNextPage();
+    this.commonService.onPreviousNextPage();
   
   }
 
@@ -98,8 +98,9 @@ export class AttendanceComponent implements OnInit {
       //Handle update article
       let userType = new Attendance(this.articleIdToUpdate, employee, intime, outtime, date);
       this.attendanceService.updateEmployeeAttendance(userType)
-        .subscribe(successCode => {
-          this.statusCode = successCode;
+        .subscribe(data => {
+          let message = data.message;
+          this.toastMessage = message;
           this.getAllAttendanceList();
           this.backToCreateArticle();
 
@@ -111,21 +112,24 @@ export class AttendanceComponent implements OnInit {
     this.preProcessConfigurations();
     this.attendanceService.deleteEmployeeAttendanceById(id)
       .subscribe(successCode => {
-        this.statusCode = successCode;
         this.getAllAttendanceList();
         this.backToCreateArticle();
+        let message = successCode.message;
+        this.toastMessage = message;
+        console.log("message",message)
+       
       },
       errorCode => this.statusCode = errorCode);
-
   }
   loadEmployeeAttendanceToEdit(id: string) {
     this.preProcessConfigurations();
     this.attendanceService.getEmployeeAttendanceById(id)
       .subscribe(data => {
-
+        console.log("employee:",data);
         this.articleIdToUpdate = data.id;
+        
         this.attendanceForm.setValue({ employee: data.employee, intime: data.intime, outtime: data.outtime, date: data.date });
-
+          console.log("employee:",data.employee);
         this.processValidation = true;
         this.requestProcessing = false;
       },
@@ -141,20 +145,14 @@ export class AttendanceComponent implements OnInit {
     this.attendanceForm.reset();
     this.processValidation = false;
   }
-   myFunction() {
-   let x = document.getElementById("snackbar")
-    x.className = "show";
-    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 10000);
-}
+  toastMessageDisplay(){
+    this.commonService.displayMessage();
+   }
 
 public setSelectedEntities($event: any) {
   this.selectedEntities = $event;
 }
-onPreviousNextPage(){
-  for (let i = 1; i <= 100; i++) {
-    this.collection.push(`attendance ${i}`);
-  }
-}
+
 
 }
 

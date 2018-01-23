@@ -9,4 +9,3 @@ export class CategoryPipe implements PipeTransform {
     })
   }
 }
-export class UsertypeComponent extends CategoryPipe {}

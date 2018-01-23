@@ -5,6 +5,7 @@ import { DailyTask } from '../../models/DailyTask/DailyTask.model';
 import { EmployeeService } from '../../services/Employee/employee.service';
 import { Employee } from '../../models/Employee/Employee.model';
 import { ValidationService } from '../../services/validation.service';
+import{CommonService} from '../../services/common service/common.service'
 @Component({
   selector: 'app-daily-task',
   templateUrl: './daily-task.component.html',
@@ -19,7 +20,8 @@ export class DailyTaskComponent implements OnInit {
   articleIdToUpdate = null;
   processValidation = false;
   collection=[];
-  constructor(private dailytaskService: DailytaskService, private formBuilder: FormBuilder, private employeeService: EmployeeService) { }
+  toastMessage:string;
+  constructor(private commonService:CommonService,private dailytaskService: DailytaskService, private formBuilder: FormBuilder, private employeeService: EmployeeService) { }
   dailyTaskForm = this.formBuilder.group({
     'employee': ['', ([Validators.required])],
     'date': ['', ([Validators.required, ValidationService.currentDateValidation])],
@@ -36,7 +38,7 @@ export class DailyTaskComponent implements OnInit {
   ngOnInit(): void {
     this.getAllDailyTask();
     this.getAllEmployeeList();
-    this.onPreviousNextPage();
+    this.commonService.onPreviousNextPage();
   }
   getAllDailyTask() {
     this.dailytaskService.getAllDailyTaskList()
@@ -82,7 +84,8 @@ export class DailyTaskComponent implements OnInit {
       console.log("attendance0", attendance)
       this.dailytaskService.createDailyTask(attendance)
         .subscribe(successCode => {
-          this.statusCode = successCode;
+          let message = successCode.message;
+          this.toastMessage = message;
           this.getAllDailyTask();
           this.backToCreateArticle();
         },
@@ -93,7 +96,8 @@ export class DailyTaskComponent implements OnInit {
       let userType = new DailyTask(this.articleIdToUpdate, employee, date, taskName, estimationTime, starttime, endtime, status, description);
       this.dailytaskService.updateDailyTask(userType)
         .subscribe(successCode => {
-          this.statusCode = successCode;
+          let message = successCode.message;
+          this.toastMessage = message;
           this.getAllDailyTask();
           this.backToCreateArticle();
         },
@@ -104,7 +108,8 @@ export class DailyTaskComponent implements OnInit {
     this.preProcessConfigurations();
     this.dailytaskService.deleteDailyTaskById(id)
       .subscribe(successCode => {
-        this.statusCode = successCode;
+        let message = successCode.message;
+        this.toastMessage = message;
         this.getAllDailyTask();
         this.backToCreateArticle();
       },
@@ -135,9 +140,7 @@ export class DailyTaskComponent implements OnInit {
     this.processValidation = false;
   }
 
-  onPreviousNextPage(){
-    for (let i = 1; i <= 100; i++) {
-      this.collection.push(`dailyTask ${i}`);
-    }
-  }
+  toastMessageDisplay(){
+    this.commonService.displayMessage();
+   }
 }

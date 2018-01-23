@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { EmployeetypeService } from '../../services/EmployeeType/employeetype.service';
 import { EmployeeType } from '../../models/EmployeeType/EmployeeType.model';
-
+import{CommonService} from '../../services/common service/common.service'
 @Component({
   selector: 'app-employee-type',
   templateUrl: './employee-type.component.html',
@@ -16,7 +16,8 @@ export class EmployeeTypeComponent implements OnInit {
   articleIdToUpdate = null;
   processValidation = false;
   collection=[];
-  constructor(private employeetypeService: EmployeetypeService, private formBuilder: FormBuilder) { }
+  toastMessage:string;
+  constructor(private commonService:CommonService,private employeetypeService: EmployeetypeService, private formBuilder: FormBuilder) { }
   employeetypeForm = this.formBuilder.group({
     'type': ['', ([Validators.required])],
     'seekLeave': ['', [Validators.required]],
@@ -27,7 +28,7 @@ export class EmployeeTypeComponent implements OnInit {
   });
   ngOnInit(): void {
     this.getAllEmployeetype();
-    this.onPreviousNextPage();
+    this.commonService.onPreviousNextPage();
   }
   getAllEmployeetype() {
     this.employeetypeService.getAllEmployeeTypeList()
@@ -45,7 +46,8 @@ export class EmployeeTypeComponent implements OnInit {
       let userType = new EmployeeType(null, type, seekLeave, paidLeave, totalLeave);
       this.employeetypeService.createEmployeeType(userType)
         .subscribe(successCode => {
-          this.statusCode = successCode;
+          let message = successCode.message;
+          this.toastMessage = message;
           this.getAllEmployeetype();
           this.backToCreateArticle();
         },
@@ -56,7 +58,8 @@ export class EmployeeTypeComponent implements OnInit {
       let userType = new EmployeeType(this.articleIdToUpdate, type, seekLeave, paidLeave, totalLeave);
       this.employeetypeService.updateEmployeeType(userType)
         .subscribe(successCode => {
-          this.statusCode = successCode;
+          let message = successCode.message;
+          this.toastMessage = message;
           this.getAllEmployeetype();
           this.backToCreateArticle();
         },
@@ -67,7 +70,8 @@ export class EmployeeTypeComponent implements OnInit {
     this.preProcessConfigurations();
     this.employeetypeService.deleteEmployeeTypeById(id)
       .subscribe(successCode => {
-        this.statusCode = successCode;
+        let message = successCode.message;
+        this.toastMessage = message;
         this.getAllEmployeetype();
         this.backToCreateArticle();
       },
@@ -97,9 +101,7 @@ export class EmployeeTypeComponent implements OnInit {
     this.employeetypeForm.reset();
     this.processValidation = false;
   }
-  onPreviousNextPage(){
-    for (let i = 1; i <= 100; i++) {
-      this.collection.push(`attendance ${i}`);
-    }
-  }
+  toastMessageDisplay(){
+    this.commonService.displayMessage();
+   }
 }

@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { UsertypeService } from '../../services/UserType/usertype.service';
 import { UserType } from '../../models/UserType/UserType.model';
 import {Http} from "@angular/http";
+import{CommonService} from '../../services/common service/common.service'
 
 
 
@@ -19,11 +20,11 @@ export class UsertypeComponent implements OnInit {
   requestProcessing = false;
   articleIdToUpdate = null;
   processValidation = false;
-  collection = [];
-   isDesc: boolean = false;
+ 
+  toastMessage:string;
    UserType: string = 'usertypeName';
   
-  constructor(private http:Http,private usertypeService: UsertypeService, private formBuilder: FormBuilder) {
+  constructor(private commonService:CommonService,private usertypeService: UsertypeService, private formBuilder: FormBuilder) {
    
    }
   usertypeForm = this.formBuilder.group({
@@ -35,7 +36,8 @@ export class UsertypeComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllUserTypes();
-    this.onPreviousNextPage();
+    this.commonService.onPreviousNextPage();
+   
   }
   getAllUserTypes() {
     this.usertypeService.getAllUserTypes()
@@ -53,7 +55,8 @@ export class UsertypeComponent implements OnInit {
       this.usertypeService.createUserType(userType)
         .subscribe(successCode => {
           console.log("successCode",successCode);
-          this.statusCode = successCode;
+          let message = successCode.message;
+          this.toastMessage = message;
           this.getAllUserTypes();
           this.backToCreateArticle();
         },
@@ -64,8 +67,8 @@ export class UsertypeComponent implements OnInit {
       let userType = new UserType(this.articleIdToUpdate, usertypeName, description);
       this.usertypeService.updateUserType(userType)
         .subscribe(successCode => {
-          this.statusCode = successCode;
-         
+          let message = successCode.message;
+          this.toastMessage = message;
           this.getAllUserTypes();
           this.backToCreateArticle();
         },
@@ -76,7 +79,8 @@ export class UsertypeComponent implements OnInit {
     this.preProcessConfigurations();
     this.usertypeService.deleteUserTypeById(id)
       .subscribe(successCode => {
-        this.statusCode = successCode;
+        let message = successCode.message;
+        this.toastMessage = message;
         this.getAllUserTypes();
         this.backToCreateArticle();
       },
@@ -107,15 +111,10 @@ export class UsertypeComponent implements OnInit {
     this.usertypeForm.reset();
     this.processValidation = false;
   }
-   myFunction() {
-    var x = document.getElementById("snackbar")
-    x.className = "show";
-    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
-}
-onPreviousNextPage(){
-  for (let i = 1; i <= 100; i++) {
-    this.collection.push(`attendance ${i}`);
-  }
-}
+  toastMessageDisplay(){
+    this.commonService.displayMessage();
+   }
+
+
 }
 

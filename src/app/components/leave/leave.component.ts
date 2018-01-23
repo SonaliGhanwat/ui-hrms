@@ -7,6 +7,7 @@ import { Employee } from '../../models/Employee/Employee.model';
 import { LeavetypeService } from '../../services/LeaveType/leavetype.service'
 import { LeaveType } from '../../models/LeaveType/Leavetype.model';
 import { ValidationService } from '../../services/validation.service';
+import{CommonService} from '../../services/common service/common.service'
 @Component({
   selector: 'app-leave',
   templateUrl: './leave.component.html',
@@ -22,7 +23,8 @@ export class LeaveComponent implements OnInit {
   articleIdToUpdate = null;
   processValidation = false;
   collection = [];
-  constructor(private leaveService: LeaveService, private formBuilder: FormBuilder,
+  toastMessage:string;
+  constructor( private commonService:CommonService,private leaveService: LeaveService, private formBuilder: FormBuilder,
     private employeeService: EmployeeService, private leavetypeService: LeavetypeService) { }
   leaveForm = this.formBuilder.group({
     'employee': ['', ([Validators.required])],
@@ -38,7 +40,7 @@ export class LeaveComponent implements OnInit {
     this.getAllLeaveList();
     this.getAllEmployeeList();
     this.getAllLeaveTypes();
-    this.onPreviousNextPage();
+    this.commonService.onPreviousNextPage();
   }
   getAllLeaveList() {
     this.leaveService.getAllLeave()
@@ -78,7 +80,8 @@ export class LeaveComponent implements OnInit {
       console.log("attendance0", attendance)
       this.leaveService.createLeave(attendance)
         .subscribe(successCode => {
-          this.statusCode = successCode;
+          let message = successCode.message;
+          this.toastMessage = message;
           this.getAllLeaveList();
           this.backToCreateArticle();
         },
@@ -89,7 +92,8 @@ export class LeaveComponent implements OnInit {
       let userType = new Leave(this.articleIdToUpdate, employee, subject, fromDate, toDate, leavetype);
       this.leaveService.updateLeave(userType)
         .subscribe(successCode => {
-          this.statusCode = successCode;
+          let message = successCode.message;
+          this.toastMessage = message;
           this.getAllLeaveList();
           this.backToCreateArticle();
         },
@@ -100,7 +104,8 @@ export class LeaveComponent implements OnInit {
     this.preProcessConfigurations();
     this.leaveService.deleteLeaveById(id)
       .subscribe(successCode => {
-        this.statusCode = successCode;
+        let message = successCode.message;
+        this.toastMessage = message;
         this.getAllLeaveList();
         this.backToCreateArticle();
       },
@@ -113,7 +118,7 @@ export class LeaveComponent implements OnInit {
       .subscribe(data => {
 
         this.articleIdToUpdate = data.id;
-        this.leaveForm.setValue({ employee: data.employee, subject: data.subject, fromDate: data.fromDate, toDate: data.toDate });
+        this.leaveForm.setValue({ employee: data.employee, subject: data.subject, fromDate: data.fromDate, toDate: data.toDate,leavetype: data.leavetype });
 
         this.processValidation = true;
         this.requestProcessing = false;
@@ -130,9 +135,7 @@ export class LeaveComponent implements OnInit {
     this.leaveForm.reset();
     this.processValidation = false;
   }
-  onPreviousNextPage(){
-    for (let i = 1; i <= 100; i++) {
-      this.collection.push(`attendance ${i}`);
-    }
-  }
+  toastMessageDisplay(){
+    this.commonService.displayMessage();
+   }
 }

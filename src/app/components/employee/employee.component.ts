@@ -9,7 +9,7 @@ import { UserType } from '../../models/UserType/UserType.model';
 import { DesignationService } from '../../services/Designation/designation.service';
 import { Designation } from '../../models/designation/Designation.model';
 import { ValidationService } from '../../services/validation.service';
-
+import{CommonService} from '../../services/common service/common.service'
 @Component({
   selector: 'app-employee',
   templateUrl: './employee.component.html',
@@ -26,10 +26,11 @@ export class EmployeeComponent implements OnInit {
   articleIdToUpdate = null;
   processValidation = false;
   collection=[];
+  toastMessage:string;
 
   constructor(private employeeService: EmployeeService, private formBuilder: FormBuilder,
     private employeetypeService: EmployeetypeService,private usertypeService: UsertypeService,
-    private designationService: DesignationService,) { }
+    private designationService: DesignationService,private commonService:CommonService) { }
   employeeForm = this.formBuilder.group({
     'userid': ['', ([Validators.required])],
     'password': ['', [Validators.required]],
@@ -53,7 +54,7 @@ export class EmployeeComponent implements OnInit {
     this.getAllEmployeetype();
     this.getAllUserTypes();
     this.getAllDesignation();
-    this.onPreviousNextPage();
+    this.commonService.onPreviousNextPage();
   }
   getAllEmployee() {
     this.employeeService.getAllEmployeeList()
@@ -122,7 +123,8 @@ export class EmployeeComponent implements OnInit {
       console.log("attendance0",attendance)
       this.employeeService.createEmployee(attendance)
         .subscribe(successCode => {
-          this.statusCode = successCode;
+          let message = successCode.message;
+          this.toastMessage = message;
           this.getAllEmployee();
           this.backToCreateArticle();
         },
@@ -133,7 +135,8 @@ export class EmployeeComponent implements OnInit {
       let userType = new Employee(this.articleIdToUpdate, userid, password, firstName, lastName,phoneNumber,emailid,dateOfJoining,dateOfBirth,address,department,salary,reportTo,usertype,employeetype,designation);
       this.employeeService.updateEmployee(userType)
         .subscribe(successCode => {
-          this.statusCode = successCode;
+          let message = successCode.message;
+          this.toastMessage = message;
           this.getAllEmployee();
           this.backToCreateArticle();
         },
@@ -144,7 +147,8 @@ export class EmployeeComponent implements OnInit {
     this.preProcessConfigurations();
     this.employeeService.deleteEmployeeById(id)
       .subscribe(successCode => {
-        this.statusCode = successCode;
+        let message = successCode.message;
+        this.toastMessage = message;
         this.getAllEmployee();
         this.backToCreateArticle();
       },
@@ -206,9 +210,7 @@ export class EmployeeComponent implements OnInit {
     this.employeeForm.reset();
     this.processValidation = false;
   }
-  onPreviousNextPage(){
-    for (let i = 1; i <= 100; i++) {
-      this.collection.push(`attendance ${i}`);
-    }
-  }
+  toastMessageDisplay(){
+    this.commonService.displayMessage();
+   }
 }

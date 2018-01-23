@@ -45,6 +45,7 @@
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <form [formGroup]="holidayForm" (ngSubmit)="onHolidayFormSubmit()">
     <div class="modal-dialog modaldialog">
+        <div id="snackbar"[innerHTML]="toastMessage"></div>
       <div class="modal-content" style="    height: 500px;">
         <div class="modal-header dialog">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -70,7 +71,7 @@
             </div>
           </div>
           <div class="savebtn">
-            <button type="submit" class="btn btn-secondary" style="width: 30%;" [disabled]="!holidayForm.valid">{{'Save'|translate}}</button>
+            <button type="submit" class="btn btn-secondary" style="width: 30%;" [disabled]="!holidayForm.valid" (click)="toastMessageDisplay()">{{'Save'|translate}}</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal" style="width: 30%;
       margin-left: 20px;">Close</button>
           </div>

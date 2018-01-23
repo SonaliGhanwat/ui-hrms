@@ -12,8 +12,6 @@ import { LoginModel } from '../../models/login/login.model';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  
-  
   data:any;
   userForm: any;
   statusCode: number;

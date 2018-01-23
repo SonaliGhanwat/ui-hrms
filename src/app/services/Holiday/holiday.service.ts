@@ -21,18 +21,18 @@ export class HolidayService extends BaseService{
       .map(this.extractData)
       .catch(this.handleError);
   }
-  createHoliday(holiday: Holiday): Observable<number> {
+  createHoliday(holiday: Holiday): Observable<any> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: cpHeaders });
     return this.http.post(this.buidURL(this.holidayUrl+this.create_url), holiday, options)
-      .map(success => success.status)
+      .map(success => success.json())
       .catch(this.handleError);
   }
 
-  deleteHolidayById(id: string): Observable<number> {
+  deleteHolidayById(id: string): Observable<any> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
     return this.http.delete(this.buidURL(this.holidayUrl+this.delete_url+id))
-      .map(success => success.status)
+      .map(success => success.json())
       .catch(this.handleError);
   }
   getHolidayById(id: string): Observable<Holiday> {
@@ -45,11 +45,11 @@ export class HolidayService extends BaseService{
       .catch(this.handleError);
       }	
 
-  updateHoliday(holiday: Holiday):Observable<number> {
+  updateHoliday(holiday: Holiday):Observable<any> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
           let options = new RequestOptions({ headers: cpHeaders });
           return this.http.put(this.buidURL(this.holidayUrl+this.update_url), holiday, options)
-                 .map(success => success.status)
+                 .map(success => success.json())
                  .catch(this.handleError);
       }
 

@@ -44,6 +44,7 @@
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <form [formGroup]="leavetypeForm" (ngSubmit)="onLeaveTypeFormSubmit()">
     <div class="modal-dialog modaldialog">
+        <div id="snackbar"[innerHTML]="toastMessage"></div>
       <div class="modal-content" style="    height: 500px;">
         <div class="modal-header dialog">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -54,7 +55,7 @@
             <div class=" form-group col-lg-6" style="margin-left: 35px;">
               <label class="label-name ">{{ 'Name' | translate }}</label>
               <br>
-              <input type="text" *ngIf="leavetypeForm.get('name')" formControlName="name" id="usertypeName" name="usertypeName" class="loginUserid"
+              <input type="text"  formControlName="name" id="usertypeName" name="usertypeName" class="loginUserid"
                 placeholder="Name">
               <app-control-messages [control]="leavetypeForm.controls.name"></app-control-messages>
             </div>
@@ -62,7 +63,7 @@
 
           </div>
           <div class="savebtn">
-            <button type="submit" class="btn btn-secondary" style="width: 30%;" [disabled]="!leavetypeForm.valid">{{'Save'|translate}}</button>
+            <button type="submit" class="btn btn-secondary" style="width: 30%;" [disabled]="!leavetypeForm.valid" (click)="toastMessageDisplay()">{{'Save'|translate}}</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal" style="width: 30%;
           margin-left: 20px;">Close</button>
           </div>

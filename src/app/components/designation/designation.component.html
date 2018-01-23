@@ -49,6 +49,7 @@
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <form [formGroup]="designationForm" (ngSubmit)="onDesignationFormSubmit()">
   <div class="modal-dialog modaldialog">
+      <div id="snackbar"[innerHTML]="toastMessage"></div>
     <div class="modal-content" style="    height: 500px;">
       <div class="modal-header dialog">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -59,14 +60,14 @@
           <div class=" form-group col-lg-6" style="margin-left: 35px;">
             <label class="label-name " >{{ 'Name' | translate }}</label>
             <br>
-            <input type="text" *ngIf="designationForm.get('name')" formControlName="name" id="type" name="type" class="loginUserid" placeholder="Employeetype" >
+            <input type="text"  formControlName="name" id="type" name="type" class="loginUserid" placeholder="Employeetype" >
             <app-control-messages [control]="designationForm.controls.name"></app-control-messages>
           </div>
   
           <div class="col-lg-offset-5">
             <div class=" form-group col-lg-6">
               <label class="label-name " > {{ 'Band' | translate }}</label>
-              <input type="number" *ngIf="designationForm.get('band')" formControlName="band" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="loginUserid" placeholder="Seek Leave" >
+              <input type="number"  formControlName="band" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="loginUserid" placeholder="Seek Leave" >
               <app-control-messages [control]="designationForm.controls.band"></app-control-messages>
             </div>
           </div>
@@ -75,12 +76,12 @@
             <div class=" form-group col-lg-6" style="margin-left: 35px;">
               <label class="label-name " >{{ 'Level' | translate }}</label>
               <br>
-              <input type="number" *ngIf="designationForm.get('level')" formControlName="level" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="loginUserid" placeholder="Paid Leave">
+              <input type="number"  formControlName="level" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="loginUserid" placeholder="Paid Leave">
               <app-control-messages [control]="designationForm.controls.level"></app-control-messages>
             </div>
           </div>
         <div class="savebtn">
-          <button type="submit" class="btn btn-secondary" style="width: 30%;" [disabled]="!designationForm.valid">{{'Save'|translate}}</button>
+          <button type="submit" class="btn btn-secondary" style="width: 30%;" [disabled]="!designationForm.valid" (click)="toastMessageDisplay()">{{'Save'|translate}}</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal" style="width: 30%;
         margin-left: 20px;">Close</button>
         </div>

@@ -23,18 +23,18 @@ export class EmployeetypeService extends BaseService{
       .map(this.extractData)
       .catch(this.handleError);
   }
-  createEmployeeType(employeeType: EmployeeType): Observable<number> {
+  createEmployeeType(employeeType: EmployeeType): Observable<any> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: cpHeaders });
     return this.http.post(this.buidURL(this.employeeTypeUrl+this.create_url), employeeType, options)
-      .map(success => success.status)
+      .map(success => success.json())
       .catch(this.handleError);
   }
 
-  deleteEmployeeTypeById(id: string): Observable<number> {
+  deleteEmployeeTypeById(id: string): Observable<any> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
     return this.http.delete(this.buidURL(this.employeeTypeUrl+this.delete_url+id))
-      .map(success => success.status)
+      .map(success => success.json())
       .catch(this.handleError);
   }
   getEmployeeTypeById(id: string): Observable<EmployeeType> {
@@ -47,11 +47,11 @@ export class EmployeetypeService extends BaseService{
       .catch(this.handleError);
       }	
 
-  updateEmployeeType(employeeType: EmployeeType):Observable<number> {
+  updateEmployeeType(employeeType: EmployeeType):Observable<any> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
           let options = new RequestOptions({ headers: cpHeaders });
           return this.http.put(this.buidURL(this.employeeTypeUrl+this.update_url), employeeType, options)
-                 .map(success => success.status)
+                 .map(success => success.json())
                  .catch(this.handleError);
       }
 

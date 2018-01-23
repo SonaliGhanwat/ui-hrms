@@ -49,6 +49,7 @@
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <form [formGroup]="leaveForm" (ngSubmit)="onLeaveFormSubmit()">
     <div class="modal-dialog modaldialog">
+        <div id="snackbar"[innerHTML]="toastMessage"></div>
       <div class="modal-content" style="    height: 500px;">
         <div class="modal-header dialog">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -69,7 +70,7 @@
             <div class="col-lg-offset-5">
               <div class=" form-group col-lg-6">
                 <label class="label-name "> {{ 'Reason' | translate }}</label>
-                <input type="text" *ngIf="leaveForm.get('subject')" step="2" formControlName="subject" class="loginUserid">
+                <input type="text"  step="2" formControlName="subject" class="loginUserid">
                 <app-control-messages [control]="leaveForm.controls.subject"></app-control-messages>
               </div>
             </div>
@@ -78,14 +79,14 @@
             <div class=" form-group col-lg-6" style="margin-left: 35px;">
               <label class="label-name ">{{ 'FromDate' | translate }}</label>
               <br>
-              <input type="date" *ngIf="leaveForm.get('fromDate')"  formControlName="fromDate" class="loginUserid">
+              <input type="date"   formControlName="fromDate" class="loginUserid">
               <app-control-messages [control]="leaveForm.controls.fromDate"></app-control-messages>
             </div>
 
             <div class="col-lg-offset-5">
               <div class=" form-group col-lg-6">
                 <label class="label-name "> {{ 'Todate' | translate }}</label>
-                <input type="date" *ngIf="leaveForm.get('toDate')" formControlName="toDate" class="loginUserid">
+                <input type="date"  formControlName="toDate" class="loginUserid">
                 <app-control-messages [control]="leaveForm.controls.toDate"></app-control-messages>
               </div>
             </div>
@@ -101,7 +102,7 @@
             </div>
           </div>
           <div class="savebtn">
-            <button type="submit" class="btn btn-secondary" style="width: 30%;" [disabled]="!leaveForm.valid">{{'Save'|translate}}</button>
+            <button type="submit" class="btn btn-secondary" style="width: 30%;" [disabled]="!leaveForm.valid" (click)="toastMessageDisplay()">{{'Save'|translate}}</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal" style="width: 30%;
         margin-left: 20px;">Close</button>
           </div>

@@ -22,18 +22,18 @@ export class UsertypeService extends BaseService {
       .map(this.extractData)
       .catch(this.handleError);
   }
-  createUserType(userType: UserType): Observable<number> {
+  createUserType(userType: UserType): Observable<any> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: cpHeaders });
     return this.http.post(this.buidURL(this.usertypeUrl+this.create_url), userType, options)
-      .map(success => success)
+      .map(success => success.json())
       .catch(this.handleError);
   }
 
-  deleteUserTypeById(id: string): Observable<number> {
+  deleteUserTypeById(id: string): Observable<any> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
     return this.http.delete(this.buidURL(this.usertypeUrl+this.delete_url+id))
-      .map(success => success.status)
+      .map(success => success.json())
       .catch(this.handleError);
   }
   getUserTypeById(id: string): Observable<UserType> {
@@ -46,11 +46,11 @@ export class UsertypeService extends BaseService {
       .catch(this.handleError);
       }	
 
-  updateUserType(userType: UserType):Observable<number> {
+  updateUserType(userType: UserType):Observable<any> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
           let options = new RequestOptions({ headers: cpHeaders });
           return this.http.put(this.buidURL(this.usertypeUrl+this.update_url), userType, options)
-                 .map(success => success.status)
+                 .map(success => success.json())
                  .catch(this.handleError);
       }
 

@@ -22,18 +22,18 @@ export class LeaveService extends BaseService{
       .catch(this.handleError);
   }
 
-  createLeave(leave: Leave): Observable<number> {
+  createLeave(leave: Leave): Observable<any> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: cpHeaders });
     return this.http.post(this.buidURL(this.leaveUrl+this.create_url), leave, options)
-      .map(success => success.status)
+      .map(success => success.json())
       .catch(this.handleError);
   }
 
-  deleteLeaveById(id: string): Observable<number> {
+  deleteLeaveById(id: string): Observable<any> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
     return this.http.delete(this.buidURL(this.leaveUrl+this.delete_url+id))
-      .map(success => success.status)
+      .map(success => success.json())
       .catch(this.handleError);
   }
   getLeaveById(id: string): Observable<Leave> {
@@ -46,11 +46,11 @@ export class LeaveService extends BaseService{
       .catch(this.handleError);
       }	
 
-  updateLeave(leave: Leave):Observable<number> {
+  updateLeave(leave: Leave):Observable<any> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
           let options = new RequestOptions({ headers: cpHeaders });
           return this.http.put(this.buidURL(this.leaveUrl+this.update_url), leave, options)
-                 .map(success => success.status)
+                 .map(success => success.json())
                  .catch(this.handleError);
       }
 

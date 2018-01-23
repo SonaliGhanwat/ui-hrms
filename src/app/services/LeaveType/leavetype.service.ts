@@ -20,18 +20,18 @@ export class LeavetypeService extends BaseService {
       .map(this.extractData)
       .catch(this.handleError);
   }
-  createLeaveType(leaveType: LeaveType): Observable<number> {
+  createLeaveType(leaveType: LeaveType): Observable<any> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: cpHeaders });
     return this.http.post(this.buidURL(this.leaveTypeUrl + this.create_url), leaveType, options)
-      .map(success => success.status)
+      .map(success => success.json())
       .catch(this.handleError);
   }
 
-  deleteLeaveType(id: string): Observable<number> {
+  deleteLeaveType(id: string): Observable<any> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
     return this.http.delete(this.buidURL(this.leaveTypeUrl + this.delete_url + id))
-      .map(success => success.status)
+      .map(success => success.json())
       .catch(this.handleError);
   }
   getLeaveTypeById(id: string): Observable<LeaveType> {
@@ -44,11 +44,11 @@ export class LeavetypeService extends BaseService {
       .catch(this.handleError);
   }
 
-  updateLeaveType(leaveType: LeaveType): Observable<number> {
+  updateLeaveType(leaveType: LeaveType): Observable<any> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: cpHeaders });
     return this.http.put(this.buidURL(this.leaveTypeUrl + this.update_url), leaveType, options)
-      .map(success => success.status)
+      .map(success => success.json())
       .catch(this.handleError);
   }
   protected extractData(res: Response) {

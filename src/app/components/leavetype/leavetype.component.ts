@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { LeavetypeService }from '../../services/LeaveType/leavetype.service'
 import { LeaveType } from'../../models/LeaveType/Leavetype.model';
-
+import{CommonService} from '../../services/common service/common.service'
 @Component({
   selector: 'app-leavetype',
   templateUrl: './leavetype.component.html',
@@ -16,8 +16,9 @@ export class LeavetypeComponent implements OnInit {
   articleIdToUpdate = null;
   processValidation = false;
   collection = [];
+  toastMessage:string;
 
-  constructor(private leavetypeService: LeavetypeService, private formBuilder: FormBuilder) { }
+  constructor( private commonService:CommonService,private leavetypeService: LeavetypeService, private formBuilder: FormBuilder) { }
   leavetypeForm = this.formBuilder.group({
     'name': ['', ([Validators.required])]
 
@@ -25,7 +26,7 @@ export class LeavetypeComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllLeaveTypes();
-    this.onPreviousNextPage();
+    this.commonService.onPreviousNextPage();
   }
   getAllLeaveTypes() {
     this.leavetypeService.getAllLeaveTypeList()
@@ -42,7 +43,8 @@ export class LeavetypeComponent implements OnInit {
       let leaveType = new LeaveType(null, name);
       this.leavetypeService.createLeaveType(leaveType)
         .subscribe(successCode => {
-          this.statusCode = successCode;
+          let message = successCode.message;
+          this.toastMessage = message;
           this.getAllLeaveTypes();
           this.backToCreateArticle();
         },
@@ -53,7 +55,8 @@ export class LeavetypeComponent implements OnInit {
       let leaveType = new LeaveType(this.articleIdToUpdate, name);
       this.leavetypeService.updateLeaveType(leaveType)
         .subscribe(successCode => {
-          this.statusCode = successCode;
+          let message = successCode.message;
+          this.toastMessage = message;
           this.getAllLeaveTypes();
           this.backToCreateArticle();
         },
@@ -64,7 +67,8 @@ export class LeavetypeComponent implements OnInit {
     this.preProcessConfigurations();
     this.leavetypeService.deleteLeaveType(id)
       .subscribe(successCode => {
-        this.statusCode = successCode;
+        let message = successCode.message;
+        this.toastMessage = message;
         this.getAllLeaveTypes();
         this.backToCreateArticle();
       },
@@ -94,11 +98,10 @@ export class LeavetypeComponent implements OnInit {
     this.leavetypeForm.reset();
     this.processValidation = false;
   }
-  onPreviousNextPage(){
-    for (let i = 1; i <= 100; i++) {
-      this.collection.push(`attendance ${i}`);
-    }
-  }
+  
+  toastMessageDisplay(){
+    this.commonService.displayMessage();
+   }
 }
 
 
