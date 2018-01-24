@@ -50,7 +50,7 @@
   <form [formGroup]="leaveForm" (ngSubmit)="onLeaveFormSubmit()">
     <div class="modal-dialog modaldialog">
         <div id="snackbar"[innerHTML]="toastMessage"></div>
-      <div class="modal-content" style="    height: 500px;">
+      <div class="modal-content" style="    height: 530px;">
         <div class="modal-header dialog">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h2 class="modal-title modaltitle">{{'Add New Leave'|translate}}</h2>
@@ -86,8 +86,9 @@
             <div class="col-lg-offset-5">
               <div class=" form-group col-lg-6">
                 <label class="label-name "> {{ 'Todate' | translate }}</label>
-                <input type="date"  formControlName="toDate" class="loginUserid">
+                <input type="date"  formControlName="toDate" class="loginUserid"(blur)="toDateValidation();" (change)="toDateValidation();">
                 <app-control-messages [control]="leaveForm.controls.toDate"></app-control-messages>
+                <div id="afterleavejoiningdate_validation" class="error"></div>
               </div>
             </div>
           </div>

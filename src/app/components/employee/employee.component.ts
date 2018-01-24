@@ -37,7 +37,7 @@ export class EmployeeComponent implements OnInit {
     'firstName': ['', [Validators.required]],
     'lastName': ['', [Validators.required]],
     'phoneNumber': ['', ([Validators.required])],
-    'emailid': ['', [Validators.required,ValidationService.emailValidator]],
+    'emailid': ['', [Validators.required]],
     'dateOfJoining': ['', [Validators.required]],
     'dateOfBirth': ['', [Validators.required,ValidationService.dateOfBirthValidation]],
     'address': ['', ([Validators.required])],
@@ -107,6 +107,7 @@ export class EmployeeComponent implements OnInit {
     console.log("salary",salary);
     let usertypeId = this.employeeForm.get('usertype').value.trim();
     let usertype =  parseInt(usertypeId);
+    sessionStorage.setItem("userid",usertypeId )
     console.log("usertype",usertype);
     let employeetypeId = this.employeeForm.get('employeetype').value.trim();
     let employeetype =  parseInt(employeetypeId);

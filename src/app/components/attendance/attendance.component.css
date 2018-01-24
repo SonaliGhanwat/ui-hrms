@@ -38,3 +38,9 @@ butHeight{
 .tableft{
     margin-left: 3%
 }
+.error {
+    margin-left: 20px;
+    color:red;
+   padding-top: 7px;
+     width: 250px 
+  }

@@ -33,8 +33,8 @@ export class ValidationService {
         }
     }
     static emailValidator(control) {
-
-        console.log("control", control)
+        let email = control.value;
+        console.log("email", email)
         if (control.value.match(/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{3})$/)) {
             return null;
         } else {
@@ -47,6 +47,7 @@ export class ValidationService {
         let getdate = joinDate.getDate();
         let getMonth = joinDate.getMonth() + 1;
         let getAttendncedate = control.value;
+        console.log("newdate", getAttendncedate)
         let attendanceDate = new Date(getAttendncedate);
         let getAttendate = attendanceDate.getDate();
         let getAttenMonth = attendanceDate.getMonth() + 1;

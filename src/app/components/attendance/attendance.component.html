@@ -32,7 +32,7 @@
         </tr>
 
       </thead>
-      <tr *ngFor="let attendance of allAttendance | orderBy : Attendance | paginate: { itemsPerPage: 8, currentPage: p} ">
+      <tr *ngFor="let attendance of allAttendance |filter :date| orderBy : Attendance | paginate: { itemsPerPage: 8, currentPage: p} ">
           
         <td class="tablerow col-xs-1">{{attendance.id}}</td>
         <td class="tablerow col-xs-2  ">{{attendance.employee.userid}}</td>
@@ -68,7 +68,7 @@
           <div class="row" style="    margin-top: 30px">
             <div class=" form-group col-lg-6" style="margin-left: 35px;">
               <label class="label-name ">{{ 'EmployeeId' | translate }}</label>
-              <select class="loginUserid" formControlName="employee" >
+              <select class="loginUserid"  formControlName="employee"  >
                 <option *ngFor=" let employee of allEmployee" [value]="employee.id" >
                   {{employee.userid}}
                 </option>
@@ -78,8 +78,9 @@
             <div class="col-lg-offset-5">
               <div class=" form-group col-lg-6">
                 <label class="label-name "> {{ 'Intime' | translate }}</label>
-                <input type="time"  step="0" id="intime" formControlName="intime" class="loginUserid">
+                <input type="time"  step="0" id="intime" formControlName="intime" class="loginUserid" >
                 <app-control-messages [control]="attendanceForm.controls.intime"></app-control-messages>
+                <div id="intime_validation" class="passvalidation" ></div>
               </div>
             </div>
           </div>
@@ -87,8 +88,9 @@
             <div class=" form-group col-lg-6" style="margin-left: 35px;">
               <label class="label-name ">{{ 'Outtime' | translate }}</label>
               <br>
-              <input type="time"  step="0" formControlName="outtime" class="loginUserid">
+              <input type="time"  step="0" formControlName="outtime" class="loginUserid" (blur)="timeValidation();" (change)="timeValidation();" >
               <app-control-messages [control]="attendanceForm.controls.outtime"></app-control-messages>
+              <div id="outtime_validation" class="error"></div>
             </div>
 
             <div class="col-lg-offset-5">

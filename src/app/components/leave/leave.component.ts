@@ -30,8 +30,9 @@ export class LeaveComponent implements OnInit {
     'employee': ['', ([Validators.required])],
     'subject': ['', ([Validators.required])],
     'fromDate': ['', [Validators.required,ValidationService.dateValidation]],
-    'toDate': ['', [Validators.required,ValidationService.dateValidation]],
+    'toDate': ['', [Validators.required]],
     'leavetype': ['', ([Validators.required])],
+    
 
 
   });
@@ -41,6 +42,7 @@ export class LeaveComponent implements OnInit {
     this.getAllEmployeeList();
     this.getAllLeaveTypes();
     this.commonService.onPreviousNextPage();
+    this.toDateValidation();
   }
   getAllLeaveList() {
     this.leaveService.getAllLeave()
@@ -64,15 +66,10 @@ export class LeaveComponent implements OnInit {
     this.preProcessConfigurations();
     let employeeId = this.leaveForm.get('employee').value.trim();
     let employee = parseInt(employeeId);
-
     let subject = this.leaveForm.get('subject').value;
-
     let fromDate = this.leaveForm.get('fromDate').value;
-
     let toDate = this.leaveForm.get('toDate').value;
-
     let leaveTypeId = this.leaveForm.get('leavetype').value.trim();
-
     let leavetype = parseInt(leaveTypeId);
 
     if (this.articleIdToUpdate === null) {
@@ -137,5 +134,17 @@ export class LeaveComponent implements OnInit {
   }
   toastMessageDisplay(){
     this.commonService.displayMessage();
+   }
+   toDateValidation(){
+    let fromDate = this.leaveForm.get('fromDate').value;
+    let toDate = this.leaveForm.get('toDate').value;
+    if (fromDate <= toDate) {
+      console.log("if block")
+    } else if(toDate <= fromDate){
+      document.getElementById("afterleavejoiningdate_validation").innerHTML = "Invalid Date!! After leave joining date  should be greater then Leave date";
+      return false;
+    }
+    document.getElementById("afterleavejoiningdate_validation").innerHTML =""
+    return true;
    }
 }
