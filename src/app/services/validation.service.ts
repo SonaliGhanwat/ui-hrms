@@ -17,14 +17,11 @@ export class ValidationService {
             'pastDate': 'Do not Enter Past Date',
             'ToDate': 'Invalid Date! To joining date  should be greater then from date',
             'minlength': `Minimum length ${validatorValue.requiredLength}`,
-            'dateOfBirth':'Date of Birth should be 18 year old'
+            'dateOfBirth': 'Date of Birth should be 18 year old'
         };
-
         return config[validatorName];
     }
-
     static passwordValidator(control) {
-
         console.log("control", control)
         if (control.value.match(/^[a-zA-Z0-9!@#$%^&*]{6,100}$/)) {
             return null;
@@ -34,7 +31,7 @@ export class ValidationService {
     }
     static emailValidator(control) {
         let email = control.value;
-        console.log("email", email)
+        console.log("email", email);
         if (control.value.match(/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{3})$/)) {
             return null;
         } else {
@@ -62,7 +59,6 @@ export class ValidationService {
         }
     }
     static dateValidation(control) {
-
         let joinDate = new Date();
         let getdate = joinDate.getDate();
         let getMonth = joinDate.getMonth() + 1;
@@ -79,11 +75,10 @@ export class ValidationService {
             return null;
         } else if (newdate > AttendanceDate1) {
             return { 'pastDate': true };
-
         }
     }
 
-   static dateOfBirthValidation(control) {
+    static dateOfBirthValidation(control) {
         var currentdate = new Date();
         var currentyearonly = currentdate.getFullYear();
         var usrdob = control.value;
@@ -96,7 +91,6 @@ export class ValidationService {
             return { 'dateOfBirth': true };
         }
     }
-
     static outTimeValidation(control) {
         console.log('control :', control);
     }

@@ -1,11 +1,11 @@
-
-<app-home></app-home>
+<app-home>
+</app-home>
 <div class=" main-class">
   <div class="primary-container">
     <header class="header">
       <div class="heading4">{{'Employee Attendance' | translate}}</div>
     </header>
-   
+
     <div class="addbtn">
       <button class="btn btn-primary adduser" type="button" data-toggle="modal" data-target="#myModal">{{'Add Employee Attendance'| translate}}
       </button>
@@ -19,7 +19,7 @@
       </div>
     </div>
     <div layout="row" class="userlist ">{{'Attendance List' | translate}}</div>
-    <table class="table table-striped table-hover table-fixed settable" >
+    <table class="table table-striped table-hover table-fixed settable">
       <thead>
         <tr>
           <th class="col-xs-1">{{ 'No' | translate }}</th>
@@ -27,19 +27,17 @@
           <th class="col-xs-2">{{ 'Intime' | translate }}</th>
           <th class="col-xs-2">{{ 'Outtime' | translate }}</th>
           <th class="col-xs-2" style="margin-right: -20px;">{{ 'Date' | translate }}</th>
-          <th  class="col-xs-1">{{ 'Status' | translate }}</th >
+          <th class="col-xs-1">{{ 'Status' | translate }}</th>
           <th class="col-xs-2" style="margin-left: 20px">Action</th>
         </tr>
-
       </thead>
       <tr *ngFor="let attendance of allAttendance |filter :date| orderBy : Attendance | paginate: { itemsPerPage: 8, currentPage: p} ">
-          
         <td class="tablerow col-xs-1">{{attendance.id}}</td>
         <td class="tablerow col-xs-2  ">{{attendance.employee.userid}}</td>
         <td class="tablerow col-xs-2">{{attendance.intime}}</td>
         <td class="tablerow col-xs-2">{{attendance.outtime}}</td>
         <td class="tablerow  col-xs-2" style="margin-right: -20px;">{{attendance.date}}</td>
-        <td class="tablerow  col-xs-1" >{{attendance.status}}</td>
+        <td class="tablerow  col-xs-1">{{attendance.status}}</td>
         <td class="tablerow col-xs-2 ">
           <span class="action-link" role="button" tabindex="0" (click)="loadEmployeeAttendanceToEdit(attendance.id)" data-toggle="modal"
             data-target="#myModal">{{'Edit'| translate}}</span>
@@ -47,18 +45,16 @@
           <span class="action-link" role="button" tabindex="0" (click)="deleteEmployeeAttendance(attendance.id)">{{'Delete'|translate}}</span>
         </td>
       </tr>
-     
     </table>
-    <div style="margin-left: 60%" >
+    <div style="margin-left: 60%">
       <pagination-controls (pageChange)="p = $event"></pagination-controls>
     </div>
-    
   </div>
 </div>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <form [formGroup]="attendanceForm" (ngSubmit)="onEmployeeAttendanceFormSubmit()">
     <div class="modal-dialog modaldialog">
-        <div id="snackbar"[innerHTML]="toastMessage"></div>
+      <div id="snackbar" [innerHTML]="toastMessage"></div>
       <div class="modal-content" style="    height: 500px;">
         <div class="modal-header dialog">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -68,8 +64,8 @@
           <div class="row" style="    margin-top: 30px">
             <div class=" form-group col-lg-6" style="margin-left: 35px;">
               <label class="label-name ">{{ 'EmployeeId' | translate }}</label>
-              <select class="loginUserid"  formControlName="employee"  >
-                <option *ngFor=" let employee of allEmployee" [value]="employee.id" >
+              <select class="loginUserid" id="employee" >
+                <option *ngFor=" let employee of allEmployee" [value]="employee.id">
                   {{employee.userid}}
                 </option>
               </select>
@@ -78,9 +74,9 @@
             <div class="col-lg-offset-5">
               <div class=" form-group col-lg-6">
                 <label class="label-name "> {{ 'Intime' | translate }}</label>
-                <input type="time"  step="0" id="intime" formControlName="intime" class="loginUserid" >
+                <input type="time" step="0" id="intime" formControlName="intime" class="loginUserid">
                 <app-control-messages [control]="attendanceForm.controls.intime"></app-control-messages>
-                <div id="intime_validation" class="passvalidation" ></div>
+                <div id="intime_validation" class="passvalidation"></div>
               </div>
             </div>
           </div>
@@ -88,16 +84,15 @@
             <div class=" form-group col-lg-6" style="margin-left: 35px;">
               <label class="label-name ">{{ 'Outtime' | translate }}</label>
               <br>
-              <input type="time"  step="0" formControlName="outtime" class="loginUserid" (blur)="timeValidation();" (change)="timeValidation();" >
+              <input type="time" step="0" formControlName="outtime" class="loginUserid" (blur)="timeValidation();" (change)="timeValidation();">
               <app-control-messages [control]="attendanceForm.controls.outtime"></app-control-messages>
               <div id="outtime_validation" class="error"></div>
             </div>
-
             <div class="col-lg-offset-5">
               <div class=" form-group col-lg-6">
                 <label class="label-name "> {{ 'Date' | translate }}</label>
-                <input type="date"  formControlName="date" class="loginUserid">
-                <app-control-messages [control]="attendanceForm.controls.date" [group]="attendanceForm"></app-control-messages>
+                <input type="date" formControlName="date" class="loginUserid"  >
+                <app-control-messages [control]="attendanceForm.controls.date" ></app-control-messages>
               </div>
             </div>
           </div>

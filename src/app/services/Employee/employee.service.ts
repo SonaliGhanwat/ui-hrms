@@ -39,7 +39,7 @@ export class EmployeeService extends BaseService{
   }
   employeeForReportTo(id: number): Observable<any> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
-    return this.http.get(this.buidURL(this.reportTo+id))
+    return this.http.get(this.reportTo+id)
     .map(this.extractData)
     .catch(this.handleError);
   }
@@ -63,6 +63,7 @@ export class EmployeeService extends BaseService{
 
   protected extractData(res: Response) {
     let body = res.json();
+    console.log("body:",body);
     return body;
   }
   protected handleError(error: Response | any) {

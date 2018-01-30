@@ -11,7 +11,6 @@ import { LeavetypeComponent } from'./components/leavetype/leavetype.component';
 import {EmployeeComponent} from './components/employee/employee.component';
 import{DailyTaskComponent} from'./components/daily-task/daily-task.component';
 import{LeaveComponent} from './components/leave/leave.component';
-
 const appRoutes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -25,7 +24,6 @@ const appRoutes: Routes = [
   { path: 'employee', component: EmployeeComponent },
   { path: 'dailyTask', component: DailyTaskComponent },
   { path: 'leave', component: LeaveComponent },
-
 ];
 @NgModule({
   imports:[RouterModule.forRoot(appRoutes)],

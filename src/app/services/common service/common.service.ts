@@ -8,7 +8,7 @@ export class CommonService {
 
   onPreviousNextPage(){
     for (let i = 1; i <= 100; i++) {
-      this.collection.push(`attendance ${i}`);
+      this.collection.push(`item ${i}`);
     }
   }
   displayMessage() {

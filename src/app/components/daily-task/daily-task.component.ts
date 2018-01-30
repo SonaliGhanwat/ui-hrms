@@ -14,10 +14,10 @@ import{CommonService} from '../../services/common service/common.service'
 export class DailyTaskComponent implements OnInit {
 
   allDailyTask: DailyTask[];
-  allEmployee: Employee[]
+  allEmployee: Employee[];
   statusCode: number;
   requestProcessing = false;
-  articleIdToUpdate = null;
+  dailyTaskIdToUpdate = null;
   processValidation = false;
   collection=[];
   toastMessage:string;
@@ -31,8 +31,6 @@ export class DailyTaskComponent implements OnInit {
     'endtime': ['', [Validators.required]],
     'status': ['', [Validators.required]],
     'description': ['', [Validators.required]],
-
-
   });
 
   ngOnInit(): void {
@@ -79,7 +77,7 @@ export class DailyTaskComponent implements OnInit {
     let status = this.dailyTaskForm.get('status').value;
     let description = this.dailyTaskForm.get('description').value;
 
-    if (this.articleIdToUpdate === null) {
+    if (this.dailyTaskIdToUpdate === null) {
       let attendance = new DailyTask(null, employee, date, taskName, estimationTime, starttime, endtime, status, description);
       console.log("attendance0", attendance)
       this.dailytaskService.createDailyTask(attendance)
@@ -93,7 +91,7 @@ export class DailyTaskComponent implements OnInit {
       console.log("successCode");
     } else {
       //Handle update article
-      let userType = new DailyTask(this.articleIdToUpdate, employee, date, taskName, estimationTime, starttime, endtime, status, description);
+      let userType = new DailyTask(this.dailyTaskIdToUpdate, employee, date, taskName, estimationTime, starttime, endtime, status, description);
       this.dailytaskService.updateDailyTask(userType)
         .subscribe(successCode => {
           let message = successCode.message;
@@ -120,10 +118,8 @@ export class DailyTaskComponent implements OnInit {
     this.preProcessConfigurations();
     this.dailytaskService.getDailyTaskById(id)
       .subscribe(dailyTask => {
-
-        this.articleIdToUpdate = dailyTask.id;
+        this.dailyTaskIdToUpdate = dailyTask.id;
         this.dailyTaskForm.setValue({ employee:dailyTask.employee, date: dailyTask.date, taskName: dailyTask.taskName, estimationTime: dailyTask.estimationTime, starttime: dailyTask.starttime, endtime: dailyTask.endtime, status: dailyTask.status, description: dailyTask.description });
-
         this.processValidation = true;
         this.requestProcessing = false;
       },
@@ -135,7 +131,7 @@ export class DailyTaskComponent implements OnInit {
     this.requestProcessing = true;
   }
   backToCreateArticle() {
-    this.articleIdToUpdate = null;
+    this.dailyTaskIdToUpdate = null;
     this.dailyTaskForm.reset();
     this.processValidation = false;
   }

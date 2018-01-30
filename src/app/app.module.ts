@@ -66,7 +66,6 @@ import{CommonService} from './services/common service/common.service'
     BrowserAnimationsModule,
     DataTableModule,
     Ng2PaginationModule,
-    
     TranslateModule.forRoot({
       provide: TranslateLoader,
       useFactory: (http: Http) => new TranslateStaticLoader(http, '/assets/i18n', '.json'),
@@ -86,7 +85,6 @@ import{CommonService} from './services/common service/common.service'
     DailytaskService,
     LeaveService,
     CommonService
-    
   ],
   bootstrap: [AppComponent]
 })

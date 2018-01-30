@@ -13,7 +13,7 @@ export class EmployeeTypeComponent implements OnInit {
   allEmployeetype: EmployeeType[];
   statusCode: number;
   requestProcessing = false;
-  articleIdToUpdate = null;
+  employeeTypeIdToUpdate = null;
   processValidation = false;
   collection=[];
   toastMessage:string;
@@ -42,7 +42,7 @@ export class EmployeeTypeComponent implements OnInit {
     let seekLeave = this.employeetypeForm.get('seekLeave').value;
     let paidLeave = this.employeetypeForm.get('paidLeave').value;
     let totalLeave = this.employeetypeForm.get('totalLeave').value;
-    if (this.articleIdToUpdate === null) {
+    if (this.employeeTypeIdToUpdate === null) {
       let userType = new EmployeeType(null, type, seekLeave, paidLeave, totalLeave);
       this.employeetypeService.createEmployeeType(userType)
         .subscribe(successCode => {
@@ -55,7 +55,7 @@ export class EmployeeTypeComponent implements OnInit {
       console.log("successCode");
     } else {
       //Handle update article
-      let userType = new EmployeeType(this.articleIdToUpdate, type, seekLeave, paidLeave, totalLeave);
+      let userType = new EmployeeType(this.employeeTypeIdToUpdate, type, seekLeave, paidLeave, totalLeave);
       this.employeetypeService.updateEmployeeType(userType)
         .subscribe(successCode => {
           let message = successCode.message;
@@ -83,7 +83,7 @@ export class EmployeeTypeComponent implements OnInit {
     this.employeetypeService.getEmployeeTypeById(id)
       .subscribe(employeeType => {
 
-        this.articleIdToUpdate = employeeType.id;
+        this.employeeTypeIdToUpdate = employeeType.id;
         this.employeetypeForm.setValue({ type: employeeType.type, seekLeave: employeeType.seekLeave, paidLeave: employeeType.paidLeave, totalLeave: employeeType.totalLeave });
 
         this.processValidation = true;
@@ -97,7 +97,7 @@ export class EmployeeTypeComponent implements OnInit {
     this.requestProcessing = true;
   }
   backToCreateArticle() {
-    this.articleIdToUpdate = null;
+    this.employeeTypeIdToUpdate = null;
     this.employeetypeForm.reset();
     this.processValidation = false;
   }

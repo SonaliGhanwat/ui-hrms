@@ -14,18 +14,18 @@ import { Http } from "@angular/http";
 })
 export class AttendanceComponent implements OnInit {
 
-  public allAttendance1;
   allAttendance: Attendance[];
   allEmployee: Employee[]
   statusCode: number;
   requestProcessing = false;
-  articleIdToUpdate = null;
+  attendanceIdToUpdate = null;
   processValidation = false;
   selectedEntities: any[];
   Attendance: string = 'status';
   collection = [];
   toastMessage: string;
-  userid: any;
+  //userid: any;
+
   constructor(private commonService: CommonService, private attendanceService: AttendanceService, private formBuilder: FormBuilder, private employeeService: EmployeeService) {
 
   }
@@ -80,7 +80,8 @@ export class AttendanceComponent implements OnInit {
     }
 
     let date = this.attendanceForm.get('date').value;
-    if (this.articleIdToUpdate === null) {
+
+    if (this.attendanceIdToUpdate === null) {
       let attendance = new Attendance(null, employee, intime, outtime, date);
       console.log("attendance0", attendance)
       this.attendanceService.createEmployeeAttendance(attendance).subscribe(data => {
@@ -89,12 +90,12 @@ export class AttendanceComponent implements OnInit {
         console.log("data", message);
         this.getAllAttendanceList();
         this.backToCreateArticle();
-
       });
 
     } else {
       //Handle update article
-      let userType = new Attendance(this.articleIdToUpdate, employee, intime, outtime, date);
+      let userType = new Attendance(this.attendanceIdToUpdate, employee, intime, outtime, date);
+      console.log("userType:", userType)
       this.attendanceService.updateEmployeeAttendance(userType)
         .subscribe(data => {
           let message = data.message;
@@ -122,12 +123,13 @@ export class AttendanceComponent implements OnInit {
     this.attendanceService.getEmployeeAttendanceById(id)
       .subscribe(data => {
         console.log("employee:", data);
-        this.articleIdToUpdate = data.id;
+        this.attendanceIdToUpdate = data.id;
         this.attendanceForm.setValue({ employee: data.employee.userid, intime: data.intime, outtime: data.outtime, date: data.date });
         console.log("employee:", data.employee.userid);
         this.processValidation = true;
         this.requestProcessing = false;
       },
+
       errorCode => this.statusCode = errorCode);
   }
 
@@ -136,7 +138,7 @@ export class AttendanceComponent implements OnInit {
     this.requestProcessing = true;
   }
   backToCreateArticle() {
-    this.articleIdToUpdate = null;
+    this.attendanceIdToUpdate = null;
     this.attendanceForm.reset();
     this.processValidation = false;
   }
@@ -148,17 +150,17 @@ export class AttendanceComponent implements OnInit {
     this.selectedEntities = $event;
   }
 
-  timeValidation(){
+  timeValidation() {
     let intime = this.attendanceForm.get('intime').value;
     let outtime = this.attendanceForm.get('outtime').value;
-    console.log("intime:",intime)
+    console.log("intime:", intime)
     if (intime <= outtime) {
-      
-    } else if(outtime <= intime){
+
+    } else if (outtime <= intime) {
       document.getElementById("outtime_validation").innerHTML = " OutTime  should be greater then InTime";
       return false;
     }
-    document.getElementById("outtime_validation").innerHTML =""
+    document.getElementById("outtime_validation").innerHTML = ""
     return true;
   }
 

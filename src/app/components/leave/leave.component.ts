@@ -20,7 +20,7 @@ export class LeaveComponent implements OnInit {
   allLeavetypes: LeaveType[];
   statusCode: number;
   requestProcessing = false;
-  articleIdToUpdate = null;
+  leaveIdToUpdate = null;
   processValidation = false;
   collection = [];
   toastMessage:string;
@@ -72,7 +72,7 @@ export class LeaveComponent implements OnInit {
     let leaveTypeId = this.leaveForm.get('leavetype').value.trim();
     let leavetype = parseInt(leaveTypeId);
 
-    if (this.articleIdToUpdate === null) {
+    if (this.leaveIdToUpdate === null) {
       let attendance = new Leave(null, employee, subject, fromDate, toDate, leavetype);
       console.log("attendance0", attendance)
       this.leaveService.createLeave(attendance)
@@ -86,7 +86,7 @@ export class LeaveComponent implements OnInit {
       console.log("successCode");
     } else {
       //Handle update article
-      let userType = new Leave(this.articleIdToUpdate, employee, subject, fromDate, toDate, leavetype);
+      let userType = new Leave(this.leaveIdToUpdate, employee, subject, fromDate, toDate, leavetype);
       this.leaveService.updateLeave(userType)
         .subscribe(successCode => {
           let message = successCode.message;
@@ -114,7 +114,7 @@ export class LeaveComponent implements OnInit {
     this.leaveService.getLeaveById(id)
       .subscribe(data => {
 
-        this.articleIdToUpdate = data.id;
+        this.leaveIdToUpdate = data.id;
         this.leaveForm.setValue({ employee: data.employee, subject: data.subject, fromDate: data.fromDate, toDate: data.toDate,leavetype: data.leavetype });
 
         this.processValidation = true;
@@ -128,7 +128,7 @@ export class LeaveComponent implements OnInit {
     this.requestProcessing = true;
   }
   backToCreateArticle() {
-    this.articleIdToUpdate = null;
+    this.leaveIdToUpdate = null;
     this.leaveForm.reset();
     this.processValidation = false;
   }

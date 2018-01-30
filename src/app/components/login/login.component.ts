@@ -53,6 +53,7 @@ export class LoginComponent implements OnInit {
 
   redirectToHomePage() {
     this.router.navigate(['/home']);
+    return true;
   }
    myFunction() {
     var x = document.getElementById("snackbar")

@@ -13,7 +13,7 @@ export class LeavetypeComponent implements OnInit {
   allLeavetypes: LeaveType[];
   statusCode: number;
   requestProcessing = false;
-  articleIdToUpdate = null;
+  leaveTypeIdToUpdate = null;
   processValidation = false;
   collection = [];
   toastMessage:string;
@@ -38,7 +38,7 @@ export class LeavetypeComponent implements OnInit {
     this.preProcessConfigurations();
     let name = this.leavetypeForm.get('name').value.trim();
    
-    if (this.articleIdToUpdate === null) {
+    if (this.leaveTypeIdToUpdate === null) {
 
       let leaveType = new LeaveType(null, name);
       this.leavetypeService.createLeaveType(leaveType)
@@ -52,7 +52,7 @@ export class LeavetypeComponent implements OnInit {
       console.log("successCode");
     } else {
       //Handle update article
-      let leaveType = new LeaveType(this.articleIdToUpdate, name);
+      let leaveType = new LeaveType(this.leaveTypeIdToUpdate, name);
       this.leavetypeService.updateLeaveType(leaveType)
         .subscribe(successCode => {
           let message = successCode.message;
@@ -80,7 +80,7 @@ export class LeavetypeComponent implements OnInit {
     this.leavetypeService.getLeaveTypeById(id)
       .subscribe(leaveType => {
 
-        this.articleIdToUpdate = leaveType.id;
+        this.leaveTypeIdToUpdate = leaveType.id;
         this.leavetypeForm.setValue({ name: leaveType.name});
         
         this.processValidation = true;
@@ -94,7 +94,7 @@ export class LeavetypeComponent implements OnInit {
     this.requestProcessing = true;
   }
   backToCreateArticle() {
-    this.articleIdToUpdate = null;
+    this.leaveTypeIdToUpdate = null;
     this.leavetypeForm.reset();
     this.processValidation = false;
   }

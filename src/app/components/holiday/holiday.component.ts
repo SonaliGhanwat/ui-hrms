@@ -12,7 +12,7 @@ export class HolidayComponent implements OnInit {
   allHolidayList: Holiday[];
   statusCode: number;
   requestProcessing = false;
-  articleIdToUpdate = null;
+  holidayIdToUpdate = null;
   processValidation = false;
   collection = [];
   toastMessage:string;
@@ -39,7 +39,7 @@ export class HolidayComponent implements OnInit {
     this.preProcessConfigurations();
     let holidayName = this.holidayForm.get('holidayName').value.trim();
     let holidayDate = this.holidayForm.get('holidayDate').value.trim();
-    if (this.articleIdToUpdate === null) {
+    if (this.holidayIdToUpdate === null) {
 
       let userType = new Holiday(null, holidayName, holidayDate);
       this.holidayService.createHoliday(userType)
@@ -53,7 +53,7 @@ export class HolidayComponent implements OnInit {
       console.log("successCode");
     } else {
       
-      let holiday = new Holiday(this.articleIdToUpdate, holidayName, holidayDate);
+      let holiday = new Holiday(this.holidayIdToUpdate, holidayName, holidayDate);
       this.holidayService.updateHoliday(holiday)
         .subscribe(successCode => {
           let message = successCode.message;
@@ -81,7 +81,7 @@ export class HolidayComponent implements OnInit {
     this.holidayService.getHolidayById(id)
       .subscribe(holiday => {
 
-        this.articleIdToUpdate = holiday.id;
+        this.holidayIdToUpdate = holiday.id;
         this.holidayForm.setValue({ holidayName: holiday.holidayName, holidayDate: holiday.holidayDate });
         console.log("usertypeName", holiday.holidayName);
         this.processValidation = true;
@@ -95,7 +95,7 @@ export class HolidayComponent implements OnInit {
     this.requestProcessing = true;
   }
   backToCreateArticle() {
-    this.articleIdToUpdate = null;
+    this.holidayIdToUpdate = null;
     this.holidayForm.reset();
     this.processValidation = false;
   }

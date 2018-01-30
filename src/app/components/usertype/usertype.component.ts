@@ -18,9 +18,8 @@ export class UsertypeComponent implements OnInit {
   allUsertypes: UserType[]
   statusCode: number;
   requestProcessing = false;
-  articleIdToUpdate = null;
+  userTypeIdToUpdate = null;
   processValidation = false;
- 
   toastMessage:string;
    UserType: string = 'usertypeName';
   
@@ -49,7 +48,7 @@ export class UsertypeComponent implements OnInit {
     this.preProcessConfigurations();
     let usertypeName = this.usertypeForm.get('usertypeName').value.trim();
     let description = this.usertypeForm.get('description').value.trim();
-    if (this.articleIdToUpdate === null) {
+    if (this.userTypeIdToUpdate === null) {
 
       let userType = new UserType(null, usertypeName, description);
       this.usertypeService.createUserType(userType)
@@ -64,7 +63,7 @@ export class UsertypeComponent implements OnInit {
       console.log("successCode");
     } else {
       //Handle update article
-      let userType = new UserType(this.articleIdToUpdate, usertypeName, description);
+      let userType = new UserType(this.userTypeIdToUpdate, usertypeName, description);
       this.usertypeService.updateUserType(userType)
         .subscribe(successCode => {
           let message = successCode.message;
@@ -92,7 +91,7 @@ export class UsertypeComponent implements OnInit {
     this.usertypeService.getUserTypeById(id)
       .subscribe(userType => {
 
-        this.articleIdToUpdate = userType.id;
+        this.userTypeIdToUpdate = userType.id;
         this.usertypeForm.setValue({ usertypeName: userType.usertypeName, description: userType.description });
         console.log("usertypeName", userType.usertypeName);
         this.processValidation = true;
@@ -107,7 +106,7 @@ export class UsertypeComponent implements OnInit {
     this.requestProcessing = true;
   }
   backToCreateArticle() {
-    this.articleIdToUpdate = null;
+    this.userTypeIdToUpdate = null;
     this.usertypeForm.reset();
     this.processValidation = false;
   }

@@ -13,7 +13,7 @@ export class DesignationComponent implements OnInit {
   allDesignation: Designation[];
   statusCode: number;
   requestProcessing = false;
-  articleIdToUpdate = null;
+  designationIdToUpdate = null;
   processValidation = false;
   collection=[];
   toastMessage:string;
@@ -42,7 +42,7 @@ export class DesignationComponent implements OnInit {
     let band = this.designationForm.get('band').value;
     let level = this.designationForm.get('level').value;
     
-    if (this.articleIdToUpdate === null) {
+    if (this.designationIdToUpdate === null) {
       let userType = new Designation(null, name, band, level);
       this.designationService.createDesignation(userType)
         .subscribe(successCode => {
@@ -55,7 +55,7 @@ export class DesignationComponent implements OnInit {
       console.log("successCode");
     } else {
       //Handle update article
-      let designation = new Designation(this.articleIdToUpdate,name, band, level);
+      let designation = new Designation(this.designationIdToUpdate,name, band, level);
       this.designationService.updateDesignation(designation)
         .subscribe(successCode => {
           let message = successCode.message;
@@ -83,7 +83,7 @@ export class DesignationComponent implements OnInit {
     this.designationService.getDesignationById(id)
       .subscribe(designation => {
 
-        this.articleIdToUpdate = designation.id;
+        this.designationIdToUpdate = designation.id;
         this.designationForm.setValue({ name: designation.name, band: designation.band, level: designation.level });
 
         this.processValidation = true;
@@ -97,7 +97,7 @@ export class DesignationComponent implements OnInit {
     this.requestProcessing = true;
   }
   backToCreateArticle() {
-    this.articleIdToUpdate = null;
+    this.designationIdToUpdate = null;
     this.designationForm.reset();
     this.processValidation = false;
   }
