@@ -5,19 +5,19 @@
         </span>
         <i id="nav-toggle" style="font-size: 20px;margin-left: 150px">&#x1F50D;</i>
         <input type="search" class="ZPselect" id="zpeople_search_box" placeholder="Search Employee" value="" name="Search">
-        <img style="height: 44px ; margin-left: 620px;" src="https://contacts.zoho.com/file?ID=654944339&amp;fs=thumb" empid="401583000000111005"
-            imgtype="thumb" aria-expanded="false">
+
+        <button type="button"  class="btn btn-secondary logoutbtn " data-dismiss="modal" (click)="redirectToLoginPage()"><span style="color: white">LogOut</span></button>
     </div>
 </div>
-<div id="myDIV" class="sidenav " >
+<div id="myDIV" class="sidenav ">
     <ul style="    margin-left: -40px;margin-top: -20px;">
         <div class="dropbtn " (click)="isActive = true" *ngFor="let n of menuList" (click)="select(n.name);" [ngClass]="{active: isSelect(n.name)}">
             <li style="padding: 10px 25px">{{n.name}}
                 <span class="down downarrow"></span>
             </li>
-            <div class="drop dropdown-content" >
-                <li *ngFor="let child of n.subMenu" (click)="select(child.link);"[ngClass]="{active: isSelect(child.name)}" >
-                    <div  [routerLink]="(child.link)">{{child.name}}</div>
+            <div class="drop dropdown-content">
+                <li *ngFor="let child of n.subMenu" (click)="select(child.link);" [ngClass]="{active: isSelect(child.name)}">
+                    <div [routerLink]="(child.link)">{{child.name}}</div>
                 </li>
             </div>
         </div>

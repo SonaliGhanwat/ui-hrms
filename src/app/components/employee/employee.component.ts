@@ -110,7 +110,7 @@ export class EmployeeComponent implements OnInit {
     let employeetypeId = this.employeeForm.get('employeetype').value.trim();
     let employeetype = parseInt(employeetypeId);
     console.log("employeetype", employeetype);
-    let reportToId = this.employeeForm.get('reportto').value.trim();
+    let reportToId = this.employeeForm.get('reportTo').value.trim();
     let reportTo = parseInt(reportToId);
     console.log("reportTo", reportTo);
     let designationId = this.employeeForm.get('designation').value.trim();

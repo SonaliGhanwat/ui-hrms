@@ -64,7 +64,7 @@
           <div class="row" style="    margin-top: 30px">
             <div class=" form-group col-lg-6" style="margin-left: 35px;">
               <label class="label-name ">{{ 'EmployeeId' | translate }}</label>
-              <select class="loginUserid" id="employee" >
+              <select class="loginUserid" formControlName="employee" >
                 <option *ngFor=" let employee of allEmployee" [value]="employee.id">
                   {{employee.userid}}
                 </option>
@@ -82,7 +82,7 @@
           </div>
           <div class="row" style="    margin-top: 30px">
             <div class=" form-group col-lg-6" style="margin-left: 35px;">
-              <label class="label-name ">{{ 'Outtime' | translate }}</label>
+              <label class="label-name ">{{ 'OutTime' | translate }}</label>
               <br>
               <input type="time" step="0" formControlName="outtime" class="loginUserid" (blur)="timeValidation();" (change)="timeValidation();">
               <app-control-messages [control]="attendanceForm.controls.outtime"></app-control-messages>

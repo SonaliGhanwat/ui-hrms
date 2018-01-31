@@ -17,12 +17,13 @@ export class EmployeeTypeComponent implements OnInit {
   processValidation = false;
   collection=[];
   toastMessage:string;
+  totalLeav:any;
   constructor(private commonService:CommonService,private employeetypeService: EmployeetypeService, private formBuilder: FormBuilder) { }
   employeetypeForm = this.formBuilder.group({
     'type': ['', ([Validators.required])],
     'seekLeave': ['', [Validators.required]],
     'paidLeave': ['', [Validators.required]],
-    'totalLeave': ['', [Validators.required]],
+    //'totalLeave': ['', [Validators.required]],
 
 
   });
@@ -41,9 +42,13 @@ export class EmployeeTypeComponent implements OnInit {
     let type = this.employeetypeForm.get('type').value.trim();
     let seekLeave = this.employeetypeForm.get('seekLeave').value;
     let paidLeave = this.employeetypeForm.get('paidLeave').value;
-    let totalLeave = this.employeetypeForm.get('totalLeave').value;
+    console.log("userType:",paidLeave)
+    let totalLeave1 = sessionStorage.getItem("totalleaves");
+    console.log("userType:",totalLeave1)
+    let totalLeave = parseInt(totalLeave1)
     if (this.employeeTypeIdToUpdate === null) {
       let userType = new EmployeeType(null, type, seekLeave, paidLeave, totalLeave);
+      console.log("userType:",userType)
       this.employeetypeService.createEmployeeType(userType)
         .subscribe(successCode => {
           let message = successCode.message;
@@ -90,6 +95,19 @@ export class EmployeeTypeComponent implements OnInit {
         this.requestProcessing = false;
       },
       errorCode => this.statusCode = errorCode);
+  }
+  totalLeave(){
+    let seekLeave = this.employeetypeForm.get('seekLeave').value;
+    console.log("seekLeave:",seekLeave);
+    let paidLeave = this.employeetypeForm.get('paidLeave').value;
+    let total = seekLeave+paidLeave;
+    console.log("total:",total)
+    this.totalLeav=total;
+    console.log("this.totalLeav",this.totalLeav)
+    let leave = document.getElementById("totalLeave").innerHTML=this.totalLeav;
+    console.log("leave:",leave)
+    sessionStorage.setItem("totalleaves", leave)
+    console.log("sessionStorage:",sessionStorage)
   }
 
   preProcessConfigurations() {

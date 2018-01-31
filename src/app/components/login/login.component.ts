@@ -40,8 +40,13 @@ export class LoginComponent implements OnInit {
     this.loginService.post(loginModel).subscribe(data => {
       let message = data.message;
        this.toastMessage = message;
-      console.log("data", message);
-      this.redirectToHomePage();
+       let code = data.code;
+       if(code===1){
+        this.toastMessage = message;
+       }else if(code===0){
+        this.toastMessage = message;
+        this.redirectToHomePage();  
+       }
     });
   }
   preProcessConfigurations() {
@@ -55,7 +60,7 @@ export class LoginComponent implements OnInit {
     this.router.navigate(['/home']);
     return true;
   }
-   myFunction() {
+   toastMessageDisplay() {
     var x = document.getElementById("snackbar")
     x.className = "show";
     setTimeout(function(){ x.className = x.className.replace("show", ""); }, 9000);

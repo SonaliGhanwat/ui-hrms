@@ -68,7 +68,10 @@ export class HomeComponent implements OnInit {
   isSelect(item) {
     return this.selected === item;
   }
-
+  redirectToLoginPage() {
+    this.router.navigate(['/login']);
+    return true;
+  }
   ngOnInit() {
   }
 

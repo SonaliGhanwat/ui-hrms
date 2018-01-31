@@ -293,4 +293,9 @@ ul li{cursor:pointer;}
     width: 230px;
     margin-top: -10px;
  }
- 
+ .logoutbtn{
+    width: 110px;
+    height: 41px;
+    margin-left: 570px;
+    background-color: #111111e8
+ }

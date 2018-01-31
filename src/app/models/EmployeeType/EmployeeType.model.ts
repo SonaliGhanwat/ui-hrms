@@ -4,6 +4,6 @@ export class EmployeeType{
         public type:string,
         public seekLeave:number,
         public paidLeave:number,
-        public totalLeave:number
+        public totalLeave:any
     ){}
 }

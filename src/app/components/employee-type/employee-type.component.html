@@ -65,7 +65,6 @@
                 placeholder="Employeetype">
               <app-control-messages [control]="employeetypeForm.controls.type"></app-control-messages>
             </div>
-
             <div class="col-lg-offset-5">
               <div class=" form-group col-lg-6">
                 <label class="label-name "> {{ 'SeekLeave' | translate }}</label>
@@ -83,13 +82,12 @@
                 class="loginUserid" placeholder="Paid Leave">
               <app-control-messages [control]="employeetypeForm.controls.paidLeave"></app-control-messages>
             </div>
-
             <div class="col-lg-offset-5">
               <div class=" form-group col-lg-6">
-                <label class="label-name "> {{ 'TotalLeave' | translate }}</label>
-                <input type="number"  formControlName="totalLeave" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-                  class="loginUserid" placeholder="Total Leave">
-                <app-control-messages [control]="employeetypeForm.controls.totalLeave"></app-control-messages>
+                <label class="label-name "> {{ 'TotalLeave' | translate }}</label>               
+                <span type="number"  id="totalLeave" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                  class="loginUserid" placeholder="Total Leave" (click)="totalLeave()" (blur)="totalLeave()" >
+                  </span>              
               </div>
             </div>
           </div>
