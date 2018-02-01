@@ -9,7 +9,7 @@
         <button type="button"  class="btn btn-secondary logoutbtn " data-dismiss="modal" (click)="redirectToLoginPage()"><span style="color: white">LogOut</span></button>
     </div>
 </div>
-<div id="myDIV" class="sidenav ">
+<div id="myDIV" class="sidenav " (click)=" toastMessageDisplay()">
     <ul style="    margin-left: -40px;margin-top: -20px;">
         <div class="dropbtn " (click)="isActive = true" *ngFor="let n of menuList" (click)="select(n.name);" [ngClass]="{active: isSelect(n.name)}">
             <li style="padding: 10px 25px">{{n.name}}
@@ -23,4 +23,6 @@
         </div>
     </ul>
 </div>
+
+<div  id="toastbar"[innerHTML]="toast"></div>
 <router-outlet></router-outlet>

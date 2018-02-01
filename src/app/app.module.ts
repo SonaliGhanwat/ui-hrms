@@ -7,6 +7,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate';
 import { Ng2OrderModule } from 'ng2-order-pipe';
 import {DataTableModule} from "angular2-datatable";
+import { NgIdleKeepaliveModule } from '@ng-idle/keepalive'; 
+import { MomentModule } from 'angular2-moment'; 
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import {Ng2PaginationModule} from 'ng2-pagination';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -66,6 +69,9 @@ import{CommonService} from './services/common service/common.service'
     BrowserAnimationsModule,
     DataTableModule,
     Ng2PaginationModule,
+    NgIdleKeepaliveModule.forRoot(),
+    MomentModule,
+    HttpClientModule,
     TranslateModule.forRoot({
       provide: TranslateLoader,
       useFactory: (http: Http) => new TranslateStaticLoader(http, '/assets/i18n', '.json'),

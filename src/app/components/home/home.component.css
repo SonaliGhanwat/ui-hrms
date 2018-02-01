@@ -299,3 +299,25 @@ ul li{cursor:pointer;}
     margin-left: 570px;
     background-color: #111111e8
  }
+ #toastbar {
+    z-index: 1;
+    visibility: hidden;
+    min-width: 450px;
+    margin-left: 100px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    top: -70px;
+    left: 50%;
+    font-size: 17px;
+}
+
+#toastbar.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}

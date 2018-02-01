@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+
 import { HolidayService } from '../../services/Holiday/holiday.service';
 import { Holiday } from '../../models/Holiday/Holiday.model';
 import{CommonService} from '../../services/common service/common.service'
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-holiday',
   templateUrl: './holiday.component.html',
@@ -16,7 +18,7 @@ export class HolidayComponent implements OnInit {
   processValidation = false;
   collection = [];
   toastMessage:string;
-
+ 
   constructor(private commonService:CommonService,private holidayService: HolidayService, private formBuilder: FormBuilder) { }
   holidayForm   = this.formBuilder.group({
     'holidayName': ['',([Validators.required])],
@@ -102,4 +104,5 @@ export class HolidayComponent implements OnInit {
   toastMessageDisplay(){
     this.commonService.displayMessage();
    }
+  
 }

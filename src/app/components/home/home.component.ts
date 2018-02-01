@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {Idle, DEFAULT_INTERRUPTSOURCES} from '@ng-idle/core';
+import {Keepalive} from '@ng-idle/keepalive';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +14,10 @@ export class HomeComponent implements OnInit {
   show: boolean = false;
   menuList: any;
   selected: any;
-  constructor(private router: Router) {
+  idleState : any;
+  //timedOut = false; 
+  toast:string;
+  constructor(private router: Router,private idle: Idle, private keepalive: Keepalive,) {
 
     this.menuList = [{
       "name": "Employee",
@@ -60,6 +65,25 @@ export class HomeComponent implements OnInit {
         "link": "/holiday"
       }]
     }]
+
+    idle.setIdle(5);
+    idle.setTimeout(10);
+    idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
+ 
+    idle.onTimeout.subscribe(() => {
+      this.idleState = 'Timed out! Please Login Again';
+     
+     
+      this.router.navigate(['/login']);
+      
+      this.toast = this.idleState;
+      alert(this.toast);
+      document.getElementById("toastbar").innerHTML=this.toast;
+       console.log("this.toastMessag:", this.toast)
+      
+    });
+
+    this.idle.watch();
   }
   select(item) {
     this.selected = (this.selected === item ? null : item);
@@ -74,5 +98,10 @@ export class HomeComponent implements OnInit {
   }
   ngOnInit() {
   }
-
+ 
+  toastMessageDisplay() {
+    var x = document.getElementById("toastbar")
+    x.className = "show";
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 9000);
+}
 }
