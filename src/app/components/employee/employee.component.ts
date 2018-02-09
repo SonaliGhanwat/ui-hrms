@@ -183,7 +183,6 @@ export class EmployeeComponent implements OnInit {
     this.preProcessConfigurations();
     this.employeeService.getEmployeeById(id)
       .subscribe(data => {
-
         this.employeeIdToUpdate = data.id;
        
         this.employeeForm.setValue({
@@ -200,7 +199,7 @@ export class EmployeeComponent implements OnInit {
           salary: data.salary,
           employeetype: data.employeetype,
           usertype: data.usertype,
-          designation: data.designation,
+          designation: data.designation,     
           reportTo: data.reportTo
         });
 

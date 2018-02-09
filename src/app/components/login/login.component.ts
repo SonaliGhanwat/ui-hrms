@@ -37,6 +37,7 @@ export class LoginComponent implements OnInit {
     let userid = this.userForm.get('userid').value.trim();
     let password = this.userForm.get('password').value.trim();
     let loginModel = new LoginModel(userid, password);
+    localStorage.setItem("userid", userid);
     this.loginService.post(loginModel).subscribe(data => {
       let message = data.message;
        this.toastMessage = message;

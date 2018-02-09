@@ -176,7 +176,6 @@
           <div class="row" style="    margin-top: 30px">
             <div class=" form-group col-lg-6" style="margin-left: 35px;">
               <label class="label-name ">{{ 'ReportTo' | translate }}</label>
-             
               <select class="loginUserid" formControlName="reportTo" >
                 <option *ngFor=" let employee of allEmployee" [value]="employee.id">
                   {{employee.userid}}

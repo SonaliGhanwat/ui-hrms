@@ -33,12 +33,10 @@
           </div>
           <div>
             <button type="submit" class=" btncolor" [disabled]="!userForm.valid" (click)="toastMessageDisplay()">{{ 'SignIn' | translate }}</button>
-
           </div>
         </div>
       </div>
     </div>
-
   </div>
 </form>
 <div style="margin-right: -50px" id="snackbar"[innerHTML]="toastMessage"></div>

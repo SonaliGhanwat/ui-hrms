@@ -7,7 +7,7 @@ import 'rxjs/add/operator/catch';
 import { LoginModel } from '../../models/login/login.model';
 @Injectable()
 export class LoginService {
-  loginUrl = "http://192.168.1.5:8085/HRMS/employee/login";
+  loginUrl = "http://192.168.1.6:8085/HRMS/employee/login";
 
   constructor(private http:Http) { }
 

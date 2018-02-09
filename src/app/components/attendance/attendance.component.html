@@ -55,16 +55,16 @@
   <form [formGroup]="attendanceForm" (ngSubmit)="onEmployeeAttendanceFormSubmit()">
     <div class="modal-dialog modaldialog">
       <div id="snackbar" [innerHTML]="toastMessage"></div>
-      <div class="modal-content" style="    height: 500px;">
+      <div class="modal-content">
         <div class="modal-header dialog">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h2 class="modal-title modaltitle">{{"Add New Attendance" |translate}}</h2>
         </div>
         <div class="modal-body">
-          <div class="row" style="    margin-top: 30px">
+          <div class="row" style="margin-top: 30px">
             <div class=" form-group col-lg-6" style="margin-left: 35px;">
               <label class="label-name ">{{ 'EmployeeId' | translate }}</label>
-              <select class="loginUserid" formControlName="employee" >
+              <select class="loginUserid" formControlName="employee">
                 <option *ngFor=" let employee of allEmployee" [value]="employee.id">
                   {{employee.userid}}
                 </option>
@@ -91,8 +91,8 @@
             <div class="col-lg-offset-5">
               <div class=" form-group col-lg-6">
                 <label class="label-name "> {{ 'Date' | translate }}</label>
-                <input type="date" formControlName="date" class="loginUserid"  >
-                <app-control-messages [control]="attendanceForm.controls.date" ></app-control-messages>
+                <input type="date" formControlName="date" class="loginUserid">
+                <app-control-messages [control]="attendanceForm.controls.date"></app-control-messages>
               </div>
             </div>
           </div>

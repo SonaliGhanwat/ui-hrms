@@ -21,10 +21,9 @@ export class AttendanceComponent implements OnInit {
   attendanceIdToUpdate = null;
   processValidation = false;
   selectedEntities: any[];
-  Attendance: string = 'status';
+  Attendance: string = 'date';
   collection = [];
   toastMessage: string;
-  //userid: any;
 
   constructor(private commonService: CommonService, private attendanceService: AttendanceService, private formBuilder: FormBuilder, private employeeService: EmployeeService) {
 
@@ -43,7 +42,6 @@ export class AttendanceComponent implements OnInit {
     this.getAllEmployeeList();
     this.commonService.onPreviousNextPage();
     this.timeValidation();
-
   }
 
   getAllAttendanceList() {
@@ -66,6 +64,7 @@ export class AttendanceComponent implements OnInit {
     console.log("employeeId:", employeeId)
     let employee = parseInt(employeeId);
     console.log("employee", employee);
+    
     let intime = this.attendanceForm.get('intime').value;
     if (intime.split(":").length === 2) {
       intime = this.attendanceForm.get('intime').value + ':00';
@@ -91,7 +90,6 @@ export class AttendanceComponent implements OnInit {
         this.getAllAttendanceList();
         this.backToCreateArticle();
       });
-
     } else {
       //Handle update article
       let userType = new Attendance(this.attendanceIdToUpdate, employee, intime, outtime, date);
@@ -114,7 +112,7 @@ export class AttendanceComponent implements OnInit {
         this.backToCreateArticle();
         let message = successCode.message;
         this.toastMessage = message;
-        console.log("message", message)
+        console.log("message", message);
       },
       errorCode => this.statusCode = errorCode);
   }
@@ -129,7 +127,6 @@ export class AttendanceComponent implements OnInit {
         this.processValidation = true;
         this.requestProcessing = false;
       },
-
       errorCode => this.statusCode = errorCode);
   }
 
