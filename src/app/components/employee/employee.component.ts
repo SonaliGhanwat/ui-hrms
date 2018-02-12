@@ -10,6 +10,7 @@ import { DesignationService } from '../../services/Designation/designation.servi
 import { Designation } from '../../models/designation/Designation.model';
 import { ValidationService } from '../../services/validation.service';
 import { CommonService } from '../../services/common service/common.service'
+import { Cookie } from 'ng2-cookies/ng2-cookies';
 @Component({
   selector: 'app-employee',
   templateUrl: './employee.component.html',
@@ -122,6 +123,7 @@ export class EmployeeComponent implements OnInit {
       console.log("attendance0", attendance)
       this.employeeService.createEmployee(attendance)
         .subscribe(successCode => {
+        
           let message = successCode.message;
           this.toastMessage = message;
           this.getAllEmployee();

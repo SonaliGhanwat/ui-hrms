@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Attendance } from '../../models/Attendance/Attendance.model';
 import { BaseService } from '../base.service';
+import { Cookie } from 'ng2-cookies/ng2-cookies';
 @Injectable()
 export class AttendanceService extends BaseService {
 
@@ -14,7 +15,9 @@ export class AttendanceService extends BaseService {
     super(http);
   }
   getAllAttendance(): Observable<Attendance[]> {
-    return this.http.get(this.buidURL(this.attendanceUrl + this.list_url))
+    let myCookie = Cookie.get('url');
+    console.log("myCookie:",myCookie);
+    return this.http.get(this.buidURL(this.attendanceUrl + this.list_url),myCookie)   
       .map(this.extractData)
       .catch(this.handleError);
   }

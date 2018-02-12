@@ -23,7 +23,7 @@ export class ValidationService {
     }
     static passwordValidator(control) {
         console.log("control", control)
-        if (control.value.match(/^[a-zA-Z0-9!@#$%^&*]{6,100}$/)) {
+        if (control.value.match(/^[a-zA-Z0-9!@#$%^&*]{4,100}$/)) {
             return null;
         } else {
             return { 'invalidPassword': true };

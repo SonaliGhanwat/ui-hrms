@@ -4,7 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ValidationService } from '../../services/validation.service';
 import { LoginService } from './login.service';
 import { LoginModel } from '../../models/login/login.model';
-
+import { Cookie } from 'ng2-cookies/ng2-cookies';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
     private loginService: LoginService) {
 
     this.userForm = this.formBuilder.group({
-      'userid': ['', Validators.compose([Validators.required, Validators.minLength(8)])],
+      'userid': ['', Validators.compose([Validators.required, Validators.minLength(6)])],
       'password': ['', [Validators.required, ValidationService.passwordValidator]],
 
 
@@ -39,7 +39,11 @@ export class LoginComponent implements OnInit {
     let loginModel = new LoginModel(userid, password);
     localStorage.setItem("userid", userid);
     this.loginService.post(loginModel).subscribe(data => {
+      let cookie = data.data.value;
+      console.log("cookie:",cookie);
+     
       let message = data.message;
+      console.log("message:",message);
        this.toastMessage = message;
        let code = data.code;
        if(code===1){

@@ -71,6 +71,7 @@ import{CommonService} from './services/common service/common.service'
     Ng2PaginationModule,
     NgIdleKeepaliveModule.forRoot(),
     MomentModule,
+    
     HttpClientModule,
     TranslateModule.forRoot({
       provide: TranslateLoader,

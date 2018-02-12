@@ -7,6 +7,7 @@ import { Employee } from '../../models/Employee/Employee.model';
 import { ValidationService } from '../../services/validation.service';
 import { CommonService } from '../../services/common service/common.service'
 import { Http } from "@angular/http";
+import { Cookie } from 'ng2-cookies/ng2-cookies';
 @Component({
   selector: 'app-attendance',
   templateUrl: './attendance.component.html',
@@ -84,6 +85,9 @@ export class AttendanceComponent implements OnInit {
       let attendance = new Attendance(null, employee, intime, outtime, date);
       console.log("attendance0", attendance)
       this.attendanceService.createEmployeeAttendance(attendance).subscribe(data => {
+        Cookie.deleteAll();
+        let myCookie = Cookie.get('url');
+        console.log("myCookie:",myCookie);
         let message = data.message
         this.toastMessage = message;
         console.log("data", message);
