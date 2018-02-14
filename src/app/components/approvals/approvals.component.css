@@ -1,0 +1,16 @@
+.scroll {
+    margin-top: 50px;
+}
+.myapporvals{
+    margin-left: 80px;
+    margin-top: 70px;
+    cursor: pointer;
+    font-size: 15px;
+}
+.myrequest{
+    margin-left: 50px;
+    /* margin-top: -25px; */
+    cursor: pointer;
+    font-size: 15px;
+    margin-top: 20px;
+}

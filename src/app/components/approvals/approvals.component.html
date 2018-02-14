@@ -1,0 +1,23 @@
+<app-home></app-home>
+
+<div class=" main-class">
+  <div class="primary-container">
+    <header class="header">
+      <div class="heading4">{{'Approvals'|translate}}</div>
+    </header>
+    <div class="row" style="border-bottom: 1px solid #e9e9e9">
+        <button class="btn btn-primary adduser myrequest" type="button"   (click)="show=!show">{{'My Requests '|translate}}
+          </button>
+     
+    </div>
+    <div *ngIf="show">
+    <table class="table  table-hover ">
+      
+      <tr *ngFor="let leave of allLeave">
+        <td class="tablerow col-xs-1">{{leave.id}} </td>
+        <td class="tablerow col-xs-11">{{leave.employee.userid}}</td>   
+      </tr>
+    </table>
+  </div>
+  </div>
+</div>

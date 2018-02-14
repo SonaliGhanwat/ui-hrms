@@ -37,8 +37,9 @@ import { DailyTaskComponent } from './components/daily-task/daily-task.component
 import {DailytaskService}from './services/DailyTask/dailytask.service';
 import { LeaveComponent } from './components/leave/leave.component'
 import{LeaveService} from './services/Leave/leave.service'
-import{CommonService} from './services/common service/common.service'
-
+import{CommonService} from './services/common service/common.service';
+import { ApprovalsComponent } from './components/approvals/approvals.component'
+import { ApprovalsService } from './services/Approvals/approvals.service'
 
 
 
@@ -57,6 +58,7 @@ import{CommonService} from './services/common service/common.service'
     EmployeeComponent,
     DailyTaskComponent,
     LeaveComponent,
+    ApprovalsComponent,
   ],
   imports: [
     BrowserModule,
@@ -91,7 +93,8 @@ import{CommonService} from './services/common service/common.service'
     EmployeeService,
     DailytaskService,
     LeaveService,
-    CommonService
+    CommonService,
+    ApprovalsService
   ],
   bootstrap: [AppComponent]
 })

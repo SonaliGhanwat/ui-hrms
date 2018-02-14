@@ -24,8 +24,6 @@ export class LoginComponent implements OnInit {
     this.userForm = this.formBuilder.group({
       'userid': ['', Validators.compose([Validators.required, Validators.minLength(6)])],
       'password': ['', [Validators.required, ValidationService.passwordValidator]],
-
-
     });
   }
   onLoginFormSubmit() {
@@ -40,8 +38,9 @@ export class LoginComponent implements OnInit {
     localStorage.setItem("userid", userid);
     this.loginService.post(loginModel).subscribe(data => {
       let cookie = data.data.value;
-      console.log("cookie:",cookie);
-     
+     Cookie.set('cookieName', cookie)
+     let myCookie = Cookie.get('cookieName');
+      console.log("cookie:",myCookie);
       let message = data.message;
       console.log("message:",message);
        this.toastMessage = message;

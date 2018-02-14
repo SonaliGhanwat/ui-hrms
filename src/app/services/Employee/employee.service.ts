@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Employee } from '../../models/Employee/Employee.model';
 import { BaseService } from '../base.service';
-
+import { Cookie } from 'ng2-cookies/ng2-cookies';
 @Injectable()
 export class EmployeeService extends BaseService{
 
@@ -19,6 +19,8 @@ export class EmployeeService extends BaseService{
   }
   
   getAllEmployeeList(): Observable<Employee[]> {
+    let myCookie = Cookie.get('cookieName');
+    console.log("cookie:",myCookie);
     return this.http.get(this.buidURL(this.employeeUrl+this.list_url))
       .map(this.extractData)
       .catch(this.handleError);
@@ -56,7 +58,7 @@ export class EmployeeService extends BaseService{
   updateEmployee(employee: Employee):Observable<any> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
           let options = new RequestOptions({ headers: cpHeaders });
-          return this.http.put(this.buidURL(this.employeeUrl+this.update_url), employee, options)
+          return this.http.put(this.buidURL(this.employeeUrl+this.update_url), employee,this.getRequestOptions())
                  .map(success => success.json())
                  .catch(this.handleError);
       }
@@ -69,5 +71,13 @@ export class EmployeeService extends BaseService{
   protected handleError(error: Response | any) {
     console.error(error.message || error);
     return Observable.throw(error.status);
+  }
+ private getRequestOptions() {
+    let myCookie = Cookie.get('cookieName');
+    console.log("cookie:",myCookie);
+    let customHeaders: Headers = new Headers();
+    customHeaders.append('myHeaderName', myCookie);
+  
+    return new RequestOptions({headers: customHeaders, withCredentials: true});
   }
 }

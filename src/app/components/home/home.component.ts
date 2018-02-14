@@ -64,10 +64,16 @@ export class HomeComponent implements OnInit {
         "name": "Add Holiday",
         "link": "/holiday"
       }]
+    }, {
+      "name": "Approvals",
+      "subMenu": [{
+        "name": "Approval",
+        "link": "/approvals"
+      }]
     }]
 
     idle.setIdle(5);
-    idle.setTimeout(500);
+    idle.setTimeout(5000);
     idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
     idle.onTimeout.subscribe(() => {
       this.idleState = 'Timed out! Please Login Again';
