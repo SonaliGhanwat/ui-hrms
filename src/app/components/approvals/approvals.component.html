@@ -2,22 +2,43 @@
 
 <div class=" main-class">
   <div class="primary-container">
+
     <header class="header">
       <div class="heading4">{{'Approvals'|translate}}</div>
     </header>
     <div class="row" style="border-bottom: 1px solid #e9e9e9">
-        <button class="btn btn-primary adduser myrequest" type="button"   (click)="show=!show">{{'My Requests '|translate}}
-          </button>
-     
+      <button class="btn btn-primary adduser myrequest" type="button" (click)="show=!show">{{'My Requests '|translate}}
+      </button>
     </div>
+    <div style="margin-left: 700px;margin-top: -60px;">
+        <label   class="label-name "> {{ 'Select Status' | translate }}</label>
+      </div>
+      <select class="loginUserid selectstatus" (change)="onSelect($event.target.value)">
+        <option value="0">AllStatus</option>
+        <option *ngFor="let status of approvalStatus" [value]="status.id">{{status.name}}</option>
+      </select>
+
+
+    
+
     <div *ngIf="show">
-    <table class="table  table-hover ">
-      
-      <tr *ngFor="let leave of allLeave">
-        <td class="tablerow col-xs-1">{{leave.id}} </td>
-        <td class="tablerow col-xs-11">{{leave.employee.userid}}</td>   
-      </tr>
-    </table>
-  </div>
+      <div id="snackbar"[innerHTML]="toastMessage"></div>
+      <table class="table  table-hover table-bordered ">
+
+        <tr *ngFor="let leave of allLeave" [class.selected]="checkbox1.checked">
+          <td >{{leave.id}} </td>
+          <td >{{leave.employee.userid}}
+          </td>
+          <td>            
+          <input class="check"  #checkbox1 type="checkbox" value={{leave.id}} (change)="logCheckbox(checkbox1)">   
+        </td>
+        </tr>    
+      </table>
+   
+    <div class="savebtn">
+        <button type="submit" class="btn btn-secondary" style="width: 30%;" (click)="onSubmitApprovalStatus()" >{{'Save'|translate}}</button>
+       
+      </div>
+    </div>
   </div>
 </div>

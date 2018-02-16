@@ -85,7 +85,7 @@ export class LeaveComponent implements OnInit {
         errorCode => this.statusCode = errorCode);
       console.log("successCode");
     } else {
-      //Handle update article
+      //Handle update 
       let userType = new Leave(this.leaveIdToUpdate, employee, subject, fromDate, toDate, leavetype);
       this.leaveService.updateLeave(userType)
         .subscribe(successCode => {
