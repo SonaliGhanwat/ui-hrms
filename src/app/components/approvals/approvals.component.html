@@ -25,20 +25,38 @@
       <div id="snackbar"[innerHTML]="toastMessage"></div>
       <table class="table  table-hover table-bordered ">
 
-        <tr *ngFor="let leave of allLeave" [class.selected]="checkbox1.checked">
+        <tr *ngFor="let leave of allLeave ;let i = index" [class.selected]="checkbox1.checked" >
           <td >{{leave.id}} </td>
           <td >{{leave.employee.userid}}
           </td>
           <td>            
-          <input class="check"  #checkbox1 type="checkbox" value={{leave.id}} (change)="logCheckbox(checkbox1)">   
+          <input class="check"  #checkbox1 type="checkbox" value={{leave.id}} (change)="updateChecked(leave.id, $event)">   
         </td>
         </tr>    
       </table>
    
     <div class="savebtn">
-        <button type="submit" class="btn btn-secondary" style="width: 30%;" (click)="onSubmitApprovalStatus()" >{{'Save'|translate}}</button>
+        <button type="submit" class="btn btn-secondary" style="width: 30%;" (click)="onSubmitApprovalStatus();"data-toggle="modal" data-target="#myModal" >{{'Save'|translate}}</button>
        
       </div>
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="myModal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h3 class="modal-title" >Employee Attendance</h3>
+      </div>
+          <div class="modal-body">
+           <p id="response" style="font-size: 15px">Please Select Employee </p> 
+          </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+    
+  </div>
+</div> 

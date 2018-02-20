@@ -16,9 +16,10 @@ export class ApprovalsComponent implements OnInit {
   processValidation = false;
   statusCode: number;
   show = false;
-  log = '';
-  checkboxValue = '';
+  checkboxValue : any;
+  logvalue = '';
   toastMessage: string;
+   checked: string[] = [];
   approvalStatus = [
     { id: 1, name: "Pending" },
     { id: 2, name: "Approved" },
@@ -41,12 +42,13 @@ export class ApprovalsComponent implements OnInit {
   }
 
   onSubmitApprovalStatus() {
-
     let status = this.selectedStatus.name
     console.log("status:", status);
-    this.checkboxValue = this.log;
-    let check = `[${this.checkboxValue} ] `;
-    let empLeaveDtos = JSON.parse(check, )
+    this.checkboxValue = this.checked;
+    console.log("this.checkboxValue:", this.checkboxValue);
+    let check = `[${this.checkboxValue}]`;
+  // let empLeaveDtos1 = JSON.stringify(JSON.parse(check))
+    let empLeaveDtos = JSON.parse(check); 
     console.log("empLeaveDtos:", empLeaveDtos);
     let attendance = new Approval(status, empLeaveDtos);
     console.log("attendance0", attendance)
@@ -54,15 +56,42 @@ export class ApprovalsComponent implements OnInit {
       .subscribe(successCode => {
         let message = successCode.message;
         console.log("message", message);
-
+        document.getElementById("response").innerHTML = message;
+        this.getAllLeaveList();
       },
       errorCode => this.statusCode = errorCode);
     console.log("successCode");
   }
-  logCheckbox(element: HTMLInputElement): void {
-    this.log += `{"id":  ${element.value}}`;
-    console.log("this.log:", this.log)
+ /*logCheckbox(logid): void {
+   // this.log += `{"id":  ${element.value}}`;
+    console.log("logid:", logid) 
+    for (var i = 0; i < this.allLeave.length; i++) {
+      if (this.allLeave[i].id == logid) {
+        this.log = this.allLeave[i].id;
+        console.log("this.log:", this.log)
+        this.logvalue += `{"id":  ${this.log}}`
+        console.log("this.logvalue:", this.logvalue)
+      }
+    }
+  }*/
+  updateChecked(option, event) {
+    console.log('event.target.value ' + event.target.value);
+    var index = this.checked.indexOf(option);
+    console.log('index ' ,index);
+    if(event.target.checked) {
+      console.log('add');
+      if(index === -1) { 
+        this.checked.push(`{"id":  ${option}}`); 
+      }
+    } else {
+      console.log('remove');
+      if(index !== -1) {
+        this.checked.splice(index, 1);
+      }
+    }
+    console.log("this.logvalue:",this.checked);
   }
+
   onSelect(statusId) {
     //this.selectedStatus = null;
     for (var i = 0; i < this.approvalStatus.length; i++) {
