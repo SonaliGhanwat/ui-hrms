@@ -7,18 +7,21 @@ import 'rxjs/add/operator/catch';
 import { Leave} from '../../models/Leave/Leave.model';
 import { Approval } from '../../models/Approvals/Approval.model';
 import { BaseService } from '../base.service';
+import { Cookie } from 'ng2-cookies/ng2-cookies';
 @Injectable()
 export class ApprovalsService extends BaseService {
 
-  leaveUrl = "employeeleave/getEmployeeLeaveByStatus";
+  leaveUrl = "employeeleave/getEmployeeLeaveByStatus/";
   updateStatus = "employeeleave/statusUpdate"
-  
+  myCookie:any;
   constructor(protected http: Http) {
     super(http);
   }
   
   getAllLeaveByStatus(): Observable<Leave[]> {
-    return this.http.get(this.buidURL(this.leaveUrl))
+    this.myCookie = Cookie.get('cookieName');
+    console.log("cookie:",this.myCookie);
+    return this.http.get(this.buidURL(this.leaveUrl+this.myCookie))
       .map(this.extractData)
       .catch(this.handleError);
   }
@@ -32,6 +35,7 @@ export class ApprovalsService extends BaseService {
   }
   protected extractData(res: Response) {
     let body = res.json();
+    console.log("data:",body)
     return body;
   }
   protected handleError(error: Response | any) {

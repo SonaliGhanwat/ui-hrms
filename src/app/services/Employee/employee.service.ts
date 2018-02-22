@@ -13,15 +13,16 @@ export class EmployeeService extends BaseService{
   employeeUrl = "employee/";
  
   reportTo="http://localhost:8085/HRMS/designation/reportTo/"
- 
+  list_url="list/"
+  myCookie :any;
   constructor(protected http: Http) {
     super(http);
   }
   
   getAllEmployeeList(): Observable<Employee[]> {
-    let myCookie = Cookie.get('cookieName');
-    console.log("cookie:",myCookie);
-    return this.http.get(this.buidURL(this.employeeUrl+this.list_url))
+    this.myCookie = Cookie.get('cookieName');
+    console.log("cookie:",this.myCookie);
+    return this.http.get(this.buidURL(this.employeeUrl+this.list_url+this.myCookie))
       .map(this.extractData)
       .catch(this.handleError);
   }
@@ -58,7 +59,7 @@ export class EmployeeService extends BaseService{
   updateEmployee(employee: Employee):Observable<any> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
           let options = new RequestOptions({ headers: cpHeaders });
-          return this.http.put(this.buidURL(this.employeeUrl+this.update_url), employee,this.getRequestOptions())
+          return this.http.put(this.buidURL(this.employeeUrl+this.update_url), employee)
                  .map(success => success.json())
                  .catch(this.handleError);
       }
@@ -76,8 +77,9 @@ export class EmployeeService extends BaseService{
     let myCookie = Cookie.get('cookieName');
     console.log("cookie:",myCookie);
     let customHeaders: Headers = new Headers();
-    customHeaders.append('myHeaderName', myCookie);
-  
+    customHeaders.append('request', myCookie);
+  console.log("customHeaders:",customHeaders)
     return new RequestOptions({headers: customHeaders, withCredentials: true});
+    
   }
 }

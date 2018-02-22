@@ -27,7 +27,7 @@ export class EmployeeComponent implements OnInit {
   processValidation = false;
   collection = [];
   toastMessage: string;
-
+  selectMenu:Employee[];
   constructor(private employeeService: EmployeeService, private formBuilder: FormBuilder,
     private employeetypeService: EmployeetypeService, private usertypeService: UsertypeService,
     private designationService: DesignationService, private commonService: CommonService) { }
@@ -134,6 +134,7 @@ export class EmployeeComponent implements OnInit {
     } else {
       //Handle update article
       let userType = new Employee(this.employeeIdToUpdate, userid, password, firstName, lastName, phoneNumber, emailid, dateOfJoining, dateOfBirth, address, department, salary, reportTo, usertype, employeetype, designation);
+      console.log("userType:",userType)
       this.employeeService.updateEmployee(userType)
         .subscribe(successCode => {
           let message = successCode.message;
@@ -163,7 +164,10 @@ export class EmployeeComponent implements OnInit {
     console.log("designation", designation)
     this.preProcessConfigurations();
     this.employeeService.employeeForReportTo(designation)
-      .subscribe(successCode => {
+    .subscribe(
+      data => this.selectMenu = data.data,
+      errorCode => this.statusCode = errorCode);
+      /*.subscribe(successCode => {
         console.log("successCode:",successCode)
         let selectMenu="";
         //selectMenu+='<option value=""></option>'+"<br>";
@@ -178,7 +182,7 @@ export class EmployeeComponent implements OnInit {
         this.getAllEmployee();
         this.backToCreateArticle();
       },
-      errorCode => this.statusCode = errorCode);
+      errorCode => this.statusCode = errorCode);*/
 
   }
   loadEmployeeToEdit(id: string) {

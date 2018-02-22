@@ -15,7 +15,9 @@ export class ApprovalsComponent implements OnInit {
   requestProcessing = false;
   processValidation = false;
   statusCode: number;
-  show = false;
+  showSelected : boolean;
+  getStatus:any;
+  userid:any;
   checkboxValue : any;
   logvalue = '';
   toastMessage: string;
@@ -26,29 +28,31 @@ export class ApprovalsComponent implements OnInit {
     { id: 3, name: "Rejected" }
 
   ];
-  selectedStatus: any;
-  constructor(private approvalsService: ApprovalsService, private formBuilder: FormBuilder, private commonService: CommonService) { }
+  //selectedStatus: any;
+  constructor(private approvalsService: ApprovalsService, private formBuilder: FormBuilder, private commonService: CommonService) {
+    this.showSelected = true;
+   }
   
 
 
   ngOnInit() {
     this.getAllLeaveList()
+   
   }
   getAllLeaveList() {
     this.approvalsService.getAllLeaveByStatus()
-      .subscribe(
+    .subscribe(
       data => this.allLeave = data,
-      errorCode => this.statusCode = errorCode);
+      errorCode => this.statusCode = errorCode);    
   }
 
   onSubmitApprovalStatus() {
-    let status = this.selectedStatus.name
+    let status = this.getStatus;
     console.log("status:", status);
-    this.checkboxValue = this.checked;
-    console.log("this.checkboxValue:", this.checkboxValue);
-    let check = `[${this.checkboxValue}]`;
-  // let empLeaveDtos1 = JSON.stringify(JSON.parse(check))
-    let empLeaveDtos = JSON.parse(check); 
+    //this.checkboxValue = this.checked;
+   // console.log("this.checkboxValue:", this.checkboxValue);
+    let check = `[{"id":  ${this.userid }}]`;
+    let empLeaveDtos = JSON.parse(check);   
     console.log("empLeaveDtos:", empLeaveDtos);
     let attendance = new Approval(status, empLeaveDtos);
     console.log("attendance0", attendance)
@@ -73,9 +77,9 @@ export class ApprovalsComponent implements OnInit {
         console.log("this.logvalue:", this.logvalue)
       }
     }
-  }*/
+  }
   updateChecked(option, event) {
-    console.log('event.target.value ' + event.target.value);
+    console.log('option',option,);
     var index = this.checked.indexOf(option);
     console.log('index ' ,index);
     if(event.target.checked) {
@@ -94,13 +98,28 @@ export class ApprovalsComponent implements OnInit {
 
   onSelect(statusId) {
     //this.selectedStatus = null;
+    console.log("statusId:",statusId);
     for (var i = 0; i < this.approvalStatus.length; i++) {
       if (this.approvalStatus[i].id == statusId) {
         this.selectedStatus = this.approvalStatus[i];
         console.log("selectedStatus:", this.selectedStatus)
       }
     }
+  }*/
+  onSelect(statusId,option) {
+    this.getStatus = statusId
+    console.log(" this.status:", this.getStatus);
+    this.userid = option
+    console.log(" this.userid:", this.userid);
   }
+ ApproveButton(){
+    this.showSelected = true;
+   
+}
+RejectButton(){
+    this.showSelected = false;
+    
+}
   preProcessConfigurations() {
     this.statusCode = null;
     this.requestProcessing = true;

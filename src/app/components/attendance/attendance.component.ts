@@ -25,6 +25,8 @@ export class AttendanceComponent implements OnInit {
   Attendance: string = 'date';
   collection = [];
   toastMessage: string;
+  userid:any;
+  strValue:string = "sonali123";
 
   constructor(private commonService: CommonService, private attendanceService: AttendanceService, private formBuilder: FormBuilder, private employeeService: EmployeeService) {
 
@@ -126,8 +128,12 @@ export class AttendanceComponent implements OnInit {
       .subscribe(data => {
         console.log("employee:", data);
         this.attendanceIdToUpdate = data.id;
-        this.attendanceForm.setValue({ employee: data.employee.userid, intime: data.intime, outtime: data.outtime, date: data.date });
+        this.attendanceForm.setValue({employee:data.employee.userid, intime: data.intime, outtime: data.outtime, date: data.date });
         console.log("employee:", data.employee.userid);
+        this.userid = data.employee.userid
+      //let div=document.getElementById('employee');
+    // div.innerHTML=data.employee.userid;
+        //document.getElementsByClassName('demo')[0].innerHTML= data.employee.userid;
         this.processValidation = true;
         this.requestProcessing = false;
       },
@@ -142,6 +148,7 @@ export class AttendanceComponent implements OnInit {
     this.attendanceIdToUpdate = null;
     this.attendanceForm.reset();
     this.processValidation = false;
+    this.getAllAttendanceList();
   }
   toastMessageDisplay() {
     this.commonService.displayMessage();
