@@ -17,7 +17,6 @@ export class ApprovalsService extends BaseService {
   constructor(protected http: Http) {
     super(http);
   }
-  
   getAllLeaveByStatus(): Observable<any> {
     this.myCookie = Cookie.get('cookieName');
     console.log("cookie:",this.myCookie);

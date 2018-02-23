@@ -18,7 +18,6 @@ export class EmployeeService extends BaseService{
   constructor(protected http: Http) {
     super(http);
   }
-  
   getAllEmployeeList(): Observable<Employee[]> {
     this.myCookie = Cookie.get('cookieName');
     console.log("cookie:",this.myCookie);
