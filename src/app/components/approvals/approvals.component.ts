@@ -114,7 +114,7 @@ export class ApprovalsComponent implements OnInit {
     this.getStatus = statusId
     console.log(" this.status:", this.getStatus);
     this.userid = option
-    console.log(" this.userid:", this.userid);
+    //console.log(" this.userid:", this.userid);
   }
  
   preProcessConfigurations() {

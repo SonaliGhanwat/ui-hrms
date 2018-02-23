@@ -22,8 +22,7 @@
             <th class="col-xs-2">{{ 'No of leaves' | translate }}</th>
             <th class="col-xs-3">Action</th>
           </tr>
-        </thead>
-        
+        </thead>       
         <tr *ngFor="let leave of allLeave ;let i = index"  >         
           <td>{{leave.employee.userid}} </td>
           <td>{{leave.fromDate}}</td>
