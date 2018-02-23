@@ -10,18 +10,26 @@
       <button class="btn btn-primary adduser myrequest" type="button" >{{'My Requests '|translate}}
       </button>
     </div>
+  
    
-
-
-
-    <div>
       <div id="snackbar" [innerHTML]="toastMessage"></div>
       <table class="table  table-hover table-bordered ">
-
-        <tr *ngFor="let leave of allLeave ;let i = index"  >
-          
+        <thead>
+          <tr>          
+            <th class="col-xs-2">EmployeeId</th>
+            <th class="col-xs-2">{{ 'FromDate' | translate }}</th>
+            <th class="col-xs-2">{{ 'Todate' | translate }}</th>
+            <th class="col-xs-2">{{ 'No of leaves' | translate }}</th>
+            <th class="col-xs-3">Action</th>
+          </tr>
+        </thead>
+        
+        <tr *ngFor="let leave of allLeave ;let i = index"  >         
           <td>{{leave.employee.userid}} </td>
-          <td (click)="onSelect($event.target.value,leave.id );onSubmitApprovalStatus()">
+          <td>{{leave.fromDate}}</td>
+          <td >{{leave.toDate}}</td>
+          <td >{{leave.totalCount}}</td>
+          <td (click)="onSelect($event.target.value,leave.id );onSubmitApprovalStatus()" data-toggle="modal" data-target="#myModal">
           <div >
             <button type="button" class="btn btn-secondary" value="Approved"   >{{'Approved'|translate}}</button>
             <button type="button" style="margin-left: 30px;" class="btn btn-secondary" value="Reject" >{{'Rejected'|translate}}</button>
@@ -30,9 +38,9 @@
          
         </tr>
       </table>
-
+      <div id="data" class="norequest"></div>
      
-    </div>
+    
   </div>
 </div>
 

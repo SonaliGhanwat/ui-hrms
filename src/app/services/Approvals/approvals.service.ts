@@ -18,11 +18,11 @@ export class ApprovalsService extends BaseService {
     super(http);
   }
   
-  getAllLeaveByStatus(): Observable<Leave[]> {
+  getAllLeaveByStatus(): Observable<any> {
     this.myCookie = Cookie.get('cookieName');
     console.log("cookie:",this.myCookie);
     return this.http.get(this.buidURL(this.leaveUrl+this.myCookie))
-      .map(this.extractData)
+      .map(this.extractData,success => success.json())
       .catch(this.handleError);
   }
 

@@ -14,8 +14,7 @@ export class ApprovalsComponent implements OnInit {
   allLeave: Leave[];
   requestProcessing = false;
   processValidation = false;
-  statusCode: number;
-  showSelected : boolean;
+  statusCode: number
   getStatus:any;
   userid:any;
   checkboxValue : any;
@@ -29,9 +28,7 @@ export class ApprovalsComponent implements OnInit {
 
   ];
   //selectedStatus: any;
-  constructor(private approvalsService: ApprovalsService, private formBuilder: FormBuilder, private commonService: CommonService) {
-    this.showSelected = true;
-   }
+  constructor(private approvalsService: ApprovalsService, private formBuilder: FormBuilder, private commonService: CommonService) { }
   
 
 
@@ -42,8 +39,15 @@ export class ApprovalsComponent implements OnInit {
   getAllLeaveList() {
     this.approvalsService.getAllLeaveByStatus()
     .subscribe(
-      data => this.allLeave = data,
-      errorCode => this.statusCode = errorCode);    
+      data => {
+        this.allLeave = data.data
+        let code = data.code
+        console.log("code:",code)
+        if(code==1){
+           document.getElementById('data').innerHTML = "There is no any request for Leave Approval"
+        }
+      },
+      errorCode => this.statusCode = errorCode);      
   }
 
   onSubmitApprovalStatus() {
@@ -112,14 +116,7 @@ export class ApprovalsComponent implements OnInit {
     this.userid = option
     console.log(" this.userid:", this.userid);
   }
- ApproveButton(){
-    this.showSelected = true;
-   
-}
-RejectButton(){
-    this.showSelected = false;
-    
-}
+ 
   preProcessConfigurations() {
     this.statusCode = null;
     this.requestProcessing = true;
