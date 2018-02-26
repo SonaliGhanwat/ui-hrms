@@ -78,7 +78,6 @@ export class EmployeeService extends BaseService{
     let customHeaders: Headers = new Headers();
     customHeaders.append('request', myCookie);
   console.log("customHeaders:",customHeaders) 
-    return new RequestOptions({headers: customHeaders, withCredentials: true});
-    
+    return new RequestOptions({headers: customHeaders, withCredentials: true});    
   }
 }

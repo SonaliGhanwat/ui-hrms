@@ -21,20 +21,19 @@ export class ApprovalsComponent implements OnInit {
   logvalue = '';
   toastMessage: string;
    checked: string[] = [];
-  approvalStatus = [
+  /*(approvalStatus = [
     { id: 1, name: "Pending" },
     { id: 2, name: "Approved" },
     { id: 3, name: "Rejected" }
 
-  ];
+  ];*/
   //selectedStatus: any;
   constructor(private approvalsService: ApprovalsService, private formBuilder: FormBuilder, private commonService: CommonService) { }
   
 
 
   ngOnInit() {
-    this.getAllLeaveList()
-   
+    this.getAllLeaveList();
   }
   getAllLeaveList() {
     this.approvalsService.getAllLeaveByStatus()
@@ -44,7 +43,7 @@ export class ApprovalsComponent implements OnInit {
         let code = data.code
         console.log("code:",code)
         if(code==1){
-           document.getElementById('data').innerHTML = "There is no any request for Leave Approval"
+            document.getElementById('data').innerHTML = "There is no any request for Leave Approval";           
         }
       },
       errorCode => this.statusCode = errorCode);      
@@ -67,7 +66,7 @@ export class ApprovalsComponent implements OnInit {
         document.getElementById("response").innerHTML = message;
         this.getAllLeaveList();
       },
-      errorCode => this.statusCode = errorCode);
+    errorCode => this.statusCode = errorCode);
     console.log("successCode");
   }
  /*logCheckbox(logid): void {
