@@ -30,8 +30,6 @@ export class ApprovalsComponent implements OnInit {
   //selectedStatus: any;
   constructor(private approvalsService: ApprovalsService, private formBuilder: FormBuilder, private commonService: CommonService) { }
   
-
-
   ngOnInit() {
     this.getAllLeaveList();
   }

@@ -3,7 +3,7 @@ import { Http, Response, Headers, URLSearchParams, RequestOptions } from '@angul
 
 export class BaseService {
 
-    protected base_url = "http://192.168.1.6:8085/HRMS/";
+    protected base_url = "http://192.168.1.7:8085/HRMS/";
     protected create_url="create";
     protected list_url="list"
     protected delete_url="delete/"
