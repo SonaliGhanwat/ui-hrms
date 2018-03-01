@@ -128,11 +128,14 @@ export class AttendanceComponent implements OnInit {
       .subscribe(data => {
         console.log("employee:", data);
         this.attendanceIdToUpdate = data.id;
+       /* if(this.attendanceIdToUpdate !=null){
+          (document.getElementById('employee') as HTMLButtonElement).disabled = true;   
+        }*/
         this.attendanceForm.setValue({employee:data.employee.userid, intime: data.intime, outtime: data.outtime, date: data.date });
         console.log("employee:", data.employee.userid);
         this.userid = data.employee.userid
-      //let div=document.getElementById('employee');
-    // div.innerHTML=data.employee.userid;
+      let div=document.getElementById('employee');
+     div.innerHTML=data.employee.userid;
         //document.getElementsByClassName('demo')[0].innerHTML= data.employee.userid;
         this.processValidation = true;
         this.requestProcessing = false;

@@ -7,7 +7,7 @@ import 'rxjs/add/operator/catch';
 import { LoginModel } from '../../models/login/login.model';
 @Injectable()
 export class LoginService {
-  loginUrl = "http://192.168.1.7:8085/HRMS/employee/login";
+  loginUrl = "http://192.168.1.4:8085/HRMS/employee/login";
 
   constructor(private http:Http) { }
 
@@ -16,9 +16,7 @@ post(login: LoginModel):Observable<any> {
         let options = new RequestOptions({ headers: Headers1 });
         return this.http.post(this.loginUrl, login,options)
                .map(success => success.json())
-               .catch(this.handleError);
-               
-               
+               .catch(this.handleError);              
     }
 
     private handleError (error: Response | any) {
