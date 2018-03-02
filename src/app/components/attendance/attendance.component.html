@@ -65,7 +65,7 @@
             <div class=" form-group col-lg-6" style="margin-left: 35px;">
                
               <label class="label-name ">{{ 'EmployeeId' | translate }}</label>
-              <select class="loginUserid demo" formControlName="employee" id="employee" > 
+              <select class="loginUserid demo" formControlName="employee" name="employee" id="employee"   > 
                 <option *ngFor=" let employee of allEmployee" [value]="employee.id">
                   {{employee.userid}}
                 </option>

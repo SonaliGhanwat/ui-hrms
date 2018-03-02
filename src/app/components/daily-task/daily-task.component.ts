@@ -21,6 +21,7 @@ export class DailyTaskComponent implements OnInit {
   processValidation = false;
   collection=[];
   toastMessage:string;
+ 
   constructor(private commonService:CommonService,private dailytaskService: DailytaskService, private formBuilder: FormBuilder, private employeeService: EmployeeService) { }
   dailyTaskForm = this.formBuilder.group({
     'employee': ['', ([Validators.required])],
@@ -52,8 +53,9 @@ export class DailyTaskComponent implements OnInit {
   }
   onDailyTaskFormSubmit() {
     this.preProcessConfigurations();
-    let employeeId = this.dailyTaskForm.get('employee').value.trim();
+    let employeeId = ((document.getElementById("employee") as HTMLInputElement).value);
     let employee = parseInt(employeeId);
+    console.log("employee", employee);
     let date = this.dailyTaskForm.get('date').value;
     let taskName = this.dailyTaskForm.get('taskName').value;
     let estimationTime = this.dailyTaskForm.get('estimationTime').value;
@@ -118,14 +120,15 @@ export class DailyTaskComponent implements OnInit {
     this.preProcessConfigurations();
     this.dailytaskService.getDailyTaskById(id)
       .subscribe(dailyTask => {
+        console.log("employee:", dailyTask);
         this.dailyTaskIdToUpdate = dailyTask.id;
-        this.dailyTaskForm.setValue({ employee:dailyTask.employee, date: dailyTask.date, taskName: dailyTask.taskName, estimationTime: dailyTask.estimationTime, starttime: dailyTask.starttime, endtime: dailyTask.endtime, status: dailyTask.status, description: dailyTask.description });
+        this.dailyTaskForm.setValue({ employee:dailyTask.employee.id, date: dailyTask.date, taskName: dailyTask.taskName, estimationTime: dailyTask.estimationTime, starttime: dailyTask.starttime, endtime: dailyTask.endtime, status: dailyTask.status, description: dailyTask.description });
         this.processValidation = true;
         this.requestProcessing = false;
       },
       errorCode => this.statusCode = errorCode);
   }
-
+  
   preProcessConfigurations() {
     this.statusCode = null;
     this.requestProcessing = true;

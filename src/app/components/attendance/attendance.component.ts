@@ -25,9 +25,7 @@ export class AttendanceComponent implements OnInit {
   Attendance: string = 'date';
   collection = [];
   toastMessage: string;
-  userid:any;
-  strValue:string = "sonali123";
-
+  selectedEmployee:any;
   constructor(private commonService: CommonService, private attendanceService: AttendanceService, private formBuilder: FormBuilder, private employeeService: EmployeeService) {
 
   }
@@ -63,8 +61,9 @@ export class AttendanceComponent implements OnInit {
   }
   onEmployeeAttendanceFormSubmit() {
     this.preProcessConfigurations();
-    let employeeId = this.attendanceForm.get('employee').value.trim();
-    console.log("employeeId:", employeeId)
+   // let employeeId = this.attendanceForm.get('employee').value.trim();
+    //console.log("employeeId:", employeeId)
+    let employeeId = ((document.getElementById("employee") as HTMLInputElement).value);
     let employee = parseInt(employeeId);
     console.log("employee", employee);
     
@@ -131,18 +130,25 @@ export class AttendanceComponent implements OnInit {
        /* if(this.attendanceIdToUpdate !=null){
           (document.getElementById('employee') as HTMLButtonElement).disabled = true;   
         }*/
-        this.attendanceForm.setValue({employee:data.employee.userid, intime: data.intime, outtime: data.outtime, date: data.date });
+       
+       // this.userid = data.employee.userid
+        this.attendanceForm.setValue({employee:data.employee.id, intime: data.intime, outtime: data.outtime, date: data.date });
         console.log("employee:", data.employee.userid);
-        this.userid = data.employee.userid
-      let div=document.getElementById('employee');
-     div.innerHTML=data.employee.userid;
-        //document.getElementsByClassName('demo')[0].innerHTML= data.employee.userid;
         this.processValidation = true;
         this.requestProcessing = false;
       },
       errorCode => this.statusCode = errorCode);
   }
-
+  onSelect(employeeId) { 
+    this.selectedEmployee = null;
+    for (var i = 0; i < this.allEmployee.length; i++)
+    {
+      if (this.allEmployee[i].id == employeeId) {
+        this.selectedEmployee = this.allEmployee[i].id;
+        console.log("this.selectedCountry:",this.selectedEmployee)
+      }
+    }
+}
   preProcessConfigurations() {
     this.statusCode = null;
     this.requestProcessing = true;

@@ -105,16 +105,16 @@ export class EmployeeComponent implements OnInit {
     console.log("department", department);
     let salary = this.employeeForm.get('salary').value;
     console.log("salary", salary);
-    let usertypeId = this.employeeForm.get('usertype').value.trim();
+    let usertypeId = ((document.getElementById("userType") as HTMLInputElement).value);
     let usertype = parseInt(usertypeId);
     console.log("usertype", usertype);
-    let employeetypeId = this.employeeForm.get('employeetype').value.trim();
+    let employeetypeId = ((document.getElementById("employeetype") as HTMLInputElement).value);
     let employeetype = parseInt(employeetypeId);
     console.log("employeetype", employeetype);
-    let reportToId = this.employeeForm.get('reportTo').value.trim();
+    let reportToId = ((document.getElementById("reportTo") as HTMLInputElement).value);
     let reportTo = parseInt(reportToId);
     console.log("reportTo", reportTo);
-    let designationId = this.employeeForm.get('designation').value.trim();
+    let designationId = ((document.getElementById("designation") as HTMLInputElement).value);
     let designation = parseInt(designationId);
     console.log("designation", designation);
 
@@ -159,7 +159,7 @@ export class EmployeeComponent implements OnInit {
   }
 
   reportTo(designation: number) {
-    let designationId = this.employeeForm.get('designation').value.trim();
+    let designationId = ((document.getElementById("designation") as HTMLInputElement).value);
     designation = parseInt(designationId);
     console.log("designation", designation)
     this.preProcessConfigurations();
@@ -189,6 +189,7 @@ export class EmployeeComponent implements OnInit {
     this.preProcessConfigurations();
     this.employeeService.getEmployeeById(id)
       .subscribe(data => {
+        console.log("updateData:",data)
         this.employeeIdToUpdate = data.id;
        
         this.employeeForm.setValue({
@@ -203,16 +204,18 @@ export class EmployeeComponent implements OnInit {
           address: data.address,
           department: data.department,
           salary: data.salary,
-          employeetype: data.employeetype,
-          usertype: data.usertype,
-          designation: data.designation,     
+          employeetype: data.employeetype.id,
+          usertype: data.usertype.id,
+          designation: data.designation.id,     
           reportTo: data.reportTo
+          
         });
 
         this.processValidation = true;
         this.requestProcessing = false;
       },
       errorCode => this.statusCode = errorCode);
+      console.log("this.employeeForm:",this.employeeForm)
   }
 
   preProcessConfigurations() {
@@ -227,4 +230,13 @@ export class EmployeeComponent implements OnInit {
   toastMessageDisplay() {
     this.commonService.displayMessage();
   }
+  openModal() {
+    document.getElementById('modal').style.display = 'block';
+    document.getElementById('fade').style.display = 'block';
+}
+
+closeModal() {
+document.getElementById('modal').style.display = 'none';
+document.getElementById('fade').style.display = 'none';
+}
 }

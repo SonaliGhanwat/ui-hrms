@@ -136,7 +136,7 @@
           <div class="row" style="    margin-top: 30px">
             <div class=" form-group col-lg-6" style="margin-left: 35px;">
               <label class="label-name ">{{ 'EmployeeType' | translate }}</label>
-              <select class="loginUserid" formControlName="employeetype">
+              <select class="loginUserid" formControlName="employeetype" id="employeetype" name="employeetype">
                 <option *ngFor=" let employeetype of allEmployeetype" [value]="employeetype.id">
                   {{employeetype.type}}
                 </option>
@@ -155,7 +155,7 @@
           <div class="row" style="    margin-top: 30px">
             <div class=" form-group col-lg-6" style="margin-left: 35px;">
               <label class="label-name ">{{ 'User Type' | translate }}</label>
-              <select class="loginUserid" formControlName="usertype">
+              <select class="loginUserid" formControlName="usertype" id="userType" name="userType">
                 <option *ngFor=" let usertype of allUsertypes" [value]="usertype.id">
                   {{usertype.usertypeName}}
                 </option>
@@ -165,7 +165,7 @@
             <div class="col-lg-offset-5">
               <div class=" form-group col-lg-6">
                 <label class="label-name "> {{ 'Designation' | translate }}</label>
-                <select class="loginUserid" formControlName="designation">
+                <select class="loginUserid" formControlName="designation" id="designation" name="designation"> 
                   <option *ngFor=" let designation of allDesignation" [value]="designation.id">
                     {{designation.name}}
                   </option>
@@ -176,7 +176,7 @@
           <div class="row" style="    margin-top: 30px">
             <div class=" form-group col-lg-6" style="margin-left: 35px;">
               <label class="label-name ">{{ 'ReportTo' | translate }}</label>
-              <select class="loginUserid" formControlName="reportTo" (click)=reportTo() >
+              <select class="loginUserid" formControlName="reportTo" id="reportTo" name="reportTo" (click)=reportTo()  >
                 <option *ngFor=" let menu of selectMenu" [value]="menu.id">
                   {{menu.userid}}
                 </option>

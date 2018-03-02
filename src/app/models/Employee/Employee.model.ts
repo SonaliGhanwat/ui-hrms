@@ -12,9 +12,9 @@ export class Employee {
         public address: String,
         public department: String,
         public salary: String,
-        public reportTo: number,
-        public usertype: number,
-        public employeetype: number,
-        public designation: number
+        public reportTo: any,
+        public usertype: any,
+        public employeetype: any,
+        public designation: any
     ) { }
 }

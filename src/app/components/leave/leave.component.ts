@@ -24,6 +24,7 @@ export class LeaveComponent implements OnInit {
   processValidation = false;
   collection = [];
   toastMessage:string;
+ 
   constructor( private commonService:CommonService,private leaveService: LeaveService, private formBuilder: FormBuilder,
     private employeeService: EmployeeService, private leavetypeService: LeavetypeService) { }
   leaveForm = this.formBuilder.group({
@@ -64,8 +65,9 @@ export class LeaveComponent implements OnInit {
   }
   onLeaveFormSubmit() {
     this.preProcessConfigurations();
-    let employeeId = this.leaveForm.get('employee').value.trim();
+    let employeeId = ((document.getElementById("employee") as HTMLInputElement).value);
     let employee = parseInt(employeeId);
+    console.log("employee", employee);
     let subject = this.leaveForm.get('subject').value;
     let fromDate = this.leaveForm.get('fromDate').value;
     let toDate = this.leaveForm.get('toDate').value;
@@ -115,7 +117,7 @@ export class LeaveComponent implements OnInit {
       .subscribe(data => {
 
         this.leaveIdToUpdate = data.id;
-        this.leaveForm.setValue({ employee: data.employee, subject: data.subject, fromDate: data.fromDate, toDate: data.toDate,leavetype: data.leavetype });
+        this.leaveForm.setValue({ employee: data.employee.id, subject: data.subject, fromDate: data.fromDate, toDate: data.toDate,leavetype: data.leavetype });
 
         this.processValidation = true;
         this.requestProcessing = false;
@@ -135,6 +137,7 @@ export class LeaveComponent implements OnInit {
   toastMessageDisplay(){
     this.commonService.displayMessage();
    }
+  
    toDateValidation(){
     let fromDate = this.leaveForm.get('fromDate').value;
     let toDate = this.leaveForm.get('toDate').value;
