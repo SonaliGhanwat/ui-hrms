@@ -71,7 +71,7 @@ export class LeaveComponent implements OnInit {
     let subject = this.leaveForm.get('subject').value;
     let fromDate = this.leaveForm.get('fromDate').value;
     let toDate = this.leaveForm.get('toDate').value;
-    let leaveTypeId = this.leaveForm.get('leavetype').value.trim();
+    let leaveTypeId = ((document.getElementById("leavetype") as HTMLInputElement).value);
     let leavetype = parseInt(leaveTypeId);
 
     if (this.leaveIdToUpdate === null) {
@@ -117,7 +117,7 @@ export class LeaveComponent implements OnInit {
       .subscribe(data => {
 
         this.leaveIdToUpdate = data.id;
-        this.leaveForm.setValue({ employee: data.employee.id, subject: data.subject, fromDate: data.fromDate, toDate: data.toDate,leavetype: data.leavetype });
+        this.leaveForm.setValue({ employee: data.employee.id, subject: data.subject, fromDate: data.fromDate, toDate: data.toDate,leavetype: data.leavetype.id });
 
         this.processValidation = true;
         this.requestProcessing = false;

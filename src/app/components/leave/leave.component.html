@@ -95,7 +95,7 @@
           <div class="row" style="    margin-top: 30px">
             <div class=" form-group col-lg-6" style="margin-left: 35px;">
               <label class="label-name ">{{ 'LeaveType' | translate }}</label>
-              <select class="loginUserid" formControlName="leavetype">
+              <select class="loginUserid" formControlName="leavetype" name="leavetype" id="leavetype">
                 <option *ngFor=" let leavetype of allLeavetypes" [value]="leavetype.id" >
                   {{leavetype.name}}
                 </option>

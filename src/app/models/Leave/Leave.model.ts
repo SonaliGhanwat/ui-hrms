@@ -5,6 +5,6 @@ export class Leave{
         public subject:string,
         public fromDate:Date,
         public toDate:Date,
-        public leavetype:number
+        public leavetype:any
     ){}
 }

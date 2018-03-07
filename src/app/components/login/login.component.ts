@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,EventEmitter,Input, Output,} from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ValidationService } from '../../services/validation.service';
@@ -17,7 +17,8 @@ export class LoginComponent implements OnInit {
   statusCode: number;
   requestProcessing = false;
   toastMessage :string
-  
+  @Output() loggedIn = new EventEmitter<LoginModel>();
+  @Input() enabled = true;
   constructor(private formBuilder: FormBuilder, private router: Router,
     private loginService: LoginService) {
 
@@ -35,6 +36,8 @@ export class LoginComponent implements OnInit {
     let userid = this.userForm.get('userid').value.trim();
     let password = this.userForm.get('password').value.trim();
     let loginModel = new LoginModel(userid, password);
+    this.loggedIn.emit(new LoginModel(userid, password));
+    console.log("this.loggedIn:",this.loggedIn);
     localStorage.setItem("userid", userid);
     this.loginService.post(loginModel).subscribe(data => {
       let cookie = data.data.value;

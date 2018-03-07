@@ -7,10 +7,12 @@ import 'rxjs/add/operator/catch';
 import { LoginModel } from '../../models/login/login.model';
 @Injectable()
 export class LoginService {
-  loginUrl = "http://192.168.1.4:8085/HRMS/employee/login";
-
+  loginUrl = "http://192.168.1.7:8085/HRMS/employee/login";
+  private loggedIn: boolean = false;
   constructor(private http:Http) { }
-
+  isLoggedIn() {
+    return this.loggedIn;
+  }
 post(login: LoginModel):Observable<any> {
 	let Headers1 = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: Headers1 });
