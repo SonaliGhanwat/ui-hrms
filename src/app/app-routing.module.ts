@@ -12,6 +12,7 @@ import {EmployeeComponent} from './components/employee/employee.component';
 import{DailyTaskComponent} from'./components/daily-task/daily-task.component';
 import{LeaveComponent} from './components/leave/leave.component';
 import{ApprovalsComponent} from './components/approvals/approvals.component';
+import{ResetpasswordComponent} from './components/resetpassword/resetpassword.component'
 const appRoutes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -25,7 +26,8 @@ const appRoutes: Routes = [
   { path: 'employee', component: EmployeeComponent },
   { path: 'dailyTask', component: DailyTaskComponent },
   { path: 'leave', component: LeaveComponent },
-  { path: 'approvals', component: ApprovalsComponent }
+  { path: 'approvals', component: ApprovalsComponent },
+  { path: 'resetpassword', component: ResetpasswordComponent }
 ];
 @NgModule({
   imports:[RouterModule.forRoot(appRoutes)],

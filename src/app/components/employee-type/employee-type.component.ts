@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { EmployeetypeService } from '../../services/EmployeeType/employeetype.service';
 import { EmployeeType } from '../../models/EmployeeType/EmployeeType.model';
-import{CommonService} from '../../services/common service/common.service'
+import { CommonService } from '../../services/common service/common.service';
 @Component({
   selector: 'app-employee-type',
   templateUrl: './employee-type.component.html',
@@ -15,15 +15,15 @@ export class EmployeeTypeComponent implements OnInit {
   requestProcessing = false;
   employeeTypeIdToUpdate = null;
   processValidation = false;
-  collection=[];
-  toastMessage:string;
-  totalLeav:any;
-  constructor(private commonService:CommonService,private employeetypeService: EmployeetypeService, private formBuilder: FormBuilder) { }
+  collection = [];
+  toastMessage: string;
+  totalLeav: any;
+  constructor(private commonService: CommonService, private employeetypeService: EmployeetypeService, private formBuilder: FormBuilder) { }
   employeetypeForm = this.formBuilder.group({
     'type': ['', ([Validators.required])],
     'seekLeave': ['', [Validators.required]],
     'paidLeave': ['', [Validators.required]],
-    //'totalLeave': ['', [Validators.required]],
+    // 'totalLeave': ['', [Validators.required]],
 
 
   });
@@ -39,32 +39,27 @@ export class EmployeeTypeComponent implements OnInit {
   }
   onEmployeeTypeFormSubmit() {
     this.preProcessConfigurations();
-    let type = this.employeetypeForm.get('type').value.trim();
-    let seekLeave = this.employeetypeForm.get('seekLeave').value;
-    let paidLeave = this.employeetypeForm.get('paidLeave').value;
-    console.log("userType:",paidLeave)
-    let totalLeave1 = sessionStorage.getItem("totalleaves");
-    console.log("userType:",totalLeave1)
-    let totalLeave = parseInt(totalLeave1)
+    const type = this.employeetypeForm.get('type').value.trim();
+    const seekLeave = this.employeetypeForm.get('seekLeave').value;
+    const paidLeave = this.employeetypeForm.get('paidLeave').value;
+    const totalLeave1 = sessionStorage.getItem('totalleaves');
+    const totalLeave = parseInt(totalLeave1);
     if (this.employeeTypeIdToUpdate === null) {
-      let userType = new EmployeeType(null, type, seekLeave, paidLeave, totalLeave);
-      console.log("userType:",userType)
+      const userType = new EmployeeType(null, type, seekLeave, paidLeave, totalLeave);
       this.employeetypeService.createEmployeeType(userType)
         .subscribe(successCode => {
-          let message = successCode.message;
-          this.toastMessage = message;
+          // let message = successCode.message;
+          this.toastMessage = successCode.message;
           this.getAllEmployeetype();
           this.backToCreateArticle();
         },
         errorCode => this.statusCode = errorCode);
-      console.log("successCode");
     } else {
-      //Handle update article
-      let userType = new EmployeeType(this.employeeTypeIdToUpdate, type, seekLeave, paidLeave, totalLeave);
+      const userType = new EmployeeType(this.employeeTypeIdToUpdate, type, seekLeave, paidLeave, totalLeave);
       this.employeetypeService.updateEmployeeType(userType)
         .subscribe(successCode => {
-          let message = successCode.message;
-          this.toastMessage = message;
+          // let message = successCode.message;
+          this.toastMessage = successCode.message;
           this.getAllEmployeetype();
           this.backToCreateArticle();
         },
@@ -75,8 +70,8 @@ export class EmployeeTypeComponent implements OnInit {
     this.preProcessConfigurations();
     this.employeetypeService.deleteEmployeeTypeById(id)
       .subscribe(successCode => {
-        let message = successCode.message;
-        this.toastMessage = message;
+        // let message = successCode.message;
+        this.toastMessage = successCode.message;
         this.getAllEmployeetype();
         this.backToCreateArticle();
       },
@@ -90,24 +85,18 @@ export class EmployeeTypeComponent implements OnInit {
 
         this.employeeTypeIdToUpdate = employeeType.id;
         this.employeetypeForm.setValue({ type: employeeType.type, seekLeave: employeeType.seekLeave, paidLeave: employeeType.paidLeave, totalLeave: employeeType.totalLeave });
-
         this.processValidation = true;
         this.requestProcessing = false;
       },
       errorCode => this.statusCode = errorCode);
   }
-  totalLeave(){
-    let seekLeave = this.employeetypeForm.get('seekLeave').value;
-    console.log("seekLeave:",seekLeave);
-    let paidLeave = this.employeetypeForm.get('paidLeave').value;
-    let total = seekLeave+paidLeave;
-    console.log("total:",total)
-    this.totalLeav=total;
-    console.log("this.totalLeav",this.totalLeav)
-    let leave = document.getElementById("totalLeave").innerHTML=this.totalLeav;
-    console.log("leave:",leave)
-    sessionStorage.setItem("totalleaves", leave)
-    console.log("sessionStorage:",sessionStorage)
+  totalLeave() {
+    const seekLeave = this.employeetypeForm.get('seekLeave').value;
+    const paidLeave = this.employeetypeForm.get('paidLeave').value;
+    const total = seekLeave + paidLeave;
+    this.totalLeav = total;
+    const leave = document.getElementById('totalLeave').innerHTML = this.totalLeav;
+    sessionStorage.setItem('totalleaves', leave);
   }
 
   preProcessConfigurations() {
@@ -119,7 +108,7 @@ export class EmployeeTypeComponent implements OnInit {
     this.employeetypeForm.reset();
     this.processValidation = false;
   }
-  toastMessageDisplay(){
+  toastMessageDisplay() {
     this.commonService.displayMessage();
-   }
+  }
 }

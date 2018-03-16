@@ -20,6 +20,7 @@ export class ControlMessagesComponent implements OnInit {
       //console.log('propertyName : ', propertyName);
       if (this.control.errors.hasOwnProperty(propertyName) && this.control.touched ) {
         //console.log('inside if propertyName : ', propertyName)
+        
         return ValidationService.getValidatorErrorMessage(propertyName, this.control.errors[propertyName]);
       }
     }

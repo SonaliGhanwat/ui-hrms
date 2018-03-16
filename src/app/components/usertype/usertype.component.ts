@@ -1,5 +1,5 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,Input} from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UsertypeService } from '../../services/UserType/usertype.service';
 import { UserType } from '../../models/UserType/UserType.model';
@@ -22,7 +22,8 @@ export class UsertypeComponent implements OnInit {
   processValidation = false;
   toastMessage:string;
    UserType: string = 'usertypeName';
-  
+   @Input()
+   isError:boolean = false;
   constructor(private commonService:CommonService,private usertypeService: UsertypeService, private formBuilder: FormBuilder) {
    
    }

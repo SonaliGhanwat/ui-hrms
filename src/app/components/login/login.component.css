@@ -43,7 +43,7 @@ h1 {
      background-color: #fff;
      background-image: none;
      border: 1px solid #ccc;
-     border-radius: 1px;
+     border-radius: 4px;
     
  }
  .btncolor {
@@ -184,4 +184,12 @@ h1 {
     visibility: visible;
     -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
     animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+.error{
+    color: red;
+    width: 200px;
+    margin-left: 10px;
+}
+.ng-touched.ng-invalid {
+    border-color:red; 
 }

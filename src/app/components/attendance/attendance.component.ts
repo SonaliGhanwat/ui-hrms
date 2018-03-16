@@ -46,7 +46,7 @@ export class AttendanceComponent implements OnInit {
   }
 
   getAllAttendanceList() {
-
+   this.commonService.startLoadingSpinner();
     this.attendanceService.getAllAttendance()
       .subscribe(
       data => this.allAttendance = data,
@@ -166,7 +166,9 @@ export class AttendanceComponent implements OnInit {
   public setSelectedEntities($event: any) {
     this.selectedEntities = $event;
   }
-
+ loadingSpinner(){
+     this.commonService.startLoadingSpinner();
+   }
   timeValidation() {
     let intime = this.attendanceForm.get('intime').value;
     let outtime = this.attendanceForm.get('outtime').value;

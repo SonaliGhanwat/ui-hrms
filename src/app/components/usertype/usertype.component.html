@@ -56,7 +56,7 @@
         </div>
         <div class="modal-body">
           <div class="row" style="    margin-top: 30px">
-            <div class=" form-group col-lg-6" style="margin-left: 35px;">
+            <div class=" form-group col-lg-6" style="margin-left: 35px;" [ngClass]="{'has-error':isError}">
               <label class="label-name ">{{ 'Name' | translate }}</label>
               <br>
               <input type="text"  formControlName="usertypeName" id="usertypeName" name="usertypeName"

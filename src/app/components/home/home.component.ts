@@ -15,62 +15,62 @@ export class HomeComponent implements OnInit {
   menuList: any;
   selected: any;
   idleState: any;
-  //timedOut = false; 
+  // timedOut = false; 
   toast: string;
   constructor(private router: Router, private idle: Idle, private keepalive: Keepalive) {
 
     this.menuList = [{
-      "name": "Employee",
-      "subMenu": [{
-        "name": "Employee",
-        "link": '/employee'
+      'name': 'Employee',
+      'subMenu': [{
+        'name': 'Employee',
+        'link': '/employee'
       }, {
-        "name": "Employee Type",
-        "link": "/employeeType"
+        'name': 'Employee Type',
+        'link': '/employeeType'
       }, {
-        "name": "Add Designation",
-        "link": "/designation"
+        'name': 'Add Designation',
+        'link': '/designation'
       }]
     }, {
-      "name": "Attendance",
-      "subMenu": [{
-        "name": " Employee Attendance",
-        "link": "/attendance"
+      'name': 'Attendance',
+      'subMenu': [{
+        'name': 'Employee Attendance',
+        'link': '/attendance'
       }]
     }, {
-      "name": "Daily Task",
-      "subMenu": [{
-        "name": "Employee Daily Task",
-        "link": "/dailyTask"
-      },]
+      'name': 'Daily Task',
+      'subMenu': [{
+        'name': 'Employee Daily Task',
+        'link': '/dailyTask'
+      }]
     }, {
-      "name": "Leave",
-      "subMenu": [{
-        "name": " Employee Leave",
-        "link": "/leave"
+      'name': 'Leave',
+      'subMenu': [{
+        'name': 'Employee Leave',
+        'link': '/leave'
       }, {
-        "name": " Leave Type",
-        "link": "/leaveType"
+        'name': 'Leave Type',
+        'link': '/leaveType'
       }]
     }, {
-      "name": "User Managment",
-      "subMenu": [{
-        "name": " User Type",
-        "link": "/usertype"
+      'name': 'User Managment',
+      'subMenu': [{
+        'name': 'User Type',
+        'link': '/usertype'
       }]
     }, {
-      "name": "Holiday",
-      "subMenu": [{
-        "name": "Add Holiday",
-        "link": "/holiday"
+      'name': 'Holiday',
+      'subMenu': [{
+        'name': 'Add Holiday',
+        'link': '/holiday'
       }]
     }, {
-      "name": "Approvals",
-      "subMenu": [{
-        "name": "Approval",
-        "link": "/approvals"
+      'name': 'Approvals',
+      'subMenu': [{
+        'name': "Approval",
+        'link': '/approvals'
       }]
-    }]
+    }];
 
     idle.setIdle(5);
     idle.setTimeout(5000);
@@ -97,8 +97,9 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
   }
   toastMessageDisplay() {
-    var x = document.getElementById("toastbar")
+    let x = document.getElementById("toastbar");
     x.className = "show";
     setTimeout(function () { x.className = x.className.replace("show", ""); }, 9000);
   }
+
 }

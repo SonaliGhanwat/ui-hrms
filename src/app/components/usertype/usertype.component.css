@@ -30,3 +30,15 @@
   .ng-invalid:not(form)  {
     border-left: 5px solid #c22b29; /* red */
   }
+
+  #loginForm .has-error .control-label,
+  #loginForm .has-error .help-block,
+  #loginForm .has-error .form-control-feedback {
+      color: #f39c12;
+  }
+  
+  #loginForm .has-success .control-label,
+  #loginForm .has-success .help-block,
+  #loginForm .has-success .form-control-feedback {
+      color: #18bc9c;
+  }  

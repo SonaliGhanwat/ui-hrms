@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule, Http } from '@angular/http';
+import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate';
@@ -19,7 +20,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ControlMessagesComponent } from './components/control-messages/control-messages.component';
 import { ValidationService } from './services/validation.service';
 import { UsertypeComponent } from './components/usertype/usertype.component';
-import { LoginService } from './components/login/login.service';
+import { LoginService } from './services/Login/login.service';
 import { UsertypeService } from './services/UserType/usertype.service';
 import { HolidayComponent } from './components/holiday/holiday.component';
 import { HolidayService } from './services/Holiday/holiday.service'
@@ -39,7 +40,8 @@ import { LeaveComponent } from './components/leave/leave.component'
 import{LeaveService} from './services/Leave/leave.service'
 import{CommonService} from './services/common service/common.service';
 import { ApprovalsComponent } from './components/approvals/approvals.component'
-import { ApprovalsService } from './services/Approvals/approvals.service'
+import { ApprovalsService } from './services/Approvals/approvals.service';
+import { ResetpasswordComponent } from './components/resetpassword/resetpassword.component'
 
 
 
@@ -59,6 +61,7 @@ import { ApprovalsService } from './services/Approvals/approvals.service'
     DailyTaskComponent,
     LeaveComponent,
     ApprovalsComponent,
+    ResetpasswordComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,7 +76,8 @@ import { ApprovalsService } from './services/Approvals/approvals.service'
     Ng2PaginationModule,
     NgIdleKeepaliveModule.forRoot(),
     MomentModule,
-    
+    Ng4LoadingSpinnerModule.forRoot(),
+    RouterModule,
     HttpClientModule,
     TranslateModule.forRoot({
       provide: TranslateLoader,

@@ -8,54 +8,43 @@ import { UserType } from '../../models/UserType/UserType.model';
 import { BaseService } from '../base.service';
 @Injectable()
 export class UsertypeService extends BaseService {
-
- 
-  usertypeUrl = "usertype/";
- 
-
-  constructor(protected http: Http) {
+  usertypeUrl = 'usertype/';
+  constructor (protected http: Http) {
     super(http);
   }
 
   getAllUserTypes(): Observable<UserType[]> {
-    return this.http.get(this.buidURL(this.usertypeUrl+this.list_url))
+    return this.http.get (this.buidURL(this.usertypeUrl + this.list_url))
       .map(this.extractData)
       .catch(this.handleError);
   }
   createUserType(userType: UserType): Observable<any> {
-    let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: cpHeaders });
-    return this.http.post(this.buidURL(this.usertypeUrl+this.create_url), userType, options)
+    return this.http.post (this.buidURL (this.usertypeUrl + this.create_url), userType)
       .map(success => success.json())
       .catch(this.handleError);
   }
 
   deleteUserTypeById(id: string): Observable<any> {
-    let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
-    return this.http.delete(this.buidURL(this.usertypeUrl+this.delete_url+id))
+    return this.http.delete (this.buidURL (this.usertypeUrl + this.delete_url + id))
       .map(success => success.json())
       .catch(this.handleError);
   }
   getUserTypeById(id: string): Observable<UserType> {
-    let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
-    let cpParams = new URLSearchParams();
-    cpParams.set('id', id);			
-    let options = new RequestOptions({ headers: cpHeaders, params: cpParams });
-    return this.http.get(this.buidURL(this.usertypeUrl+id))
+    const cpHeaders = new Headers({ 'Content-Type': 'application/json' });
+    const cpParams = new URLSearchParams();
+    cpParams.set('id', id);
+    const options = new RequestOptions({ headers: cpHeaders, params: cpParams });
+    return this.http.get(this.buidURL(this.usertypeUrl + id))
       .map(this.extractData)
       .catch(this.handleError);
-      }	
-
-  updateUserType(userType: UserType):Observable<any> {
-    let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
-          let options = new RequestOptions({ headers: cpHeaders });
-          return this.http.put(this.buidURL(this.usertypeUrl+this.update_url), userType, options)
-                 .map(success => success.json())
-                 .catch(this.handleError);
-      }
-
+  }
+  updateUserType(userType: UserType): Observable<any> {
+    return this.http.put(this.buidURL(this.usertypeUrl + this.update_url), userType)
+      .map(success => success.json())
+      .catch(this.handleError);
+  }
   protected extractData(res: Response) {
-    let body = res.json();
+    const body = res.json();
     return body;
   }
   protected handleError(error: Response | any) {

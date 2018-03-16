@@ -7,8 +7,8 @@ describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
   let submitElement: DebugElement;
-  let loginElement: DebugElement;
-  let passwordElement: DebugElement;
+  //let loginElement: DebugElement;
+  //let passwordElement: DebugElement;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
