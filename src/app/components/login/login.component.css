@@ -1,5 +1,5 @@
 h1 {
-    color: #21b799;
+    color: #45aed6;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 350%;
     text-align: center
@@ -61,8 +61,8 @@ h1 {
      border-radius: 4px;
      margin-left: 15px;
      color: #fff;
-     border-color: #21b799;
-     background-color: #21b799;
+     border-color: #45aed6;
+     background-color: #45aed6;
  }
  .reset{
    margin-top: 150px;
@@ -75,6 +75,7 @@ h1 {
      cursor: pointer;
      padding: 4px 10px;
      font-size: 14px;
+     margin-left: 70px;
      line-height: 1.42857143;
          color: #7c6576;
          position: relative; 
@@ -175,7 +176,7 @@ h1 {
     padding: 16px;
     position: fixed;
     z-index: 1;
-    top: 50px;
+    top: 70px;
     left: 60%;
     font-size: 17px;
 }
@@ -192,4 +193,11 @@ h1 {
 }
 .ng-touched.ng-invalid {
     border-color:red; 
+}
+.valid{
+    
+    color:red;
+    padding-top: 7px;
+    width: 250px ;
+    margin-left: 15px
 }

@@ -12,7 +12,7 @@ export class CommonService {
   displayMessage() {
     const x = document.getElementById('snackbar');
     x.className = 'show';
-    setTimeout(function () { x.className = x.className.replace('show', ''); }, 10000);
+    setTimeout(function () { x.className = x.className.replace('show', ''); }, 50000);
   }
   startLoadingSpinner() {
     this.ng4LoadingSpinnerService.show();

@@ -161,3 +161,10 @@
 .ng-touched.ng-invalid {
     border-color:red; 
 }
+#footer {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    color: #fff;
+    background: #2e2e2e;
+    
+}

@@ -49,10 +49,15 @@ export class LoginComponent implements OnInit {
       const code = data.code;
       if (code === 1) {
         this.toastMessage = data.message;
+        document.getElementById('userid_validation').innerHTML = data.message
+        document.getElementById('userid').style.borderColor = "red";
         this.toastMessageDisplay();
-      } else if (code === 0) {
+      } else if (code === 2) {
+        document.getElementById('password_validation').innerHTML = data.message
+        document.getElementById('password').style.borderColor = "red";
         this.toastMessage = data.message;
         this.toastMessageDisplay();
+      } else if (code === 0) {
         this.redirectToHomePage();
       }
       const cookie = data.data.value;
@@ -78,5 +83,17 @@ export class LoginComponent implements OnInit {
   loadingSpinner() {
     this.commonService.startLoadingSpinner();
   }
-
+  validation() {
+    document.getElementById('userid').style.borderColor = "";
+    document.getElementById('userid_validation').innerHTML = ""
+    document.getElementById('password_validation').innerHTML = ""
+    document.getElementById('password').style.borderColor = "";
+  }
+  preventNumbers() {
+    console.log(this.userForm.get('userid').value.trim().keyCode);
+    if (this.userForm.get('userid').value.trim().keyCode >= 32 && this.userForm.get('userid').value.trim().keyCode <= 47) {
+      document.getElementById('userid_validation').innerHTML = "Do not Enter Special Character"
+      return false;
+    }
+  }
 }
