@@ -64,14 +64,14 @@
                   {{employee.userid}}
                 </option>
               </select>
-
+              <div class="error" *ngIf="!leaveForm.controls['employee'].valid && leaveForm.controls['employee'].touched">{{'Please Select Employee Id' | translate}}.</div>              
             </div>
 
             <div class="col-lg-offset-5">
               <div class=" form-group col-lg-6">
                 <label class="label-name "> {{ 'Reason' | translate }}</label>
                 <input type="text"  step="2" formControlName="subject" class="loginUserid">
-                <app-control-messages [control]="leaveForm.controls.subject"></app-control-messages>
+                <div class="error" *ngIf="!leaveForm.controls['subject'].valid && leaveForm.controls['subject'].touched">{{'Please Enter Leave Reason' | translate}}.</div>              
               </div>
             </div>
           </div>
@@ -100,6 +100,7 @@
                   {{leavetype.name}}
                 </option>
               </select>
+              <div class="error" *ngIf="!leaveForm.controls['leavetype'].valid && leaveForm.controls['leavetype'].touched">{{'Please Select LeaveType' | translate}}.</div>              
             </div>
           </div>
           <div class="savebtn">

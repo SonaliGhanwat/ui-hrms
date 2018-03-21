@@ -1,6 +1,7 @@
 export class Employee {
     constructor(
-        public id:number,
+
+        public id: number,
         public userid: String,
         public password: String,
         public firstName: String,
@@ -16,5 +17,6 @@ export class Employee {
         public usertype: any,
         public employeetype: any,
         public designation: any
+        
     ) { }
 }

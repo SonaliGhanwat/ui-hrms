@@ -1,29 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { LeavetypeService }from '../../services/LeaveType/leavetype.service'
-import { LeaveType } from'../../models/LeaveType/Leavetype.model';
-import{CommonService} from '../../services/common service/common.service'
+import { LeavetypeService } from '../../services/LeaveType/leavetype.service';
+import { LeaveType } from '../../models/LeaveType/Leavetype.model';
+import { CommonService } from '../../services/common service/common.service';
 @Component({
   selector: 'app-leavetype',
   templateUrl: './leavetype.component.html',
   styleUrls: ['./leavetype.component.css']
 })
 export class LeavetypeComponent implements OnInit {
-
   allLeavetypes: LeaveType[];
   statusCode: number;
   requestProcessing = false;
   leaveTypeIdToUpdate = null;
   processValidation = false;
   collection = [];
-  toastMessage:string;
-
-  constructor( private commonService:CommonService,private leavetypeService: LeavetypeService, private formBuilder: FormBuilder) { }
+  toastMessage: string;
+  constructor(private commonService: CommonService, private leavetypeService: LeavetypeService, private formBuilder: FormBuilder) { }
   leavetypeForm = this.formBuilder.group({
     'name': ['', ([Validators.required])]
-
   });
-
   ngOnInit(): void {
     this.getAllLeaveTypes();
     this.commonService.onPreviousNextPage();
@@ -36,27 +32,23 @@ export class LeavetypeComponent implements OnInit {
   }
   onLeaveTypeFormSubmit() {
     this.preProcessConfigurations();
-    let name = this.leavetypeForm.get('name').value.trim();
-   
+    const name = this.leavetypeForm.get('name').value.trim();
     if (this.leaveTypeIdToUpdate === null) {
-
-      let leaveType = new LeaveType(null, name);
+      const leaveType = new LeaveType(null, name);
       this.leavetypeService.createLeaveType(leaveType)
         .subscribe(successCode => {
-          let message = successCode.message;
-          this.toastMessage = message;
+          // let message = successCode.message;
+          this.toastMessage = successCode.message;
           this.getAllLeaveTypes();
           this.backToCreateArticle();
         },
         errorCode => this.statusCode = errorCode);
-      console.log("successCode");
     } else {
-      //Handle update article
-      let leaveType = new LeaveType(this.leaveTypeIdToUpdate, name);
+      const leaveType = new LeaveType(this.leaveTypeIdToUpdate, name);
       this.leavetypeService.updateLeaveType(leaveType)
         .subscribe(successCode => {
-          let message = successCode.message;
-          this.toastMessage = message;
+          // let message = successCode.message;
+          this.toastMessage = successCode.message;
           this.getAllLeaveTypes();
           this.backToCreateArticle();
         },
@@ -67,28 +59,24 @@ export class LeavetypeComponent implements OnInit {
     this.preProcessConfigurations();
     this.leavetypeService.deleteLeaveType(id)
       .subscribe(successCode => {
-        let message = successCode.message;
-        this.toastMessage = message;
+        // let message = successCode.message;
+        this.toastMessage = successCode.messag;
         this.getAllLeaveTypes();
         this.backToCreateArticle();
       },
       errorCode => this.statusCode = errorCode);
-
   }
   loadLeaveTypeToEdit(id: string) {
     this.preProcessConfigurations();
     this.leavetypeService.getLeaveTypeById(id)
       .subscribe(leaveType => {
-
         this.leaveTypeIdToUpdate = leaveType.id;
-        this.leavetypeForm.setValue({ name: leaveType.name});
-        
+        this.leavetypeForm.setValue({ name: leaveType.name });
         this.processValidation = true;
         this.requestProcessing = false;
       },
       errorCode => this.statusCode = errorCode);
   }
-
   preProcessConfigurations() {
     this.statusCode = null;
     this.requestProcessing = true;
@@ -98,10 +86,9 @@ export class LeavetypeComponent implements OnInit {
     this.leavetypeForm.reset();
     this.processValidation = false;
   }
-  
-  toastMessageDisplay(){
+  toastMessageDisplay() {
     this.commonService.displayMessage();
-   }
+  }
 }
 
 

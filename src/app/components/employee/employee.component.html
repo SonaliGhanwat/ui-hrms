@@ -63,14 +63,16 @@
             <div class=" form-group col-lg-6" style="margin-left: 35px;">
               <label class="label-name ">{{ 'UserId' | translate }}</label>
               <br>
-              <input type="text" formControlName="userid" class="loginUserid">
+              <input type="text" formControlName="userid" id="userid" class="loginUserid" >
+              
+              <div class ="valid"  id="userid_validation"></div>
               <app-control-messages [control]="employeeForm.controls.userid"></app-control-messages>
             </div>
 
             <div class="col-lg-offset-5">
               <div class=" form-group col-lg-6">
                 <label class="label-name "> {{ 'Password' | translate }}</label>
-                <input type="password" formControlName="password" class="loginUserid">
+                <input type="password" formControlName="password" class="loginUserid">              
                 <app-control-messages [control]="employeeForm.controls.password"></app-control-messages>
               </div>
             </div>
@@ -80,14 +82,14 @@
               <label class="label-name ">{{ 'FirstName' | translate }}</label>
               <br>
               <input type="text" formControlName="firstName" class="loginUserid" onkeypress='return event.charCode >= 65 && event.charCode <= 122'>
-              <app-control-messages [control]="employeeForm.controls.firstName"></app-control-messages>
+              <div class="error" *ngIf="!employeeForm.controls['firstName'].valid && employeeForm.controls['firstName'].touched">{{'Please Enter First Name' | translate}}.</div>
             </div>
 
             <div class="col-lg-offset-5">
               <div class=" form-group col-lg-6">
                 <label class="label-name "> {{ 'LastName' | translate }}</label>
                 <input type="text" formControlName="lastName" class="loginUserid" onkeypress='return event.charCode >= 65 && event.charCode <= 122'>
-                <app-control-messages [control]="employeeForm.controls.lastName"></app-control-messages>
+                <div class="error" *ngIf="!employeeForm.controls['lastName'].valid && employeeForm.controls['lastName'].touched">{{'Please Enter Last Name' | translate}}.</div>
               </div>
             </div>
           </div>
@@ -96,7 +98,7 @@
               <label class="label-name ">{{ 'EmailId' | translate }}</label>
               <br>
               <input type="text" formControlName="emailid" class="loginUserid">
-              <app-control-messages [control]="employeeForm.controls.emailid"></app-control-messages>
+              <div class="error" *ngIf="!employeeForm.controls['emailid'].valid && employeeForm.controls['emailid'].touched">{{'Please Enter EmailId' | translate}}.</div>
             </div>
 
             <div class="col-lg-offset-5">
@@ -129,7 +131,7 @@
               <div class=" form-group col-lg-6">
                 <label class="label-name "> {{ 'Date Of Joining' | translate }}</label>
                 <input type="date" formControlName="dateOfJoining" class="loginUserid">
-                <app-control-messages [control]="employeeForm.controls.dateOfJoining"></app-control-messages>
+                <div class="error" *ngIf="!employeeForm.controls['dateOfJoining'].valid && employeeForm.controls['dateOfJoining'].touched">{{'Please Enter Date of Joining' | translate}}.</div>
               </div>
             </div>
           </div>
@@ -141,7 +143,7 @@
                   {{employeetype.type}}
                 </option>
               </select>
-
+              <div class="error" *ngIf="!employeeForm.controls['employeetype'].valid && employeeForm.controls['employeetype'].touched">{{'Please Select Employee Type' | translate}}.</div>
             </div>
 
             <div class="col-lg-offset-5">
@@ -160,6 +162,7 @@
                   {{usertype.usertypeName}}
                 </option>
               </select>
+              <div class="error" *ngIf="!employeeForm.controls['usertype'].valid && employeeForm.controls['usertype'].touched">{{'Please Select User Type' | translate}}.</div>
             </div>
 
             <div class="col-lg-offset-5">
@@ -170,6 +173,7 @@
                     {{designation.name}}
                   </option>
                 </select>
+                <div class="error" *ngIf="!employeeForm.controls['designation'].valid && employeeForm.controls['designation'].touched">{{'Please Select Designation' | translate}}.</div>
               </div>
             </div>
           </div>
@@ -181,14 +185,14 @@
                   {{menu.userid}}
                 </option>
               </select>
-
+              <div class="error" *ngIf="!employeeForm.controls['reportTo'].valid && employeeForm.controls['reportTo'].touched"></div>
             </div>
 
             <div class="col-lg-offset-5">
               <div class=" form-group col-lg-6">
                 <label class="label-name "> {{ 'Department' | translate }}</label>
                 <input type="text" formControlName="department" class="loginUserid">
-                <app-control-messages [control]="employeeForm.controls.department"></app-control-messages>
+                <div class="error" *ngIf="!employeeForm.controls['department'].valid && employeeForm.controls['department'].touched">{{'Please Enter Department' | translate}}.</div>
               </div>
             </div>
           </div>
@@ -200,13 +204,13 @@
               <label class="label-name ">{{ 'Mobile Number' | translate }}</label>
               <br>
               <input type="text" maxlength="10" formControlName="phoneNumber" class="loginUserid" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
-              <app-control-messages [control]="employeeForm.controls.phoneNumber"></app-control-messages>
+              <div class="error" *ngIf="!employeeForm.controls['phoneNumber'].valid && employeeForm.controls['phoneNumber'].touched">{{'Please Enter phone Number' | translate}}.</div>
             </div>
             <div class="col-lg-offset-5">
               <div class=" form-group col-lg-6">
                 <label class="label-name "> {{ 'Address' | translate }}</label>
                 <input type="text" formControlName="address" class="loginUserid">
-                <app-control-messages [control]="employeeForm.controls.address"></app-control-messages>
+                <div class="error" *ngIf="!employeeForm.controls['address'].valid && employeeForm.controls['address'].touched">{{'Please Enter Address' | translate}}.</div>
               </div>
             </div>
           </div>
@@ -221,7 +225,7 @@
               <div class=" form-group col-lg-6">
                 <label class="label-name "> {{ 'Salary' | translate }}</label>
                 <input type="number" formControlName="salary" class="loginUserid">
-                <app-control-messages [control]="employeeForm.controls.salary"></app-control-messages>
+                <div class="error" *ngIf="!employeeForm.controls['salary'].valid && employeeForm.controls['salary'].touched">{{'Please Enter Salary' | translate}}.</div>
               </div>
             </div>
           </div>

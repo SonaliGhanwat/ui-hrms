@@ -7,54 +7,42 @@ import 'rxjs/add/operator/catch';
 import { Designation } from '../../models/designation/Designation.model';
 import { BaseService } from '../base.service';
 @Injectable()
-export class DesignationService extends BaseService{
-
-  designationUrl= "designation/";
- 
- 
+export class DesignationService extends BaseService {
+  designationUrl = 'designation/';
   constructor(protected http: Http) {
     super(http);
   }
-  
   getAllDesignationList(): Observable<Designation[]> {
-    return this.http.get(this.buidURL(this.designationUrl+this.list_url))
+    return this.http.get(this.buidURL(this.designationUrl + this.list_url))
       .map(this.extractData)
       .catch(this.handleError);
   }
   createDesignation(designation: Designation): Observable<any> {
-    let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: cpHeaders });
-    return this.http.post(this.buidURL(this.designationUrl+this.create_url), designation, options)
+    return this.http.post(this.buidURL(this.designationUrl + this.create_url), designation)
       .map(success => success.json())
       .catch(this.handleError);
   }
-
   deleteDesignationById(id: string): Observable<any> {
-    let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
-    return this.http.delete(this.buidURL(this.designationUrl+this.delete_url+id))
+    return this.http.delete(this.buidURL(this.designationUrl + this.delete_url + id))
       .map(success => success.json())
       .catch(this.handleError);
   }
   getDesignationById(id: string): Observable<Designation> {
-    let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
-    let cpParams = new URLSearchParams();
-    cpParams.set('id', id);			
-    let options = new RequestOptions({ headers: cpHeaders, params: cpParams });
-    return this.http.get(this.buidURL(this.designationUrl+id))
+    const cpHeaders = new Headers({ 'Content-Type': 'application/json' });
+    const cpParams = new URLSearchParams();
+    cpParams.set('id', id);
+    const options = new RequestOptions({ headers: cpHeaders, params: cpParams });
+    return this.http.get(this.buidURL(this.designationUrl + id))
       .map(this.extractData)
       .catch(this.handleError);
-      }	
-
-  updateDesignation(designation: Designation):Observable<any> {
-    let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
-          let options = new RequestOptions({ headers: cpHeaders });
-          return this.http.put(this.buidURL(this.designationUrl+this.update_url), designation, options)
-                 .map(success => success.json())
-                 .catch(this.handleError);
-      }
-
+  }
+  updateDesignation(designation: Designation): Observable<any> {
+    return this.http.put(this.buidURL(this.designationUrl + this.update_url), designation)
+      .map(success => success.json())
+      .catch(this.handleError);
+  }
   protected extractData(res: Response) {
-    let body = res.json();
+    const body = res.json();
     return body;
   }
   protected handleError(error: Response | any) {

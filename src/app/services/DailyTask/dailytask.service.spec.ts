@@ -8,8 +8,4 @@ describe('DailytaskService', () => {
       providers: [DailytaskService]
     });
   });
-
-  it('should be created', inject([DailytaskService], (service: DailytaskService) => {
-    expect(service).toBeTruthy();
-  }));
 });

@@ -4,17 +4,16 @@ import { LeaveService } from '../../services/Leave/leave.service';
 import { Leave } from '../../models/Leave/Leave.model';
 import { EmployeeService } from '../../services/Employee/employee.service';
 import { Employee } from '../../models/Employee/Employee.model';
-import { LeavetypeService } from '../../services/LeaveType/leavetype.service'
+import { LeavetypeService } from '../../services/LeaveType/leavetype.service';
 import { LeaveType } from '../../models/LeaveType/Leavetype.model';
 import { ValidationService } from '../../services/validation.service';
-import{CommonService} from '../../services/common service/common.service'
+import { CommonService } from '../../services/common service/common.service';
 @Component({
   selector: 'app-leave',
   templateUrl: './leave.component.html',
   styleUrls: ['./leave.component.css']
 })
 export class LeaveComponent implements OnInit {
-
   allLeave: Leave[];
   allEmployee: Employee[];
   allLeavetypes: LeaveType[];
@@ -23,19 +22,16 @@ export class LeaveComponent implements OnInit {
   leaveIdToUpdate = null;
   processValidation = false;
   collection = [];
-  toastMessage:string;
- 
-  constructor( private commonService:CommonService,private leaveService: LeaveService, private formBuilder: FormBuilder,
+  toastMessage: string;
+
+  constructor(private commonService: CommonService, private leaveService: LeaveService, private formBuilder: FormBuilder,
     private employeeService: EmployeeService, private leavetypeService: LeavetypeService) { }
   leaveForm = this.formBuilder.group({
     'employee': ['', ([Validators.required])],
     'subject': ['', ([Validators.required])],
-    'fromDate': ['', [Validators.required,ValidationService.dateValidation]],
+    'fromDate': ['', [Validators.required, ValidationService.dateValidation]],
     'toDate': ['', [Validators.required]],
     'leavetype': ['', ([Validators.required])],
-    
-
-
   });
 
   ngOnInit(): void {
@@ -65,34 +61,29 @@ export class LeaveComponent implements OnInit {
   }
   onLeaveFormSubmit() {
     this.preProcessConfigurations();
-    let employeeId = ((document.getElementById("employee") as HTMLInputElement).value);
-    let employee = parseInt(employeeId);
-    console.log("employee", employee);
-    let subject = this.leaveForm.get('subject').value;
-    let fromDate = this.leaveForm.get('fromDate').value;
-    let toDate = this.leaveForm.get('toDate').value;
-    let leaveTypeId = ((document.getElementById("leavetype") as HTMLInputElement).value);
-    let leavetype = parseInt(leaveTypeId);
-
+    const employeeId = ((document.getElementById('employee') as HTMLInputElement).value);
+    const employee = parseInt(employeeId);
+    const subject = this.leaveForm.get('subject').value;
+    const fromDate = this.leaveForm.get('fromDate').value;
+    const toDate = this.leaveForm.get('toDate').value;
+    const leaveTypeId = ((document.getElementById('leavetype') as HTMLInputElement).value);
+    const leavetype = parseInt(leaveTypeId);
     if (this.leaveIdToUpdate === null) {
-      let attendance = new Leave(null, employee, subject, fromDate, toDate, leavetype);
-      console.log("attendance0", attendance)
+      const attendance = new Leave(null, employee, subject, fromDate, toDate, leavetype);
       this.leaveService.createLeave(attendance)
         .subscribe(successCode => {
-          let message = successCode.message;
-          this.toastMessage = message;
+          // let message = successCode.message;
+          this.toastMessage = successCode.message;
           this.getAllLeaveList();
           this.backToCreateArticle();
         },
         errorCode => this.statusCode = errorCode);
-      console.log("successCode");
     } else {
-      //Handle update 
-      let userType = new Leave(this.leaveIdToUpdate, employee, subject, fromDate, toDate, leavetype);
+      const userType = new Leave(this.leaveIdToUpdate, employee, subject, fromDate, toDate, leavetype);
       this.leaveService.updateLeave(userType)
         .subscribe(successCode => {
-          let message = successCode.message;
-          this.toastMessage = message;
+          // let message = successCode.message;
+          this.toastMessage = successCode.message;
           this.getAllLeaveList();
           this.backToCreateArticle();
         },
@@ -103,28 +94,24 @@ export class LeaveComponent implements OnInit {
     this.preProcessConfigurations();
     this.leaveService.deleteLeaveById(id)
       .subscribe(successCode => {
-        let message = successCode.message;
-        this.toastMessage = message;
+        // let message = successCode.message;
+        this.toastMessage = successCode.message;
         this.getAllLeaveList();
         this.backToCreateArticle();
       },
       errorCode => this.statusCode = errorCode);
-
   }
   loadLeaveToEdit(id: string) {
     this.preProcessConfigurations();
     this.leaveService.getLeaveById(id)
       .subscribe(data => {
-
         this.leaveIdToUpdate = data.id;
-        this.leaveForm.setValue({ employee: data.employee.id, subject: data.subject, fromDate: data.fromDate, toDate: data.toDate,leavetype: data.leavetype.id });
-
+        this.leaveForm.setValue({ employee: data.employee.id, subject: data.subject, fromDate: data.fromDate, toDate: data.toDate, leavetype: data.leavetype.id });
         this.processValidation = true;
         this.requestProcessing = false;
       },
       errorCode => this.statusCode = errorCode);
   }
-
   preProcessConfigurations() {
     this.statusCode = null;
     this.requestProcessing = true;
@@ -134,20 +121,18 @@ export class LeaveComponent implements OnInit {
     this.leaveForm.reset();
     this.processValidation = false;
   }
-  toastMessageDisplay(){
+  toastMessageDisplay() {
     this.commonService.displayMessage();
-   }
-  
-   toDateValidation(){
-    let fromDate = this.leaveForm.get('fromDate').value;
-    let toDate = this.leaveForm.get('toDate').value;
+  }
+  toDateValidation() {
+    const fromDate = this.leaveForm.get('fromDate').value;
+    const toDate = this.leaveForm.get('toDate').value;
     if (fromDate <= toDate) {
-      console.log("if block")
-    } else if(toDate <= fromDate){
-      document.getElementById("afterleavejoiningdate_validation").innerHTML = "Invalid Date!! After leave joining date  should be greater then Leave date";
+    } else if (toDate <= fromDate) {
+      document.getElementById('afterleavejoiningdate_validation').innerHTML = 'Invalid Date!! After leave joining date  should be greater then Leave date';
       return false;
     }
-    document.getElementById("afterleavejoiningdate_validation").innerHTML =""
+    document.getElementById('afterleavejoiningdate_validation').innerHTML = '';
     return true;
-   }
+  }
 }

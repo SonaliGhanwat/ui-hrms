@@ -1,6 +1,8 @@
-export class Approval{
+export class Approval {
     constructor(
-        public status:string,
-        public empLeaveDtos:any
-    ){}
+
+        public status: string,
+        public empLeaveDtos: any
+        
+    ) { }
 }

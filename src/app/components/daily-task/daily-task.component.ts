@@ -5,7 +5,7 @@ import { DailyTask } from '../../models/DailyTask/DailyTask.model';
 import { EmployeeService } from '../../services/Employee/employee.service';
 import { Employee } from '../../models/Employee/Employee.model';
 import { ValidationService } from '../../services/validation.service';
-import{CommonService} from '../../services/common service/common.service'
+import { CommonService } from '../../services/common service/common.service';
 @Component({
   selector: 'app-daily-task',
   templateUrl: './daily-task.component.html',
@@ -19,10 +19,10 @@ export class DailyTaskComponent implements OnInit {
   requestProcessing = false;
   dailyTaskIdToUpdate = null;
   processValidation = false;
-  collection=[];
-  toastMessage:string;
- 
-  constructor(private commonService:CommonService,private dailytaskService: DailytaskService, private formBuilder: FormBuilder, private employeeService: EmployeeService) { }
+  collection = [];
+  toastMessage: string;
+
+  constructor(private commonService: CommonService, private dailytaskService: DailytaskService, private formBuilder: FormBuilder, private employeeService: EmployeeService) { }
   dailyTaskForm = this.formBuilder.group({
     'employee': ['', ([Validators.required])],
     'date': ['', ([Validators.required, ValidationService.currentDateValidation])],
@@ -53,51 +53,46 @@ export class DailyTaskComponent implements OnInit {
   }
   onDailyTaskFormSubmit() {
     this.preProcessConfigurations();
-    let employeeId = ((document.getElementById("employee") as HTMLInputElement).value);
-    let employee = parseInt(employeeId);
-    console.log("employee", employee);
-    let date = this.dailyTaskForm.get('date').value;
-    let taskName = this.dailyTaskForm.get('taskName').value;
+    const employeeId = ((document.getElementById('employee') as HTMLInputElement).value);
+    const employee = parseInt(employeeId);
+    const date = this.dailyTaskForm.get('date').value;
+    const taskName = this.dailyTaskForm.get('taskName').value;
     let estimationTime = this.dailyTaskForm.get('estimationTime').value;
-    if(estimationTime.split(":").length===2){
+    if (estimationTime.split(':').length === 2) {
       estimationTime = this.dailyTaskForm.get('estimationTime').value + ':00';
-    }else{
-      estimationTime = this.dailyTaskForm.get('estimationTime').value ;
+    } else {
+      estimationTime = this.dailyTaskForm.get('estimationTime').value;
     }
     let starttime = this.dailyTaskForm.get('starttime').value;
-    if(starttime.split(":").length===2){
+    if (starttime.split(':').length === 2) {
       starttime = this.dailyTaskForm.get('starttime').value + ':00';
-    }else{
-      starttime = this.dailyTaskForm.get('starttime').value ;
+    } else {
+      starttime = this.dailyTaskForm.get('starttime').value;
     }
     let endtime = this.dailyTaskForm.get('endtime').value;
-    if(endtime.split(":").length===2){
+    if (endtime.split(':').length === 2) {
       endtime = this.dailyTaskForm.get('endtime').value + ':00';
-    }else{
-      endtime = this.dailyTaskForm.get('endtime').value ;
+    } else {
+      endtime = this.dailyTaskForm.get('endtime').value;
     }
-    let status = this.dailyTaskForm.get('status').value;
-    let description = this.dailyTaskForm.get('description').value;
-
+    const status = this.dailyTaskForm.get('status').value;
+    const description = this.dailyTaskForm.get('description').value;
     if (this.dailyTaskIdToUpdate === null) {
-      let attendance = new DailyTask(null, employee, date, taskName, estimationTime, starttime, endtime, status, description);
-      console.log("attendance0", attendance)
+      const attendance = new DailyTask(null, employee, date, taskName, estimationTime, starttime, endtime, status, description);
       this.dailytaskService.createDailyTask(attendance)
         .subscribe(successCode => {
-          let message = successCode.message;
-          this.toastMessage = message;
+          // let message = successCode.message;
+          this.toastMessage = successCode.message;
           this.getAllDailyTask();
           this.backToCreateArticle();
         },
         errorCode => this.statusCode = errorCode);
-      console.log("successCode");
     } else {
-      //Handle update article
-      let userType = new DailyTask(this.dailyTaskIdToUpdate, employee, date, taskName, estimationTime, starttime, endtime, status, description);
+      const userType = new DailyTask(this.dailyTaskIdToUpdate, employee, date, taskName, estimationTime, starttime, endtime, status, description);
       this.dailytaskService.updateDailyTask(userType)
         .subscribe(successCode => {
-          let message = successCode.message;
-          this.toastMessage = message;
+          // let message = successCode.message;
+          this.toastMessage = successCode.message;
           this.getAllDailyTask();
           this.backToCreateArticle();
         },
@@ -108,8 +103,8 @@ export class DailyTaskComponent implements OnInit {
     this.preProcessConfigurations();
     this.dailytaskService.deleteDailyTaskById(id)
       .subscribe(successCode => {
-        let message = successCode.message;
-        this.toastMessage = message;
+        // let message = successCode.message;
+        this.toastMessage = successCode.message;
         this.getAllDailyTask();
         this.backToCreateArticle();
       },
@@ -120,15 +115,13 @@ export class DailyTaskComponent implements OnInit {
     this.preProcessConfigurations();
     this.dailytaskService.getDailyTaskById(id)
       .subscribe(dailyTask => {
-        console.log("employee:", dailyTask);
         this.dailyTaskIdToUpdate = dailyTask.id;
-        this.dailyTaskForm.setValue({ employee:dailyTask.employee.id, date: dailyTask.date, taskName: dailyTask.taskName, estimationTime: dailyTask.estimationTime, starttime: dailyTask.starttime, endtime: dailyTask.endtime, status: dailyTask.status, description: dailyTask.description });
+        this.dailyTaskForm.setValue({ employee: dailyTask.employee.id, date: dailyTask.date, taskName: dailyTask.taskName, estimationTime: dailyTask.estimationTime, starttime: dailyTask.starttime, endtime: dailyTask.endtime, status: dailyTask.status, description: dailyTask.description });
         this.processValidation = true;
         this.requestProcessing = false;
       },
       errorCode => this.statusCode = errorCode);
   }
-  
   preProcessConfigurations() {
     this.statusCode = null;
     this.requestProcessing = true;
@@ -138,8 +131,7 @@ export class DailyTaskComponent implements OnInit {
     this.dailyTaskForm.reset();
     this.processValidation = false;
   }
-
-  toastMessageDisplay(){
+  toastMessageDisplay() {
     this.commonService.displayMessage();
-   }
+  }
 }

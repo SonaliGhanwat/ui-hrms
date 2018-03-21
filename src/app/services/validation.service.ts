@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AttendanceComponent } from '../../app/components/attendance/attendance.component';
-
 @Injectable()
 export class ValidationService {
     constructor() { }
-
-
-
     static getValidatorErrorMessage(validatorName: string, validatorValue?: any) {
         const config = {
             'required': 'Required',
+            'requiredPassword': 'Please Enter Password',
+            'requiredUserid': 'Please enter User Id',
             'invalidPassword': 'Password must be at least 6 characters long',
+            'invalidUserid': 'User Id must be at least 6 characters long',
             'invalidEmail': 'EmailId Not Valid',
             'invalidDate': 'Enter Current date',
             'pastDate': 'Do not Enter Past Date',
+            'specialChracter': 'Do Not enter Special Character in user id',
             'ToDate': 'Invalid Date! To joining date  should be greater then from date',
             'minlength': `Name should 4 character long${validatorValue.requiredLength}`,
             'dateOfBirth': 'Date of Birth should be 18 year old'
@@ -23,10 +23,25 @@ export class ValidationService {
     }
     static passwordValidator(control) {
         // console.log("control", control)
-        if (control.value.match(/^[a-zA-Z0-9!@#$%^&*]{4,100}$/)) {
+        if (control.value.length === 0) {
+            return { 'requiredPassword': true };
+        } else if (control.value.match(/^[a-zA-Z0-9!@#$%^&*]{6,100}$/)) {
             return null;
         } else {
             return { 'invalidPassword': true };
+        }
+    }
+    static useridValidator(control) {
+        // console.log("control", control)
+        // const userid = ((document.getElementById('userid') as HTMLInputElement).value)
+        if (control.value.length === 0) {
+            return { 'requiredUserid': true };
+        } else if (control.value.match(/^[a-zA-Z0-9]{6,100}$/)) {
+            return null;
+        } else if (control.value.match(/^[a-zA-Z0-9!@#$%^&*]/)) {
+            return { 'specialChracter': true };
+        } else {
+            return { 'invalidUserid': true };
         }
     }
     static emailValidator(control) {
@@ -38,7 +53,6 @@ export class ValidationService {
             return { 'invalidEmail': true };
         }
     }
-
     static currentDateValidation(control) {
         const joinDate = new Date();
         // const getdate = joinDate.getDate();
@@ -71,7 +85,6 @@ export class ValidationService {
             return { 'pastDate': true };
         }
     }
-
     static dateOfBirthValidation(control) {
         const currentdate = new Date();
         const currentyearonly = currentdate.getFullYear();

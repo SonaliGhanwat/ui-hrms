@@ -60,15 +60,15 @@
           <div class=" form-group col-lg-6" style="margin-left: 35px;">
             <label class="label-name " >{{ 'Name' | translate }}</label>
             <br>
-            <input type="text"  formControlName="name" id="type" name="type" class="loginUserid" placeholder="Employeetype" >
-            <app-control-messages [control]="designationForm.controls.name"></app-control-messages>
+            <input type="text"  formControlName="name" id="type" name="type" class="loginUserid"  >
+            <div class="error" *ngIf="!designationForm.controls['name'].valid &&  designationForm.controls['name'].touched">{{'Please Enter Designation Name' | translate}}</div>
           </div>
   
           <div class="col-lg-offset-5">
             <div class=" form-group col-lg-6">
               <label class="label-name " > {{ 'Band' | translate }}</label>
-              <input type="number"  formControlName="band" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="loginUserid" placeholder="Seek Leave" >
-              <app-control-messages [control]="designationForm.controls.band"></app-control-messages>
+              <input type="number"  formControlName="band" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="loginUserid"  >
+              <div class="error" *ngIf="!designationForm.controls['band'].valid &&  designationForm.controls['band'].touched">{{'Please Enter Band Number' | translate}}</div>
             </div>
           </div>
         </div>
@@ -76,8 +76,8 @@
             <div class=" form-group col-lg-6" style="margin-left: 35px;">
               <label class="label-name " >{{ 'Level' | translate }}</label>
               <br>
-              <input type="number"  formControlName="level" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="loginUserid" placeholder="Paid Leave">
-              <app-control-messages [control]="designationForm.controls.level"></app-control-messages>
+              <input type="number"  formControlName="level" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="loginUserid" >
+              <div class="error" *ngIf="!designationForm.controls['level'].valid &&  designationForm.controls['level'].touched">{{'Please Enter Level Number' | translate}}</div>
             </div>
           </div>
         <div class="savebtn">

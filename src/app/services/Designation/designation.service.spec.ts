@@ -8,8 +8,4 @@ describe('DesignationService', () => {
       providers: [DesignationService]
     });
   });
-
-  it('should be created', inject([DesignationService], (service: DesignationService) => {
-    expect(service).toBeTruthy();
-  }));
 });

@@ -61,7 +61,7 @@
               <br>
               <input type="text"  formControlName="usertypeName" id="usertypeName" name="usertypeName"
                 class="loginUserid" placeholder="Name">
-              <app-control-messages [control]="usertypeForm.controls.usertypeName"></app-control-messages>
+                <div class="error" *ngIf="!usertypeForm.controls['usertypeName'].valid && usertypeForm.controls['usertypeName'].touched">{{'Please Enter User Type name' | translate}}.</div>              
             </div>
 
             <div class="col-lg-offset-5">
@@ -69,7 +69,7 @@
                 <label class="label-name "> {{ 'Description' | translate }}</label>
                 <input type="text" formControlName="description" id="description" name="description"
                   class="loginUserid" placeholder="Description">
-                <app-control-messages [control]="usertypeForm.controls.description"></app-control-messages>
+                  <div class="error" *ngIf="!usertypeForm.controls['description'].valid && usertypeForm.controls['description'].touched">{{'Please Enter User Type Description' | translate}}.</div>              
               </div>
             </div>
           </div>

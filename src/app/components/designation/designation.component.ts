@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DesignationService } from '../../services/Designation/designation.service';
 import { Designation } from '../../models/designation/Designation.model';
-import {CommonService} from '../../services/common service/common.service';
+import { CommonService } from '../../services/common service/common.service';
 @Component({
   selector: 'app-designation',
   templateUrl: './designation.component.html',
@@ -17,7 +17,7 @@ export class DesignationComponent implements OnInit {
   processValidation = false;
   collection = [];
   toastMessage: string;
-  constructor (private commonService:CommonService, private designationService: DesignationService, private formBuilder: FormBuilder) { }
+  constructor(private commonService: CommonService, private designationService: DesignationService, private formBuilder: FormBuilder) { }
   designationForm = this.formBuilder.group({
     'name': ['', ([Validators.required])],
     'band': ['', [Validators.required]],
@@ -37,7 +37,7 @@ export class DesignationComponent implements OnInit {
     this.preProcessConfigurations();
     const name = this.designationForm.get('name').value.trim();
     const band = this.designationForm.get('band').value;
-    const level = this.designationForm.get('level').value;   
+    const level = this.designationForm.get('level').value;
     if (this.designationIdToUpdate === null) {
       const userType = new Designation(null, name, band, level);
       this.designationService.createDesignation(userType)
@@ -49,9 +49,9 @@ export class DesignationComponent implements OnInit {
         },
         errorCode => this.statusCode = errorCode);
     } else {
-      const designation = new Designation(this.designationIdToUpdate,name, band, level);
+      const designation = new Designation(this.designationIdToUpdate, name, band, level);
       this.designationService.updateDesignation(designation)
-        .subscribe (successCode => {
+        .subscribe(successCode => {
           // let message = successCode.message;
           this.toastMessage = successCode.message;
           this.getAllDesignation();
@@ -94,7 +94,7 @@ export class DesignationComponent implements OnInit {
     this.processValidation = false;
   }
 
-  toastMessageDisplay(){
+  toastMessageDisplay() {
     this.commonService.displayMessage();
-   }
+  }
 }

@@ -9,7 +9,7 @@ import { UserType } from '../../models/UserType/UserType.model';
 import { DesignationService } from '../../services/Designation/designation.service';
 import { Designation } from '../../models/designation/Designation.model';
 import { ValidationService } from '../../services/validation.service';
-import { CommonService } from '../../services/common service/common.service'
+import { CommonService } from '../../services/common service/common.service';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
 @Component({
   selector: 'app-employee',
@@ -27,13 +27,13 @@ export class EmployeeComponent implements OnInit {
   processValidation = false;
   collection = [];
   toastMessage: string;
-  selectMenu:Employee[];
+  selectMenu: Employee[];
   constructor(private employeeService: EmployeeService, private formBuilder: FormBuilder,
     private employeetypeService: EmployeetypeService, private usertypeService: UsertypeService,
     private designationService: DesignationService, private commonService: CommonService) { }
   employeeForm = this.formBuilder.group({
-    'userid': ['', ([Validators.required])],
-    'password': ['', [Validators.required]],
+    'userid': ['', ([ValidationService.useridValidator])],
+    'password': ['', [ValidationService.passwordValidator]],
     'firstName': ['', [Validators.required]],
     'lastName': ['', [Validators.required]],
     'phoneNumber': ['', ([Validators.required])],
@@ -67,7 +67,6 @@ export class EmployeeComponent implements OnInit {
       .subscribe(
       data => this.allEmployeetype = data,
       errorCode => this.statusCode = errorCode);
-
   }
   getAllUserTypes() {
     this.usertypeService.getAllUserTypes()
@@ -83,62 +82,41 @@ export class EmployeeComponent implements OnInit {
   }
   onEmployeeFormSubmit() {
     this.preProcessConfigurations();
-    let userid = this.employeeForm.get('userid').value;
-    console.log("userid", userid);
-    let password = this.employeeForm.get('password').value;
-    console.log("password", password);
-    let firstName = this.employeeForm.get('firstName').value;
-    console.log("firstName", firstName);
-    let lastName = this.employeeForm.get('lastName').value;
-    console.log("lastName", lastName);
-    let phoneNumber = this.employeeForm.get('phoneNumber').value;
-    console.log("phoneNumber", phoneNumber);
-    let emailid = this.employeeForm.get('emailid').value;
-    console.log("emailId", emailid);
-    let dateOfJoining = this.employeeForm.get('dateOfJoining').value;
-    console.log("dateOfJoining", dateOfJoining);
-    let dateOfBirth = this.employeeForm.get('dateOfBirth').value;
-    console.log("dateOfBirth", dateOfBirth);
-    let address = this.employeeForm.get('address').value;
-    console.log("address", address);
-    let department = this.employeeForm.get('department').value;
-    console.log("department", department);
-    let salary = this.employeeForm.get('salary').value;
-    console.log("salary", salary);
-    let usertypeId = ((document.getElementById("userType") as HTMLInputElement).value);
-    let usertype = parseInt(usertypeId);
-    console.log("usertype", usertype);
-    let employeetypeId = ((document.getElementById("employeetype") as HTMLInputElement).value);
-    let employeetype = parseInt(employeetypeId);
-    console.log("employeetype", employeetype);
-    let reportToId = ((document.getElementById("reportTo") as HTMLInputElement).value);
-    let reportTo = parseInt(reportToId);
-    console.log("reportTo", reportTo);
-    let designationId = ((document.getElementById("designation") as HTMLInputElement).value);
-    let designation = parseInt(designationId);
-    console.log("designation", designation);
-
+    const userid = this.employeeForm.get('userid').value;
+    const password = this.employeeForm.get('password').value;
+    const firstName = this.employeeForm.get('firstName').value;
+    const lastName = this.employeeForm.get('lastName').value;
+    const phoneNumber = this.employeeForm.get('phoneNumber').value;
+    const emailid = this.employeeForm.get('emailid').value;
+    const dateOfJoining = this.employeeForm.get('dateOfJoining').value;
+    const dateOfBirth = this.employeeForm.get('dateOfBirth').value;
+    const address = this.employeeForm.get('address').value;
+    const department = this.employeeForm.get('department').value;
+    const salary = this.employeeForm.get('salary').value;
+    const usertypeId = ((document.getElementById('userType') as HTMLInputElement).value);
+    const usertype = parseInt(usertypeId);
+    const employeetypeId = ((document.getElementById('employeetype') as HTMLInputElement).value);
+    const employeetype = parseInt(employeetypeId);
+    const reportToId = ((document.getElementById('reportTo') as HTMLInputElement).value);
+    const reportTo = parseInt(reportToId);
+    const designationId = ((document.getElementById('designation') as HTMLInputElement).value);
+    const designation = parseInt(designationId);
     if (this.employeeIdToUpdate === null) {
-      let attendance = new Employee(null, userid, password, firstName, lastName, phoneNumber, emailid, dateOfJoining, dateOfBirth, address, department, salary, reportTo, usertype, employeetype, designation);
-      console.log("attendance0", attendance)
+      const attendance = new Employee(null, userid, password, firstName, lastName, phoneNumber, emailid, dateOfJoining, dateOfBirth, address, department, salary, reportTo, usertype, employeetype, designation);
       this.employeeService.createEmployee(attendance)
         .subscribe(successCode => {
-        
-          let message = successCode.message;
-          this.toastMessage = message;
+          // let message = successCode.message;
+          this.toastMessage = successCode.message;
           this.getAllEmployee();
           this.backToCreateArticle();
         },
         errorCode => this.statusCode = errorCode);
-      console.log("successCode");
     } else {
-      //Handle update article
-      let userType = new Employee(this.employeeIdToUpdate, userid, password, firstName, lastName, phoneNumber, emailid, dateOfJoining, dateOfBirth, address, department, salary, reportTo, usertype, employeetype, designation);
-      console.log("userType:",userType)
+      const userType = new Employee(this.employeeIdToUpdate, userid, password, firstName, lastName, phoneNumber, emailid, dateOfJoining, dateOfBirth, address, department, salary, reportTo, usertype, employeetype, designation);
       this.employeeService.updateEmployee(userType)
         .subscribe(successCode => {
-          let message = successCode.message;
-          this.toastMessage = message;
+          // let message = successCode.message;
+          this.toastMessage = successCode.message;
           this.getAllEmployee();
           this.backToCreateArticle();
         },
@@ -149,49 +127,42 @@ export class EmployeeComponent implements OnInit {
     this.preProcessConfigurations();
     this.employeeService.deleteEmployeeById(id)
       .subscribe(successCode => {
-        let message = successCode.message;
-        this.toastMessage = message;
+        // let message = successCode.message;
+        this.toastMessage = successCode.message;
         this.getAllEmployee();
         this.backToCreateArticle();
       },
       errorCode => this.statusCode = errorCode);
-
   }
-
   reportTo(designation: number) {
-    let designationId = ((document.getElementById("designation") as HTMLInputElement).value);
+    const designationId = ((document.getElementById('designation') as HTMLInputElement).value);
     designation = parseInt(designationId);
-    console.log("designation", designation)
     this.preProcessConfigurations();
     this.employeeService.employeeForReportTo(designation)
-    .subscribe(
+      .subscribe(
       data => this.selectMenu = data.data,
       errorCode => this.statusCode = errorCode);
-      /*.subscribe(successCode => {
-        console.log("successCode:",successCode)
-        let selectMenu="";
-        //selectMenu+='<option value=""></option>'+"<br>";
-        for(var i = 0; i < successCode.data.length; i++) {
-         selectMenu+='<option value="'+successCode.data[i].id +'">'+successCode.data[i].firstName+' '+successCode.data[i].lastName +' ('+successCode.data[i].userid +')</option>'+"<br>";
-         
-        }
-        selectMenu+='</select>';
-        console.log("selectMenu:",selectMenu);
-        document.getElementById("reportto").innerHTML = selectMenu;
-        this.statusCode = successCode;
-        this.getAllEmployee();
-        this.backToCreateArticle();
-      },
-      errorCode => this.statusCode = errorCode);*/
-
+    /*.subscribe(successCode => {
+      console.log("successCode:",successCode)
+      let selectMenu="";
+      //selectMenu+='<option value=""></option>'+"<br>";
+      for(var i = 0; i < successCode.data.length; i++) {
+       selectMenu+='<option value="'+successCode.data[i].id +'">'+successCode.data[i].firstName+' '+successCode.data[i].lastName +' ('+successCode.data[i].userid +')</option>'+"<br>";  
+      }
+      selectMenu+='</select>';
+      console.log("selectMenu:",selectMenu);
+      document.getElementById("reportto").innerHTML = selectMenu;
+      this.statusCode = successCode;
+      this.getAllEmployee();
+      this.backToCreateArticle();
+    },
+    errorCode => this.statusCode = errorCode);*/
   }
   loadEmployeeToEdit(id: string) {
     this.preProcessConfigurations();
     this.employeeService.getEmployeeById(id)
       .subscribe(data => {
-        console.log("updateData:",data)
         this.employeeIdToUpdate = data.id;
-       
         this.employeeForm.setValue({
           userid: data.userid,
           password: data.password,
@@ -206,18 +177,14 @@ export class EmployeeComponent implements OnInit {
           salary: data.salary,
           employeetype: data.employeetype.id,
           usertype: data.usertype.id,
-          designation: data.designation.id,     
+          designation: data.designation.id,
           reportTo: data.reportTo
-          
         });
-
         this.processValidation = true;
         this.requestProcessing = false;
       },
       errorCode => this.statusCode = errorCode);
-      console.log("this.employeeForm:",this.employeeForm)
   }
-
   preProcessConfigurations() {
     this.statusCode = null;
     this.requestProcessing = true;
@@ -230,13 +197,5 @@ export class EmployeeComponent implements OnInit {
   toastMessageDisplay() {
     this.commonService.displayMessage();
   }
-  openModal() {
-    document.getElementById('modal').style.display = 'block';
-    document.getElementById('fade').style.display = 'block';
-}
-
-closeModal() {
-document.getElementById('modal').style.display = 'none';
-document.getElementById('fade').style.display = 'none';
-}
+ 
 }

@@ -71,7 +71,7 @@
                 </option>
                 
               </select>
-              <div class="error" *ngIf="!attendanceForm.controls['employee'].valid && attendanceForm.controls['employee'].touched">{{'Please  Select EmployeeId' | translate}}.</div>
+              <div class="error" *ngIf="!attendanceForm.controls['employee'].valid && attendanceForm.controls['employee'].touched">{{'Please  Select Employee Id' | translate}}.</div>
             </div>
             <div class="col-lg-offset-5">
               <div class=" form-group col-lg-6">
@@ -94,8 +94,7 @@
               <div class=" form-group col-lg-6">
                 <label class="label-name "> {{ 'Date' | translate }}</label>
                 <input type="date" formControlName="date" class="loginUserid">
-                <div class="error" *ngIf="!attendanceForm.controls['date'].valid &&  attendanceForm.controls['date'].touched">{{'Please Enter Date' | translate}}</div>
-              <div class="error" *ngIf="!attendanceForm.controls['date'].valid && attendanceForm.controls['date'].touched">{{'please Enter Date | translate'}}</div>
+                <div class="error" *ngIf="!attendanceForm.controls['date'].valid &&  attendanceForm.controls['date'].touched">{{'Please Enter Today  Date' | translate}}</div>
               </div>
             </div>
           </div>

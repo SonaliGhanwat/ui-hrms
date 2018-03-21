@@ -9,53 +9,43 @@ import { Holiday } from '../../models/Holiday/Holiday.model';
 import { BaseService } from '../base.service';
 
 @Injectable()
-export class HolidayService extends BaseService{
-
-  holidayUrl = "holiday/";
-  
+export class HolidayService extends BaseService {
+  holidayUrl = 'holiday/';
   constructor(protected http: Http) {
     super(http);
   }
   getAllHolidayList(): Observable<Holiday[]> {
-    return this.http.get(this.buidURL(this.holidayUrl+this.list_url))
+    return this.http.get(this.buidURL(this.holidayUrl + this.list_url))
       .map(this.extractData)
       .catch(this.handleError);
   }
   createHoliday(holiday: Holiday): Observable<any> {
-    let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: cpHeaders });
-    return this.http.post(this.buidURL(this.holidayUrl+this.create_url), holiday, options)
+    return this.http.post(this.buidURL(this.holidayUrl + this.create_url), holiday)
       .map(success => success.json())
       .catch(this.handleError);
   }
-
   deleteHolidayById(id: string): Observable<any> {
-    let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
-    return this.http.delete(this.buidURL(this.holidayUrl+this.delete_url+id))
+    return this.http.delete(this.buidURL(this.holidayUrl + this.delete_url + id))
       .map(success => success.json())
       .catch(this.handleError);
   }
   getHolidayById(id: string): Observable<Holiday> {
-    let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
-    let cpParams = new URLSearchParams();
-    cpParams.set('id', id);			
-    let options = new RequestOptions({ headers: cpHeaders, params: cpParams });
-    return this.http.get(this.buidURL(this.holidayUrl+id))
+    const cpHeaders = new Headers({ 'Content-Type': 'application/json' });
+    const cpParams = new URLSearchParams();
+    cpParams.set('id', id);
+    const options = new RequestOptions({ headers: cpHeaders, params: cpParams });
+    return this.http.get(this.buidURL(this.holidayUrl + id))
       .map(this.extractData)
       .catch(this.handleError);
-      }	
+  }
 
-  updateHoliday(holiday: Holiday):Observable<any> {
-    let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
-          let options = new RequestOptions({ headers: cpHeaders });
-          return this.http.put(this.buidURL(this.holidayUrl+this.update_url), holiday, options)
-                 .map(success => success.json())
-                 .catch(this.handleError);
-      }
-
-
+  updateHoliday (holiday: Holiday): Observable<any> {
+    return this.http.put (this.buidURL (this.holidayUrl + this.update_url), holiday)
+      .map(success => success.json())
+      .catch(this.handleError);
+  }
   protected extractData(res: Response) {
-    let body = res.json();
+    const body = res.json();
     return body;
   }
   protected handleError(error: Response | any) {

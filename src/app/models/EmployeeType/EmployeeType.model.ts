@@ -1,9 +1,10 @@
-export class EmployeeType{
+export class EmployeeType {
     constructor(
+
         public id: number,
-        public type:string,
-        public seekLeave:number,
-        public paidLeave:number,
-        public totalLeave:any
-    ){}
+        public type: string,
+        public seekLeave: number,
+        public paidLeave: number,
+        public totalLeave: any
+    ) { }
 }

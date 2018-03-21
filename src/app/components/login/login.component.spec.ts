@@ -1,45 +1,44 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import {Component, DebugElement} from "@angular/core";
+import { Component, DebugElement } from '@angular/core';
 import { LoginComponent } from './login.component';
-import {By} from "@angular/platform-browser";
-
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate';
+import { HttpModule, Http } from '@angular/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { CommonService } from '../../services/common service/common.service';
+import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
+import { RouterModule, Routes } from '@angular/router';
+import { AppRoutingModule } from '../../app-routing.module';
+import { HomeComponent } from '../../components/home/home.component';
+import { By } from '@angular/platform-browser';
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
-  let submitElement: DebugElement;
-  //let loginElement: DebugElement;
-  //let passwordElement: DebugElement;
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LoginComponent ]
+      imports: [ReactiveFormsModule, FormsModule, TranslateModule.forRoot(), HttpModule, HttpClientModule, Ng4LoadingSpinnerModule.forRoot(), AppRoutingModule],
+      declarations: [LoginComponent],
+      providers: [HttpClientModule, CommonService],
     })
-    .compileComponents();
-  }));
+      .compileComponents();
 
+  }));
   beforeEach(() => {
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    submitElement = fixture.debugElement.query(By.css('button'));
-    //loginElement = fixture.debugElement.query(By.css('input[type=text]'));
-    //passwordElement = fixture.debugElement.query(By.css('input[type=password]'));
   });
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-  it('Setting enabled to false disabled the submit button', () => {
-    component.enabled = false;
-    fixture.detectChanges();
 
-    //Expected outcome
-    expect(submitElement.nativeElement.disabled).toBeTruthy();
+  it('userForm invalid when empty', () => {
+    expect(component.userForm.valid).toBeFalsy();
   });
-  it('Setting enabled to true enables the submit button', () => {
-    component.enabled = true;
-    fixture.detectChanges();
+  it('userid field validity', () => {
+    let errors = {};
+    const userid = component.userForm.controls['userid'];
+    expect(userid.valid).toBeFalsy();
 
-    //Expected outcome
-    expect(submitElement.nativeElement.disabled).toBeFalsy();
+    // Email field is required
+    errors = userid.errors || {};
+    expect(errors['required']).toBeTruthy();
   });
 });

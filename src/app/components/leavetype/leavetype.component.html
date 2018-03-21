@@ -57,7 +57,7 @@
               <br>
               <input type="text"  formControlName="name" id="usertypeName" name="usertypeName" class="loginUserid"
                 placeholder="Name">
-              <app-control-messages [control]="leavetypeForm.controls.name"></app-control-messages>
+                <div class="error" *ngIf="!leavetypeForm.controls['name'].valid && leavetypeForm.controls['name'].touched">{{'Please Enter Leave Type name' | translate}}.</div>              
             </div>
 
 

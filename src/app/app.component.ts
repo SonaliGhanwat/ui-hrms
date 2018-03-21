@@ -8,9 +8,9 @@ import { TranslateService } from 'ng2-translate';
 })
 export class AppComponent {
 
-  constructor(private translate : TranslateService){
-    translate.addLangs(["en","fr","cn","hi"]);
-    translate.setDefaultLang("en");
+  constructor(private translate: TranslateService) {
+    translate.addLangs(['en', 'fr', 'cn', 'hi']);
+    translate.setDefaultLang('en');
 
   }
 }

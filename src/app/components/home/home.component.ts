@@ -11,7 +11,7 @@ import { Keepalive } from '@ng-idle/keepalive';
 export class HomeComponent implements OnInit {
 
   name: string;
-  show: boolean = false;
+  show = false;
   menuList: any;
   selected: any;
   idleState: any;
@@ -67,7 +67,7 @@ export class HomeComponent implements OnInit {
     }, {
       'name': 'Approvals',
       'subMenu': [{
-        'name': "Approval",
+        'name': 'Approval',
         'link': '/approvals'
       }]
     }];
@@ -80,7 +80,6 @@ export class HomeComponent implements OnInit {
       this.router.navigate(['/login']);
       this.toast = this.idleState;
       alert(this.toast);
-      console.log("this.toastMessag:", this.toast);
     });
     this.idle.watch();
   }
@@ -97,9 +96,9 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
   }
   toastMessageDisplay() {
-    let x = document.getElementById("toastbar");
-    x.className = "show";
-    setTimeout(function () { x.className = x.className.replace("show", ""); }, 9000);
+    const x = document.getElementById('toastbar');
+    x.className = 'show';
+    setTimeout(function () { x.className = x.className.replace('show', ''); }, 9000);
   }
 
 }

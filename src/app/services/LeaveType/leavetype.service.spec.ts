@@ -8,8 +8,4 @@ describe('LeavetypeService', () => {
       providers: [LeavetypeService]
     });
   });
-
-  it('should be created', inject([LeavetypeService], (service: LeavetypeService) => {
-    expect(service).toBeTruthy();
-  }));
 });

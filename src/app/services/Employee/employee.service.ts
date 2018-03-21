@@ -8,76 +8,67 @@ import { Employee } from '../../models/Employee/Employee.model';
 import { BaseService } from '../base.service';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
 @Injectable()
-export class EmployeeService extends BaseService{
-
-  employeeUrl = "employee/";
- 
-  reportTo="http://localhost:8085/HRMS/designation/reportTo/"
-  list_url="list/"
-  myCookie :any;
+export class EmployeeService extends BaseService {
+  employeeUrl = 'employee/';
+  reportTo = 'http://localhost:8085/HRMS/designation/reportTo/';
+  list_url = 'list/';
+  myCookie: any;
   constructor(protected http: Http) {
     super(http);
   }
   getAllEmployeeList(): Observable<Employee[]> {
     this.myCookie = Cookie.get('cookieName');
-    console.log("cookie:",this.myCookie);
-    return this.http.get(this.buidURL(this.employeeUrl+this.list_url+this.myCookie))
+    console.log('cookie:', this.myCookie);
+    return this.http.get(this.buidURL(this.employeeUrl + this.list_url + this.myCookie))
       .map(this.extractData)
       .catch(this.handleError);
   }
   createEmployee(employee: Employee): Observable<any> {
-    let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: cpHeaders });
-    return this.http.post(this.buidURL(this.employeeUrl+this.create_url), employee, options)
+    return this.http.post(this.buidURL(this.employeeUrl + this.create_url), employee)
       .map(success => success.json())
       .catch(this.handleError);
   }
-
   deleteEmployeeById(id: string): Observable<any> {
-    let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
-    return this.http.delete(this.buidURL(this.employeeUrl+this.delete_url+id))
+    return this.http.delete(this.buidURL(this.employeeUrl + this.delete_url + id))
       .map(success => success.json())
       .catch(this.handleError);
   }
   employeeForReportTo(id: number): Observable<any> {
-    let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
-    return this.http.get(this.reportTo+id)
-    .map(this.extractData)
-    .catch(this.handleError);
-  }
-  getEmployeeById(id: string): Observable<Employee> {
-    let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
-    let cpParams = new URLSearchParams();
-    cpParams.set('id', id);			
-    let options = new RequestOptions({ headers: cpHeaders, params: cpParams });
-    return this.http.get(this.buidURL(this.employeeUrl+id))
+    return this.http.get(this.reportTo + id)
       .map(this.extractData)
       .catch(this.handleError);
-      }	
+  }
+  getEmployeeById(id: string): Observable<Employee> {
+    const cpHeaders = new Headers({ 'Content-Type': 'application/json' });
+    const cpParams = new URLSearchParams();
+    cpParams.set('id', id);
+    const options = new RequestOptions({ headers: cpHeaders, params: cpParams });
+    return this.http.get(this.buidURL(this.employeeUrl + id))
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
 
-  updateEmployee(employee: Employee):Observable<any> {
-    let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
-          let options = new RequestOptions({ headers: cpHeaders });
-          return this.http.put(this.buidURL(this.employeeUrl+this.update_url), employee)
-                 .map(success => success.json())
-                 .catch(this.handleError);
-      }
+  updateEmployee(employee: Employee): Observable<any> {
+    return this.http.put(this.buidURL(this.employeeUrl + this.update_url), employee)
+      .map(success => success.json())
+      .catch(this.handleError);
+  }
 
   protected extractData(res: Response) {
-    let body = res.json();
-    console.log("body:",body);
+    const body = res.json();
+    console.log('body:', body);
     return body;
   }
   protected handleError(error: Response | any) {
     console.error(error.message || error);
     return Observable.throw(error.status);
   }
- private getRequestOptions() {
-    let myCookie = Cookie.get('cookieName');
-    console.log("cookie:",myCookie);
-    let customHeaders: Headers = new Headers();
+  private getRequestOptions() {
+    const myCookie = Cookie.get('cookieName');
+    console.log('cookie:', myCookie);
+    const customHeaders: Headers = new Headers();
     customHeaders.append('request', myCookie);
-  console.log("customHeaders:",customHeaders) 
-    return new RequestOptions({headers: customHeaders, withCredentials: true});    
+    console.log('customHeaders:', customHeaders);
+    return new RequestOptions({ headers: customHeaders, withCredentials: true });
   }
 }

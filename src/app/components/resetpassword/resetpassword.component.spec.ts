@@ -19,7 +19,5 @@ describe('ResetpasswordComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  
 });

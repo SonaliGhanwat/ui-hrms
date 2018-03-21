@@ -5,8 +5,8 @@ import { Attendance } from '../../models/Attendance/Attendance.model';
 import { EmployeeService } from '../../services/Employee/employee.service';
 import { Employee } from '../../models/Employee/Employee.model';
 import { ValidationService } from '../../services/validation.service';
-import { CommonService } from '../../services/common service/common.service'
-import { Http } from "@angular/http";
+import { CommonService } from '../../services/common service/common.service';
+import { Http } from '@angular/http';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
 @Component({
   selector: 'app-attendance',
@@ -16,16 +16,16 @@ import { Cookie } from 'ng2-cookies/ng2-cookies';
 export class AttendanceComponent implements OnInit {
 
   allAttendance: Attendance[];
-  allEmployee: Employee[]
+  allEmployee: Employee[];
   statusCode: number;
   requestProcessing = false;
   attendanceIdToUpdate = null;
   processValidation = false;
   selectedEntities: any[];
-  Attendance: string = 'date';
+  Attendance = 'date';
   collection = [];
   toastMessage: string;
-  selectedEmployee:any;
+  selectedEmployee: any;
   constructor(private commonService: CommonService, private attendanceService: AttendanceService, private formBuilder: FormBuilder, private employeeService: EmployeeService) {
 
   }
@@ -34,7 +34,7 @@ export class AttendanceComponent implements OnInit {
     'employee': ['', ([Validators.required])],
     'intime': ['', ([Validators.required])],
     'outtime': ['', [Validators.required, ValidationService.outTimeValidation]],
-    'date': ['', [Validators.required, ValidationService.currentDateValidation]],
+    'date': ['', [ValidationService.currentDateValidation]],
   });
 
 
@@ -46,7 +46,7 @@ export class AttendanceComponent implements OnInit {
   }
 
   getAllAttendanceList() {
-   this.commonService.startLoadingSpinner();
+    this.commonService.startLoadingSpinner();
     this.attendanceService.getAllAttendance()
       .subscribe(
       data => this.allAttendance = data,
@@ -61,47 +61,37 @@ export class AttendanceComponent implements OnInit {
   }
   onEmployeeAttendanceFormSubmit() {
     this.preProcessConfigurations();
-   // let employeeId = this.attendanceForm.get('employee').value.trim();
-    //console.log("employeeId:", employeeId)
-    let employeeId = ((document.getElementById("employee") as HTMLInputElement).value);
-    let employee = parseInt(employeeId);
-    console.log("employee", employee);
-    
+    // let employeeId = this.attendanceForm.get('employee').value.trim();
+    const employeeId = ((document.getElementById('employee') as HTMLInputElement).value);
+    const employee = parseInt(employeeId);
     let intime = this.attendanceForm.get('intime').value;
-    if (intime.split(":").length === 2) {
+    if (intime.split(':').length === 2) {
       intime = this.attendanceForm.get('intime').value + ':00';
     } else {
       intime = this.attendanceForm.get('intime').value;
     }
     let outtime = this.attendanceForm.get('outtime').value;
-    if (outtime.split(":").length === 2) {
+    if (outtime.split(':').length === 2) {
       outtime = this.attendanceForm.get('outtime').value + ':00';
     } else {
       outtime = this.attendanceForm.get('outtime').value;
     }
-
-    let date = this.attendanceForm.get('date').value;
-
+    const date = this.attendanceForm.get('date').value;
     if (this.attendanceIdToUpdate === null) {
-      let attendance = new Attendance(null, employee, intime, outtime, date);
-      console.log("attendance0", attendance)
+      const attendance = new Attendance(null, employee, intime, outtime, date);
       this.attendanceService.createEmployeeAttendance(attendance).subscribe(data => {
         Cookie.deleteAll();
-        let myCookie = Cookie.get('url');
-        console.log("myCookie:",myCookie);
-        let message = data.message
+        const myCookie = Cookie.get('url');
+        const message = data.message;
         this.toastMessage = message;
-        console.log("data", message);
         this.getAllAttendanceList();
         this.backToCreateArticle();
       });
     } else {
-      //Handle update article
-      let userType = new Attendance(this.attendanceIdToUpdate, employee, intime, outtime, date);
-      console.log("userType:", userType)
+      const userType = new Attendance(this.attendanceIdToUpdate, employee, intime, outtime, date);
       this.attendanceService.updateEmployeeAttendance(userType)
         .subscribe(data => {
-          let message = data.message;
+          const message = data.message;
           this.toastMessage = message;
           this.getAllAttendanceList();
           this.backToCreateArticle();
@@ -115,9 +105,8 @@ export class AttendanceComponent implements OnInit {
       .subscribe(successCode => {
         this.getAllAttendanceList();
         this.backToCreateArticle();
-        let message = successCode.message;
-        this.toastMessage = message;
-        console.log("message", message);
+        // let message = successCode.message;
+        this.toastMessage = successCode.message;
       },
       errorCode => this.statusCode = errorCode);
   }
@@ -125,30 +114,26 @@ export class AttendanceComponent implements OnInit {
     this.preProcessConfigurations();
     this.attendanceService.getEmployeeAttendanceById(id)
       .subscribe(data => {
-        console.log("employee:", data);
         this.attendanceIdToUpdate = data.id;
-       /* if(this.attendanceIdToUpdate !=null){
-          (document.getElementById('employee') as HTMLButtonElement).disabled = true;   
-        }*/
-       
-       // this.userid = data.employee.userid
-        this.attendanceForm.setValue({employee:data.employee.id, intime: data.intime, outtime: data.outtime, date: data.date });
-        console.log("employee:", data.employee.userid);
+        /* if(this.attendanceIdToUpdate !=null){
+           (document.getElementById('employee') as HTMLButtonElement).disabled = true;   
+         }*/
+
+        // this.userid = data.employee.userid
+        this.attendanceForm.setValue({ employee: data.employee.id, intime: data.intime, outtime: data.outtime, date: data.date });
         this.processValidation = true;
         this.requestProcessing = false;
       },
       errorCode => this.statusCode = errorCode);
   }
-  onSelect(employeeId) { 
+  onSelect(employeeId) {
     this.selectedEmployee = null;
-    for (var i = 0; i < this.allEmployee.length; i++)
-    {
-      if (this.allEmployee[i].id == employeeId) {
+    for (let i = 0; i < this.allEmployee.length; i++) {
+      if (this.allEmployee[i].id === employeeId) {
         this.selectedEmployee = this.allEmployee[i].id;
-        console.log("this.selectedCountry:",this.selectedEmployee)
       }
     }
-}
+  }
   preProcessConfigurations() {
     this.statusCode = null;
     this.requestProcessing = true;
@@ -162,24 +147,21 @@ export class AttendanceComponent implements OnInit {
   toastMessageDisplay() {
     this.commonService.displayMessage();
   }
-
   public setSelectedEntities($event: any) {
     this.selectedEntities = $event;
   }
- loadingSpinner(){
-     this.commonService.startLoadingSpinner();
-   }
+  loadingSpinner() {
+    this.commonService.startLoadingSpinner();
+  }
   timeValidation() {
-    let intime = this.attendanceForm.get('intime').value;
-    let outtime = this.attendanceForm.get('outtime').value;
-    console.log("intime:", intime)
+    const intime = this.attendanceForm.get('intime').value;
+    const outtime = this.attendanceForm.get('outtime').value;
     if (intime <= outtime) {
-
     } else if (outtime <= intime) {
-      document.getElementById("outtime_validation").innerHTML = " OutTime  should be greater then InTime";
+      document.getElementById('outtime_validation').innerHTML = 'OutTime  should be greater then InTime';
       return false;
     }
-    document.getElementById("outtime_validation").innerHTML = ""
+    document.getElementById('outtime_validation').innerHTML = '';
     return true;
   }
 

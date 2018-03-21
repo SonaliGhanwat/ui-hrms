@@ -168,3 +168,9 @@
     background: #2e2e2e;
     
 }
+.error {
+    margin-left: 20px;
+    color:red;
+   padding-top: 7px;
+     width: 250px 
+  }

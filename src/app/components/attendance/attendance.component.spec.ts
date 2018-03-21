@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AttendanceComponent } from './attendance.component';
 
-xdescribe('AttendanceComponent', () => {
+describe('AttendanceComponent', () => {
   let component: AttendanceComponent;
   let fixture: ComponentFixture<AttendanceComponent>;
 
@@ -19,7 +19,7 @@ xdescribe('AttendanceComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  /*it('should create', () => {
     expect(component).toBeTruthy();
-  });
+  });*/
 });

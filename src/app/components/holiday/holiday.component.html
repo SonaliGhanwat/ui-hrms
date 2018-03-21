@@ -58,7 +58,7 @@
               <br>
               <input type="text" *ngIf="holidayForm.get('holidayName')" formControlName="holidayName" id="holidayName" name="holidayName"
                 class="loginUserid" placeholder="Name">
-              <app-control-messages [control]="holidayForm.controls.holidayName"></app-control-messages>
+                <div class="error" *ngIf="!holidayForm.controls['holidayName'].valid && holidayForm.controls['holidayName'].touched">{{'Please Enter Holday Name' | translate}}.</div>
             </div>
 
             <div class="col-lg-offset-5">
@@ -66,7 +66,7 @@
                 <label class="label-name "> {{ 'Date' | translate }}</label>
                 <input type="date" *ngIf="holidayForm.get('holidayDate')" formControlName="holidayDate" id="holidayDate" name="holidayDate"
                   class="loginUserid" placeholder="Description">
-                <app-control-messages [control]="holidayForm.controls.holidayDate"></app-control-messages>
+                   <div class="error" *ngIf="!holidayForm.controls['holidayDate'].valid && holidayForm.controls['holidayDate'].touched">{{'Please Enter Holday Date' | translate}}.</div>
               </div>
             </div>
           </div>

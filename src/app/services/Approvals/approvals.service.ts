@@ -4,37 +4,33 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import { Leave} from '../../models/Leave/Leave.model';
+import { Leave } from '../../models/Leave/Leave.model';
 import { Approval } from '../../models/Approvals/Approval.model';
 import { BaseService } from '../base.service';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
 @Injectable()
 export class ApprovalsService extends BaseService {
-
-  leaveUrl = "employeeleave/getEmployeeLeaveByStatus/";
-  updateStatus = "employeeleave/statusUpdate"
-  myCookie:any;
+  leaveUrl = 'employeeleave/getEmployeeLeaveByStatus/';
+  updateStatus = 'employeeleave/statusUpdate';
+  myCookie: any;
   constructor(protected http: Http) {
     super(http);
   }
   getAllLeaveByStatus(): Observable<any> {
     this.myCookie = Cookie.get('cookieName');
-    console.log("cookie:",this.myCookie);
-    return this.http.get(this.buidURL(this.leaveUrl+this.myCookie))
-      .map(this.extractData,success => success.json())
+    console.log('cookie:', this.myCookie);
+    return this.http.get(this.buidURL(this.leaveUrl + this.myCookie))
+      .map(this.extractData, success => success.json())
       .catch(this.handleError);
   }
-
   updateLeaveStatus(approval: Approval): Observable<any> {
-    let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: cpHeaders });
-    return this.http.post(this.buidURL(this.updateStatus), approval, options)
+    return this.http.post(this.buidURL(this.updateStatus), approval)
       .map(success => success.json())
       .catch(this.handleError);
   }
   protected extractData(res: Response) {
-    let body = res.json();
-    console.log("data:",body)
+    const body = res.json();
+    console.log('data:', body);
     return body;
   }
   protected handleError(error: Response | any) {

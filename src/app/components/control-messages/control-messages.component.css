@@ -4,7 +4,7 @@
     height: 25px;
     color: red;
     background-color: #fff;
-   
+    padding-top: 7px;
 }
 input.ng-invalid.ng-touched {
     border: 1px solid red;

@@ -7,9 +7,5 @@ describe('EmployeetypeService', () => {
     TestBed.configureTestingModule({
       providers: [EmployeetypeService]
     });
-  });
-
-  it('should be created', inject([EmployeetypeService], (service: EmployeetypeService) => {
-    expect(service).toBeTruthy();
-  }));
+  }); 
 });

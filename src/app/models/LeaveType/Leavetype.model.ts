@@ -1,6 +1,8 @@
-export class LeaveType{
+export class LeaveType {
     constructor(
-        public id:number,
-        public name:string
-    ){}
+
+        public id: number,
+        public name: string
+
+    ) { }
 }
