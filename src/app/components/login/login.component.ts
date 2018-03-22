@@ -44,6 +44,7 @@ export class LoginComponent implements OnInit {
     this.commonService.startLoadingSpinner();
     const loginModel = new LoginModel(this.userForm.get('userid').value.trim(), this.userForm.get('password').value.trim());
     localStorage.setItem('userid', this.userForm.get('userid').value.trim());
+    this.loggedIn.emit(new LoginModel(this.userForm.get('userid').value.trim(), this.userForm.get('password').value.trim()));
     this.loginService.post(loginModel).subscribe(data => {
       const code = data.code;
       if (code === 1) {
