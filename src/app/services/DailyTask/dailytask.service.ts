@@ -6,15 +6,18 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { DailyTask } from '../../models/DailyTask/DailyTask.model';
 import { BaseService } from '../base.service';
-
+import { Cookie } from 'ng2-cookies/ng2-cookies';
 @Injectable()
 export class DailytaskService extends BaseService {
   dailyTaskUrl = 'employeedailytask/';
+  dailytasklist_url = 'list/';
+  myCookie:any;
   constructor(protected http: Http) {
     super(http);
   }
   getAllDailyTaskList(): Observable<DailyTask[]> {
-    return this.http.get(this.buidURL(this.dailyTaskUrl + this.list_url))
+    this.myCookie = Cookie.get('cookieName');
+    return this.http.get(this.buidURL(this.dailyTaskUrl + this.dailytasklist_url+this.myCookie))
       .map(this.extractData)
       .catch(this.handleError);
   }

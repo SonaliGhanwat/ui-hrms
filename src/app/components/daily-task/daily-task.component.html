@@ -15,10 +15,9 @@
           <th class="col-xs-1">{{ 'No' | translate }}</th>
           <th class="col-xs-2">EmployeeId</th>
           <th class="col-xs-2"> {{ 'Date' | translate }}</th>
-          <th class="col-xs-2" style="margin-right: -20px;">{{ 'TaskName' | translate }}</th>
-          <th class="col-xs-2">{{ 'EstimationTime' | translate }}</th>
-          <th class="col-xs-1" >{{ 'Status' | translate }}</th>
-          <th class="col-xs-2">Action</th>
+          <th class="col-xs-2" >{{ 'TaskName' | translate }}</th>
+          <th class="col-xs-2" >{{ 'Status' | translate }}</th>
+          <th class="col-xs-3">Action</th>
         </tr>
       </thead>
       <tr *ngFor="let dailyTask of allDailyTask| paginate: { itemsPerPage: 8, currentPage: p}">
@@ -26,9 +25,9 @@
         <td class="tablerow col-xs-2">{{dailyTask.employee.userid}}</td>
         <td class="tablerow col-xs-2">{{dailyTask.date}}</td>
         <td class="tablerow col-xs-2">{{dailyTask.taskName}}</td>
-        <td class="tablerow col-xs-2" style="margin-right: -30px">{{dailyTask.estimationTime}}</td>
-        <td class="tablerow col-xs-1" >{{dailyTask.status}}</td>
-        <td class="tablerow col-xs-2">
+      
+        <td class="tablerow col-xs-2" >{{dailyTask.status}}</td>
+        <td class="tablerow col-xs-3">
           <span class="action-link" role="button" tabindex="0" (click)="loadDailyTaskToEdit(dailyTask.id)" data-toggle="modal" data-target="#myModal">{{'Edit'|translate}}</span>
           <span> | </span>
           <span class="action-link" role="button" tabindex="0" (click)="deleteDailyTask(dailyTask.id)">{{'Delete'|translate}}</span>

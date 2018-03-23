@@ -6,14 +6,18 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Leave } from '../../models/Leave/Leave.model';
 import { BaseService } from '../base.service';
+import { Cookie } from 'ng2-cookies/ng2-cookies';
 @Injectable()
 export class LeaveService extends BaseService {
   leaveUrl = 'employeeleave/';
+  leavelist_url = 'list/';
+  myCookie: any;
   constructor(protected http: Http) {
     super(http);
   }
   getAllLeave(): Observable<Leave[]> {
-    return this.http.get(this.buidURL(this.leaveUrl + this.list_url))
+    this.myCookie = Cookie.get('cookieName');
+    return this.http.get(this.buidURL(this.leaveUrl + this.leavelist_url+this.myCookie))
       .map(this.extractData)
       .catch(this.handleError);
   }

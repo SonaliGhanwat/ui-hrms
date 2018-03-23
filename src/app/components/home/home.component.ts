@@ -72,7 +72,7 @@ export class HomeComponent implements OnInit {
       }]
     }];
 
-    idle.setIdle(5);
+    /*idle.setIdle(5);
     idle.setTimeout(5000);
     idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
     idle.onTimeout.subscribe(() => {
@@ -81,7 +81,7 @@ export class HomeComponent implements OnInit {
       this.toast = this.idleState;
       alert(this.toast);
     });
-    this.idle.watch();
+    this.idle.watch();*/
   }
   select(item) {
     this.selected = (this.selected === item ? null : item);

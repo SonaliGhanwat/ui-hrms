@@ -1,5 +1,5 @@
 
-import { Component, OnInit ,Input} from '@angular/core';
+import { Component, OnInit ,Input,Output,EventEmitter} from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UsertypeService } from '../../services/UserType/usertype.service';
 import { UserType } from '../../models/UserType/UserType.model';
@@ -18,13 +18,17 @@ export class UsertypeComponent implements OnInit {
   processValidation = false;
   toastMessage:string;
   UserType = 'usertypeName';
+  usertypeForm:FormGroup;
   // isError:boolean = false;
+  @Output() loggedIn = new EventEmitter<UserType>();
+  @Input() enabled = true;
   constructor(private commonService:CommonService, private usertypeService: UsertypeService, private formBuilder: FormBuilder) { }
-  usertypeForm = this.formBuilder.group({
-    'usertypeName': ['', ([Validators.required])],
-    'description': ['', [Validators.required]],
-  });
+ 
   ngOnInit(): void {
+    this.usertypeForm = this.formBuilder.group({
+      'usertypeName': ['', ([Validators.required])],
+      'description': ['', [Validators.required]],
+    });
     this.getAllUserTypes();
     this.commonService.onPreviousNextPage();
   }
@@ -40,6 +44,8 @@ export class UsertypeComponent implements OnInit {
     const description = this.usertypeForm.get('description').value.trim();
     if (this.userTypeIdToUpdate === null) {
       const userType = new UserType(null, usertypeName, description);
+      this.loggedIn.emit(new UserType(null,usertypeName, description));
+      console.log('this.loggedIn:',this.loggedIn);
       this.usertypeService.createUserType(userType)
         .subscribe(successCode => {
           // let message = successCode.message;
@@ -62,6 +68,7 @@ export class UsertypeComponent implements OnInit {
   }
   deleteUserType(id: string) {
     this.preProcessConfigurations();
+    this.loggedIn.emit(new UserType(id,null,null));
     this.usertypeService.deleteUserTypeById(id)
       .subscribe(successCode => {
         // let message = successCode.message;

@@ -84,8 +84,6 @@ describe(' Login Component', () => {
     });
 
     fixture = TestBed.createComponent(LoginComponent);
-
-   
     component = fixture.componentInstance;
     component.ngOnInit();
     submitEl = fixture.debugElement.query(By.css('button'));
@@ -101,7 +99,6 @@ describe(' Login Component', () => {
     expect(userid.valid).toBeFalsy();
     errors = userid.errors || {};
     expect(errors['required']).toBeTruthy();
-
   });
   it('password field validity', () => {
     let errors = {};
@@ -112,16 +109,16 @@ describe(' Login Component', () => {
   });
   it('submitting a form emits a user', () => {
     expect(component.userForm.valid).toBeFalsy();
-    component.userForm.controls['userid'].setValue("sonali123");
-    component.userForm.controls['password'].setValue("sonali");
-    //loginEl.nativeElement.value = "sonali123";
-    //passwordEl.nativeElement.value = "sonali";
+    component.userForm.controls['userid'].setValue('sonali12');
+    component.userForm.controls['password'].setValue('sonali');
+    // loginEl.nativeElement.value = "sonali123";
+    // passwordEl.nativeElement.value = "sonali";
     expect(component.userForm.valid).toBeTruthy();
     let user: LoginModel;
     component.loggedIn.subscribe((value) => user = value);
     component.onLoginFormSubmit();
-    expect(user.userid).toBe("sonali123");
-    expect(user.password).toBe("sonali");
+    expect(user.userid).toBe('sonali12');
+    expect(user.password).toBe('sonali');
   });
  it('Setting enabled to false disabled the submit button', () => {
     component.enabled = false;
@@ -134,5 +131,4 @@ describe(' Login Component', () => {
     fixture.detectChanges();
     expect(submitEl.nativeElement.disabled).toBeFalsy();
   });
-
 });

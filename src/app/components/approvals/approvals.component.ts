@@ -36,7 +36,8 @@ export class ApprovalsComponent implements OnInit {
       data => {
         this.allLeave = data.data;
         const code = data.code;
-        if (code === 1) {
+        console.log('code:',code);
+        if (code === 0) {
           document.getElementById('data').innerHTML = 'There is no any request for Leave Approval';
         }
       },
