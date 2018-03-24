@@ -1,7 +1,6 @@
-
-<div id="myDIV" class="sidenav " >
-    <ul style="    margin-left: -40px;margin-top: -20px;">
-        <div class="dropbtn " (click)="isActive = true" *ngFor="let n of menuList" (click)="select(n.name);" [ngClass]="{active: isSelect(n.name)}">
+<div id="myDIV" class="sidenav">
+    <ul style="margin-left: -40px;margin-top: -20px;">
+        <div class="dropbtn" (click)="isActive = true" *ngFor="let n of menuList" (click)="select(n.name);" [ngClass]="{active: isSelect(n.name)}">
             <li style="padding: 10px 25px">{{n.name}}
                 <span class="down downarrow"></span>
             </li>
@@ -13,4 +12,4 @@
         </div>
     </ul>
 </div>
-<div id="toastbar"[innerHTML]="toast"></div>
+<div id="toastbar" [innerHTML]="toast"></div>

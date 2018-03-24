@@ -83,18 +83,23 @@ export class HomeComponent implements OnInit {
     });
     this.idle.watch();*/
   }
+  
   select(item) {
     this.selected = (this.selected === item ? null : item);
   }
+  
   isSelect(item) {
     return this.selected === item;
   }
+
   redirectToLoginPage() {
     this.router.navigate(['/login']);
     return true;
   }
+
   ngOnInit() {
   }
+
   toastMessageDisplay() {
     const x = document.getElementById('toastbar');
     x.className = 'show';

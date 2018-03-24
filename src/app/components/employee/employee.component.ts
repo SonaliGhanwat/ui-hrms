@@ -32,7 +32,7 @@ export class EmployeeComponent implements OnInit {
     private employeetypeService: EmployeetypeService, private usertypeService: UsertypeService,
     private designationService: DesignationService, private commonService: CommonService) { }
   employeeForm = this.formBuilder.group({
-    'userid': ['', ([ValidationService.useridValidator])],
+    'userid': ['', ([ValidationService.userIdValidator])],
     'password': ['', [ValidationService.passwordValidator]],
     'firstName': ['', [Validators.required]],
     'lastName': ['', [Validators.required]],
