@@ -42,7 +42,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { APP_BASE_HREF } from '@angular/common';
 import { UserType } from '../../models/UserType/UserType.model';
 import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
-import { Keepalive } from '@ng-idle/keepalive'
+import { Keepalive } from '@ng-idle/keepalive';
 describe(' UserType Component', () => {
 
   let component: UsertypeComponent;
