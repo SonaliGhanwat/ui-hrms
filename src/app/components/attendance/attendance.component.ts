@@ -5,7 +5,7 @@ import { Attendance } from '../../models/Attendance/Attendance.model';
 import { EmployeeService } from '../../services/Employee/employee.service';
 import { Employee } from '../../models/Employee/Employee.model';
 import { ValidationService } from '../../services/validation.service';
-import { CommonService } from '../../services/common service/common.service';
+import { CommonService } from '../../services/common/common.service';
 import { Http } from '@angular/http';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
 @Component({

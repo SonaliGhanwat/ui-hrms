@@ -9,7 +9,7 @@ import { UserType } from '../../models/UserType/UserType.model';
 import { DesignationService } from '../../services/Designation/designation.service';
 import { Designation } from '../../models/designation/Designation.model';
 import { ValidationService } from '../../services/validation.service';
-import { CommonService } from '../../services/common service/common.service';
+import { CommonService } from '../../services/common/common.service';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
 @Component({
   selector: 'app-employee',

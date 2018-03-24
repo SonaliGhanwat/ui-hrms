@@ -129,11 +129,12 @@ h1 {
 	 border: 1px solid #ccc;
     border-radius: 4px;
 }
-.loginForm{
-    margin-left: 320px;
+.login-form{
+    margin: 0 auto;
     width: 450px;
-    height: 450px ;
-    border: 1px solid transparent;
+    /*height: 450px ;*/
+    padding: 20px;
+    border: 1px solid #eee;
 }
 #fade {
     display: none;
@@ -190,9 +191,6 @@ h1 {
     color: red;
     width: 200px;
     margin-left: 10px;
-}
-.ng-touched.ng-invalid {
-    border-color:red; 
 }
 .valid{
     

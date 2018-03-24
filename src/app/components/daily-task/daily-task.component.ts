@@ -5,7 +5,7 @@ import { DailyTask } from '../../models/DailyTask/DailyTask.model';
 import { EmployeeService } from '../../services/Employee/employee.service';
 import { Employee } from '../../models/Employee/Employee.model';
 import { ValidationService } from '../../services/validation.service';
-import { CommonService } from '../../services/common service/common.service';
+import { CommonService } from '../../services/common/common.service';
 @Component({
   selector: 'app-daily-task',
   templateUrl: './daily-task.component.html',

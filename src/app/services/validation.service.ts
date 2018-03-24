@@ -1,26 +1,30 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { AttendanceComponent } from '../../app/components/attendance/attendance.component';
+
 @Injectable()
 export class ValidationService {
+
     constructor() { }
-    static getValidatorErrorMessage(validatorName: string, validatorValue?: any) {
+    
+    static getValidatorErrorMessage(displayName: string, validatorName: string, validatorValue?: any) {
         const config = {
             'required': 'Required',
-            'requiredPassword': 'Please Enter Password',
+            'requiredPassword': 'Please enter Password',
             'requiredUserid': 'Please enter User Id',
-            'invalidPassword': 'Password must be at least 6 characters long',
-            'invalidUserid': 'User Id must be at least 6 characters long',
-            'invalidEmail': 'EmailId Not Valid',
-            'invalidDate': 'Enter Current date',
-            'pastDate': 'Do not Enter Past Date',
-            'specialChracter': 'Do Not enter Special Character in user id',
-            'ToDate': 'Invalid Date! To joining date  should be greater then from date',
-            'minlength': `Name should 4 character long${validatorValue.requiredLength}`,
-            'dateOfBirth': 'Date of Birth should be 18 year old'
+            'invalidPassword': 'Please enter valid Password',
+            'invalidUserid': 'Please enter valid User Id',
+            'invalidEmail': 'Email Id is not Valid',
+            'invalidDate': 'Please enter valid date',
+            'pastDate': 'Please do not enter date less than today.',
+            'specialChracterNotAllowed': 'Please do not enter special characters in User Id',
+            'ToDate': 'Invalid Date! To Date should be greater than From date',
+            'minlength': `${displayName} should be minimum ${validatorValue.requiredLength} characters long`,
+            'dateOfBirth': 'Date of Birth should be 18 years before than today'
         };
+    
         return config[validatorName];
     }
+    
     static passwordValidator(control) {
         // console.log("control", control)
         if (control.value.length === 0) {
@@ -31,7 +35,8 @@ export class ValidationService {
             return { 'invalidPassword': true };
         }
     }
-    static useridValidator(control) {
+
+    static userIdValidator(control) {
         // console.log("control", control)
         // const userid = ((document.getElementById('userid') as HTMLInputElement).value)
         if (control.value.length === 0) {
@@ -39,11 +44,12 @@ export class ValidationService {
         } else if (control.value.match(/^[a-zA-Z0-9]{6,100}$/)) {
             return null;
         } else if (control.value.match(/^[a-zA-Z0-9!@#$%^&*]/)) {
-            return { 'specialChracter': true };
+            // return { 'specialChracterNotAllowed': true };
         } else {
             return { 'invalidUserid': true };
         }
     }
+    
     static emailValidator(control) {
         const email = control.value;
         // console.log("email", email);
@@ -53,6 +59,7 @@ export class ValidationService {
             return { 'invalidEmail': true };
         }
     }
+    
     static currentDateValidation(control) {
         const joinDate = new Date();
         // const getdate = joinDate.getDate();
@@ -69,6 +76,7 @@ export class ValidationService {
             return { 'invalidDate': true };
         }
     }
+    
     static dateValidation(control) {
         const joinDate = new Date();
         // const getdate = joinDate.getDate();
@@ -85,6 +93,7 @@ export class ValidationService {
             return { 'pastDate': true };
         }
     }
+    
     static dateOfBirthValidation(control) {
         const currentdate = new Date();
         const currentyearonly = currentdate.getFullYear();
@@ -97,7 +106,9 @@ export class ValidationService {
             return { 'dateOfBirth': true };
         }
     }
+    
     static outTimeValidation(control) {
         console.log('control :', control);
     }
+
 }

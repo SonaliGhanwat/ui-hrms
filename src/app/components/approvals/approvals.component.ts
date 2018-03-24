@@ -3,7 +3,7 @@ import { Leave } from '../../models/Leave/Leave.model';
 import { Approval } from '../../models/Approvals/Approval.model';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApprovalsService } from '../../services/Approvals/approvals.service';
-import { CommonService } from '../../services/common service/common.service';
+import { CommonService } from '../../services/common/common.service';
 @Component({
   selector: 'app-approvals',
   templateUrl: './approvals.component.html',

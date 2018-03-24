@@ -16,8 +16,9 @@ export class CommonService {
   }
   startLoadingSpinner() {
     this.ng4LoadingSpinnerService.show();
-    setTimeout(function () {
-      this.ng4LoadingSpinnerService.hide();
-    }.bind(this), 600);
+  }
+
+  hideSpinner() {
+    this.ng4LoadingSpinnerService.hide();
   }
 }

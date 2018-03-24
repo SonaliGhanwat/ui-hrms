@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { LeavetypeService } from '../../services/LeaveType/leavetype.service';
 import { LeaveType } from '../../models/LeaveType/Leavetype.model';
-import { CommonService } from '../../services/common service/common.service';
+import { CommonService } from '../../services/common/common.service';
 @Component({
   selector: 'app-leavetype',
   templateUrl: './leavetype.component.html',

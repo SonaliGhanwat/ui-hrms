@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DesignationService } from '../../services/Designation/designation.service';
 import { Designation } from '../../models/designation/Designation.model';
-import { CommonService } from '../../services/common service/common.service';
+import { CommonService } from '../../services/common/common.service';
 @Component({
   selector: 'app-designation',
   templateUrl: './designation.component.html',

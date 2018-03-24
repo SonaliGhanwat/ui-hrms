@@ -7,7 +7,7 @@ import { Employee } from '../../models/Employee/Employee.model';
 import { LeavetypeService } from '../../services/LeaveType/leavetype.service';
 import { LeaveType } from '../../models/LeaveType/Leavetype.model';
 import { ValidationService } from '../../services/validation.service';
-import { CommonService } from '../../services/common service/common.service';
+import { CommonService } from '../../services/common/common.service';
 @Component({
   selector: 'app-leave',
   templateUrl: './leave.component.html',

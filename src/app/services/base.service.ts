@@ -2,7 +2,7 @@ import { Observable } from 'rxjs/Observable';
 import { Http, Response, Headers, URLSearchParams, RequestOptions } from '@angular/http';
 
 export class BaseService {
-  protected base_url = 'http://192.168.1.5:8085/HRMS/';
+  protected base_url = 'http://localhost:8085/HRMS/';
   protected create_url = 'create';
   protected list_url = 'list';
   protected delete_url = 'delete/';

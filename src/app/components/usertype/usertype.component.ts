@@ -4,7 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { UsertypeService } from '../../services/UserType/usertype.service';
 import { UserType } from '../../models/UserType/UserType.model';
 import {Http} from '@angular/http';
-import {CommonService} from '../../services/common service/common.service';
+import {CommonService} from '../../services/common/common.service';
 @Component({
   selector: 'app-usertype',
   templateUrl: './usertype.component.html',

@@ -4,7 +4,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate';
 import { HttpModule, Http } from '@angular/http';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { CommonService } from '../../services/common service/common.service';
+import { CommonService } from '../../services/common/common.service';
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from '../../app-routing.module';

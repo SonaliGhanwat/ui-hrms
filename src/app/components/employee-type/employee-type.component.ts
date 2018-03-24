@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { EmployeetypeService } from '../../services/EmployeeType/employeetype.service';
 import { EmployeeType } from '../../models/EmployeeType/EmployeeType.model';
-import { CommonService } from '../../services/common service/common.service';
+import { CommonService } from '../../services/common/common.service';
 @Component({
   selector: 'app-employee-type',
   templateUrl: './employee-type.component.html',

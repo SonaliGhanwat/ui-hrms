@@ -5,7 +5,7 @@ import { ValidationService } from '../../services/validation.service';
 import { LoginService } from '../../services/Login/login.service';
 import { LoginModel } from '../../models/login/login.model';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
-import { CommonService } from '../../services/common service/common.service';
+import { CommonService } from '../../services/common/common.service';
 
 @Component({
   selector: 'app-resetpassword',
