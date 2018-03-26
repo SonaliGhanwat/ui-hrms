@@ -10,14 +10,14 @@ import { Cookie } from 'ng2-cookies/ng2-cookies';
 @Injectable()
 export class DailytaskService extends BaseService {
   dailyTaskUrl = 'employeedailytask/';
-  dailytasklist_url = 'list/';
+  dailytasklist_url = 'list';
   myCookie:any;
   constructor(protected http: Http) {
     super(http);
   }
   getAllDailyTaskList(): Observable<DailyTask[]> {
     this.myCookie = Cookie.get('cookieName');
-    return this.http.get(this.buidURL(this.dailyTaskUrl + this.dailytasklist_url+this.myCookie))
+    return this.http.get(this.buidURL(this.dailyTaskUrl + this.dailytasklist_url))
       .map(this.extractData)
       .catch(this.handleError);
   }

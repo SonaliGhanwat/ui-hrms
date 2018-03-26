@@ -33,12 +33,14 @@ export class ResetpasswordComponent implements OnInit {
   }
   onResetPasswordFormSubmit() {
     this.preProcessConfigurations();
+    this.commonService.startLoadingSpinner();
     const userid = this.userForm.get('userid').value.trim();
     const password = this.userForm.get('password').value.trim();
     const loginModel = new LoginModel(userid, password);
     // this.loggedIn.emit(new LoginModel(userid, password));
     localStorage.setItem('userid', userid);
     this.loginService.resetPasswordPost(loginModel).subscribe(data => {
+      this.commonService.hideSpinner();
       console.log('data:', data);
       const message = data.message;
       console.log('message:', message);

@@ -40,10 +40,12 @@ export class DailyTaskComponent implements OnInit {
     this.commonService.onPreviousNextPage();
   }
   getAllDailyTask() {
+    this.commonService.startLoadingSpinner();
     this.dailytaskService.getAllDailyTaskList()
       .subscribe(
       data => this.allDailyTask = data,
       errorCode => this.statusCode = errorCode);
+      this.commonService.hideSpinner();
   }
   getAllEmployeeList() {
     this.employeeService.getAllEmployeeList()
@@ -53,6 +55,7 @@ export class DailyTaskComponent implements OnInit {
   }
   onDailyTaskFormSubmit() {
     this.preProcessConfigurations();
+    this.commonService.startLoadingSpinner();
     const employeeId = ((document.getElementById('employee') as HTMLInputElement).value);
     const employee = parseInt(employeeId);
     const date = this.dailyTaskForm.get('date').value;
@@ -82,6 +85,7 @@ export class DailyTaskComponent implements OnInit {
       this.dailytaskService.createDailyTask(attendance)
         .subscribe(successCode => {
           // let message = successCode.message;
+          this.commonService.hideSpinner();
           this.toastMessage = successCode.message;
           this.getAllDailyTask();
           this.backToCreateArticle();
@@ -101,12 +105,14 @@ export class DailyTaskComponent implements OnInit {
   }
   deleteDailyTask(id: string) {
     this.preProcessConfigurations();
+    this.commonService.startLoadingSpinner();
     this.dailytaskService.deleteDailyTaskById(id)
       .subscribe(successCode => {
         // let message = successCode.message;
         this.toastMessage = successCode.message;
         this.getAllDailyTask();
         this.backToCreateArticle();
+        this.commonService.hideSpinner();
       },
       errorCode => this.statusCode = errorCode);
 

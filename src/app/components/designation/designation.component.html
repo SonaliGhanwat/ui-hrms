@@ -1,4 +1,4 @@
-<app-home></app-home>
+<app-menu></app-menu>
 <div class=" main-class">
   <div class="primary-container">
     <header class="header">
@@ -57,27 +57,27 @@
       </div>
       <div class="modal-body">
         <div class="row" style="    margin-top: 30px">
-          <div class=" form-group col-lg-6" style="margin-left: 35px;">
-            <label class="label-name " >{{ 'Name' | translate }}</label>
+          <div class=" form-group col-lg-6" style="margin-left: 35px;"[ngClass]="{'has-error':!designationForm.controls['name'].valid && designationForm.controls['name'].touched}">
+            <label class="label-name control-label" >{{ 'Name' | translate }}</label>
             <br>
-            <input type="text"  formControlName="name" id="type" name="type" class="loginUserid"  >
-            <div class="error" *ngIf="!designationForm.controls['name'].valid &&  designationForm.controls['name'].touched">{{'Please Enter Designation Name' | translate}}</div>
+            <input type="text"  formControlName="name" id="type" name="type" class="loginUserid form-control"  >
+            <app-control-messages [formGroup]="designationForm" [displayName]="'Name'" [control]="designationForm.controls['name']"></app-control-messages>
           </div>
   
           <div class="col-lg-offset-5">
-            <div class=" form-group col-lg-6">
-              <label class="label-name " > {{ 'Band' | translate }}</label>
-              <input type="number"  formControlName="band" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="loginUserid"  >
-              <div class="error" *ngIf="!designationForm.controls['band'].valid &&  designationForm.controls['band'].touched">{{'Please Enter Band Number' | translate}}</div>
+            <div class=" form-group col-lg-6" [ngClass]="{'has-error':!designationForm.controls['band'].valid && designationForm.controls['band'].touched}">
+              <label class="label-name control-label" > {{ 'Band' | translate }}</label>
+              <input type="number"  formControlName="band" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="loginUserid form-control"  >
+              <app-control-messages [formGroup]="designationForm" [displayName]="'band'" [control]="designationForm.controls['band']"></app-control-messages>
             </div>
           </div>
         </div>
         <div class="row" style="    margin-top: 30px">
-            <div class=" form-group col-lg-6" style="margin-left: 35px;">
-              <label class="label-name " >{{ 'Level' | translate }}</label>
+            <div class=" form-group col-lg-6" style="margin-left: 35px;"[ngClass]="{'has-error':!designationForm.controls['level'].valid && designationForm.controls['level'].touched}">
+              <label class="label-name control-label" >{{ 'Level' | translate }}</label>
               <br>
-              <input type="number"  formControlName="level" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="loginUserid" >
-              <div class="error" *ngIf="!designationForm.controls['level'].valid &&  designationForm.controls['level'].touched">{{'Please Enter Level Number' | translate}}</div>
+              <input type="number"  formControlName="level" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="loginUserid form-control" >
+              <app-control-messages [formGroup]="designationForm" [displayName]="'level'" [control]="designationForm.controls['level']"></app-control-messages>
             </div>
           </div>
         <div class="savebtn">

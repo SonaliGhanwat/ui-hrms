@@ -33,13 +33,16 @@ export class UsertypeComponent implements OnInit {
     this.commonService.onPreviousNextPage();
   }
   getAllUserTypes() {
+    this.commonService.startLoadingSpinner();
     this.usertypeService.getAllUserTypes()
       .subscribe(
       data => this.allUsertypes = data,
       errorCode => this.statusCode = errorCode);
+      this.commonService.hideSpinner();
   }
   onUserTypeFormSubmit() {
     this.preProcessConfigurations();
+    this.commonService.startLoadingSpinner();
     const usertypeName = this.usertypeForm.get('usertypeName').value.trim();
     const description = this.usertypeForm.get('description').value.trim();
     if (this.userTypeIdToUpdate === null) {
@@ -49,6 +52,7 @@ export class UsertypeComponent implements OnInit {
       this.usertypeService.createUserType(userType)
         .subscribe(successCode => {
           // let message = successCode.message;
+          this.commonService.hideSpinner();
           this.toastMessage = successCode.message;
           this.getAllUserTypes();
           this.backToCreateArticle();
@@ -68,6 +72,7 @@ export class UsertypeComponent implements OnInit {
   }
   deleteUserType(id: string) {
     this.preProcessConfigurations();
+    this.commonService.startLoadingSpinner();
     this.loggedIn.emit(new UserType(id,null,null));
     this.usertypeService.deleteUserTypeById(id)
       .subscribe(successCode => {
@@ -75,6 +80,7 @@ export class UsertypeComponent implements OnInit {
         this.toastMessage = successCode.message;
         this.getAllUserTypes();
         this.backToCreateArticle();
+        this.commonService.hideSpinner();
       },
       errorCode => this.statusCode = errorCode);
   }

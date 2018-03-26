@@ -29,13 +29,16 @@ export class HolidayComponent implements OnInit {
     this.commonService.onPreviousNextPage();
   }
   getAllHolidayList() {
+    this.commonService.startLoadingSpinner();
     this.holidayService.getAllHolidayList()
       .subscribe(
       data => this.allHolidayList = data,
       errorCode => this.statusCode = errorCode);
+      this.commonService.hideSpinner();
   }
   onHolidayFormSubmit() {
     this.preProcessConfigurations();
+    this.commonService.startLoadingSpinner();
     const holidayName = this.holidayForm.get('holidayName').value.trim();
     const holidayDate = this.holidayForm.get('holidayDate').value.trim();
     if (this.holidayIdToUpdate === null) {
@@ -43,6 +46,7 @@ export class HolidayComponent implements OnInit {
       this.holidayService.createHoliday(userType)
         .subscribe(successCode => {
           // let message = successCode.message;
+          this.commonService.hideSpinner();
           this.toastMessage = successCode.message;
           this.getAllHolidayList();
           this.backToCreateArticle();
@@ -61,6 +65,7 @@ export class HolidayComponent implements OnInit {
     }
   }
   deleteHoliday(id: string) {
+    this.commonService.startLoadingSpinner();
     this.preProcessConfigurations();
     this.holidayService.deleteHolidayById(id)
       .subscribe(successCode => {
@@ -68,6 +73,7 @@ export class HolidayComponent implements OnInit {
         this.toastMessage = successCode.message;
         this.getAllHolidayList();
         this.backToCreateArticle();
+        this.commonService.hideSpinner();
       },
       errorCode => this.statusCode = errorCode);
 

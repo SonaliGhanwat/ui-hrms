@@ -1,4 +1,4 @@
-<app-home></app-home>
+<app-menu></app-menu>
 <div class=" main-class">
   <div class="primary-container">
     <header class="header">
@@ -50,75 +50,75 @@
         </div>
         <div class="modal-body">
           <div class="row" style="margin-top: 30px">
-            <div class=" form-group col-lg-6" style="margin-left: 35px;">
-              <label class="label-name ">{{ 'EmployeeId' | translate }}</label>
-              <select id="employee" class="loginUserid" formControlName="employee" name="employee" id="employee">
+            <div class=" form-group col-lg-6" style="margin-left: 35px;"[ngClass]="{'has-error':!dailyTaskForm.controls['employee'].valid && dailyTaskForm.controls['employee'].touched}">
+              <label class="label-name control-label">{{ 'EmployeeId' | translate }}</label>
+              <select id="employee" class="loginUserid form-control" formControlName="employee" name="employee" id="employee">
                 <option *ngFor=" let employee of allEmployee" [value]="employee.id">
                   {{employee.userid}}
                 </option>
               </select>
-              <div class="error" *ngIf="!dailyTaskForm.controls['employee'].valid && dailyTaskForm.controls['employee'].touched">{{'Please  Select Employee Id' | translate}}.</div>
+              <app-control-messages [formGroup]="dailyTaskForm" [displayName]="'Employe Id'" [control]="dailyTaskForm.controls['employee']"></app-control-messages>
             </div>
 
             <div class="col-lg-offset-5">
-              <div class=" form-group col-lg-6">
-                <label class="label-name "> {{ 'Date' | translate }}</label>
-                <input type="date"  formControlName="date" class="loginUserid">
-                <div class="error" *ngIf="!dailyTaskForm.controls['date'].valid &&  dailyTaskForm.controls['date'].touched">{{'Please Enter Today  Date' | translate}}</div>
+              <div class=" form-group col-lg-6" [ngClass]="{'has-error':!dailyTaskForm.controls['date'].valid && dailyTaskForm.controls['date'].touched}">
+                <label class="label-name control-label"> {{ 'Date' | translate }}</label>
+                <input type="date"  formControlName="date" class="loginUserid form-control">
+                <app-control-messages [formGroup]="dailyTaskForm" [displayName]="'date'" [control]="dailyTaskForm.controls['date']"></app-control-messages>
                
               </div>
             </div>
           </div>
           <div class="row" style="margin-top: 30px">
-            <div class=" form-group col-lg-6" style="margin-left: 35px;">
-              <label class="label-name ">{{ 'TaskName' | translate }}</label>
+            <div class=" form-group col-lg-6" style="margin-left: 35px;" [ngClass]="{'has-error':!dailyTaskForm.controls['taskName'].valid && dailyTaskForm.controls['taskName'].touched}">
+              <label class="label-name control-label ">{{ 'TaskName' | translate }}</label>
               <br>
-              <input type="text"  formControlName="taskName" class="loginUserid">
-              <div class="error" *ngIf="!dailyTaskForm.controls['taskName'].valid &&  dailyTaskForm.controls['taskName'].touched">{{'Please Enter Task Name' | translate}}</div>
+              <input type="text"  formControlName="taskName" class="loginUserid form-control">
+              <app-control-messages [formGroup]="dailyTaskForm" [displayName]="'Task Name'" [control]="dailyTaskForm.controls['taskName']"></app-control-messages>
             </div>
 
             <div class="col-lg-offset-5">
-              <div class=" form-group col-lg-6">
-                <label class="label-name "> {{ 'EstimationTime' | translate }}</label>
-                <input type="time"  step="0" formControlName="estimationTime" class="loginUserid">
-                <div class="error" *ngIf="!dailyTaskForm.controls['estimationTime'].valid &&  dailyTaskForm.controls['estimationTime'].touched">{{'Please Enter Estimation Time' | translate}}</div>
+              <div class=" form-group col-lg-6" [ngClass]="{'has-error':!dailyTaskForm.controls['estimationTime'].valid && dailyTaskForm.controls['estimationTime'].touched}">
+                <label class="label-name control-label"> {{ 'EstimationTime' | translate }}</label>
+                <input type="time"  step="0" formControlName="estimationTime" class="loginUserid form-control">
+                <app-control-messages [formGroup]="dailyTaskForm" [displayName]="'Estimation Time'" [control]="dailyTaskForm.controls['estimationTime']"></app-control-messages>
               </div>
             </div>
           </div>
           <div class="row" style="    margin-top: 30px">
-            <div class=" form-group col-lg-6" style="margin-left: 35px;">
-              <label class="label-name ">{{ 'StartTime' | translate }}</label>
+            <div class=" form-group col-lg-6" style="margin-left: 35px;" [ngClass]="{'has-error':!dailyTaskForm.controls['starttime'].valid && dailyTaskForm.controls['starttime'].touched}">
+              <label class="label-name control-label ">{{ 'StartTime' | translate }}</label>
               <br>
-              <input type="time"  step="0" formControlName="starttime" class="loginUserid">
-              <div class="error" *ngIf="!dailyTaskForm.controls['starttime'].valid &&  dailyTaskForm.controls['starttime'].touched">{{'Please Enter Start Time' | translate}}</div>
+              <input type="time"  step="0" formControlName="starttime" class="loginUserid form-control">
+              <app-control-messages [formGroup]="dailyTaskForm" [displayName]="'Start Time'" [control]="dailyTaskForm.controls['starttime']"></app-control-messages>
             </div>
 
             <div class="col-lg-offset-5">
-              <div class=" form-group col-lg-6">
-                <label class="label-name "> {{ 'EndTime' | translate }}</label>
-                <input type="time"  step="0" formControlName="endtime" class="loginUserid">
-                <div class="error" *ngIf="!dailyTaskForm.controls['endtime'].valid &&  dailyTaskForm.controls['endtime'].touched">{{'Please Enter End Time' | translate}}</div>
+              <div class=" form-group col-lg-6" [ngClass]="{'has-error':!dailyTaskForm.controls['endtime'].valid && dailyTaskForm.controls['endtime'].touched}">
+                <label class="label-name control-label "> {{ 'EndTime' | translate }}</label>
+                <input type="time"  step="0" formControlName="endtime" class="loginUserid form-control">
+                <app-control-messages [formGroup]="dailyTaskForm" [displayName]="'End Time'" [control]="dailyTaskForm.controls['endtime']"></app-control-messages>
               </div>
             </div>
           </div>
           <div class="row" style="    margin-top: 30px">
-            <div class=" form-group col-lg-6" style="margin-left: 35px;">
-              <label class="label-name ">{{ 'Description' | translate }}</label>
+            <div class=" form-group col-lg-6" style="margin-left: 35px;" [ngClass]="{'has-error':!dailyTaskForm.controls['description'].valid && dailyTaskForm.controls['description'].touched}">
+              <label class="label-name control-label ">{{ 'Description' | translate }}</label>
               <br>
               <textarea type="text" rows="4" cols="50" name="comment" form="usrform" *ngIf="dailyTaskForm.get('description')" formControlName="description"
                 style=" margin-left: 23px"></textarea>
-                <div class="error" *ngIf="!dailyTaskForm.controls['description'].valid &&  dailyTaskForm.controls['description'].touched">{{'Please Enter Description' | translate}}</div>
+                <app-control-messages [formGroup]="dailyTaskForm" [displayName]="'Description'" [control]="dailyTaskForm.controls['description']"></app-control-messages>
             </div>
             <div class="col-lg-offset-5">
-              <div class=" form-group col-lg-6">
-                <label class="label-name "> {{ 'Status' | translate }}</label>
-                <select class=" loginUserid" formControlName="status">
+              <div class=" form-group col-lg-6" [ngClass]="{'has-error':!dailyTaskForm.controls['status'].valid && dailyTaskForm.controls['status'].touched}">
+                <label class="label-name control-label "> {{ 'Status' | translate }}</label>
+                <select class=" loginUserid form-control" formControlName="status">
                   <option value="">--Select--</option>
                   <option value="Completed">Completed</option>
                   <option value="InComplete">InComplete</option>
                   
                 </select>
-                <div class="error" *ngIf="!dailyTaskForm.controls['status'].valid &&  dailyTaskForm.controls['status'].touched">{{'Please Select Status' | translate}}</div>
+                <app-control-messages [formGroup]="dailyTaskForm" [displayName]="'status'" [control]="dailyTaskForm.controls['status']"></app-control-messages>
               </div>
             </div>
           </div>

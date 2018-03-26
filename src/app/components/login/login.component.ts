@@ -58,11 +58,8 @@ export class LoginComponent implements OnInit {
     const password = this.userForm.get('password').value.trim();
     this.spinner.show();
     const loginModel = new LoginModel(userId, password);
-    
-    localStorage.setItem('userid', userId);
-    
-    // this.loggedIn.emit(loginModel);
-    
+    localStorage.setItem('userid', userId);  
+    // this.loggedIn.emit(loginModel);   
     this.loginService.post(loginModel).subscribe(data => {
       this.spinner.hide();
       if (data.code === 1) {

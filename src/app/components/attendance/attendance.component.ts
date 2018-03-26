@@ -8,6 +8,7 @@ import { ValidationService } from '../../services/validation.service';
 import { CommonService } from '../../services/common/common.service';
 import { Http } from '@angular/http';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
+import { Ng4LoadingSpinnerModule, Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 @Component({
   selector: 'app-attendance',
   templateUrl: './attendance.component.html',
@@ -26,7 +27,7 @@ export class AttendanceComponent implements OnInit {
   collection = [];
   toastMessage: string;
   selectedEmployee: any;
-  constructor(private commonService: CommonService, private attendanceService: AttendanceService, private formBuilder: FormBuilder, private employeeService: EmployeeService) {
+  constructor(private spinner: Ng4LoadingSpinnerService, private commonService: CommonService, private attendanceService: AttendanceService, private formBuilder: FormBuilder, private employeeService: EmployeeService) {
 
   }
   attendanceForm = this.formBuilder.group({
@@ -34,7 +35,7 @@ export class AttendanceComponent implements OnInit {
     'employee': ['', ([Validators.required])],
     'intime': ['', ([Validators.required])],
     'outtime': ['', [Validators.required, ValidationService.outTimeValidation]],
-    'date': ['', [ValidationService.currentDateValidation]],
+    'date': ['', [Validators.required,ValidationService.currentDateValidation]],
   });
 
 
@@ -42,7 +43,7 @@ export class AttendanceComponent implements OnInit {
     this.getAllAttendanceList();
     this.getAllEmployeeList();
     this.commonService.onPreviousNextPage();
-    this.timeValidation();
+    //this.timeValidation();
   }
 
   getAllAttendanceList() {
@@ -51,6 +52,7 @@ export class AttendanceComponent implements OnInit {
       .subscribe(
       data => this.allAttendance = data,
       errorCode => this.statusCode = errorCode);
+      this.commonService.hideSpinner();
   }
 
   getAllEmployeeList() {
@@ -62,6 +64,7 @@ export class AttendanceComponent implements OnInit {
   onEmployeeAttendanceFormSubmit() {
     this.preProcessConfigurations();
     // let employeeId = this.attendanceForm.get('employee').value.trim();
+    this.commonService.startLoadingSpinner();
     const employeeId = ((document.getElementById('employee') as HTMLInputElement).value);
     const employee = parseInt(employeeId);
     let intime = this.attendanceForm.get('intime').value;
@@ -77,9 +80,11 @@ export class AttendanceComponent implements OnInit {
       outtime = this.attendanceForm.get('outtime').value;
     }
     const date = this.attendanceForm.get('date').value;
+  
     if (this.attendanceIdToUpdate === null) {
       const attendance = new Attendance(null, employee, intime, outtime, date);
       this.attendanceService.createEmployeeAttendance(attendance).subscribe(data => {
+        this.commonService.hideSpinner();
         Cookie.deleteAll();
         const myCookie = Cookie.get('url');
         const message = data.message;

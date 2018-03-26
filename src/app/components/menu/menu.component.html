@@ -1,0 +1,15 @@
+<div id="myDIV" class="sidenav">
+  <ul style="margin-left: -40px;margin-top: -20px;">
+      <div class="dropbtn" (click)="isActive = true" *ngFor="let n of menuList" (click)="select(n.name);" [ngClass]="{active: isSelect(n.name)}">
+          <li style="padding: 10px 25px">{{n.name}}
+              <span class="down downarrow"></span>
+          </li>
+          <div class="drop dropdown-content">
+              <li *ngFor="let child of n.subMenu" (click)="select(child.link);" [ngClass]="{active: isSelect(child.name)}">
+                  <div [routerLink]="(child.link)">{{child.name}}</div>
+              </li>
+          </div>
+      </div>
+  </ul>
+</div>
+<div id="toastbar" [innerHTML]="toast"></div>

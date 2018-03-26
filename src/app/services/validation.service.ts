@@ -7,19 +7,21 @@ export class ValidationService {
     constructor() { }
     
     static getValidatorErrorMessage(displayName: string, validatorName: string, validatorValue?: any) {
+      //console.log('displayName:',displayName);
         const config = {
-            'required': 'Required',
+            'required': `Please Enter ${displayName}` ,
             'requiredPassword': 'Please enter Password',
             'requiredUserid': 'Please enter User Id',
             'invalidPassword': 'Please enter valid Password',
             'invalidUserid': 'Please enter valid User Id',
             'invalidEmail': 'Email Id is not Valid',
-            'invalidDate': 'Please enter valid date',
+            'invalidDate': 'Please enter Todays date',
             'pastDate': 'Please do not enter date less than today.',
             'specialChracterNotAllowed': 'Please do not enter special characters in User Id',
             'ToDate': 'Invalid Date! To Date should be greater than From date',
             'minlength': `${displayName} should be minimum ${validatorValue.requiredLength} characters long`,
-            'dateOfBirth': 'Date of Birth should be 18 years before than today'
+            'dateOfBirth': 'Date of Birth should be 18 years before than today',
+            'selectEmployeeId':'Please Select Employee Id'
         };
     
         return config[validatorName];
@@ -48,8 +50,7 @@ export class ValidationService {
         } else {
             return { 'invalidUserid': true };
         }
-    }
-    
+    }   
     static emailValidator(control) {
         const email = control.value;
         // console.log("email", email);
@@ -58,8 +59,9 @@ export class ValidationService {
         } else {
             return { 'invalidEmail': true };
         }
-    }
+    }    
     
+  
     static currentDateValidation(control) {
         const joinDate = new Date();
         // const getdate = joinDate.getDate();
@@ -108,7 +110,7 @@ export class ValidationService {
     }
     
     static outTimeValidation(control) {
-        console.log('control :', control);
+      
     }
 
 }

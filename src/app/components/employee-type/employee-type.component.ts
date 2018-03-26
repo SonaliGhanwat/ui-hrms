@@ -32,13 +32,16 @@ export class EmployeeTypeComponent implements OnInit {
     this.commonService.onPreviousNextPage();
   }
   getAllEmployeetype() {
+    this.commonService.startLoadingSpinner();
     this.employeetypeService.getAllEmployeeTypeList()
       .subscribe(
       data => this.allEmployeetype = data,
       errorCode => this.statusCode = errorCode);
+      this.commonService.hideSpinner();
   }
   onEmployeeTypeFormSubmit() {
     this.preProcessConfigurations();
+    this.commonService.startLoadingSpinner();
     const type = this.employeetypeForm.get('type').value.trim();
     const seekLeave = this.employeetypeForm.get('seekLeave').value;
     const paidLeave = this.employeetypeForm.get('paidLeave').value;
@@ -49,6 +52,7 @@ export class EmployeeTypeComponent implements OnInit {
       this.employeetypeService.createEmployeeType(userType)
         .subscribe(successCode => {
           // let message = successCode.message;
+          this.commonService.hideSpinner();
           this.toastMessage = successCode.message;
           this.getAllEmployeetype();
           this.backToCreateArticle();
@@ -62,18 +66,21 @@ export class EmployeeTypeComponent implements OnInit {
           this.toastMessage = successCode.message;
           this.getAllEmployeetype();
           this.backToCreateArticle();
+         
         },
         errorCode => this.statusCode = errorCode);
     }
   }
   deleteEmployeeType(id: string) {
     this.preProcessConfigurations();
+    this.commonService.startLoadingSpinner();
     this.employeetypeService.deleteEmployeeTypeById(id)
       .subscribe(successCode => {
         // let message = successCode.message;
         this.toastMessage = successCode.message;
         this.getAllEmployeetype();
         this.backToCreateArticle();
+        this.commonService.hideSpinner();
       },
       errorCode => this.statusCode = errorCode);
 

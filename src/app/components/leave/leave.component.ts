@@ -42,10 +42,12 @@ export class LeaveComponent implements OnInit {
     this.toDateValidation();
   }
   getAllLeaveList() {
+    this.commonService.startLoadingSpinner();
     this.leaveService.getAllLeave()
       .subscribe(
       data => this.allLeave = data,
       errorCode => this.statusCode = errorCode);
+      this.commonService.hideSpinner();
   }
   getAllEmployeeList() {
     this.employeeService.getAllEmployeeList()
@@ -61,6 +63,7 @@ export class LeaveComponent implements OnInit {
   }
   onLeaveFormSubmit() {
     this.preProcessConfigurations();
+    this.commonService.startLoadingSpinner();
     const employeeId = ((document.getElementById('employee') as HTMLInputElement).value);
     const employee = parseInt(employeeId);
     const subject = this.leaveForm.get('subject').value;
@@ -73,6 +76,7 @@ export class LeaveComponent implements OnInit {
       this.leaveService.createLeave(attendance)
         .subscribe(successCode => {
           // let message = successCode.message;
+          this.commonService.hideSpinner();
           this.toastMessage = successCode.message;
           this.getAllLeaveList();
           this.backToCreateArticle();
@@ -92,12 +96,14 @@ export class LeaveComponent implements OnInit {
   }
   deleteLeave(id: string) {
     this.preProcessConfigurations();
+    this.commonService.startLoadingSpinner();
     this.leaveService.deleteLeaveById(id)
       .subscribe(successCode => {
         // let message = successCode.message;
         this.toastMessage = successCode.message;
         this.getAllLeaveList();
         this.backToCreateArticle();
+        this.commonService.hideSpinner();
       },
       errorCode => this.statusCode = errorCode);
   }

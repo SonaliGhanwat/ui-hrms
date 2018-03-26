@@ -10,14 +10,14 @@ import { Cookie } from 'ng2-cookies/ng2-cookies';
 @Injectable()
 export class LeaveService extends BaseService {
   leaveUrl = 'employeeleave/';
-  leavelist_url = 'list/';
+  leavelist_url = 'list';
   myCookie: any;
   constructor(protected http: Http) {
     super(http);
   }
   getAllLeave(): Observable<Leave[]> {
     this.myCookie = Cookie.get('cookieName');
-    return this.http.get(this.buidURL(this.leaveUrl + this.leavelist_url+this.myCookie))
+    return this.http.get(this.buidURL(this.leaveUrl + this.leavelist_url))
       .map(this.extractData)
       .catch(this.handleError);
   }

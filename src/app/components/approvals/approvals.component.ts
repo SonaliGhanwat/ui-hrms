@@ -37,7 +37,7 @@ export class ApprovalsComponent implements OnInit {
         this.allLeave = data.data;
         const code = data.code;
         console.log('code:',code);
-        if (code === 0) {
+        if (code === 1) {
           document.getElementById('data').innerHTML = 'There is no any request for Leave Approval';
         }
       },
@@ -47,9 +47,12 @@ export class ApprovalsComponent implements OnInit {
     const status = this.getStatus;
     const check = `[{'id':  ${this.userid}}]`;
     const empLeaveDtos = JSON.parse(check);
+    this.commonService.startLoadingSpinner();
     const attendance = new Approval(status, empLeaveDtos);
     this.approvalsService.updateLeaveStatus(attendance)
+    
       .subscribe(successCode => {
+        this.commonService.hideSpinner();
         // let message = successCode.message;
         document.getElementById('response').innerHTML = successCode.message;
         this.getAllLeaveList();

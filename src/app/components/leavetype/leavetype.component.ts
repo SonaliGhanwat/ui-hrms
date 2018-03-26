@@ -25,19 +25,23 @@ export class LeavetypeComponent implements OnInit {
     this.commonService.onPreviousNextPage();
   }
   getAllLeaveTypes() {
+    this.commonService.startLoadingSpinner();
     this.leavetypeService.getAllLeaveTypeList()
       .subscribe(
       data => this.allLeavetypes = data,
       errorCode => this.statusCode = errorCode);
+      this.commonService.hideSpinner();
   }
   onLeaveTypeFormSubmit() {
     this.preProcessConfigurations();
+    this.commonService.startLoadingSpinner();
     const name = this.leavetypeForm.get('name').value.trim();
     if (this.leaveTypeIdToUpdate === null) {
       const leaveType = new LeaveType(null, name);
       this.leavetypeService.createLeaveType(leaveType)
         .subscribe(successCode => {
           // let message = successCode.message;
+          this.commonService.hideSpinner();
           this.toastMessage = successCode.message;
           this.getAllLeaveTypes();
           this.backToCreateArticle();
@@ -56,6 +60,7 @@ export class LeavetypeComponent implements OnInit {
     }
   }
   deleteLeaveType(id: string) {
+    this.commonService.startLoadingSpinner();
     this.preProcessConfigurations();
     this.leavetypeService.deleteLeaveType(id)
       .subscribe(successCode => {
@@ -63,6 +68,7 @@ export class LeavetypeComponent implements OnInit {
         this.toastMessage = successCode.messag;
         this.getAllLeaveTypes();
         this.backToCreateArticle();
+        this.commonService.hideSpinner();
       },
       errorCode => this.statusCode = errorCode);
   }

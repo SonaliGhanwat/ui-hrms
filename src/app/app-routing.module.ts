@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
-import { HomeComponent } from './components/home/home.component';
 import { UsertypeComponent } from './components/usertype/usertype.component';
 import { AttendanceComponent } from './components/attendance/attendance.component';
 import { HolidayComponent } from './components/holiday/holiday.component';
@@ -13,11 +12,12 @@ import { DailyTaskComponent } from './components/daily-task/daily-task.component
 import { LeaveComponent } from './components/leave/leave.component';
 import { ApprovalsComponent } from './components/approvals/approvals.component';
 import { ResetpasswordComponent } from './components/resetpassword/resetpassword.component';
+import { MenuComponent } from './components/menu/menu.component';
 import { APP_BASE_HREF } from '@angular/common';
 const appRoutes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'home', component: HomeComponent },
+  { path: 'home', component: MenuComponent },
   { path: 'usertype', component: UsertypeComponent },
   { path: 'attendance', component: AttendanceComponent },
   { path: 'holiday', component: HolidayComponent },

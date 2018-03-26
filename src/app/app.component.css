@@ -129,3 +129,6 @@
  padding-top: 7px;
  width: 250px 
 }
+[hidden] {
+    display: none !important;
+  }

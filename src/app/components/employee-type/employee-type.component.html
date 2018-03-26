@@ -1,4 +1,4 @@
-<app-home></app-home>
+<app-menu></app-menu>
 <div class=" main-class">
   <div class="primary-container">
     <header class="header">
@@ -58,29 +58,29 @@
         </div>
         <div class="modal-body">
           <div class="row" style="    margin-top: 30px">
-            <div class=" form-group col-lg-6" style="margin-left: 35px;">
-              <label class="label-name ">{{ 'EmployeeTypeName' | translate }}</label>
+            <div class=" form-group col-lg-6" style="margin-left: 35px;"[ngClass]="{'has-error':!employeetypeForm.controls['type'].valid && employeetypeForm.controls['type'].touched}">
+              <label class="label-name control-label">{{ 'EmployeeTypeName' | translate }}</label>
               <br>
-              <input type="text"  formControlName="type" id="type" name="type" class="loginUserid"
+              <input type="text"  formControlName="type" id="type" name="type" class="loginUserid form-control"
                 placeholder="Employeetype">
-                <div class="error" *ngIf="!employeetypeForm.controls['type'].valid && employeetypeForm.controls['type'].touched">{{'Please Enter EmployeeType Name' | translate}}.</div>
+                <app-control-messages [formGroup]="employeetypeForm" [displayName]="'Employee TypeName'" [control]="employeetypeForm.controls['type']"></app-control-messages>
             </div>
             <div class="col-lg-offset-5">
-              <div class=" form-group col-lg-6">
-                <label class="label-name "> {{ 'SeekLeave' | translate }}</label>
+              <div class=" form-group col-lg-6"[ngClass]="{'has-error':!employeetypeForm.controls['seekLeave'].valid && employeetypeForm.controls['seekLeave'].touched}">
+                <label class="label-name control-label"> {{ 'SeekLeave' | translate }}</label>
                 <input type="number" formControlName="seekLeave" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-                  class="loginUserid" placeholder="Seek Leave">
-                  <div class="error" *ngIf="!employeetypeForm.controls['seekLeave'].valid && employeetypeForm.controls['seekLeave'].touched">{{'Please Enter Seek Leave' | translate}}.</div>
+                  class="loginUserid form-control" placeholder="Seek Leave">
+                  <app-control-messages [formGroup]="employeetypeForm" [displayName]="'Seek Leave'" [control]="employeetypeForm.controls['seekLeave']"></app-control-messages>
               </div>
             </div>
           </div>
-          <div class="row" style="    margin-top: 30px">
+          <div class="row" style="    margin-top: 30px" [ngClass]="{'has-error':!employeetypeForm.controls['paidLeave'].valid && employeetypeForm.controls['paidLeave'].touched}">
             <div class=" form-group col-lg-6" style="margin-left: 35px;">
-              <label class="label-name ">{{ 'PaidLeave' | translate }}</label>
+              <label class="label-name control-label">{{ 'PaidLeave' | translate }}</label>
               <br>
               <input type="number"  formControlName="paidLeave" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-                class="loginUserid" placeholder="Paid Leave">
-                <div class="error" *ngIf="!employeetypeForm.controls['paidLeave'].valid && employeetypeForm.controls['paidLeave'].touched">{{'Please Enter Paid Leave' | translate}}.</div>
+                class="loginUserid form-control" placeholder="Paid Leave">
+                <app-control-messages [formGroup]="employeetypeForm" [displayName]="'Paid Leave'" [control]="employeetypeForm.controls['paidLeave']"></app-control-messages>
             </div>
             <div class="col-lg-offset-5">
               <div class=" form-group col-lg-6">

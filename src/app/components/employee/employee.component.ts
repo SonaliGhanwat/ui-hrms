@@ -63,10 +63,12 @@ export class EmployeeComponent implements OnInit {
       errorCode => this.statusCode = errorCode);
   }
   getAllEmployeetype() {
+    this.commonService.startLoadingSpinner();
     this.employeetypeService.getAllEmployeeTypeList()
       .subscribe(
       data => this.allEmployeetype = data,
       errorCode => this.statusCode = errorCode);
+      this.commonService.hideSpinner();
   }
   getAllUserTypes() {
     this.usertypeService.getAllUserTypes()
@@ -82,6 +84,7 @@ export class EmployeeComponent implements OnInit {
   }
   onEmployeeFormSubmit() {
     this.preProcessConfigurations();
+    this.commonService.startLoadingSpinner();
     const userid = this.employeeForm.get('userid').value;
     const password = this.employeeForm.get('password').value;
     const firstName = this.employeeForm.get('firstName').value;
@@ -106,6 +109,7 @@ export class EmployeeComponent implements OnInit {
       this.employeeService.createEmployee(attendance)
         .subscribe(successCode => {
           // let message = successCode.message;
+          this.commonService.hideSpinner();
           this.toastMessage = successCode.message;
           this.getAllEmployee();
           this.backToCreateArticle();
@@ -124,6 +128,7 @@ export class EmployeeComponent implements OnInit {
     }
   }
   deleteEmployee(id: string) {
+    this.commonService.startLoadingSpinner();
     this.preProcessConfigurations();
     this.employeeService.deleteEmployeeById(id)
       .subscribe(successCode => {
@@ -131,6 +136,7 @@ export class EmployeeComponent implements OnInit {
         this.toastMessage = successCode.message;
         this.getAllEmployee();
         this.backToCreateArticle();
+        this.commonService.hideSpinner();
       },
       errorCode => this.statusCode = errorCode);
   }

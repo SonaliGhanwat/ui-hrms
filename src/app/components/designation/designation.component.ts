@@ -28,20 +28,24 @@ export class DesignationComponent implements OnInit {
     this.commonService.onPreviousNextPage();
   }
   getAllDesignation() {
+    this.commonService.startLoadingSpinner();
     this.designationService.getAllDesignationList()
       .subscribe(
       data => this.allDesignation = data,
       errorCode => this.statusCode = errorCode);
+      this.commonService.hideSpinner();
   }
   onDesignationFormSubmit() {
     this.preProcessConfigurations();
     const name = this.designationForm.get('name').value.trim();
     const band = this.designationForm.get('band').value;
     const level = this.designationForm.get('level').value;
+    this.commonService.startLoadingSpinner();
     if (this.designationIdToUpdate === null) {
       const userType = new Designation(null, name, band, level);
       this.designationService.createDesignation(userType)
         .subscribe(successCode => {
+          this.commonService.hideSpinner();
           // let message = successCode.message;
           this.toastMessage = successCode.message;
           this.getAllDesignation();
@@ -62,12 +66,14 @@ export class DesignationComponent implements OnInit {
   }
   deleteDesignation(id: string) {
     this.preProcessConfigurations();
+    this.commonService.startLoadingSpinner();
     this.designationService.deleteDesignationById(id)
       .subscribe(successCode => {
         // let message = successCode.message;
         this.toastMessage = successCode.message;
         this.getAllDesignation();
         this.backToCreateArticle();
+        this.commonService.hideSpinner();
       },
       errorCode => this.statusCode = errorCode);
 

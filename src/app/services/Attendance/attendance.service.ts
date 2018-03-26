@@ -10,14 +10,14 @@ import { Cookie } from 'ng2-cookies/ng2-cookies';
 @Injectable()
 export class AttendanceService extends BaseService {
   attendanceUrl = 'employeeattendance/';
-  attendancelist_url = 'list/';
+  attendancelist_url = 'list';
   myCookie: any;
   constructor(protected http: Http) {
     super(http);
   }
   getAllAttendance(): Observable<Attendance[]> {
     this.myCookie = Cookie.get('cookieName');
-    return this.http.get(this.buidURL(this.attendanceUrl + this.attendancelist_url + this.myCookie))
+    return this.http.get(this.buidURL(this.attendanceUrl + this.attendancelist_url))
       .map(this.extractData)
       .catch(this.handleError);
   }

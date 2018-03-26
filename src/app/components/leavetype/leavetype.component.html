@@ -1,4 +1,4 @@
-<app-home></app-home>
+<app-menu></app-menu>
 <div class=" main-class">
   <div class="primary-container">
     <header class="header">
@@ -52,12 +52,12 @@
         </div>
         <div class="modal-body">
           <div class="row" style="    margin-top: 30px">
-            <div class=" form-group col-lg-6" style="margin-left: 35px;">
-              <label class="label-name ">{{ 'Name' | translate }}</label>
+            <div class=" form-group col-lg-6" style="margin-left: 35px;"[ngClass]="{'has-error':!leavetypeForm.controls['name'].valid && leavetypeForm.controls['name'].touched}">
+              <label class="label-name control-label">{{ 'Name' | translate }}</label>
               <br>
-              <input type="text"  formControlName="name" id="usertypeName" name="usertypeName" class="loginUserid"
+              <input type="text"  formControlName="name" id="usertypeName" name="usertypeName" class="loginUserid form-control"
                 placeholder="Name">
-                <div class="error" *ngIf="!leavetypeForm.controls['name'].valid && leavetypeForm.controls['name'].touched">{{'Please Enter Leave Type name' | translate}}.</div>              
+                <app-control-messages [formGroup]="leavetypeForm" [displayName]="'Employe Id'" [control]="leavetypeForm.controls['name']"></app-control-messages>
             </div>
 
 

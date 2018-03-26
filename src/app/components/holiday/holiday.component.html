@@ -1,4 +1,4 @@
-<app-home></app-home>
+<app-menu></app-menu>
 <div class=" main-class">
   <div class="primary-container">
     <header class="header">
@@ -53,20 +53,20 @@
         </div>
         <div class="modal-body">
           <div class="row" style="    margin-top: 30px">
-            <div class=" form-group col-lg-6" style="margin-left: 35px;">
-              <label class="label-name ">{{ 'HolidayName' | translate }}</label>
+            <div class=" form-group col-lg-6" style="margin-left: 35px;" [ngClass]="{'has-error':!holidayForm.controls['holidayName'].valid && holidayForm.controls['holidayName'].touched}">
+              <label class="label-name control-label">{{ 'HolidayName' | translate }}</label>
               <br>
               <input type="text" *ngIf="holidayForm.get('holidayName')" formControlName="holidayName" id="holidayName" name="holidayName"
-                class="loginUserid" placeholder="Name">
-                <div class="error" *ngIf="!holidayForm.controls['holidayName'].valid && holidayForm.controls['holidayName'].touched">{{'Please Enter Holday Name' | translate}}.</div>
+                class="loginUserid form-control" placeholder="Name">
+                <app-control-messages [formGroup]="holidayForm" [displayName]="'Holiday Name'" [control]="holidayForm.controls['holidayName']"></app-control-messages>
             </div>
 
             <div class="col-lg-offset-5">
-              <div class=" form-group col-lg-6">
-                <label class="label-name "> {{ 'Date' | translate }}</label>
+              <div class=" form-group col-lg-6" [ngClass]="{'has-error':!holidayForm.controls['holidayDate'].valid && holidayForm.controls['holidayDate'].touched}">
+                <label class="label-name control-label"> {{ 'Date' | translate }}</label>
                 <input type="date" *ngIf="holidayForm.get('holidayDate')" formControlName="holidayDate" id="holidayDate" name="holidayDate"
-                  class="loginUserid" placeholder="Description">
-                   <div class="error" *ngIf="!holidayForm.controls['holidayDate'].valid && holidayForm.controls['holidayDate'].touched">{{'Please Enter Holday Date' | translate}}.</div>
+                  class="loginUserid form-control" placeholder="Description">
+                  <app-control-messages [formGroup]="holidayForm" [displayName]="'Date'" [control]="holidayForm.controls['holidayDate']"></app-control-messages>
               </div>
             </div>
           </div>

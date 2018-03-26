@@ -2,13 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Idle, DEFAULT_INTERRUPTSOURCES } from '@ng-idle/core';
 import { Keepalive } from '@ng-idle/keepalive';
-
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  selector: 'app-menu',
+  templateUrl: './menu.component.html',
+  styleUrls: ['./menu.component.css']
 })
-export class HomeComponent implements OnInit {
+export class MenuComponent implements OnInit {
 
   name: string;
   show = false;
@@ -105,5 +104,6 @@ export class HomeComponent implements OnInit {
     x.className = 'show';
     setTimeout(function () { x.className = x.className.replace('show', ''); }, 9000);
   }
+
 
 }
