@@ -33,7 +33,7 @@ export class DesignationComponent implements OnInit {
       .subscribe(
       data => this.allDesignation = data,
       errorCode => this.statusCode = errorCode);
-      this.commonService.hideSpinner();
+    this.commonService.hideSpinner();
   }
   onDesignationFormSubmit() {
     this.preProcessConfigurations();

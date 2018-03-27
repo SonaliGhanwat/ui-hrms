@@ -20,6 +20,7 @@ export class ValidationService {
             'specialChracterNotAllowed': 'Please do not enter special characters in User Id',
             'ToDate': 'Invalid Date! To Date should be greater than From date',
             'minlength': `${displayName} should be minimum ${validatorValue.requiredLength} characters long`,
+            'pattern': `Please do not enter special characters in User Id`,
             'dateOfBirth': 'Date of Birth should be 18 years before than today',
             'selectEmployeeId':'Please Select Employee Id'
         };
@@ -27,7 +28,7 @@ export class ValidationService {
         return config[validatorName];
     }
     
-    static passwordValidator(control) {
+    /*static passwordValidator(control) {
         // console.log("control", control)
         if (control.value.length === 0) {
             return { 'requiredPassword': true };
@@ -45,12 +46,12 @@ export class ValidationService {
             return { 'requiredUserid': true };
         } else if (control.value.match(/^[a-zA-Z0-9]{6,100}$/)) {
             return null;
-        } else if (control.value.match(/^[a-zA-Z0-9!@#$%^&*]/)) {
-            // return { 'specialChracterNotAllowed': true };
+        } else if (control.value.match(/^[0-9!@#$%^&*]/)) {
+             return { 'specialChracterNotAllowed': true };
         } else {
             return { 'invalidUserid': true };
         }
-    }   
+    }   */
     static emailValidator(control) {
         const email = control.value;
         // console.log("email", email);

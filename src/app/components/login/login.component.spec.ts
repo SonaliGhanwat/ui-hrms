@@ -9,7 +9,6 @@ import { CommonService } from '../../services/common/common.service';
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from '../../app-routing.module';
-import { HomeComponent } from '../../components/home/home.component';
 import { By } from '@angular/platform-browser';
 import { ControlMessagesComponent } from '../../components/control-messages/control-messages.component';
 import { ValidationService } from '../../services/validation.service';
@@ -36,11 +35,14 @@ import { ApprovalsComponent } from '../../components/approvals/approvals.compone
 import { ApprovalsService } from '../../services/Approvals/approvals.service';
 import { ResetpasswordComponent } from '../../components/resetpassword/resetpassword.component';
 import { Ng2PaginationModule } from 'ng2-pagination';
+import {MenuComponent} from '../../components/menu/menu.component'
 import { Ng2OrderModule } from 'ng2-order-pipe';
 import { DataTableModule } from 'angular2-datatable';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { APP_BASE_HREF } from '@angular/common';
 import { LoginModel } from '../../models/login/login.model';
+import {HeaderComponent} from '../../components/header/header.component'
+import {FooterComponent} from '../../components/footer/footer.component'
 describe(' Login Component', () => {
 
   let component: LoginComponent;
@@ -53,7 +55,7 @@ describe(' Login Component', () => {
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule, FormsModule, TranslateModule.forRoot(), HttpModule, HttpClientModule, Ng4LoadingSpinnerModule.forRoot(),
         AppRoutingModule, Ng2PaginationModule, Ng2OrderModule, DataTableModule, Ng2SearchPipeModule],
-      declarations: [LoginComponent, HomeComponent, ControlMessagesComponent,
+      declarations: [LoginComponent,MenuComponent, ControlMessagesComponent,
         AttendanceComponent,
         UsertypeComponent,
         HolidayComponent,
@@ -64,7 +66,9 @@ describe(' Login Component', () => {
         DailyTaskComponent,
         LeaveComponent,
         ApprovalsComponent,
-        ResetpasswordComponent,],
+        ResetpasswordComponent,
+        HeaderComponent,
+        FooterComponent],
       providers: [ValidationService,
         LoginService,
         UsertypeService,

@@ -32,8 +32,8 @@ export class EmployeeComponent implements OnInit {
     private employeetypeService: EmployeetypeService, private usertypeService: UsertypeService,
     private designationService: DesignationService, private commonService: CommonService) { }
   employeeForm = this.formBuilder.group({
-    'userid': ['', ([ValidationService.userIdValidator])],
-    'password': ['', [ValidationService.passwordValidator]],
+    'userid': ['', ([Validators.required, Validators.minLength(4), Validators.pattern(/[a-zA-Z0-9]/)])],
+    'password': ['', [Validators.required, Validators.minLength(4)]],
     'firstName': ['', [Validators.required]],
     'lastName': ['', [Validators.required]],
     'phoneNumber': ['', ([Validators.required])],
@@ -68,7 +68,7 @@ export class EmployeeComponent implements OnInit {
       .subscribe(
       data => this.allEmployeetype = data,
       errorCode => this.statusCode = errorCode);
-      this.commonService.hideSpinner();
+    this.commonService.hideSpinner();
   }
   getAllUserTypes() {
     this.usertypeService.getAllUserTypes()
@@ -126,6 +126,7 @@ export class EmployeeComponent implements OnInit {
         },
         errorCode => this.statusCode = errorCode);
     }
+    this.commonService.hideSpinner();
   }
   deleteEmployee(id: string) {
     this.commonService.startLoadingSpinner();
@@ -203,5 +204,5 @@ export class EmployeeComponent implements OnInit {
   toastMessageDisplay() {
     this.commonService.displayMessage();
   }
- 
+
 }

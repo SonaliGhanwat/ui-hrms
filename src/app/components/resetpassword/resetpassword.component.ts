@@ -22,7 +22,7 @@ export class ResetpasswordComponent implements OnInit {
     private loginService: LoginService) {
     this.userForm = this.formBuilder.group({
       'userid': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
-      'password': ['', [Validators.required, ValidationService.passwordValidator]],
+      'password': ['', [Validators.required, Validators.minLength(4)]],
     });
   }
   validate() {

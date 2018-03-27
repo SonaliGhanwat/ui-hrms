@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
   toastMessage: string;
 
   @Output() loggedIn = new EventEmitter<LoginModel>();
-  
+  @Input() enabled = true;
   constructor(private spinner: Ng4LoadingSpinnerService, 
     private commonService: CommonService, 
     private formBuilder: FormBuilder, 
@@ -34,8 +34,8 @@ export class LoginComponent implements OnInit {
   
   ngOnInit() {
     this.userForm = this.formBuilder.group({
-      userid: ['', Validators.compose([ValidationService.userIdValidator, Validators.minLength(4)])],
-      password: ['', [ValidationService.passwordValidator, Validators.minLength(4)]],
+      userid: ['', Validators.compose([Validators.required, Validators.minLength(4),Validators.pattern(/^[a-zA-Z0-9]/)])],
+      password: ['', [Validators.required, Validators.minLength(4)]],
     });
   }
   
@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
     this.spinner.show();
     const loginModel = new LoginModel(userId, password);
     localStorage.setItem('userid', userId);  
-    // this.loggedIn.emit(loginModel);   
+     this.loggedIn.emit(loginModel);   
     this.loginService.post(loginModel).subscribe(data => {
       this.spinner.hide();
       if (data.code === 1) {

@@ -9,11 +9,11 @@ import { CommonService } from '../../services/common/common.service';
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from '../../app-routing.module';
-import { HomeComponent } from '../../components/home/home.component';
 import { By } from '@angular/platform-browser';
 import { ControlMessagesComponent } from '../../components/control-messages/control-messages.component';
 import { ValidationService } from '../../services/validation.service';
 import { LoginComponent } from '../../components/login/login.component';
+import {MenuComponent} from '../../components/menu/menu.component'
 import { LoginService } from '../../services/Login/login.service';
 import { UsertypeService } from '../..//services/UserType/usertype.service';
 import { HolidayComponent } from '../../components/holiday/holiday.component';
@@ -43,6 +43,8 @@ import { APP_BASE_HREF } from '@angular/common';
 import { UserType } from '../../models/UserType/UserType.model';
 import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 import { Keepalive } from '@ng-idle/keepalive';
+import {HeaderComponent} from '../../components/header/header.component'
+import {FooterComponent} from '../../components/footer/footer.component'
 describe(' UserType Component', () => {
 
   let component: UsertypeComponent;
@@ -55,7 +57,7 @@ describe(' UserType Component', () => {
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule, FormsModule, TranslateModule.forRoot(), HttpModule, HttpClientModule, Ng4LoadingSpinnerModule.forRoot(),
         AppRoutingModule,NgIdleKeepaliveModule, Ng2PaginationModule, Ng2OrderModule, DataTableModule, Ng2SearchPipeModule],
-      declarations: [LoginComponent, HomeComponent, ControlMessagesComponent,
+      declarations: [LoginComponent, MenuComponent, ControlMessagesComponent,
         AttendanceComponent,
         UsertypeComponent,
         HolidayComponent,
@@ -66,7 +68,9 @@ describe(' UserType Component', () => {
         DailyTaskComponent,
         LeaveComponent,
         ApprovalsComponent,
-        ResetpasswordComponent,],
+        ResetpasswordComponent,
+        HeaderComponent,
+        FooterComponent],
       providers: [ValidationService,
         LoginService,
         UsertypeService,
