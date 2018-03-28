@@ -19,6 +19,13 @@
       </div>
     </div>
     <div layout="row" class="userlist " (load)="startLoadingSpinner()">{{'Attendance List' | translate}}</div>
+    <div>
+        <div class="green-circle"></div>
+        <div class="lable-description">Present Employee</div>
+        <div class="red-circle"></div>
+        <div class="lable-description">Absent Employee</div>
+      </div>
+        <br>
     <table class="table table-striped table-hover table-fixed settable">
       <thead>
         <tr>
@@ -31,7 +38,7 @@
           <th class="col-xs-2" style="margin-left: 20px">Action</th>
         </tr>
       </thead>
-      <tr *ngFor="let attendance of allAttendance |filter :date| orderBy : Attendance | paginate: { itemsPerPage: 8, currentPage: p} ">
+      <tr *ngFor="let attendance of allAttendance |filter :date| orderBy : Attendance | paginate: { itemsPerPage: 8, currentPage: p} "[ngStyle]="{'color':attendance.status === 'Leave' ? 'red' : 'green' }">
         <td class="tablerow col-xs-1">{{attendance.id}}</td>
         <td class="tablerow col-xs-2  ">{{attendance.employee.userid}}</td>
         <td class="tablerow col-xs-2">{{attendance.intime}}</td>

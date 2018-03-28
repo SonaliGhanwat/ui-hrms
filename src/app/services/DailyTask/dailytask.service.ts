@@ -15,10 +15,10 @@ export class DailytaskService extends BaseService {
   constructor(protected http: Http) {
     super(http);
   }
-  getAllDailyTaskList(): Observable<DailyTask[]> {
+  getAllDailyTaskList(): Observable<any> {
     this.myCookie = Cookie.get('cookieName');
     return this.http.get(this.buidURL(this.dailyTaskUrl + this.dailytasklist_url))
-      .map(this.extractData)
+      .map(this.extractData,success => success.json())
       .catch(this.handleError);
   }
   createDailyTask(dailyTask: DailyTask): Observable<any> {
@@ -47,6 +47,7 @@ export class DailytaskService extends BaseService {
   }
   protected extractData(res: Response) {
     const body = res.json();
+    console.log('body:',body)
     return body;
   }
   protected handleError(error: Response | any) {

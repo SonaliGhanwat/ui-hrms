@@ -49,10 +49,7 @@ describe(' UserType Component', () => {
 
   let component: UsertypeComponent;
   let fixture: ComponentFixture<UsertypeComponent>;
-  let submitEl: DebugElement;
-  let nameEl: DebugElement;
-  let descriptionEl: DebugElement;
-
+ 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule, FormsModule, TranslateModule.forRoot(), HttpModule, HttpClientModule, Ng4LoadingSpinnerModule.forRoot(),
@@ -93,9 +90,7 @@ describe(' UserType Component', () => {
     fixture = TestBed.createComponent(UsertypeComponent);
     component = fixture.componentInstance;
     component.ngOnInit();
-    submitEl = fixture.debugElement.query(By.css('button'));
-    nameEl = fixture.debugElement.query(By.css('input[type=text]'));
-    descriptionEl = fixture.debugElement.query(By.css('input[type=text]'));
+   
   });  
   it('userTypeForm invalid when empty', () => {
     expect(component.usertypeForm.valid).toBeFalsy();

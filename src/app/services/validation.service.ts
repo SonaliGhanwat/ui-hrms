@@ -22,12 +22,13 @@ export class ValidationService {
             'minlength': `${displayName} should be minimum ${validatorValue.requiredLength} characters long`,
             'pattern': `Please do not enter special characters in User Id`,
             'dateOfBirth': 'Date of Birth should be 18 years before than today',
-            'selectEmployeeId':'Please Select Employee Id'
+            'selectEmployeeId':'Please Select Employee Id',
+            'emailPattern':'Please enter correct emailid'
         };
     
         return config[validatorName];
     }
-    
+   
     /*static passwordValidator(control) {
         // console.log("control", control)
         if (control.value.length === 0) {
