@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, URLSearchParams, RequestOptions } from '@angular/http';
+import { Http, Response, Headers, URLSearchParams, RequestOptions,RequestOptionsArgs } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/map';
@@ -11,7 +11,7 @@ import { Cookie } from 'ng2-cookies/ng2-cookies';
 export class EmployeeService extends BaseService {
   employeeUrl = 'employee/';
   reportTo = 'http://localhost:8085/HRMS/designation/reportTo/';
-  list_url = 'list/';
+  list_url = 'list';
   myCookie: any;
   constructor(protected http: Http) {
     super(http);
@@ -19,7 +19,13 @@ export class EmployeeService extends BaseService {
   getAllEmployeeList(): Observable<Employee[]> {
     this.myCookie = Cookie.get('cookieName');
     console.log('cookie:', this.myCookie);
-    return this.http.get(this.buidURL(this.employeeUrl + this.list_url + this.myCookie))
+    /*let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Access-Control-Allow-Origin', "*");
+    headers.append("Access-Control-Allow-Headers", "*");
+    let options = new RequestOptions({headers:headers ,withCredentials: true });
+    console.log('options:',options)*/
+    return this.http.get(this.buidURL(this.employeeUrl + this.list_url))
       .map(this.extractData)
       .catch(this.handleError);
   }
@@ -68,7 +74,21 @@ export class EmployeeService extends BaseService {
     console.log('cookie:', myCookie);
     const customHeaders: Headers = new Headers();
     customHeaders.append('request', myCookie);
+    customHeaders.append('Access-Control-Allow-Credentials', 'true');
+    customHeaders.append('Access-Control-Allow-Origin', '*');
     console.log('customHeaders:', customHeaders);
     return new RequestOptions({ headers: customHeaders, withCredentials: true });
   }
+  private getRequestOptionArgs(options?: RequestOptionsArgs) : RequestOptionsArgs {
+    if (options == null) {
+        options = new RequestOptions();
+    }
+    if (options.headers == null) {
+        options.headers = new Headers();
+    }
+    options.headers.append('Content-Type', 'application/json');
+
+    return options;
+}
+
 }

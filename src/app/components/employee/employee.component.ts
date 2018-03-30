@@ -167,6 +167,7 @@ export class EmployeeComponent implements OnInit {
   }
   loadEmployeeToEdit(id: string) {
     this.preProcessConfigurations();
+    this.commonService.startLoadingSpinner();
     this.employeeService.getEmployeeById(id)
       .subscribe(data => {
         this.employeeIdToUpdate = data.id;
@@ -191,6 +192,7 @@ export class EmployeeComponent implements OnInit {
         this.requestProcessing = false;
       },
       errorCode => this.statusCode = errorCode);
+      this.commonService.hideSpinner();
   }
   preProcessConfigurations() {
     this.statusCode = null;

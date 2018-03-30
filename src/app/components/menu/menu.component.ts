@@ -105,5 +105,4 @@ export class MenuComponent implements OnInit {
     setTimeout(function () { x.className = x.className.replace('show', ''); }, 9000);
   }
 
-
 }

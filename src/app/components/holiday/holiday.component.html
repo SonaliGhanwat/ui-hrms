@@ -17,17 +17,17 @@
       </div>
     </div>
     <div layout="row" class="userlist ">{{'HolidayList'|translate}}</div>
-    <table class="table table-striped table-hover table-fixed  settable">
+    <table class="table table-striped table-hover table-fixed  settable"[mfData]="allHolidayList" #mf="mfDataTable">
       <thead>
         <tr>
           <th class="col-xs-2">{{ 'No' | translate }}</th>
-          <th class="col-xs-3">{{ 'Name' | translate }}</th>
+          <th class="col-xs-3"><mfDefaultSorter by="holidayName" >{{ 'Name' | translate }}</mfDefaultSorter></th>
           <th class="col-xs-3">{{ 'Date' | translate }}</th>
           <th class="col-xs-3" style="margin-left: 40px">Action</th>  
         </tr>
       </thead>
-      <tr *ngFor="let holiday of allHolidayList | filter:name| paginate: { itemsPerPage: 8, currentPage: p}">
-        <td class="tablerow col-xs-2">{{holiday.id}}</td>
+      <tr *ngFor="let holiday of mf.data | filter:name| paginate: { itemsPerPage: 8, currentPage: p} let i=index;">
+        <td class="tablerow col-xs-2">{{i+1}}</td>
         <td class="tablerow col-xs-3">{{holiday.holidayName}}</td>
         <td class="tablerow col-xs-3">{{holiday.holidayDate}}</td>
         <td class="tablerow col-xs-4">

@@ -4,6 +4,7 @@ import { Approval } from '../../models/Approvals/Approval.model';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApprovalsService } from '../../services/Approvals/approvals.service';
 import { CommonService } from '../../services/common/common.service';
+
 @Component({
   selector: 'app-approvals',
   templateUrl: './approvals.component.html',
@@ -45,10 +46,12 @@ export class ApprovalsComponent implements OnInit {
   }
   onSubmitApprovalStatus() {
     const status = this.getStatus;
-    const check = `[{'id':  ${this.userid}}]`;
-    const empLeaveDtos = JSON.parse(check);
+    //let check = `[{'id':  ${this.userid}}]`;
+    //let empLeaveDtos = JSON.parse(check);
+    let id = this.userid;
     this.commonService.startLoadingSpinner();
-    const attendance = new Approval(status, empLeaveDtos);
+    const attendance = new Approval(status, id);
+    console.log('attendance:',attendance)
     this.approvalsService.updateLeaveStatus(attendance)
     
       .subscribe(successCode => {
@@ -58,6 +61,7 @@ export class ApprovalsComponent implements OnInit {
         this.getAllLeaveList();
       },
       errorCode => this.statusCode = errorCode);
+      this.commonService.hideSpinner();
   }
   /*logCheckbox(logid): void {
     // this.log += `{"id":  ${element.value}}`;

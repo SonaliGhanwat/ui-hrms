@@ -29,7 +29,7 @@ export class LeaveComponent implements OnInit {
   leaveForm = this.formBuilder.group({
     'employee': ['', ([Validators.required])],
     'subject': ['', ([Validators.required])],
-    'fromDate': ['', [Validators.required, ValidationService.dateValidation]],
+    'fromDate': ['', [Validators.required, ValidationService.dateValidation,ValidationService.checkWeekend]],
     'toDate': ['', [Validators.required]],
     'leavetype': ['', ([Validators.required])],
   });

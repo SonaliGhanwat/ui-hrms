@@ -10,7 +10,9 @@ export class BaseService {
   constructor(protected http: Http) { }
   protected buidURL(endpoint: string): string {
     return this.base_url + endpoint;
+    
   }
+  
   protected extractData(res: Response) {
     const body = res.json();
     return body;
@@ -19,4 +21,5 @@ export class BaseService {
     console.error(error.message || error);
     return Observable.throw(error.status);
   }
+  
 }

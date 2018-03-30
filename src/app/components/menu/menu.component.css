@@ -150,6 +150,9 @@ background-color: #fff;
    font-size: 17px;
    cursor: pointer;
     min-width: 180px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-bottom: solid 0.1px #333;
 
    }
 .dropbtn:hover{
@@ -182,14 +185,15 @@ background-color: #fff;
       /*  border-top: 1px solid #777 */
 }
 
-.dropdown li a:hover {
+/*.dropdown-content :hover {
    
-    background-color: #111; 
-   width: 200px;
-   /*  border-top: 1px solid #777 */
+    background-color: #111111e8; 
+       
+       margin-right: -20px
+     border-top: 1px solid #777 
    
    }
-
+*/
 .show {
    display:block;
    }
@@ -233,12 +237,18 @@ background-color: #fff;
 }
 
 #myDIV {
-   margin-top: 43px;
-   width: 230px;
-    margin-top: 48px;
-   padding: 50px 0;
-   background-color:  #111111e8;
-       height: 100%;
+    background-color: #111111e8;
+    width: 20%;
+    color: white;
+   
+    height: 88%;
+    overflow-y: scroll;
+    font-size: 15px;
+    cursor: pointer;
+    max-height: 88%;
+    display: inline-block;
+    position: fixed;
+    overflow-x: hidden;
 }
 .downarrow {
    border: solid #f8f8ff;
@@ -291,8 +301,8 @@ ul li{cursor:pointer;}
    padding: 15px 8px;
 }
 .drop{
-   width: 230px;
-   margin-top: -10px;
+   width: 240px;
+   /*margin-top: -10px;*/
 }
 .logoutbtn{
    width: 110px;

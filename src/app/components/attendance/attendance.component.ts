@@ -34,12 +34,12 @@ export class AttendanceComponent implements OnInit {
 
     'employee': ['', ([Validators.required])],
     'intime': ['', ([Validators.required])],
-    'outtime': ['', [Validators.required, ValidationService.outTimeValidation]],
+    'outtime': ['', [Validators.required]],
     'date': ['', [Validators.required,ValidationService.currentDateValidation]],
   });
 
 
-  ngOnInit(): void {
+  ngOnInit(): void { 
     this.getAllAttendanceList();
     this.getAllEmployeeList();
     this.commonService.onPreviousNextPage();
@@ -52,6 +52,7 @@ export class AttendanceComponent implements OnInit {
       .subscribe(
       data => this.allAttendance = data,
       errorCode => this.statusCode = errorCode);
+     
       this.commonService.hideSpinner();
   }
 
@@ -63,6 +64,9 @@ export class AttendanceComponent implements OnInit {
   }
   onEmployeeAttendanceFormSubmit() {
     this.preProcessConfigurations();
+    if (this.attendanceForm.invalid) {
+      return; 
+ }  
     // let employeeId = this.attendanceForm.get('employee').value.trim();
     this.commonService.startLoadingSpinner();
     const employeeId = ((document.getElementById('employee') as HTMLInputElement).value);
@@ -91,6 +95,7 @@ export class AttendanceComponent implements OnInit {
         this.toastMessage = message;
         this.getAllAttendanceList();
         this.backToCreateArticle();
+        location.reload();
       });
     } else {
       const userType = new Attendance(this.attendanceIdToUpdate, employee, intime, outtime, date);
@@ -121,9 +126,8 @@ export class AttendanceComponent implements OnInit {
       .subscribe(data => {
         this.attendanceIdToUpdate = data.id;
         /* if(this.attendanceIdToUpdate !=null){
-           (document.getElementById('employee') as HTMLButtonElement).disabled = true;   
+           (document.getElementById('employee') as HTMLButtonElement).disabled = true;  
          }*/
-
         // this.userid = data.employee.userid
         this.attendanceForm.setValue({ employee: data.employee.id, intime: data.intime, outtime: data.outtime, date: data.date });
         this.processValidation = true;

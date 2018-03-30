@@ -23,7 +23,7 @@ export class ValidationService {
             'pattern': `Please do not enter special characters in User Id`,
             'dateOfBirth': 'Date of Birth should be 18 years before than today',
             'selectEmployeeId':'Please Select Employee Id',
-            'emailPattern':'Please enter correct emailid'
+            'weekendDate':'On this date is weekend so you can not allow to apply leave  '
         };
     
         return config[validatorName];
@@ -56,7 +56,7 @@ export class ValidationService {
     static emailValidator(control) {
         const email = control.value;
         // console.log("email", email);
-        if (control.value.match(/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{3})$/)) {
+        if (email.match(/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{3})$/)) {
             return null;
         } else {
             return { 'invalidEmail': true };
@@ -111,8 +111,12 @@ export class ValidationService {
         }
     }
     
-    static outTimeValidation(control) {
-      
+    static checkWeekend(control) {
+      let date = new Date(control.value)
+      if(date.getDay() == 6 || date.getDay() == 0)
+      {
+        return { 'weekendDate': true };   
+       } 
     }
 
 }

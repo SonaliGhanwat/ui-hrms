@@ -1,6 +1,6 @@
 <app-menu></app-menu>
 <div class=" main-class">
-  <div class="primary-container" style="height: 100%">
+  <div class="primary-container" >
     <header class="header">
       <div class="heading4">{{'User Types'|translate}}</div>
     </header>
@@ -23,13 +23,13 @@
       <thead>
         <tr>
           <th class="col-xs-2">{{ 'No' | translate }}</th>
-          <mfDefaultSorter by="usertypeName" class="col-xs-2">{{ 'Name' | translate }}</mfDefaultSorter>
-          <th class="col-xs-4">{{ 'Description' | translate }}</th>
+          <th class="col-xs-2"><mfDefaultSorter by="usertypeName" class="col-xs-2">{{ 'Name' | translate }}</mfDefaultSorter></th>
+          <th class="col-xs-4"> {{ 'Description' | translate }}</th>
           <th class="col-xs-4">{{ 'Action' | translate }}</th>
         </tr>
       </thead>
-      <tr *ngFor="let usertype of allUsertypes |orderBy:UserType| filter:name| paginate: { itemsPerPage: 8, currentPage: p}">
-        <td class="tablerow col-xs-2">{{usertype.id}}</td>
+      <tr *ngFor="let usertype of mf.data | filter:name| paginate: { itemsPerPage: 8, currentPage: p} let i = index;">
+        <td class="tablerow col-xs-2">{{i+1}}</td>
 
         <td  class="tablerow col-xs-2">{{usertype.usertypeName}}</td>
         <td class="tablerow col-xs-4">{{usertype.description}}</td>

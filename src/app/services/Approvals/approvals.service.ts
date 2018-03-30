@@ -20,18 +20,20 @@ export class ApprovalsService extends BaseService {
     this.myCookie = Cookie.get('cookieName');
     console.log('cookie:', this.myCookie);
     return this.http.get(this.buidURL(this.leaveUrl + this.myCookie))
-      .map(this.extractData, success => success.json())
+      .map(this.extractData)
       .catch(this.handleError);
   }
   updateLeaveStatus(approval: Approval): Observable<any> {
-    return this.http.post(this.buidURL(this.updateStatus), approval)
+    let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: cpHeaders });
+    return this.http.post(this.buidURL(this.updateStatus), approval,options)
       .map(success => success.json())
       .catch(this.handleError);
   }
   protected extractData(res: Response) {
     const body = res.json();
     console.log('data:', body);
-    return body;
+    return body || [];
   }
   protected handleError(error: Response | any) {
     console.error(error.message || error);

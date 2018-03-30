@@ -19,6 +19,7 @@ export class UsertypeComponent implements OnInit {
   toastMessage:string;
   UserType = 'usertypeName';
   usertypeForm:FormGroup;
+  userlist: any
   // isError:boolean = false;
   @Output() loggedIn = new EventEmitter<UserType>();
   @Input() enabled = true;
@@ -31,6 +32,7 @@ export class UsertypeComponent implements OnInit {
     });
     this.getAllUserTypes();
     this.commonService.onPreviousNextPage();
+ 
   }
   getAllUserTypes() {
     this.commonService.startLoadingSpinner();
