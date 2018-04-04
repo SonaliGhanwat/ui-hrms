@@ -5,11 +5,11 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 export class ValidationService {
 
     constructor() { }
-    
+
     static getValidatorErrorMessage(displayName: string, validatorName: string, validatorValue?: any) {
-      //console.log('displayName:',displayName);
+        // console.log('displayName:',displayName);
         const config = {
-            'required': `Please Enter ${displayName}` ,
+            'required': `Please Enter ${displayName}`,
             'requiredPassword': 'Please enter Password',
             'requiredUserid': 'Please enter User Id',
             'invalidPassword': 'Please enter valid Password',
@@ -22,13 +22,13 @@ export class ValidationService {
             'minlength': `${displayName} should be minimum ${validatorValue.requiredLength} characters long`,
             'pattern': `Please do not enter special characters in User Id`,
             'dateOfBirth': 'Date of Birth should be 18 years before than today',
-            'selectEmployeeId':'Please Select Employee Id',
-            'weekendDate':'On this date is weekend so you can not allow to apply leave  '
+            'selectEmployeeId': 'Please Select Employee Id',
+            'weekendDate': 'On this date is weekend so you can not allow to apply leave  '
         };
-    
+
         return config[validatorName];
     }
-   
+
     /*static passwordValidator(control) {
         // console.log("control", control)
         if (control.value.length === 0) {
@@ -61,9 +61,9 @@ export class ValidationService {
         } else {
             return { 'invalidEmail': true };
         }
-    }    
-    
-  
+    }
+
+
     static currentDateValidation(control) {
         const joinDate = new Date();
         // const getdate = joinDate.getDate();
@@ -80,7 +80,7 @@ export class ValidationService {
             return { 'invalidDate': true };
         }
     }
-    
+
     static dateValidation(control) {
         const joinDate = new Date();
         // const getdate = joinDate.getDate();
@@ -97,7 +97,7 @@ export class ValidationService {
             return { 'pastDate': true };
         }
     }
-    
+
     static dateOfBirthValidation(control) {
         const currentdate = new Date();
         const currentyearonly = currentdate.getFullYear();
@@ -110,13 +110,12 @@ export class ValidationService {
             return { 'dateOfBirth': true };
         }
     }
-    
+
     static checkWeekend(control) {
-      let date = new Date(control.value)
-      if(date.getDay() == 6 || date.getDay() == 0)
-      {
-        return { 'weekendDate': true };   
-       } 
+        const date = new Date(control.value);
+        if (date.getDay() === 6 || date.getDay() === 0) {
+            return { 'weekendDate': true };
+        }
     }
 
 }

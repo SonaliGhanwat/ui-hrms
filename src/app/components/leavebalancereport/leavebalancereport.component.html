@@ -1,0 +1,28 @@
+<app-menu></app-menu>
+<div class=" main-class">
+  <div class="primary-container">
+
+    <header class="header">
+      <div class="heading4">{{'Balance Of Leave'|translate}}</div>
+    </header>
+    
+    <div id="snackbar" [innerHTML]="toastMessage"></div>
+    <table class="table  table-hover table-bordered ">
+      <thead>
+        <tr>
+          <th class="col-xs-3">EmployeeId</th>
+          <th class="col-xs-3">{{ 'Seek Leave' | translate }}</th>
+          <th class="col-xs-3">{{ 'Paid Leave' | translate }}</th>
+          <th class="col-xs-3">{{ 'Remaning Leave' | translate }}</th>
+        
+        </tr>
+      </thead>
+      <tr *ngFor="let leave of allLeave ;let i = index">
+        <td>{{leave.employee.userid}} </td>
+        <td>{{leave.emplyeeLeaveParts.seekLeave}}</td>
+        <td>{{leave.emplyeeLeaveParts.paidLeave}}</td>
+        <td>{{leave.emplyeeLeaveParts.pendingLeave}}</td>
+      </tr>
+    </table>
+   
+</div>

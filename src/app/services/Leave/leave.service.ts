@@ -11,6 +11,7 @@ import { Cookie } from 'ng2-cookies/ng2-cookies';
 export class LeaveService extends BaseService {
   leaveUrl = 'employeeleave/';
   leavelist_url = 'list';
+  leaveReportUrl = 'leaveBalanceReport'
   myCookie: any;
   constructor(protected http: Http) {
     super(http);
@@ -18,6 +19,13 @@ export class LeaveService extends BaseService {
   getAllLeave(): Observable<Leave[]> {
     this.myCookie = Cookie.get('cookieName');
     return this.http.get(this.buidURL(this.leaveUrl + this.leavelist_url))
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  getAllLeaveforLeaveBalance(): Observable<Leave[]> {
+
+    return this.http.get(this.buidURL(this.leaveUrl + this.leaveReportUrl))
       .map(this.extractData)
       .catch(this.handleError);
   }
@@ -47,6 +55,7 @@ export class LeaveService extends BaseService {
   }
   protected extractData(res: Response) {
     const body = res.json();
+    console.log('data:',body)
     return body;
   }
   protected handleError(error: Response | any) {

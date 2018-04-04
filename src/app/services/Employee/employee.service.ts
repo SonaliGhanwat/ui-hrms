@@ -18,7 +18,7 @@ export class EmployeeService extends BaseService {
   }
   getAllEmployeeList(): Observable<Employee[]> {
     this.myCookie = Cookie.get('cookieName');
-    console.log('cookie:', this.myCookie);
+    // console.log('cookie:', this.myCookie);
     /*let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Access-Control-Allow-Origin', "*");
@@ -62,7 +62,7 @@ export class EmployeeService extends BaseService {
 
   protected extractData(res: Response) {
     const body = res.json();
-    console.log('body:', body);
+    // console.log('body:', body);
     return body;
   }
   protected handleError(error: Response | any) {
@@ -71,15 +71,18 @@ export class EmployeeService extends BaseService {
   }
   private getRequestOptions() {
     const myCookie = Cookie.get('cookieName');
-    console.log('cookie:', myCookie);
+    // console.log('cookie:', myCookie);
     const customHeaders: Headers = new Headers();
+
     customHeaders.append('request', myCookie);
+    customHeaders.append('Access-Control-Allow-Origin', 'http://localhost:4200');
+    customHeaders.append('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    customHeaders.append('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
     customHeaders.append('Access-Control-Allow-Credentials', 'true');
-    customHeaders.append('Access-Control-Allow-Origin', '*');
     console.log('customHeaders:', customHeaders);
     return new RequestOptions({ headers: customHeaders, withCredentials: true });
   }
-  private getRequestOptionArgs(options?: RequestOptionsArgs) : RequestOptionsArgs {
+  private getRequestOptionArgs(options?: RequestOptionsArgs): RequestOptionsArgs {
     if (options == null) {
         options = new RequestOptions();
     }

@@ -44,6 +44,7 @@ import { ResetpasswordComponent } from './components/resetpassword/resetpassword
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { MenuComponent } from './components/menu/menu.component';
+import { LeavebalancereportComponent } from './components/leavebalancereport/leavebalancereport.component';
 
 
 
@@ -66,6 +67,7 @@ import { MenuComponent } from './components/menu/menu.component';
     HeaderComponent,
     FooterComponent,
     MenuComponent,
+    LeavebalancereportComponent,
 
   ],
   imports: [

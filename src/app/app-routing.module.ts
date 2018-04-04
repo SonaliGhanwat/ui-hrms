@@ -14,6 +14,7 @@ import { ApprovalsComponent } from './components/approvals/approvals.component';
 import { ResetpasswordComponent } from './components/resetpassword/resetpassword.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { APP_BASE_HREF } from '@angular/common';
+import { LeavebalancereportComponent } from './components/leavebalancereport/leavebalancereport.component';
 const appRoutes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -28,7 +29,8 @@ const appRoutes: Routes = [
   { path: 'dailyTask', component: DailyTaskComponent },
   { path: 'leave', component: LeaveComponent },
   { path: 'approvals', component: ApprovalsComponent },
-  { path: 'resetpassword', component: ResetpasswordComponent }
+  { path: 'resetpassword', component: ResetpasswordComponent },
+  { path: 'leavereport', component: LeavebalancereportComponent }
 ];
 @NgModule({
   imports: [RouterModule.forRoot(appRoutes)],

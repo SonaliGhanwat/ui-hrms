@@ -105,7 +105,7 @@
             </div>
           </div>
           <div class="savebtn">
-            <button type="submit" class="btn btn-secondary" style="width: 30%;" [disabled]="!attendanceForm.valid" (click)=" toastMessageDisplay();">{{'Save'|translate}}</button>
+            <button type="submit" class="btn btn-secondary" style="width: 30%;" [disabled]="!attendanceForm.valid" (click)="validate(); toastMessageDisplay();">{{'Save'|translate}}</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal" style="width: 30%;
       margin-left: 20px;">Close</button>
           </div>

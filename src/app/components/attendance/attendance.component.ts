@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Output,EventEmitter } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AttendanceService } from '../../services/Attendance/attendance.service';
 import { Attendance } from '../../models/Attendance/Attendance.model';
@@ -27,6 +27,7 @@ export class AttendanceComponent implements OnInit {
   collection = [];
   toastMessage: string;
   selectedEmployee: any;
+  @Output() loggedIn = new EventEmitter<Attendance>();
   constructor(private spinner: Ng4LoadingSpinnerService, private commonService: CommonService, private attendanceService: AttendanceService, private formBuilder: FormBuilder, private employeeService: EmployeeService) {
 
   }
@@ -35,25 +36,30 @@ export class AttendanceComponent implements OnInit {
     'employee': ['', ([Validators.required])],
     'intime': ['', ([Validators.required])],
     'outtime': ['', [Validators.required]],
-    'date': ['', [Validators.required,ValidationService.currentDateValidation]],
+    'date': ['', [Validators.required, ValidationService.currentDateValidation]],
   });
 
+  ngOnInit(): void {
 
-  ngOnInit(): void { 
     this.getAllAttendanceList();
     this.getAllEmployeeList();
     this.commonService.onPreviousNextPage();
-    //this.timeValidation();
+    // this.timeValidation();
   }
+  validate() {
+    Object.keys(this.attendanceForm.controls).forEach(field => {
+      const control = this.attendanceForm.get(field);
+      control.markAsTouched({ onlySelf: true });
 
+    });
+  }
   getAllAttendanceList() {
     this.commonService.startLoadingSpinner();
     this.attendanceService.getAllAttendance()
       .subscribe(
       data => this.allAttendance = data,
       errorCode => this.statusCode = errorCode);
-     
-      this.commonService.hideSpinner();
+    this.commonService.hideSpinner();
   }
 
   getAllEmployeeList() {
@@ -64,11 +70,11 @@ export class AttendanceComponent implements OnInit {
   }
   onEmployeeAttendanceFormSubmit() {
     this.preProcessConfigurations();
+    location.reload();
+    this.commonService.startLoadingSpinner()
     if (this.attendanceForm.invalid) {
-      return; 
- }  
-    // let employeeId = this.attendanceForm.get('employee').value.trim();
-    this.commonService.startLoadingSpinner();
+      return;
+    }
     const employeeId = ((document.getElementById('employee') as HTMLInputElement).value);
     const employee = parseInt(employeeId);
     let intime = this.attendanceForm.get('intime').value;
@@ -84,18 +90,16 @@ export class AttendanceComponent implements OnInit {
       outtime = this.attendanceForm.get('outtime').value;
     }
     const date = this.attendanceForm.get('date').value;
-  
+
     if (this.attendanceIdToUpdate === null) {
       const attendance = new Attendance(null, employee, intime, outtime, date);
+      this.loggedIn.emit(new Attendance(null, employee, intime, outtime, date));
       this.attendanceService.createEmployeeAttendance(attendance).subscribe(data => {
-        this.commonService.hideSpinner();
-        Cookie.deleteAll();
-        const myCookie = Cookie.get('url');
         const message = data.message;
         this.toastMessage = message;
         this.getAllAttendanceList();
         this.backToCreateArticle();
-        location.reload();
+
       });
     } else {
       const userType = new Attendance(this.attendanceIdToUpdate, employee, intime, outtime, date);
@@ -105,12 +109,15 @@ export class AttendanceComponent implements OnInit {
           this.toastMessage = message;
           this.getAllAttendanceList();
           this.backToCreateArticle();
+          location.reload();
         },
         errorCode => this.statusCode = errorCode);
+      this.commonService.hideSpinner();
     }
   }
   deleteEmployeeAttendance(id: string) {
     this.preProcessConfigurations();
+    this.commonService.startLoadingSpinner();
     this.attendanceService.deleteEmployeeAttendanceById(id)
       .subscribe(successCode => {
         this.getAllAttendanceList();
@@ -119,21 +126,24 @@ export class AttendanceComponent implements OnInit {
         this.toastMessage = successCode.message;
       },
       errorCode => this.statusCode = errorCode);
+    this.commonService.hideSpinner();
   }
   loadEmployeeAttendanceToEdit(id: string) {
     this.preProcessConfigurations();
+    this.commonService.startLoadingSpinner();
     this.attendanceService.getEmployeeAttendanceById(id)
       .subscribe(data => {
         this.attendanceIdToUpdate = data.id;
-        /* if(this.attendanceIdToUpdate !=null){
-           (document.getElementById('employee') as HTMLButtonElement).disabled = true;  
-         }*/
+        if (this.attendanceIdToUpdate != null) {
+          (document.getElementById('employee') as HTMLButtonElement).disabled = true;
+        }
         // this.userid = data.employee.userid
         this.attendanceForm.setValue({ employee: data.employee.id, intime: data.intime, outtime: data.outtime, date: data.date });
         this.processValidation = true;
         this.requestProcessing = false;
       },
       errorCode => this.statusCode = errorCode);
+    this.commonService.hideSpinner();
   }
   onSelect(employeeId) {
     this.selectedEmployee = null;

@@ -13,13 +13,13 @@
 
         <div class=" form-group col-sm-12" [ngClass]="{'has-error':!userForm.controls['userid'].valid && userForm.controls['userid'].touched}">
           <label class="control-label" for="userid"> {{ 'User Id' | translate }}</label>
-          <input type="text" formControlName="userid" id="userid" class="form-control">
+          <input type="text" formControlName="userid" id="userid" name="userName" class="form-control">
           <app-control-messages [formGroup]="userForm" [displayName]="'User Id'" [control]="userForm.controls['userid']"></app-control-messages>
         </div>
 
         <div class="form-group col-sm-12 " [ngClass]="{'has-error':!userForm.controls['password'].valid && userForm.controls['password'].touched}">
           <label class="control-label" for="password"> {{ 'Password' | translate }} </label>
-          <input type="password" formControlName="password" id="password" class="form-control">
+          <input type="password" formControlName="password" id="password" name="userPassword" class="form-control">
           <app-control-messages [formGroup]="userForm" [displayName]="'Password'" [control]="userForm.controls['password']"></app-control-messages>
         </div>
 

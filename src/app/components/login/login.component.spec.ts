@@ -35,14 +35,14 @@ import { ApprovalsComponent } from '../../components/approvals/approvals.compone
 import { ApprovalsService } from '../../services/Approvals/approvals.service';
 import { ResetpasswordComponent } from '../../components/resetpassword/resetpassword.component';
 import { Ng2PaginationModule } from 'ng2-pagination';
-import {MenuComponent} from '../../components/menu/menu.component'
+import {MenuComponent} from '../../components/menu/menu.component';
 import { Ng2OrderModule } from 'ng2-order-pipe';
 import { DataTableModule } from 'angular2-datatable';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { APP_BASE_HREF } from '@angular/common';
 import { LoginModel } from '../../models/login/login.model';
-import {HeaderComponent} from '../../components/header/header.component'
-import {FooterComponent} from '../../components/footer/footer.component'
+import {HeaderComponent} from '../../components/header/header.component';
+import {FooterComponent} from '../../components/footer/footer.component';
 describe(' Login Component', () => {
 
   let component: LoginComponent;

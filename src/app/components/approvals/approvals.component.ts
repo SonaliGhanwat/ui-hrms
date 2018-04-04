@@ -46,12 +46,11 @@ export class ApprovalsComponent implements OnInit {
   }
   onSubmitApprovalStatus() {
     const status = this.getStatus;
-    //let check = `[{'id':  ${this.userid}}]`;
-    //let empLeaveDtos = JSON.parse(check);
-    let id = this.userid;
+    // let check = `[{'id':  ${this.userid}}]`;
+    // let empLeaveDtos = JSON.parse(check);
+    const id = this.userid;
     this.commonService.startLoadingSpinner();
     const attendance = new Approval(status, id);
-    console.log('attendance:',attendance)
     this.approvalsService.updateLeaveStatus(attendance)
     
       .subscribe(successCode => {

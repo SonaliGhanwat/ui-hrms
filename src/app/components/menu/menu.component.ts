@@ -50,6 +50,9 @@ export class MenuComponent implements OnInit {
       }, {
         'name': 'Leave Type',
         'link': '/leaveType'
+      }, {
+        'name': 'Leave Balance Report',
+        'link': '/leavereport'
       }]
     }, {
       'name': 'User Managment',

@@ -8,7 +8,7 @@ import { TranslateService } from 'ng2-translate';
 })
 export class AppComponent {
 
-  showSelected : any;
+  showSelected: any;
   constructor(private translate: TranslateService) {
     this.showSelected = false;
     translate.addLangs(['en', 'fr', 'cn', 'hi']);
@@ -16,12 +16,12 @@ export class AppComponent {
 
   }
   ngOnInit() {
-    this.showMenu();
+    // this.showMenu();
   }
 
-  showMenu(){
-    if(this.showSelected = false){
-    this.showSelected = true;;
+  /*showMenu() {
+    if (this.showSelected = false) {
+      this.showSelected = true;
     }
-  }
+  }*/
 }

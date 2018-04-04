@@ -14,7 +14,7 @@ import { By } from '@angular/platform-browser';
 import { ControlMessagesComponent } from '../../components/control-messages/control-messages.component';
 import { ValidationService } from '../../services/validation.service';
 import { LoginComponent } from '../../components/login/login.component';
-import {MenuComponent} from '../../components/menu/menu.component'
+import { MenuComponent } from '../../components/menu/menu.component';
 import { LoginService } from '../../services/Login/login.service';
 import { UsertypeService } from '../..//services/UserType/usertype.service';
 import { HolidayComponent } from '../../components/holiday/holiday.component';
@@ -43,8 +43,9 @@ import { APP_BASE_HREF } from '@angular/common';
 import { Attendance } from '../../models/Attendance/Attendance.model';
 import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 import { Keepalive } from '@ng-idle/keepalive';
-import {HeaderComponent} from '../../components/header/header.component'
-import {FooterComponent} from '../../components/footer/footer.component'
+import { HeaderComponent } from '../../components/header/header.component';
+import { FooterComponent } from '../../components/footer/footer.component';
+
 describe('AttendanceComponent', () => {
   let component: AttendanceComponent;
   let fixture: ComponentFixture<AttendanceComponent>;
@@ -52,7 +53,7 @@ describe('AttendanceComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule, FormsModule, TranslateModule.forRoot(), HttpModule, HttpClientModule, Ng4LoadingSpinnerModule.forRoot(),
-        AppRoutingModule,NgIdleKeepaliveModule, Ng2PaginationModule, Ng2OrderModule, DataTableModule, Ng2SearchPipeModule],
+        AppRoutingModule, NgIdleKeepaliveModule, Ng2PaginationModule, Ng2OrderModule, DataTableModule, Ng2SearchPipeModule],
       declarations: [LoginComponent, MenuComponent, ControlMessagesComponent,
         AttendanceComponent,
         UsertypeComponent,
@@ -89,8 +90,8 @@ describe('AttendanceComponent', () => {
     fixture = TestBed.createComponent(AttendanceComponent);
     component = fixture.componentInstance;
     component.ngOnInit();
-   
-  });  
+
+  });
   it('userTypeForm invalid when empty', () => {
     expect(component.attendanceForm.valid).toBeFalsy();
   });
@@ -114,5 +115,29 @@ describe('AttendanceComponent', () => {
     expect(outtime.valid).toBeFalsy();
     errors = outtime.errors || {};
     expect(errors['required']).toBeTruthy();
+  });
+  it('date field validity', () => {
+    let errors = {};
+    const date = component.attendanceForm.controls['date'];
+    expect(date.valid).toBeFalsy();
+    errors =date.errors||{};
+    expect(errors['required']).toBeTruthy();
+  });
+  it('submitting a form emits a attendance', () => {
+    expect(component.attendanceForm.valid).toBeFalsy();
+    component.attendanceForm.controls['employee'].setValue(2);
+    component.attendanceForm.controls['intime'].setValue('10:00:00');
+    component.attendanceForm.controls['outtime'].setValue('02:00:00');
+    component.attendanceForm.controls['date'].setValue('2018-04-02');
+    // loginEl.nativeElement.value = "sonali123";
+    // passwordEl.nativeElement.value = "sonali";
+    expect(component.attendanceForm.valid).toBeTruthy();
+    let attendance: Attendance;
+    component.loggedIn.subscribe((value) => attendance = value);
+    component.onEmployeeAttendanceFormSubmit();
+    expect(attendance.employee).toBe(2);
+    expect(attendance.intime).toBe('10:00:00');
+    expect(attendance.outtime).toBe('02:00:00');
+    expect(attendance.date).toBe('2018-04-02');
   });
 });

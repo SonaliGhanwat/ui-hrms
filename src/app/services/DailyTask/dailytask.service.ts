@@ -47,7 +47,7 @@ export class DailytaskService extends BaseService {
   }
   protected extractData(res: Response) {
     const body = res.json();
-    console.log('body:',body)
+    console.log('body:',body);
     return body;
   }
   protected handleError(error: Response | any) {

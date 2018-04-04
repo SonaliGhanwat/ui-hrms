@@ -24,8 +24,8 @@ export class ApprovalsService extends BaseService {
       .catch(this.handleError);
   }
   updateLeaveStatus(approval: Approval): Observable<any> {
-    let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: cpHeaders });
+    const cpHeaders = new Headers({ 'Content-Type': 'application/json' });
+    const options = new RequestOptions({ headers: cpHeaders });
     return this.http.post(this.buidURL(this.updateStatus), approval,options)
       .map(success => success.json())
       .catch(this.handleError);

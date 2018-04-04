@@ -19,7 +19,6 @@ export class UsertypeComponent implements OnInit {
   toastMessage:string;
   UserType = 'usertypeName';
   usertypeForm:FormGroup;
-  userlist: any
   // isError:boolean = false;
   @Output() loggedIn = new EventEmitter<UserType>();
   @Input() enabled = true;
@@ -50,7 +49,6 @@ export class UsertypeComponent implements OnInit {
     if (this.userTypeIdToUpdate === null) {
       const userType = new UserType(null, usertypeName, description);
       this.loggedIn.emit(new UserType(null,usertypeName, description));
-      console.log('this.loggedIn:',this.loggedIn);
       this.usertypeService.createUserType(userType)
         .subscribe(successCode => {
           // let message = successCode.message;
@@ -75,7 +73,6 @@ export class UsertypeComponent implements OnInit {
   deleteUserType(id: string) {
     this.preProcessConfigurations();
     this.commonService.startLoadingSpinner();
-    this.loggedIn.emit(new UserType(id,null,null));
     this.usertypeService.deleteUserTypeById(id)
       .subscribe(successCode => {
         // let message = successCode.message;
