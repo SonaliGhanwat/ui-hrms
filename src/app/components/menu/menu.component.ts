@@ -35,6 +35,9 @@ export class MenuComponent implements OnInit {
       'subMenu': [{
         'name': 'Employee Attendance',
         'link': '/attendance'
+      }, {
+        'name': 'Self Attendance',
+        'link': '/selfattendance'
       }]
     }, {
       'name': 'Daily Task',

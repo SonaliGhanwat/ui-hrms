@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input ,HostListener} from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { LeaveService } from '../../services/Leave/leave.service';
 import { Leave } from '../../models/Leave/Leave.model';
@@ -19,23 +19,28 @@ export class LeavebalancereportComponent implements OnInit {
   requestProcessing = false;
   leaveIdToUpdate = null;
   processValidation = false;
-  constructor(private commonService: CommonService, private leaveService: LeaveService, private formBuilder: FormBuilder,
-    private employeeService: EmployeeService, private leavetypeService: LeavetypeService) { }
+
+
+  constructor(private commonService: CommonService, private leaveService: LeaveService, private leavetypeService: LeavetypeService) { }
 
   ngOnInit() {
     this.getAllLeaveBalanceReport();
+
   }
+  
   getAllLeaveBalanceReport() {
     this.commonService.startLoadingSpinner();
     this.leaveService.getAllLeaveforLeaveBalance()
       .subscribe(
-      data => this.allLeave = data,
+      data => {
+        this.allLeave = data.data;
+      },
       errorCode => this.statusCode = errorCode);
-      this.commonService.hideSpinner();
+    this.commonService.hideSpinner();
   }
   preProcessConfigurations() {
     this.statusCode = null;
     this.requestProcessing = true;
   }
- 
+
 }

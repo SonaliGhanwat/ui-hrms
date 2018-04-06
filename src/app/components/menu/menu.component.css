@@ -299,6 +299,7 @@ ul li{cursor:pointer;}
    line-height: 21px;
    text-align: left;
    padding: 15px 8px;
+   font-size: 15px;
 }
 .drop{
    width: 240px;
@@ -332,3 +333,16 @@ ul li{cursor:pointer;}
    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
    animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }
+
+.logoutbtn{
+    width: 110px;
+    margin-left: 91%;
+    position: absolute;
+    height: 45px;
+    background-color: #111111e8;
+    margin-top: 10px;
+    float: right;
+    font-size: 17px;
+    /* z-index: 4; */
+    z-index: 6000;
+ }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,HostListener } from '@angular/core';
 import { TranslateService } from 'ng2-translate';
 
 @Component({
@@ -18,7 +18,7 @@ export class AppComponent {
   ngOnInit() {
     // this.showMenu();
   }
-
+ 
   /*showMenu() {
     if (this.showSelected = false) {
       this.showSelected = true;

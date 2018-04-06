@@ -23,10 +23,9 @@ export class LeaveService extends BaseService {
       .catch(this.handleError);
   }
 
-  getAllLeaveforLeaveBalance(): Observable<Leave[]> {
-
+  getAllLeaveforLeaveBalance(): Observable<any> {
     return this.http.get(this.buidURL(this.leaveUrl + this.leaveReportUrl))
-      .map(this.extractData)
+      .map(this.extractData,success => success.json())
       .catch(this.handleError);
   }
   createLeave(leave: Leave): Observable<any> {

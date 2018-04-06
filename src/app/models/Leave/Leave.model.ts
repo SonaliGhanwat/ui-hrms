@@ -6,7 +6,9 @@ export class Leave {
         public subject: string,
         public fromDate: Date,
         public toDate: Date,
-        public leavetype: any
+        public leavetype: any,
+        public emplyeeLeaveParts:any
+        
         
     ) { }
 }

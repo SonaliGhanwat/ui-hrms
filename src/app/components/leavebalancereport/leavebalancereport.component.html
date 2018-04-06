@@ -1,5 +1,5 @@
 <app-menu></app-menu>
-<div class=" main-class">
+<div class=" main-class" >
   <div class="primary-container">
 
     <header class="header">
@@ -17,12 +17,12 @@
         
         </tr>
       </thead>
-      <tr *ngFor="let leave of allLeave ;let i = index">
-        <td>{{leave.employee.userid}} </td>
-        <td>{{leave.emplyeeLeaveParts.seekLeave}}</td>
-        <td>{{leave.emplyeeLeaveParts.paidLeave}}</td>
-        <td>{{leave.emplyeeLeaveParts.pendingLeave}}</td>
-      </tr>
+      <tr *ngFor="let leave of allLeave ">
+        <td >{{leave.employee.userid}} </td>      
+        <td *ngFor="let totalleave of leave.emplyeeLeaveParts">{{totalleave.seekLeave}}</td>
+        <td *ngFor="let totalleave of leave.emplyeeLeaveParts">{{totalleave.paidLeave}}</td>
+        <td *ngFor="let totalleave of leave.emplyeeLeaveParts">{{totalleave.pendingLeave}}</td>       
+      </tr>    
     </table>
    
 </div>

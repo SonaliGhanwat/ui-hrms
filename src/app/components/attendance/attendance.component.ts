@@ -70,7 +70,7 @@ export class AttendanceComponent implements OnInit {
   }
   onEmployeeAttendanceFormSubmit() {
     this.preProcessConfigurations();
-    location.reload();
+   
     this.commonService.startLoadingSpinner()
     if (this.attendanceForm.invalid) {
       return;
@@ -109,7 +109,7 @@ export class AttendanceComponent implements OnInit {
           this.toastMessage = message;
           this.getAllAttendanceList();
           this.backToCreateArticle();
-          location.reload();
+        
         },
         errorCode => this.statusCode = errorCode);
       this.commonService.hideSpinner();
@@ -134,9 +134,9 @@ export class AttendanceComponent implements OnInit {
     this.attendanceService.getEmployeeAttendanceById(id)
       .subscribe(data => {
         this.attendanceIdToUpdate = data.id;
-        if (this.attendanceIdToUpdate != null) {
+        /*if (this.attendanceIdToUpdate != null) {
           (document.getElementById('employee') as HTMLButtonElement).disabled = true;
-        }
+        }*/
         // this.userid = data.employee.userid
         this.attendanceForm.setValue({ employee: data.employee.id, intime: data.intime, outtime: data.outtime, date: data.date });
         this.processValidation = true;
@@ -145,6 +145,7 @@ export class AttendanceComponent implements OnInit {
       errorCode => this.statusCode = errorCode);
     this.commonService.hideSpinner();
   }
+ 
   onSelect(employeeId) {
     this.selectedEmployee = null;
     for (let i = 0; i < this.allEmployee.length; i++) {

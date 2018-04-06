@@ -9,8 +9,10 @@ import { BaseService } from '../base.service';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
 @Injectable()
 export class AttendanceService extends BaseService {
+  
   attendanceUrl = 'employeeattendance/';
   attendancelist_url = 'list';
+  getAttendanceByDate = 'getAttendance/'
   myCookie: any;
   constructor(protected http: Http) {
     super(http);
@@ -43,6 +45,12 @@ export class AttendanceService extends BaseService {
   updateEmployeeAttendance(attendance: Attendance): Observable<any> {
     return this.http.put(this.buidURL(this.attendanceUrl + this.update_url), attendance)
       .map(success => success.json())
+      .catch(this.handleError);
+  }
+  getAllAttendanceBYDate(date:Date): Observable<Attendance[]> {
+    this.myCookie = Cookie.get('cookieName');
+    return this.http.get(this.buidURL(this.attendanceUrl + this.getAttendanceByDate+this.myCookie+'/'+date))
+      .map(this.extractData)
       .catch(this.handleError);
   }
   protected extractData(res: Response) {

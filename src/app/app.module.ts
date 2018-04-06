@@ -45,6 +45,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { LeavebalancereportComponent } from './components/leavebalancereport/leavebalancereport.component';
+import { SelfattendanceComponent } from './components/selfattendance/selfattendance.component';
 
 
 
@@ -68,6 +69,7 @@ import { LeavebalancereportComponent } from './components/leavebalancereport/lea
     FooterComponent,
     MenuComponent,
     LeavebalancereportComponent,
+    SelfattendanceComponent,
 
   ],
   imports: [

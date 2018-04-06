@@ -41,6 +41,7 @@ export class LeaveComponent implements OnInit {
     this.commonService.onPreviousNextPage();
     this.toDateValidation();
   }
+  
   getAllLeaveList() {
     this.commonService.startLoadingSpinner();
     this.leaveService.getAllLeave()
@@ -72,7 +73,7 @@ export class LeaveComponent implements OnInit {
     const leaveTypeId = ((document.getElementById('leavetype') as HTMLInputElement).value);
     const leavetype = parseInt(leaveTypeId);
     if (this.leaveIdToUpdate === null) {
-      const attendance = new Leave(null, employee, subject, fromDate, toDate, leavetype);
+      const attendance = new Leave(null, employee, subject, fromDate, toDate, leavetype,null);
       this.leaveService.createLeave(attendance)
         .subscribe(successCode => {
           // let message = successCode.message;
@@ -83,7 +84,7 @@ export class LeaveComponent implements OnInit {
         },
         errorCode => this.statusCode = errorCode);
     } else {
-      const userType = new Leave(this.leaveIdToUpdate, employee, subject, fromDate, toDate, leavetype);
+      const userType = new Leave(this.leaveIdToUpdate, employee, subject, fromDate, toDate, leavetype,null);
       this.leaveService.updateLeave(userType)
         .subscribe(successCode => {
           // let message = successCode.message;

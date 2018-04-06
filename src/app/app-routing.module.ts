@@ -15,6 +15,7 @@ import { ResetpasswordComponent } from './components/resetpassword/resetpassword
 import { MenuComponent } from './components/menu/menu.component';
 import { APP_BASE_HREF } from '@angular/common';
 import { LeavebalancereportComponent } from './components/leavebalancereport/leavebalancereport.component';
+import { SelfattendanceComponent } from './components/selfattendance/selfattendance.component';
 const appRoutes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -30,7 +31,8 @@ const appRoutes: Routes = [
   { path: 'leave', component: LeaveComponent },
   { path: 'approvals', component: ApprovalsComponent },
   { path: 'resetpassword', component: ResetpasswordComponent },
-  { path: 'leavereport', component: LeavebalancereportComponent }
+  { path: 'leavereport', component: LeavebalancereportComponent },
+  { path: 'selfattendance', component: SelfattendanceComponent }
 ];
 @NgModule({
   imports: [RouterModule.forRoot(appRoutes)],

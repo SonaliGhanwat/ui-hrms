@@ -38,7 +38,7 @@
           <th class="col-xs-2" style="margin-left: 20px">Action</th>
         </tr>
       </thead>
-      <tr *ngFor="let attendance of mf.data |filter :date | paginate: { itemsPerPage: 8, currentPage: p} let i = index;"[ngStyle]="{'color':attendance.status === 'Leave' ? 'red' : 'green' }">
+      <tr *ngFor="let attendance of mf.data |filter :date | paginate: { itemsPerPage: 8, currentPage: p} let i = index;"[ngStyle]="{'color':attendance.status === 'Leave'|| attendance.status === 'Absent' ? 'red' : 'green' }">
         <td class="tablerow col-xs-1">{{i+1}}</td>
         <td class="tablerow col-xs-2  ">{{attendance.employee.userid}}</td>
         <td class="tablerow col-xs-2">{{attendance.intime}}</td>

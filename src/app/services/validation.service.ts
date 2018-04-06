@@ -23,7 +23,8 @@ export class ValidationService {
             'pattern': `Please do not enter special characters in User Id`,
             'dateOfBirth': 'Date of Birth should be 18 years before than today',
             'selectEmployeeId': 'Please Select Employee Id',
-            'weekendDate': 'On this date is weekend so you can not allow to apply leave  '
+            'weekendDate': 'On this date is weekend so you can not allow to apply leave  ',
+            'invalidMonth':'Please Enter Current month and year'
         };
 
         return config[validatorName];
@@ -108,6 +109,18 @@ export class ValidationService {
         if (res >= 18) {
         } else {
             return { 'dateOfBirth': true };
+        }
+    }
+    static currentMonthValidation(control) {
+        const joinDate = new Date();
+        const getAttendncedate = control.value;
+        const attendanceDate = new Date(getAttendncedate);
+        const newdate = joinDate.getMonth() + 1 + '-' + joinDate.getFullYear();
+        const AttendanceDate1 = attendanceDate.getMonth() + 1 + '-' + attendanceDate.getFullYear();
+        if (newdate === AttendanceDate1) {
+            return null;
+        } else {
+            return { 'invalidMonth': true };
         }
     }
 
