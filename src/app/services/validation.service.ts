@@ -24,7 +24,7 @@ export class ValidationService {
             'dateOfBirth': 'Date of Birth should be 18 years before than today',
             'selectEmployeeId': 'Please Select Employee Id',
             'weekendDate': 'On this date is weekend so you can not allow to apply leave  ',
-            'invalidMonth':'Please Enter Current month and year'
+            'invalidMonth':'Please enter current month and year'
         };
 
         return config[validatorName];
@@ -117,7 +117,7 @@ export class ValidationService {
         const attendanceDate = new Date(getAttendncedate);
         const newdate = joinDate.getMonth() + 1 + '-' + joinDate.getFullYear();
         const AttendanceDate1 = attendanceDate.getMonth() + 1 + '-' + attendanceDate.getFullYear();
-        if (newdate === AttendanceDate1) {
+        if (newdate >= AttendanceDate1) {
             return null;
         } else {
             return { 'invalidMonth': true };
