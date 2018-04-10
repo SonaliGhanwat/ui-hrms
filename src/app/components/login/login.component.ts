@@ -13,6 +13,7 @@ import { ControlMessagesComponent } from '../control-messages/control-messages.c
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
+
 })
 export class LoginComponent implements OnInit {
 
@@ -24,6 +25,7 @@ export class LoginComponent implements OnInit {
 
   @Output() loggedIn = new EventEmitter<LoginModel>();
   @Input() enabled = true;
+  @Input() showSelected : false;
   constructor(private spinner: Ng4LoadingSpinnerService, 
     private commonService: CommonService, 
     private formBuilder: FormBuilder, 

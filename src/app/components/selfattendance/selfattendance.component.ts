@@ -30,11 +30,21 @@ export class SelfattendanceComponent implements OnInit {
     this.commonService.onPreviousNextPage();
   }
   getAllAttendanceListBYIDandDate() {
-    this.commonService.startLoadingSpinner();
+   
     this.date = ((document.getElementById('date') as HTMLInputElement).value);
+    this.commonService.startLoadingSpinner();
     this.attendanceService.getAllAttendanceBYDate(this.date)
       .subscribe(
-      data => this.allAttendance = data,
+        data => {
+          this.allAttendance = data.data;
+          const code = data.code;
+          console.log('code:',code);
+          if (code === 0) {
+            document.getElementById('data').innerHTML = 'There is no any attendance for this month';
+          }else{
+            document.getElementById('data').innerHTML = '';
+          }
+        },
       errorCode => this.statusCode = errorCode);
     this.commonService.hideSpinner();
   }

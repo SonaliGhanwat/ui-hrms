@@ -16,6 +16,8 @@ import { MenuComponent } from './components/menu/menu.component';
 import { APP_BASE_HREF } from '@angular/common';
 import { LeavebalancereportComponent } from './components/leavebalancereport/leavebalancereport.component';
 import { SelfattendanceComponent } from './components/selfattendance/selfattendance.component';
+import { ApplyforleaveComponent } from './components/applyforleave/applyforleave.component';
+import { MyLeaveapplicationComponent } from './components/my-leaveapplication/my-leaveapplication.component';
 const appRoutes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -32,7 +34,9 @@ const appRoutes: Routes = [
   { path: 'approvals', component: ApprovalsComponent },
   { path: 'resetpassword', component: ResetpasswordComponent },
   { path: 'leavereport', component: LeavebalancereportComponent },
-  { path: 'selfattendance', component: SelfattendanceComponent }
+  { path: 'selfattendance', component: SelfattendanceComponent },
+  { path: 'applyleave', component: ApplyforleaveComponent },
+  { path: 'myleave', component: MyLeaveapplicationComponent }
 ];
 @NgModule({
   imports: [RouterModule.forRoot(appRoutes)],

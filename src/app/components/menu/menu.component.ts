@@ -50,6 +50,12 @@ export class MenuComponent implements OnInit {
       'subMenu': [{
         'name': 'Employee Leave',
         'link': '/leave'
+      },{
+        'name': 'Apply For Leave',
+        'link': '/applyleave'
+      },{
+        'name': 'My Leave Applications',
+        'link': '/myleave'
       }, {
         'name': 'Leave Type',
         'link': '/leaveType'

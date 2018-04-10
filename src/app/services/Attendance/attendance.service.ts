@@ -47,7 +47,7 @@ export class AttendanceService extends BaseService {
       .map(success => success.json())
       .catch(this.handleError);
   }
-  getAllAttendanceBYDate(date:Date): Observable<Attendance[]> {
+  getAllAttendanceBYDate(date:Date): Observable<any> {
     this.myCookie = Cookie.get('cookieName');
     return this.http.get(this.buidURL(this.attendanceUrl + this.getAttendanceByDate+this.myCookie+'/'+date))
       .map(this.extractData)

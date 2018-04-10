@@ -1,18 +1,16 @@
 <app-menu></app-menu>
-<div class=" main-class" >
+<div class=" main-class">
   <div class="primary-container">
-
     <header class="header">
-      <div class="heading4">{{'Balance Of Leave'|translate}}</div>
+      <div class="heading4">{{'My Leave Applications'|translate}}</div>
     </header>
-    
     <div id="snackbar" [innerHTML]="toastMessage"></div>
     <table class="table  table-hover table-bordered ">
       <thead>
         <tr>
           <th class="col-xs-2">UserId</th>
-          <th class="col-xs-2">{{ 'Sick Leave' | translate }}</th>
-          <th class="col-xs-2">{{ 'Paid Leave' | translate }}</th>
+          <th class="col-xs-2">{{ 'Allocated Sick Leave' | translate }}</th>
+          <th class="col-xs-2">{{ 'Allocated Paid Leave' | translate }}</th>
           <th class="col-xs-2">{{ 'Remaining Sick Leave' | translate }}</th>
           <th class="col-xs-2">{{ 'Remaining Paid Leave' | translate }}</th>
           <th class="col-xs-2">{{ 'Remaining Leave' | translate }}</th>       
@@ -28,4 +26,5 @@
       </tr>    
     </table>
    
+  </div>
 </div>

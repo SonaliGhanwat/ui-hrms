@@ -1,50 +1,63 @@
 <app-menu></app-menu>
 <div class=" main-class">
-  <div class="primary-container" style="height: 100%">
+  <div class="primary-container">
     <header class="header">
       <div class="heading4">{{'Self Attendance'|translate}}</div>
     </header>
     <div class="addbtn">
-      <div layout="row" class="userlist " >{{' Self Attendance List' | translate}}
-          <form [formGroup]="attendanceForm" >
-        <div class="input-group input-group-lg searchButton"[ngClass]="{'has-error':!attendanceForm.controls['date'].valid && attendanceForm.controls['date'].touched}">
-          <input type="month" id="date" formControlName="date" class="form-control" style="height: 40px" value="MM/YYYY" [(ngModel)]="date">
-          <div class="input-group-btn">
-            <button class="btn btn-default" style="height: 40px" type="submit" (click)="getAllAttendanceListBYIDandDate()">
-              <i class="glyphicon glyphicon-search"></i>
-            </button>
+      <div layout="row" class="userlist ">{{' Self Attendance List' | translate}}
+       
+          <div style="margin-top: 20px;">
+              <div class="green-circle"></div>
+              <div class="lable-description">Present </div>
+              <div class="red-circle"></div>
+              <div class="lable-description">Absent </div>
+            </div>
+        <form [formGroup]="attendanceForm">
+          <div class="input-group input-group-lg searchButton" [ngClass]="{'has-error':!attendanceForm.controls['date'].valid && attendanceForm.controls['date'].touched}">
+            <input type="month" id="date" formControlName="date" class="form-control" style="height: 40px; font-size: 15px" value="MM/YYYY"
+              [(ngModel)]="date">
+            <div class="input-group-btn">
+              <button class="btn btn-default" style="height: 40px" type="submit" (click)="getAllAttendanceListBYIDandDate()">
+                <i class="glyphicon glyphicon-search"></i>
+              </button>
+            </div>
+
           </div>
-         
-        </div>
-        <div class="error">
-        <app-control-messages  [formGroup]="attendanceForm" [displayName]="'Date'" [control]="attendanceForm.controls['date']"></app-control-messages>
-      </div>
-      </form>
+          <div class="error">
+            <app-control-messages [formGroup]="attendanceForm" [displayName]="'Date'" [control]="attendanceForm.controls['date']"></app-control-messages>
+          </div>
+        </form>
       </div>
 
     </div>
-    <table class="table table-striped table-hover table-fixed settable" [mfData]="allAttendance" #mf="mfDataTable" >
+    <table class="table table-striped table-hover table-fixed settable" [mfData]="allAttendance" #mf="mfDataTable">
       <thead>
         <tr>
           <th class="col-xs-1">{{ 'No' | translate }}</th>
-          <th class="col-xs-2"><mfDefaultSorter by="employee.userid" class="col-xs-2">{{'EmployeeId'|translate}}</mfDefaultSorter></th>
+          <th class="col-xs-2">
+            <mfDefaultSorter by="employee.userid" class="col-xs-2">{{'EmployeeId'|translate}}</mfDefaultSorter>
+          </th>
           <th class="col-xs-2">{{ 'Intime' | translate }}</th>
           <th class="col-xs-2">{{ 'Outtime' | translate }}</th>
-          <th class="col-xs-2" style="margin-right: -20px;"><mfDefaultSorter by="date" class="col-xs-2">{{ 'Date' | translate }}</mfDefaultSorter> </th>
+          <th class="col-xs-2" style="margin-right: -20px;">
+            <mfDefaultSorter by="date" class="col-xs-2">{{ 'Date' | translate }}</mfDefaultSorter>
+          </th>
           <th class="col-xs-3">{{ 'Status' | translate }}</th>
-        
+
         </tr>
       </thead>
-      <tr *ngFor="let attendance of mf.data |filter :date | paginate: { itemsPerPage: 8, currentPage: p} let i = index;"[ngStyle]="{'color':attendance.status === 'Leave'|| attendance.status === 'Absent' ? 'red' : 'green' }">
+      <tr *ngFor="let attendance of mf.data |filter :date | paginate: { itemsPerPage: 8, currentPage: p} let i = index;" [ngStyle]="{'color':attendance.status === 'Leave'|| attendance.status === 'Absent' ? 'red' : 'green' }">
         <td class="tablerow col-xs-1">{{i+1}}</td>
         <td class="tablerow col-xs-2  ">{{attendance.employee.userid}}</td>
         <td class="tablerow col-xs-2">{{attendance.intime}}</td>
         <td class="tablerow col-xs-2">{{attendance.outtime}}</td>
         <td class="tablerow  col-xs-2" style="margin-right: -20px;">{{attendance.date}}</td>
         <td class="tablerow  col-xs-3">{{attendance.status}}</td>
-        
+
       </tr>
+      <div id="data" class="norequest"></div>
     </table>
-    
+
   </div>
 </div>

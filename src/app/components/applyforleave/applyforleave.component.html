@@ -1,0 +1,63 @@
+<app-menu></app-menu>
+<div class=" main-class">
+  <div class="primary-container">
+    <header class="header">
+      <div class="heading4">{{'Apply For Leave'|translate}}</div>
+    </header>
+   
+    <form [formGroup]="leaveForm" (ngSubmit)="onLeaveFormSubmit()">
+      <div id="snackbar"[innerHTML]="toastMessage"></div>
+      <div class="row" style="    margin-top: 30px">
+        <div class=" form-group col-lg-6" style="margin-left: 35px;"[ngClass]="{'has-error':!leaveForm.controls['employee'].valid && leaveForm.controls['employee'].touched}">
+          <label class="label-name control-label">{{ 'EmployeeId' | translate }}</label>
+          <select class="loginUserid form-control" formControlName="employee" name="employee" id="employee" >
+            <option *ngFor=" let employee of allEmployee" [value]="employee.id">
+              {{employee.userid}}
+            </option>
+          </select>
+          <app-control-messages [formGroup]="leaveForm" [displayName]="'EmployeeId'" [control]="leaveForm.controls['employee']"></app-control-messages>
+        </div>
+
+        <div class="col-lg-offset-5">
+          <div class=" form-group col-lg-6"[ngClass]="{'has-error':!leaveForm.controls['subject'].valid && leaveForm.controls['subject'].touched}">
+            <label class="label-name control-label"> {{ 'Reason' | translate }}</label>
+            <input type="text"  step="2" formControlName="subject" class="loginUserid form-control">
+            <app-control-messages [formGroup]="leaveForm" [displayName]="'Reason'" [control]="leaveForm.controls['subject']"></app-control-messages>
+          </div>
+        </div>
+      </div><div class="row" style="    margin-top: 30px">
+        <div class=" form-group col-lg-6" style="margin-left: 35px;"[ngClass]="{'has-error':!leaveForm.controls['fromDate'].valid && leaveForm.controls['fromDate'].touched}">
+          <label class="label-name control-label">{{ 'FromDate' | translate }}</label>
+          <br>
+          <input type="date"   formControlName="fromDate" class="loginUserid form-control">
+          <app-control-messages [formGroup]="leaveForm" [displayName]="'FromDate'" [control]="leaveForm.controls['fromDate']"></app-control-messages>
+        </div>
+
+        <div class="col-lg-offset-5">
+          <div class=" form-group col-lg-6" [ngClass]="{'has-error':!leaveForm.controls['toDate'].valid && leaveForm.controls['toDate'].touched}">
+            <label class="label-name control-label"> {{ 'Todate' | translate }}</label>
+            <input type="date"  formControlName="toDate" class="loginUserid form-control"(blur)="toDateValidation();" (change)="toDateValidation();">
+            <app-control-messages [formGroup]="leaveForm" [displayName]="'Todate'" [control]="leaveForm.controls['toDate']"></app-control-messages>
+            <div id="afterleavejoiningdate_validation" class="error"></div>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="    margin-top: 30px">
+        <div class=" form-group col-lg-6" style="margin-left: 35px;"[ngClass]="{'has-error':!leaveForm.controls['leavetype'].valid && leaveForm.controls['leavetype'].touched}">
+          <label class="label-name control-label">{{ 'LeaveType' | translate }}</label>
+          <select class="loginUserid form-control" formControlName="leavetype" name="leavetype" id="leavetype">
+            <option *ngFor=" let leavetype of allLeavetypes" [value]="leavetype.id" >
+              {{leavetype.name}}
+            </option>
+          </select>
+          <app-control-messages [formGroup]="leaveForm" [displayName]="'LeaveType'" [control]="leaveForm.controls['leavetype']"></app-control-messages>
+        </div>
+      </div>
+      <div class="savebtn">
+        <button type="submit" class="btn btn-secondary" style="width: 30%;" [disabled]="!leaveForm.valid" (click)="toastMessageDisplay()">{{'Save'|translate}}</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="width: 30%;
+    margin-left: 20px;">Close</button>
+      </div>
+    </form>
+  </div>
+</div>

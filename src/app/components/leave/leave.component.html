@@ -4,25 +4,30 @@
     <header class="header">
       <div class="heading4">{{'Employee Leave'|translate}}</div>
     </header>
-    <div class="addbtn">
-      <button class="btn btn-primary adduser" type="button" data-toggle="modal" data-target="#myModal">Add Employee Leave
-      </button>
-      <div class="input-group input-group-lg searchButton">
-          <input type="date" class="form-control" style="height: 40px" placeholder="Search By Name" [(ngModel)]="fromDate">
-          <div class="input-group-btn">
-            <button class="btn btn-default" style="height: 40px" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-          </div>
-        </div>
-    </div>
+
     <div layout="row" class="userlist ">{{'Employeee Leave List'|translate}}</div>
-    <table class="table table-striped table-hover table-fixed settable"[mfData]="allLeave" #mf="mfDataTable">
+    <div class="input-group input-group-lg searchButton">
+      <input type="date" class="form-control" style="height: 40px" placeholder="Search By Name" [(ngModel)]="fromDate">
+      <div class="input-group-btn">
+        <button class="btn btn-default" style="height: 40px" type="submit">
+          <i class="glyphicon glyphicon-search"></i>
+        </button>
+      </div>
+
+    </div>
+
+<br>
+<br>
+    <table class="table table-striped table-hover table-fixed settable" [mfData]="allLeave" #mf="mfDataTable">
       <thead>
         <tr>
           <th class="col-xs-1">{{ 'No' | translate }}</th>
-          <th class="col-xs-2"><mfDefaultSorter by="employee.userid" >EmployeeId</mfDefaultSorter></th>
+          <th class="col-xs-2">
+            <mfDefaultSorter by="employee.userid">EmployeeId</mfDefaultSorter>
+          </th>
           <th class="col-xs-2">{{ 'Reason' | translate }}</th>
           <th class="col-xs-2">{{ 'FromDate' | translate }}</th>
-          <th class="col-xs-2">{{ 'Todate' | translate }}</th>        
+          <th class="col-xs-2">{{ 'Todate' | translate }}</th>
           <th class="col-xs-3">Action</th>
         </tr>
       </thead>
@@ -32,7 +37,7 @@
         <td class="tablerow col-xs-2">{{leave.subject}}</td>
         <td class="tablerow col-xs-2">{{leave.fromDate}}</td>
         <td class="tablerow col-xs-2">{{leave.toDate}}</td>
-       
+
         <td class="tablerow col-xs-3">
           <span class="action-link" role="button" tabindex="0" (click)="loadLeaveToEdit(leave.id)" data-toggle="modal" data-target="#myModal">{{'Edit'|translate}}</span>
           <span> | </span>
@@ -40,7 +45,7 @@
         </td>
       </tr>
     </table>
-    <div style="margin-left: 60%" >
+    <div style="margin-left: 60%">
       <pagination-controls (pageChange)="p = $event"></pagination-controls>
     </div>
   </div>
@@ -48,7 +53,7 @@
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <form [formGroup]="leaveForm" (ngSubmit)="onLeaveFormSubmit()">
     <div class="modal-dialog modaldialog">
-        <div id="snackbar"[innerHTML]="toastMessage"></div>
+      <div id="snackbar" [innerHTML]="toastMessage"></div>
       <div class="modal-content" style="    height: 570px;">
         <div class="modal-header dialog">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -56,9 +61,9 @@
         </div>
         <div class="modal-body">
           <div class="row" style="    margin-top: 30px">
-            <div class=" form-group col-lg-6" style="margin-left: 35px;"[ngClass]="{'has-error':!leaveForm.controls['employee'].valid && leaveForm.controls['employee'].touched}">
+            <div class=" form-group col-lg-6" style="margin-left: 35px;" [ngClass]="{'has-error':!leaveForm.controls['employee'].valid && leaveForm.controls['employee'].touched}">
               <label class="label-name control-label">{{ 'EmployeeId' | translate }}</label>
-              <select class="loginUserid form-control" formControlName="employee" name="employee" id="employee" >
+              <select class="loginUserid form-control" formControlName="employee" name="employee" id="employee">
                 <option *ngFor=" let employee of allEmployee" [value]="employee.id">
                   {{employee.userid}}
                 </option>
@@ -67,35 +72,35 @@
             </div>
 
             <div class="col-lg-offset-5">
-              <div class=" form-group col-lg-6"[ngClass]="{'has-error':!leaveForm.controls['subject'].valid && leaveForm.controls['subject'].touched}">
+              <div class=" form-group col-lg-6" [ngClass]="{'has-error':!leaveForm.controls['subject'].valid && leaveForm.controls['subject'].touched}">
                 <label class="label-name control-label"> {{ 'Reason' | translate }}</label>
-                <input type="text"  step="2" formControlName="subject" class="loginUserid form-control">
+                <input type="text" step="2" formControlName="subject" class="loginUserid form-control">
                 <app-control-messages [formGroup]="leaveForm" [displayName]="'Reason'" [control]="leaveForm.controls['subject']"></app-control-messages>
               </div>
             </div>
           </div>
           <div class="row" style="    margin-top: 30px">
-            <div class=" form-group col-lg-6" style="margin-left: 35px;"[ngClass]="{'has-error':!leaveForm.controls['fromDate'].valid && leaveForm.controls['fromDate'].touched}">
+            <div class=" form-group col-lg-6" style="margin-left: 35px;" [ngClass]="{'has-error':!leaveForm.controls['fromDate'].valid && leaveForm.controls['fromDate'].touched}">
               <label class="label-name control-label">{{ 'FromDate' | translate }}</label>
               <br>
-              <input type="date"   formControlName="fromDate" class="loginUserid form-control">
+              <input type="date" formControlName="fromDate" class="loginUserid form-control">
               <app-control-messages [formGroup]="leaveForm" [displayName]="'FromDate'" [control]="leaveForm.controls['fromDate']"></app-control-messages>
             </div>
 
             <div class="col-lg-offset-5">
               <div class=" form-group col-lg-6" [ngClass]="{'has-error':!leaveForm.controls['toDate'].valid && leaveForm.controls['toDate'].touched}">
                 <label class="label-name control-label"> {{ 'Todate' | translate }}</label>
-                <input type="date"  formControlName="toDate" class="loginUserid form-control"(blur)="toDateValidation();" (change)="toDateValidation();">
+                <input type="date" formControlName="toDate" class="loginUserid form-control" (blur)="toDateValidation();" (change)="toDateValidation();">
                 <app-control-messages [formGroup]="leaveForm" [displayName]="'Todate'" [control]="leaveForm.controls['toDate']"></app-control-messages>
                 <div id="afterleavejoiningdate_validation" class="error"></div>
               </div>
             </div>
           </div>
           <div class="row" style="    margin-top: 30px">
-            <div class=" form-group col-lg-6" style="margin-left: 35px;"[ngClass]="{'has-error':!leaveForm.controls['leavetype'].valid && leaveForm.controls['leavetype'].touched}">
+            <div class=" form-group col-lg-6" style="margin-left: 35px;" [ngClass]="{'has-error':!leaveForm.controls['leavetype'].valid && leaveForm.controls['leavetype'].touched}">
               <label class="label-name control-label">{{ 'LeaveType' | translate }}</label>
               <select class="loginUserid form-control" formControlName="leavetype" name="leavetype" id="leavetype">
-                <option *ngFor=" let leavetype of allLeavetypes" [value]="leavetype.id" >
+                <option *ngFor=" let leavetype of allLeavetypes" [value]="leavetype.id">
                   {{leavetype.name}}
                 </option>
               </select>

@@ -3,6 +3,7 @@ import { Ng4LoadingSpinnerModule, Ng4LoadingSpinnerService } from 'ng4-loading-s
 @Injectable()
 export class CommonService {
   collection = [];
+  showSelected : boolean;
   constructor (private ng4LoadingSpinnerService: Ng4LoadingSpinnerService) { }
   onPreviousNextPage() {
     for (let i = 1; i <= 100; i++) {
@@ -20,7 +21,9 @@ export class CommonService {
       this.ng4LoadingSpinnerService.hide();
     }.bind(this), 1000);*/
   }
-
+showHideMenu(){
+  this.showSelected =false;
+}
   hideSpinner() {
     this.ng4LoadingSpinnerService.hide();
   }

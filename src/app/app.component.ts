@@ -1,4 +1,4 @@
-import { Component,HostListener } from '@angular/core';
+import { Component,HostListener,Input } from '@angular/core';
 import { TranslateService } from 'ng2-translate';
 
 @Component({
@@ -7,8 +7,8 @@ import { TranslateService } from 'ng2-translate';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-
-  showSelected: any;
+  @Input() showSelected : any;
+  
   constructor(private translate: TranslateService) {
     this.showSelected = false;
     translate.addLangs(['en', 'fr', 'cn', 'hi']);

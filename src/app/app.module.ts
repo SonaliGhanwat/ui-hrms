@@ -46,8 +46,8 @@ import { FooterComponent } from './components/footer/footer.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { LeavebalancereportComponent } from './components/leavebalancereport/leavebalancereport.component';
 import { SelfattendanceComponent } from './components/selfattendance/selfattendance.component';
-
-
+import { ApplyforleaveComponent } from './components/applyforleave/applyforleave.component';
+import { MyLeaveapplicationComponent } from './components/my-leaveapplication/my-leaveapplication.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +70,8 @@ import { SelfattendanceComponent } from './components/selfattendance/selfattenda
     MenuComponent,
     LeavebalancereportComponent,
     SelfattendanceComponent,
+    ApplyforleaveComponent,
+    MyLeaveapplicationComponent,
 
   ],
   imports: [

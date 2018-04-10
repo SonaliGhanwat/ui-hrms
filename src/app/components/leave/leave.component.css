@@ -19,3 +19,9 @@ butHeight{
    padding-top: 7px;
      width: 250px 
   }
+  .searchButton{
+    margin-left: 40%;
+    width: 24%;
+    height: 20%;
+    margin-top: -7.9%;
+}
