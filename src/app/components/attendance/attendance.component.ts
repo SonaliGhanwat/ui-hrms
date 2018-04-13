@@ -15,7 +15,6 @@ import { Ng4LoadingSpinnerModule, Ng4LoadingSpinnerService } from 'ng4-loading-s
   styleUrls: ['./attendance.component.css']
 })
 export class AttendanceComponent implements OnInit {
-
   allAttendance: Attendance[];
   allEmployee: Employee[];
   statusCode: number;
@@ -29,7 +28,6 @@ export class AttendanceComponent implements OnInit {
   selectedEmployee: any;
   @Output() loggedIn = new EventEmitter<Attendance>();
   constructor(private spinner: Ng4LoadingSpinnerService, private commonService: CommonService, private attendanceService: AttendanceService, private formBuilder: FormBuilder, private employeeService: EmployeeService) {
-
   }
   attendanceForm = this.formBuilder.group({
 
@@ -53,6 +51,7 @@ export class AttendanceComponent implements OnInit {
 
     });
   }
+  
   getAllAttendanceList() {
     this.commonService.startLoadingSpinner();
     this.attendanceService.getAllAttendance()

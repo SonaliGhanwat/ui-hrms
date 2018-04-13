@@ -1,13 +1,13 @@
 <app-menu></app-menu>
-<div class=" main-class" >
+<div class=" main-class">
   <div class="primary-container">
 
     <header class="header">
       <div class="heading4">{{'Balance Of Leave'|translate}}</div>
     </header>
-    
-    <div id="snackbar" [innerHTML]="toastMessage"></div>
-    <table class="table  table-hover table-bordered ">
+    <div layout="row" class="userlist ">{{'Leave Balance Report List'|translate}}</div>
+
+    <table class="table table-striped table-hover table-fixed settable">
       <thead>
         <tr>
           <th class="col-xs-2">UserId</th>
@@ -15,17 +15,20 @@
           <th class="col-xs-2">{{ 'Paid Leave' | translate }}</th>
           <th class="col-xs-2">{{ 'Remaining Sick Leave' | translate }}</th>
           <th class="col-xs-2">{{ 'Remaining Paid Leave' | translate }}</th>
-          <th class="col-xs-2">{{ 'Remaining Leave' | translate }}</th>       
+          <th class="col-xs-2">{{ 'Remaining Leave' | translate }}</th>
         </tr>
       </thead>
-      <tr *ngFor="let leave of allLeave ">
-        <td >{{leave.employee.userid}} </td>      
-        <td *ngFor="let totalleave of leave.emplyeeLeaveParts">{{totalleave.seekLeave}}</td>
-        <td *ngFor="let totalleave of leave.emplyeeLeaveParts">{{totalleave.paidLeave}}</td>
-        <td *ngFor="let totalleave of leave.emplyeeLeaveParts">{{totalleave.remaningSeekLeave}}</td>  
-        <td *ngFor="let totalleave of leave.emplyeeLeaveParts">{{totalleave.remaningPaidLeave}}</td>      
-        <td *ngFor="let totalleave of leave.emplyeeLeaveParts">{{totalleave.pendingLeave}}</td>       
-      </tr>    
+      <tr *ngFor="let leave of allLeave | paginate: { itemsPerPage: 8, currentPage: p} ">
+        <td class="col-xs-2">{{leave.employee.userid}} </td>
+        <td class="col-xs-2" *ngFor="let totalleave of leave.emplyeeLeaveParts">{{totalleave.seekLeave}}</td>
+        <td class="col-xs-2" *ngFor="let totalleave of leave.emplyeeLeaveParts">{{totalleave.paidLeave}}</td>
+        <td class="col-xs-2" *ngFor="let totalleave of leave.emplyeeLeaveParts">{{totalleave.remaningSeekLeave}}</td>
+        <td class="col-xs-2" *ngFor="let totalleave of leave.emplyeeLeaveParts">{{totalleave.remaningPaidLeave}}</td>
+        <td class="col-xs-2" *ngFor="let totalleave of leave.emplyeeLeaveParts">{{totalleave.pendingLeave}}</td>
+      </tr>
     </table>
-   
+    <div style="margin-left: 60%">
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
+  </div>
 </div>

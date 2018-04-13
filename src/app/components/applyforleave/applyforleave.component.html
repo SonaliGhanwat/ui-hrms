@@ -4,7 +4,27 @@
     <header class="header">
       <div class="heading4">{{'Apply For Leave'|translate}}</div>
     </header>
-   
+    <div layout="row" class="userlist " (load)="startLoadingSpinner()">{{'Balance Of Leave' | translate}}</div>
+    <table class="table  table-hover table-bordered ">
+      <thead>
+        <tr>
+          <th class="col-xs-2">UserId</th>
+          <th class="col-xs-2">{{ 'Sick Leave' | translate }}</th>
+          <th class="col-xs-2">{{ 'Paid Leave' | translate }}</th>
+          <th class="col-xs-2">{{ 'Remaining Sick Leave' | translate }}</th>
+          <th class="col-xs-2">{{ 'Remaining Paid Leave' | translate }}</th>
+          <th class="col-xs-2">{{ 'Remaining Leave' | translate }}</th>       
+        </tr>
+      </thead>
+      <tr *ngFor="let leave of allLeave ">
+        <td >{{leave.employee.userid}} </td>      
+        <td *ngFor="let totalleave of leave.emplyeeLeaveParts">{{totalleave.seekLeave}}</td>
+        <td *ngFor="let totalleave of leave.emplyeeLeaveParts">{{totalleave.paidLeave}}</td>
+        <td *ngFor="let totalleave of leave.emplyeeLeaveParts">{{totalleave.remaningSeekLeave}}</td>  
+        <td *ngFor="let totalleave of leave.emplyeeLeaveParts">{{totalleave.remaningPaidLeave}}</td>      
+        <td *ngFor="let totalleave of leave.emplyeeLeaveParts">{{totalleave.pendingLeave}}</td>       
+      </tr>    
+    </table>
     <form [formGroup]="leaveForm" (ngSubmit)="onLeaveFormSubmit()">
       <div id="snackbar"[innerHTML]="toastMessage"></div>
       <div class="row" style="    margin-top: 30px">

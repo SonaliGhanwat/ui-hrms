@@ -8,7 +8,7 @@ import { LeavetypeService } from '../../services/LeaveType/leavetype.service';
 import { LeaveType } from '../../models/LeaveType/Leavetype.model';
 import { ValidationService } from '../../services/validation.service';
 import { CommonService } from '../../services/common/common.service';
-
+import { Ng4LoadingSpinnerModule, Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 @Component({
   selector: 'app-applyforleave',
   templateUrl: './applyforleave.component.html',
@@ -26,7 +26,7 @@ export class ApplyforleaveComponent implements OnInit {
   toastMessage: string;
 
   constructor(private commonService: CommonService, private leaveService: LeaveService, private formBuilder: FormBuilder,
-    private employeeService: EmployeeService, private leavetypeService: LeavetypeService) { }
+    private employeeService: EmployeeService,private spinner: Ng4LoadingSpinnerService, private leavetypeService: LeavetypeService) { }
   leaveForm = this.formBuilder.group({
     'employee': ['', ([Validators.required])],
     'subject': ['', ([Validators.required])],
@@ -36,7 +36,7 @@ export class ApplyforleaveComponent implements OnInit {
   });
 
   ngOnInit(): void {
-
+    this.calculateLeave();
     this.getAllEmployeeList();
     this.getAllLeaveTypes();
     this.commonService.onPreviousNextPage();
@@ -55,6 +55,16 @@ export class ApplyforleaveComponent implements OnInit {
       .subscribe(
       data => this.allLeavetypes = data,
       errorCode => this.statusCode = errorCode);
+  }
+  calculateLeave() {
+    this.spinner.show();
+    this.leaveService.calculateLeaveByUserId()
+      .subscribe(
+      data => {
+        this.allLeave = data.data;
+      },
+      errorCode => this.statusCode = errorCode);
+    this.commonService.hideSpinner();
   }
   onLeaveFormSubmit() {
     this.preProcessConfigurations();

@@ -12,7 +12,8 @@ export class LeaveService extends BaseService {
   leaveUrl = 'employeeleave/';
   leavelist_url = 'list';
   leaveReportUrl = 'leaveBalanceReport'
-  myLeave = 'calculateLeaveByUserId/'
+  myLeave = 'getlistByUserId/'
+  calculateLeavebyUserid = 'calculateLeaveByUserId/'
   myCookie: any;
   constructor(protected http: Http) {
     super(http);
@@ -29,7 +30,14 @@ export class LeaveService extends BaseService {
       .map(this.extractData,success => success.json())
       .catch(this.handleError);
   }
-  calculateLeave(): Observable<any> {
+
+  calculateLeaveByUserId(): Observable<any> {
+    this.myCookie = Cookie.get('cookieName');
+    return this.http.get(this.buidURL(this.leaveUrl + this.calculateLeavebyUserid+this.myCookie))
+      .map(this.extractData,success => success.json())
+      .catch(this.handleError);
+  }
+  getLeaveByUserId(): Observable<any> {
     this.myCookie = Cookie.get('cookieName');
     return this.http.get(this.buidURL(this.leaveUrl + this.myLeave+this.myCookie))
       .map(this.extractData,success => success.json())

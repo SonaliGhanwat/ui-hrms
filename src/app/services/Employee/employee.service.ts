@@ -19,12 +19,12 @@ export class EmployeeService extends BaseService {
   getAllEmployeeList(): Observable<Employee[]> {
     this.myCookie = Cookie.get('cookieName');
     // console.log('cookie:', this.myCookie);
-    let headers = new Headers();
+    /*let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Access-Control-Allow-Origin', "*");
     headers.append("Access-Control-Allow-Headers", "*");
     let options = new RequestOptions({headers:headers ,withCredentials: true });
-    console.log('options:',options);
+    console.log('options:',options);*/
     return this.http.get(this.buidURL(this.employeeUrl + this.list_url))
       .map(this.extractData)
       .catch(this.handleError);

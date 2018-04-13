@@ -13,6 +13,7 @@ export class AttendanceService extends BaseService {
   attendanceUrl = 'employeeattendance/';
   attendancelist_url = 'list';
   getAttendanceByDate = 'getAttendance/'
+  attendanceWorkinfo = 'calculateAttendanceWorkInfo/'
   myCookie: any;
   constructor(protected http: Http) {
     super(http);
@@ -50,6 +51,12 @@ export class AttendanceService extends BaseService {
   getAllAttendanceBYDate(date:Date): Observable<any> {
     this.myCookie = Cookie.get('cookieName');
     return this.http.get(this.buidURL(this.attendanceUrl + this.getAttendanceByDate+this.myCookie+'/'+date))
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+  calculateAttendanceWork(date:Date): Observable<any> {
+    this.myCookie = Cookie.get('cookieName');
+    return this.http.get(this.buidURL(this.attendanceUrl + this.attendanceWorkinfo+this.myCookie+'/'+date))
       .map(this.extractData)
       .catch(this.handleError);
   }

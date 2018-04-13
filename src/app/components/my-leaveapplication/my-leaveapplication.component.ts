@@ -25,16 +25,16 @@ export class MyLeaveapplicationComponent implements OnInit {
   constructor(private commonService: CommonService, private leaveService: LeaveService, private leavetypeService: LeavetypeService) { }
 
   ngOnInit() {
-    this.calculateLeaveByUserId();
+    this.getLeaveByUserId();
 
   }
   
-  calculateLeaveByUserId() {
+ getLeaveByUserId() {
     this.commonService.startLoadingSpinner();
-    this.leaveService.calculateLeave()
+    this.leaveService.getLeaveByUserId()
       .subscribe(
       data => {
-        this.allLeave = data.data;
+        this.allLeave = data;
       },
       errorCode => this.statusCode = errorCode);
     this.commonService.hideSpinner();

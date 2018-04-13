@@ -19,13 +19,13 @@ export class LeavebalancereportComponent implements OnInit {
   requestProcessing = false;
   leaveIdToUpdate = null;
   processValidation = false;
-
+  collection = [];
 
   constructor(private commonService: CommonService, private leaveService: LeaveService, private leavetypeService: LeavetypeService) { }
 
   ngOnInit() {
     this.getAllLeaveBalanceReport();
-
+    this.commonService.onPreviousNextPage();
   }
   
   getAllLeaveBalanceReport() {

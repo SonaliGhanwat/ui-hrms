@@ -346,3 +346,12 @@ ul li{cursor:pointer;}
     /* z-index: 4; */
     z-index: 6000;
  }
+
+ h1 {
+    position: absolute;
+    z-index: 6000;
+    margin-left: 82.7%;
+    font-size: 17px;
+    color: #45aed6;
+    margin-top: 25px;
+  }

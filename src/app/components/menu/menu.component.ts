@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Idle, DEFAULT_INTERRUPTSOURCES } from '@ng-idle/core';
 import { Keepalive } from '@ng-idle/keepalive';
+import { Cookie } from 'ng2-cookies/ng2-cookies';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -16,6 +17,7 @@ export class MenuComponent implements OnInit {
   idleState: any;
   // timedOut = false; 
   toast: string;
+  myCookie: any;
   constructor(private router: Router, private idle: Idle, private keepalive: Keepalive) {
 
     this.menuList = [{
@@ -109,6 +111,7 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loginUserId();
   }
 
   toastMessageDisplay() {
@@ -117,4 +120,7 @@ export class MenuComponent implements OnInit {
     setTimeout(function () { x.className = x.className.replace('show', ''); }, 9000);
   }
 
+  loginUserId(){
+    this.myCookie = Cookie.get('cookieName');
+  }
 }

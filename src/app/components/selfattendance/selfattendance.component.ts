@@ -16,9 +16,11 @@ import { Ng4LoadingSpinnerModule, Ng4LoadingSpinnerService } from 'ng4-loading-s
 })
 export class SelfattendanceComponent implements OnInit {
   allAttendance: Attendance[];
+  attendanceWorkInfo: Attendance[];
   statusCode: number;
   requestProcessing = false;
-  date : any
+  date : any;
+   collection = [];
   constructor(private spinner: Ng4LoadingSpinnerService, private commonService: CommonService, private attendanceService: AttendanceService, private formBuilder: FormBuilder, private employeeService: EmployeeService) { }
   attendanceForm = this.formBuilder.group({
     
@@ -29,8 +31,7 @@ export class SelfattendanceComponent implements OnInit {
     //this.getAllAttendanceListBYIDandDate();
     this.commonService.onPreviousNextPage();
   }
-  getAllAttendanceListBYIDandDate() {
-   
+  getAllAttendanceListBYIDandDate() { 
     this.date = ((document.getElementById('date') as HTMLInputElement).value);
     this.commonService.startLoadingSpinner();
     this.attendanceService.getAllAttendanceBYDate(this.date)
@@ -44,6 +45,17 @@ export class SelfattendanceComponent implements OnInit {
           }else{
             document.getElementById('data').innerHTML = '';
           }
+        },
+      errorCode => this.statusCode = errorCode);
+    this.commonService.hideSpinner();
+  }
+  calculateAllAttendanceListBYIDandDate() { 
+    this.date = ((document.getElementById('date') as HTMLInputElement).value);
+    this.commonService.startLoadingSpinner();
+    this.attendanceService.calculateAttendanceWork(this.date)
+      .subscribe(
+        data => {
+          this.attendanceWorkInfo = data.data;
         },
       errorCode => this.statusCode = errorCode);
     this.commonService.hideSpinner();
