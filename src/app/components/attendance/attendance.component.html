@@ -53,7 +53,7 @@
           <span class="action-link" role="button" tabindex="0" (click)="loadEmployeeAttendanceToEdit(attendance.id)" data-toggle="modal"
             data-target="#myModal">{{'Edit'| translate}}</span>
           <span> | </span>
-          <span class="action-link" role="button" tabindex="0" (click)="deleteEmployeeAttendance(attendance.id)">{{'Delete'|translate}}</span>
+          <span class="action-link" role="button" tabindex="0" data-toggle="modal" data-target="#myModal1" (click)="deleteEmployeeAttendance(attendance.id)">{{'Delete'|translate}}</span>
         </td>
       </tr>
     </table>
@@ -75,7 +75,7 @@
           <div class="row" style="margin-top: 30px">
             <div class=" form-group col-lg-6" style="margin-left: 35px;" [ngClass]="{'has-error':!attendanceForm.controls['employee'].valid && attendanceForm.controls['employee'].touched}">
 
-              <label class="label-name control-label">{{ 'EmployeeId' | translate }}</label>
+              <label class="label-name control-label">{{ 'Employee Id' | translate }}</label>
               <select class="loginUserid demo form-control" formControlName="employee" name="employee" id="employee">
                 <option *ngFor=" let employee of allEmployee" [value]="employee.id">
                   {{employee.userid}}
@@ -86,7 +86,7 @@
             </div>
             <div class="col-lg-offset-5">
               <div class=" form-group col-lg-6" [ngClass]="{'has-error':!attendanceForm.controls['intime'].valid && attendanceForm.controls['intime'].touched}">
-                <label class="label-name control-label "> {{ 'Intime' | translate }}</label>
+                <label class="label-name control-label "> {{ 'In Time' | translate }}</label>
                 <input type="time" step="0" id="intime" formControlName="intime" class="loginUserid form-control">
                 <app-control-messages [formGroup]="attendanceForm" [displayName]="'In Time'" [control]="attendanceForm.controls['intime']"></app-control-messages>
               </div>
@@ -94,7 +94,7 @@
           </div>
           <div class="row" style="    margin-top: 30px">
             <div class=" form-group col-lg-6" style="margin-left: 35px;" [ngClass]="{'has-error':!attendanceForm.controls['outtime'].valid && attendanceForm.controls['outtime'].touched}">
-              <label class="label-name control-label">{{ 'OutTime' | translate }}</label>
+              <label class="label-name control-label">{{ 'Out Time' | translate }}</label>
               <br>
               <input type="time" step="0" formControlName="outtime" class="loginUserid form-control" (blur)="timeValidation()" (change)="timeValidation()">
               <div class="error" id="outtime_validation"></div>
@@ -118,4 +118,18 @@
       </div>
     </div>
   </form>
+</div>
+
+<div id="myModal1" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        Are you sure want to Delete
+      </div>
+      <div class="modal-footer"><button type="button" data-dismiss="modal" class="btn btn-primary">Yes</button>
+        <button type="button" data-dismiss="modal" class="btn btn-primary">No</button>
+      </div>
+    </div>
+  </div>
 </div>

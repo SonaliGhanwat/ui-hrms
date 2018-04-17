@@ -6,13 +6,13 @@
     </header>
     <div class="addbtn">
       <div layout="row" class="userlist ">{{' Self Attendance List' | translate}}
-       
-          <div style="margin-top: 20px;">
-              <div class="green-circle"></div>
-              <div class="lable-description">Present </div>
-              <div class="red-circle"></div>
-              <div class="lable-description">Absent </div>
-            </div>
+
+        <div style="margin-top: 20px;">
+          <div class="green-circle"></div>
+          <div class="lable-description">Present </div>
+          <div class="red-circle"></div>
+          <div class="lable-description">Absent / Holiday </div>
+        </div>
         <form [formGroup]="attendanceForm">
           <div class="input-group input-group-lg searchButton" [ngClass]="{'has-error':!attendanceForm.controls['date'].valid && attendanceForm.controls['date'].touched}">
             <input type="month" id="date" formControlName="date" class="form-control" style="height: 40px; font-size: 15px" value="MM/YYYY"
@@ -22,7 +22,6 @@
                 <i class="glyphicon glyphicon-search"></i>
               </button>
             </div>
-
           </div>
           <div class="error">
             <app-control-messages [formGroup]="attendanceForm" [displayName]="'Date'" [control]="attendanceForm.controls['date']"></app-control-messages>
@@ -38,16 +37,16 @@
           <th class="col-xs-2">{{ 'Total Hours Required ' | translate }}</th>
           <th class="col-xs-2">{{ 'Total Hours Worked ' | translate }}</th>
           <th class="col-xs-2">{{ 'Total Holidays in Month ' | translate }}</th>
-            
+
         </tr>
       </thead>
-      <tr *ngFor="let attework of attendanceWorkInfo ">  
-        <td >{{attework.totalWorkingDay}}</td>
-        <td >{{attework.totalHoursReq}}</td>
-        <td >{{attework.totalHoursWorked}}</td>  
-        <td >{{attework.totalHolidayinMonth}}</td>      
-        
-      </tr>    
+      <tr *ngFor="let attework of attendanceWorkInfo ">
+        <td>{{attework.totalWorkingDay}}</td>
+        <td>{{attework.totalHoursReq}}</td>
+        <td>{{attework.totalHoursWorked}}</td>
+        <td>{{attework.totalHolidayinMonth}}</td>
+
+      </tr>
     </table>
     <table class="table table-striped table-hover table-fixed settable" [mfData]="allAttendance" #mf="mfDataTable">
       <thead>

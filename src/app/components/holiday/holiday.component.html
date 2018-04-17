@@ -54,7 +54,7 @@
         <div class="modal-body">
           <div class="row" style="    margin-top: 30px">
             <div class=" form-group col-lg-6" style="margin-left: 35px;" [ngClass]="{'has-error':!holidayForm.controls['holidayName'].valid && holidayForm.controls['holidayName'].touched}">
-              <label class="label-name control-label">{{ 'HolidayName' | translate }}</label>
+              <label class="label-name control-label">{{ 'Holiday Name' | translate }}</label>
               <br>
               <input type="text" *ngIf="holidayForm.get('holidayName')" formControlName="holidayName" id="holidayName" name="holidayName"
                 class="loginUserid form-control" placeholder="Name">

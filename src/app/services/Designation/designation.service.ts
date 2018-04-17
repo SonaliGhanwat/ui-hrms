@@ -9,11 +9,17 @@ import { BaseService } from '../base.service';
 @Injectable()
 export class DesignationService extends BaseService {
   designationUrl = 'designation/';
+  designationList =  'designationList/'
   constructor(protected http: Http) {
     super(http);
   }
   getAllDesignationList(): Observable<Designation[]> {
     return this.http.get(this.buidURL(this.designationUrl + this.list_url))
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+  designationListByUsertypeId(id: number): Observable<any> {
+    return this.http.get(this.buidURL(this.designationUrl+this.designationList + id))
       .map(this.extractData)
       .catch(this.handleError);
   }

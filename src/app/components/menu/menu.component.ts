@@ -6,7 +6,7 @@ import { Cookie } from 'ng2-cookies/ng2-cookies';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.css']
+  styleUrls: ['./menu.component.css'],
 })
 export class MenuComponent implements OnInit {
 

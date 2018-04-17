@@ -59,7 +59,7 @@
         <div class="modal-body">
           <div class="row" style="margin-top: 30px">
             <div class=" form-group col-lg-6" style="margin-left: 35px;"[ngClass]="{'has-error':!dailyTaskForm.controls['employee'].valid && dailyTaskForm.controls['employee'].touched}">
-              <label class="label-name control-label">{{ 'EmployeeId' | translate }}</label>
+              <label class="label-name control-label">{{ 'Employee Id' | translate }}</label>
               <select id="employee" class="loginUserid form-control" formControlName="employee" name="employee" id="employee">
                 <option *ngFor=" let employee of allEmployee" [value]="employee.id">
                   {{employee.userid}}
@@ -79,7 +79,7 @@
           </div>
           <div class="row" style="margin-top: 30px">
             <div class=" form-group col-lg-6" style="margin-left: 35px;" [ngClass]="{'has-error':!dailyTaskForm.controls['taskName'].valid && dailyTaskForm.controls['taskName'].touched}">
-              <label class="label-name control-label ">{{ 'TaskName' | translate }}</label>
+              <label class="label-name control-label ">{{ 'Task Name' | translate }}</label>
               <br>
               <input type="text"  formControlName="taskName" class="loginUserid form-control">
               <app-control-messages [formGroup]="dailyTaskForm" [displayName]="'Task Name'" [control]="dailyTaskForm.controls['taskName']"></app-control-messages>

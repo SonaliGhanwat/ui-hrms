@@ -17,6 +17,7 @@ export class ValidationService {
             'invalidEmail': 'Email Id is not Valid',
             'invalidDate': 'Please enter Todays date',
             'pastDate': 'Please do not enter date less than today.',
+            'pastDateofjoining': 'Please enter date only this  month.',
             'specialChracterNotAllowed': 'Please do not enter special characters in User Id',
             'ToDate': 'Invalid Date! To Date should be greater than From date',
             'minlength': `${displayName} should be minimum ${validatorValue.requiredLength} characters long`,
@@ -130,5 +131,22 @@ export class ValidationService {
             return { 'weekendDate': true };
         }
     }
-
+    static dateOfJoiningValidation(control) {
+        const joinDate = new Date();
+        // const getdate = joinDate.getDate();
+        // const getMonth = joinDate.getMonth() + 1;
+        const getAttendncedate = control.value;
+        const attendanceDate = new Date(getAttendncedate);
+        // const getAttendate = attendanceDate.getDate();
+        // const getAttenMonth = attendanceDate.getMonth() + 1;
+        const newdate = joinDate.getMonth()  +'-' + joinDate.getFullYear();
+        const AttendanceDate1 = attendanceDate.getMonth()  + '-' + attendanceDate.getFullYear();
+        if (newdate === AttendanceDate1) {
+            return null;
+        } else if (newdate > AttendanceDate1) {
+            return { 'pastDateofjoining': true };
+        }else if (newdate < AttendanceDate1) {
+            return { 'pastDateofjoining': true };
+        }
+    }
 }

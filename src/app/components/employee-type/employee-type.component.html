@@ -59,7 +59,7 @@
         <div class="modal-body">
           <div class="row" style="    margin-top: 30px">
             <div class=" form-group col-lg-6" style="margin-left: 35px;"[ngClass]="{'has-error':!employeetypeForm.controls['type'].valid && employeetypeForm.controls['type'].touched}">
-              <label class="label-name control-label">{{ 'EmployeeTypeName' | translate }}</label>
+              <label class="label-name control-label">{{ 'Employee Type Name' | translate }}</label>
               <br>
               <input type="text"  formControlName="type" id="type" name="type" class="loginUserid form-control"
                 placeholder="Employeetype">
@@ -67,7 +67,7 @@
             </div>
             <div class="col-lg-offset-5">
               <div class=" form-group col-lg-6"[ngClass]="{'has-error':!employeetypeForm.controls['seekLeave'].valid && employeetypeForm.controls['seekLeave'].touched}">
-                <label class="label-name control-label"> {{ 'SeekLeave' | translate }}</label>
+                <label class="label-name control-label"> {{ 'Seek Leave' | translate }}</label>
                 <input type="number" formControlName="seekLeave" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
                   class="loginUserid form-control" placeholder="Seek Leave">
                   <app-control-messages [formGroup]="employeetypeForm" [displayName]="'Seek Leave'" [control]="employeetypeForm.controls['seekLeave']"></app-control-messages>
@@ -76,7 +76,7 @@
           </div>
           <div class="row" style="    margin-top: 30px" [ngClass]="{'has-error':!employeetypeForm.controls['paidLeave'].valid && employeetypeForm.controls['paidLeave'].touched}">
             <div class=" form-group col-lg-6" style="margin-left: 35px;">
-              <label class="label-name control-label">{{ 'PaidLeave' | translate }}</label>
+              <label class="label-name control-label">{{ 'Paid Leave' | translate }}</label>
               <br>
               <input type="number"  formControlName="paidLeave" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
                 class="loginUserid form-control" placeholder="Paid Leave">
@@ -84,7 +84,7 @@
             </div>
             <div class="col-lg-offset-5">
               <div class=" form-group col-lg-6">
-                <label class="label-name "> {{ 'TotalLeave' | translate }}</label>               
+                <label class="label-name "> {{ 'Total Leave' | translate }}</label>               
                 <span type="number"   id="totalLeave" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
                   class="loginUserid" placeholder="Total Leave" (click)="totalLeave()" (blur)="totalLeave()" >
                   </span>              

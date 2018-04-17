@@ -5,7 +5,7 @@ export class DailyTask {
         public employee: any,
         public date: Date,
         public taskName: string,
-        public estimationTime: string,
+        public estimationTime: any,
         public starttime: string,
         public endtime: string,
         public status: string,

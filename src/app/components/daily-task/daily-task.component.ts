@@ -21,7 +21,7 @@ export class DailyTaskComponent implements OnInit {
   processValidation = false;
   collection = [];
   toastMessage: string;
-
+  estimationTime:any
   constructor(private commonService: CommonService, private dailytaskService: DailytaskService, private formBuilder: FormBuilder, private employeeService: EmployeeService) { }
   dailyTaskForm = this.formBuilder.group({
     'employee': ['', ([Validators.required])],
@@ -127,6 +127,31 @@ export class DailyTaskComponent implements OnInit {
         this.requestProcessing = false;
       },
       errorCode => this.statusCode = errorCode);
+  }
+  timeValidation() {
+    const starttime = this.dailyTaskForm.get('starttime').value;
+    const endtime = this.dailyTaskForm.get('endtime').value;
+    if (starttime <= endtime) {
+    } else if (endtime <= starttime) {
+      document.getElementById('outtime_validation').innerHTML = 'End Time should be greater then Start Time';
+      return false;
+    }
+    document.getElementById('outtime_validation').innerHTML = '';
+    return true;
+  }
+  calculateEstimationTime(){
+    let starttime = this.dailyTaskForm.get('starttime').value;
+    let endtime = this.dailyTaskForm.get('endtime').value;
+    let starttime1 = starttime.substring(0, 2)
+    let endtime1 = endtime.substring(0, 2)
+    var date1 = new Date();
+    date1.setHours(starttime1 );
+    var date2 = new Date();
+    date2.setHours(endtime1 );  
+   let totalTime=  date2.getTime() - date1.getTime()
+   this.estimationTime =    totalTime / (60 * 60 * 1000) % 24
+    const leave = document.getElementById('estimationTime').innerHTML = this.estimationTime +' hours';
+    sessionStorage.setItem('totalleaves', leave);
   }
   preProcessConfigurations() {
     this.statusCode = null;

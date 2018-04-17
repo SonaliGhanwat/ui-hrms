@@ -38,7 +38,6 @@ export class AttendanceComponent implements OnInit {
   });
 
   ngOnInit(): void {
-
     this.getAllAttendanceList();
     this.getAllEmployeeList();
     this.commonService.onPreviousNextPage();

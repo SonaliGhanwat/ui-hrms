@@ -35,3 +35,9 @@
     border-radius: 50%;
     margin-left: 15px;
 }
+.error {
+    margin-left: 20px;
+    color:#a94442;
+   padding-top: 7px;
+     width: 270px 
+  }

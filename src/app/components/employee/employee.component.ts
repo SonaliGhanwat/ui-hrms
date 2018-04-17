@@ -28,6 +28,10 @@ export class EmployeeComponent implements OnInit {
   collection = [];
   toastMessage: string;
   selectMenu: Employee[];
+  firstName: Employee[];
+  myCookie:any;
+
+  exdays:any
   constructor(private employeeService: EmployeeService, private formBuilder: FormBuilder,
     private employeetypeService: EmployeetypeService, private usertypeService: UsertypeService,
     private designationService: DesignationService, private commonService: CommonService) { }
@@ -38,7 +42,7 @@ export class EmployeeComponent implements OnInit {
     'lastName': ['', [Validators.required]],
     'phoneNumber': ['', ([Validators.required])],
     'emailid': ['', [Validators.required]],
-    'dateOfJoining': ['', [Validators.required]],
+    'dateOfJoining': ['', [Validators.required,ValidationService.dateOfJoiningValidation]],
     'dateOfBirth': ['', [Validators.required, ValidationService.dateOfBirthValidation]],
     'address': ['', ([Validators.required])],
     'department': ['', [Validators.required]],
@@ -53,7 +57,8 @@ export class EmployeeComponent implements OnInit {
     this.getAllEmployee();
     this.getAllEmployeetype();
     this.getAllUserTypes();
-    this.getAllDesignation();
+   
+    this.setCookie( this.exdays);
     this.commonService.onPreviousNextPage();
   }
   getAllEmployee() {
@@ -76,8 +81,10 @@ export class EmployeeComponent implements OnInit {
       data => this.allUsertypes = data,
       errorCode => this.statusCode = errorCode);
   }
-  getAllDesignation() {
-    this.designationService.getAllDesignationList()
+  getAllDesignation(userType: number) {
+    const userTypeId = ((document.getElementById('userType') as HTMLInputElement).value);
+    userType = parseInt(userTypeId);
+    this.designationService.designationListByUsertypeId(userType)
       .subscribe(
       data => this.allDesignation = data,
       errorCode => this.statusCode = errorCode);
@@ -194,6 +201,19 @@ export class EmployeeComponent implements OnInit {
       errorCode => this.statusCode = errorCode);
       this.commonService.hideSpinner();
   }
+
+  setCookie( exdays) {
+    this.myCookie = Cookie.get('cookieName');
+  
+    document.cookie =  this.myCookie 
+    this.getCookie();
+}
+getCookie() {
+  
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+ 
+}
   preProcessConfigurations() {
     this.statusCode = null;
     this.requestProcessing = true;
@@ -202,6 +222,7 @@ export class EmployeeComponent implements OnInit {
     this.employeeIdToUpdate = null;
     this.employeeForm.reset();
     this.processValidation = false;
+    this.getAllEmployee();
   }
   toastMessageDisplay() {
     this.commonService.displayMessage();

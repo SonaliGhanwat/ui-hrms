@@ -5,89 +5,103 @@
       <div class="heading4">{{'Designation'|translate}}</div>
     </header>
     <div class="addbtn">
-      <button class="btn btn-primary adduser"  type="button" data-toggle="modal" data-target="#myModal">{{'Add New Designation'|translate}}
+      <button class="btn btn-primary adduser" type="button" data-toggle="modal" data-target="#myModal">{{'Add New Designation'|translate}}
       </button>
       <div class="input-group input-group-lg searchButton">
-          <input type="text" class="form-control" style="height: 40px" placeholder="Search By Name" [(ngModel)]="name">
-          <div class="input-group-btn">
-            <button class="btn btn-default" style="height: 40px" type="submit">
-              <i class="glyphicon glyphicon-search"></i>
-            </button>
-          </div>
+        <input type="text" class="form-control" style="height: 40px" placeholder="Search By Name" [(ngModel)]="name">
+        <div class="input-group-btn">
+          <button class="btn btn-default" style="height: 40px" type="submit">
+            <i class="glyphicon glyphicon-search"></i>
+          </button>
         </div>
+      </div>
     </div>
     <div layout="row" class="userlist ">{{'Designation List'|translate}}</div>
-    <table class="table table-striped table-hover table-fixed settable"[mfData]="allDesignation" #mf="mfDataTable">
+    <table class="table table-striped table-hover table-fixed settable" [mfData]="allDesignation" #mf="mfDataTable">
       <thead>
         <tr>
-            <th class="col-xs-1" >{{ 'No' | translate }}</th>
-          <th class="col-xs-3"><mfDefaultSorter by="name" class="col-xs-3">{{ 'Name' | translate }}</mfDefaultSorter></th>
+          <th class="col-xs-1">{{ 'No' | translate }}</th>
+          <th class="col-xs-3">
+            <mfDefaultSorter by="name" class="col-xs-3">{{ 'Name' | translate }}</mfDefaultSorter>
+          </th>
           <th class="col-xs-3">{{ 'Band' | translate }}</th>
           <th class="col-xs-3">{{ 'Level' | translate }}</th>
 
-          <th >{{ 'Action' | translate }}</th>
+          <th>{{ 'Action' | translate }}</th>
         </tr>
       </thead>
       <tr *ngFor="let designation of mf.data | filter:name | paginate: { itemsPerPage: 8, currentPage: p} let i = index">
-          <td class="tablerow col-xs-1">{{i+1}}</td>
+        <td class="tablerow col-xs-1">{{i+1}}</td>
         <td class="tablerow col-xs-3">{{designation.name}}</td>
         <td class="tablerow col-xs-3">{{designation.band}}</td>
         <td class="tablerow col-xs-3">{{designation.level}}</td>
-        
+
         <td class="tablerow">
-          <span class="action-link" role="button" tabindex="0" (click)="loadDesignationToEdit(designation.id)" data-toggle="modal" data-target="#myModal">{{'Edit'|translate}}</span>
+          <span class="action-link" role="button" tabindex="0" (click)="loadDesignationToEdit(designation.id)" data-toggle="modal"
+            data-target="#myModal">{{'Edit'|translate}}</span>
           <span> | </span>
           <span class="action-link" role="button" tabindex="0" (click)="deleteDesignation(designation.id)">{{'Delete'|translate}}</span>
         </td>
       </tr>
     </table>
-    <div style="margin-left: 60%" >
+    <div style="margin-left: 60%">
       <pagination-controls (pageChange)="p = $event"></pagination-controls>
     </div>
   </div>
 </div>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <form [formGroup]="designationForm" (ngSubmit)="onDesignationFormSubmit()">
-  <div class="modal-dialog modaldialog">
-      <div id="snackbar"[innerHTML]="toastMessage"></div>
-    <div class="modal-content" style="    height: 500px;">
-      <div class="modal-header dialog">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h2 class="modal-title modaltitle">{{'Add New Designation'|translate}}</h2>
-      </div>
-      <div class="modal-body">
-        <div class="row" style="    margin-top: 30px">
-          <div class=" form-group col-lg-6" style="margin-left: 35px;"[ngClass]="{'has-error':!designationForm.controls['name'].valid && designationForm.controls['name'].touched}">
-            <label class="label-name control-label" >{{ 'Name' | translate }}</label>
-            <br>
-            <input type="text"  formControlName="name" id="type" name="type" class="loginUserid form-control"  >
-            <app-control-messages [formGroup]="designationForm" [displayName]="'Name'" [control]="designationForm.controls['name']"></app-control-messages>
-          </div>
-  
-          <div class="col-lg-offset-5">
-            <div class=" form-group col-lg-6" [ngClass]="{'has-error':!designationForm.controls['band'].valid && designationForm.controls['band'].touched}">
-              <label class="label-name control-label" > {{ 'Band' | translate }}</label>
-              <input type="number"  formControlName="band" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="loginUserid form-control"  >
-              <app-control-messages [formGroup]="designationForm" [displayName]="'band'" [control]="designationForm.controls['band']"></app-control-messages>
-            </div>
-          </div>
+  <form [formGroup]="designationForm" (ngSubmit)="onDesignationFormSubmit()">
+    <div class="modal-dialog modaldialog">
+      <div id="snackbar" [innerHTML]="toastMessage"></div>
+      <div class="modal-content" style="    height: 500px;">
+        <div class="modal-header dialog">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h2 class="modal-title modaltitle">{{'Add New Designation'|translate}}</h2>
         </div>
-        <div class="row" style="    margin-top: 30px">
-            <div class=" form-group col-lg-6" style="margin-left: 35px;"[ngClass]="{'has-error':!designationForm.controls['level'].valid && designationForm.controls['level'].touched}">
-              <label class="label-name control-label" >{{ 'Level' | translate }}</label>
+        <div class="modal-body">
+          <div class="row" style="    margin-top: 30px">
+            <div class=" form-group col-lg-6" style="margin-left: 35px;" [ngClass]="{'has-error':!designationForm.controls['usertype'].valid && designationForm.controls['usertype'].touched}">
+              <label class="label-name control-label">{{ 'User Type' | translate }}</label>
+              <select class="loginUserid form-control" formControlName="usertype" id="userType" name="userType">
+                <option *ngFor=" let usertype of allUsertypes" [value]="usertype.id">
+                  {{usertype.usertypeName}}
+                </option>
+              </select>
+              <app-control-messages [formGroup]="designationForm" [displayName]="'User Type'" [control]="designationForm.controls['usertype']"></app-control-messages>
+            </div>
+            <div class="col-lg-offset-5">
+              <div class=" form-group col-lg-6" [ngClass]="{'has-error':!designationForm.controls['name'].valid && designationForm.controls['name'].touched}">
+                <label class="label-name control-label">{{ 'Name' | translate }}</label>
+                <br>
+                <input type="text" formControlName="name" id="type" name="type" class="loginUserid form-control">
+                <app-control-messages [formGroup]="designationForm" [displayName]="'Name'" [control]="designationForm.controls['name']"></app-control-messages>
+              </div>
+            </div>
+
+
+          </div>
+          <div class="row" style="    margin-top: 30px">
+            <div class=" form-group col-lg-6" style="margin-left: 35px;" [ngClass]="{'has-error':!designationForm.controls['level'].valid && designationForm.controls['level'].touched}">
+              <label class="label-name control-label">{{ 'Level' | translate }}</label>
               <br>
-              <input type="number"  formControlName="level" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="loginUserid form-control" >
+              <input type="number" formControlName="level" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="loginUserid form-control">
               <app-control-messages [formGroup]="designationForm" [displayName]="'level'" [control]="designationForm.controls['level']"></app-control-messages>
             </div>
+            <div class="col-lg-offset-5">
+              <div class=" form-group col-lg-6" [ngClass]="{'has-error':!designationForm.controls['band'].valid && designationForm.controls['band'].touched}">
+                <label class="label-name control-label"> {{ 'Band' | translate }}</label>
+                <input type="number" formControlName="band" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="loginUserid form-control">
+                <app-control-messages [formGroup]="designationForm" [displayName]="'band'" [control]="designationForm.controls['band']"></app-control-messages>
+              </div>
+            </div>
           </div>
-        <div class="savebtn">
-          <button type="submit" class="btn btn-secondary" style="width: 30%;" [disabled]="!designationForm.valid" (click)="toastMessageDisplay()">{{'Save'|translate}}</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal" style="width: 30%;
+          <div class="savebtn">
+            <button type="submit" class="btn btn-secondary" style="width: 30%;" [disabled]="!designationForm.valid" (click)="toastMessageDisplay()">{{'Save'|translate}}</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" style="width: 30%;
         margin-left: 20px;">{{'Close'| translate}}</button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
   </form>
-  </div>
-
+</div>

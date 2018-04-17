@@ -1,12 +1,12 @@
 
 <div id="myDIV" class="sidenav">
   <ul style="margin-left: -40px;margin-top: -20px;">
-      <div class="dropbtn" (click)="isActive = true" *ngFor="let n of menuList" (click)="select(n.name);" [ngClass]="{active: isSelect(n.name)}">
-          <li style="padding: 10px 25px">{{n.name}}
+      <div class="dropbtn" (click)="isActive = true" *ngFor="let menu of menuList" (click)="select(menu.name);" [ngClass]="{active: isSelect(menu.name)}">
+          <li style="padding: 10px 25px">{{menu.name}}
               <span class="down downarrow"></span>
           </li>
           <div class="drop dropdown-content">
-              <li *ngFor="let child of n.subMenu" (click)="select(child.link);" [ngClass]="{active: isSelect(child.name)}">
+              <li *ngFor="let child of menu.subMenu" (click)="select(child.link);" [ngClass]="{active: isSelect(child.name)}">
                   <div [routerLink]="(child.link)">{{child.name}}</div>
               </li>
           </div>
@@ -15,7 +15,6 @@
 </div>
 
 <div id="toastbar" [innerHTML]="toast"></div>
-
 <button class="btn btn-primary logoutbtn" type="button" (click)="redirectToLoginPage()" >Log Out
 </button>
 <h1>{{myCookie}}</h1>
