@@ -70,6 +70,12 @@ export class MenuComponent implements OnInit {
       'subMenu': [{
         'name': 'User Type',
         'link': '/usertype'
+      }, {
+        'name': 'Page',
+        'link': '/page'
+      }, {
+        'name': 'Add New User Type Page',
+        'link': '/pageAssociation'
       }]
     }, {
       'name': 'Holiday',

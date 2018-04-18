@@ -18,6 +18,9 @@ import { LeavebalancereportComponent } from './components/leavebalancereport/lea
 import { SelfattendanceComponent } from './components/selfattendance/selfattendance.component';
 import { ApplyforleaveComponent } from './components/applyforleave/applyforleave.component';
 import { MyLeaveapplicationComponent } from './components/my-leaveapplication/my-leaveapplication.component';
+import { PageComponent } from './components/page/page.component';
+import { UsertypePageassociationComponent } from './components/usertype-pageassociation/usertype-pageassociation.component';
+
 const appRoutes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -36,7 +39,9 @@ const appRoutes: Routes = [
   { path: 'leavereport', component: LeavebalancereportComponent },
   { path: 'selfattendance', component: SelfattendanceComponent },
   { path: 'applyleave', component: ApplyforleaveComponent },
-  { path: 'myleave', component: MyLeaveapplicationComponent }
+  { path: 'myleave', component: MyLeaveapplicationComponent },
+  { path: 'page', component: PageComponent },
+  { path: 'pageAssociation', component: UsertypePageassociationComponent }
 ];
 @NgModule({
   imports: [RouterModule.forRoot(appRoutes)],

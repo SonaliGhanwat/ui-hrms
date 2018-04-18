@@ -48,7 +48,10 @@ import { LeavebalancereportComponent } from './components/leavebalancereport/lea
 import { SelfattendanceComponent } from './components/selfattendance/selfattendance.component';
 import { ApplyforleaveComponent } from './components/applyforleave/applyforleave.component';
 import { MyLeaveapplicationComponent } from './components/my-leaveapplication/my-leaveapplication.component';
-
+import { PageComponent } from './components/page/page.component';
+import { PageService } from './services/Page/page.service';
+import { UsertypePageassociationComponent } from './components/usertype-pageassociation/usertype-pageassociation.component';
+import { UsertypePageassociationService } from './services/Usertype-PageAssociation/usertype-pageassociation.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -72,6 +75,8 @@ import { MyLeaveapplicationComponent } from './components/my-leaveapplication/my
     SelfattendanceComponent,
     ApplyforleaveComponent,
     MyLeaveapplicationComponent,
+    PageComponent,
+    UsertypePageassociationComponent,
 
   ],
   imports: [
@@ -111,7 +116,8 @@ import { MyLeaveapplicationComponent } from './components/my-leaveapplication/my
     CommonService,
     HttpClientModule,
     ApprovalsService,
-
+    PageService,
+    UsertypePageassociationService
   ],
 
   bootstrap: [AppComponent],
