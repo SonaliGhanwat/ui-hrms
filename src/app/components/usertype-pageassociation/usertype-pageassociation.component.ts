@@ -12,7 +12,7 @@ import { CommonService } from '../../services/common/common.service';
   templateUrl: './usertype-pageassociation.component.html',
   styleUrls: ['./usertype-pageassociation.component.css']
 })
-export class UsertypePageassociationComponent implements OnInit {
+export class UsertypePageAssociationComponent  implements OnInit {
   allPage: PageModel[];
   allUsertypes: UserType[];
   allPageAssoList: PageAssociation[]
@@ -23,7 +23,11 @@ export class UsertypePageassociationComponent implements OnInit {
   leaveIdToUpdate = null;
   collection = [];
   toastMessage: string;
-  pageAssoIdData:PageAssociation[]
+  pageAssoIdData:string[] = [];
+  pageName:any;
+  checked: string[] = [];
+  log:any;
+  logvalue = '';
   constructor(private formBuilder: FormBuilder,private commonService: CommonService, private pageService: PageService,private usertypeService: UsertypeService,private usertypePageassociationService: UsertypePageassociationService) { }
   pageAssoForm = this.formBuilder.group({
     'usertype': ['', ([Validators.required])],
@@ -64,39 +68,76 @@ export class UsertypePageassociationComponent implements OnInit {
   onPageAssoFormSubmit() {
     this.preProcessConfigurations();
     this.commonService.startLoadingSpinner();
-    const usertypeId = this.pageAssoForm.get('usertype').value;
-    const page = this.pageAssoForm.get('page').value;
+    const usertype = this.pageAssoForm.get('usertype').value;
+    const usertypeId = parseInt(usertype);
+      let check = `[ ${this.logvalue}]`;
+     let userTypePageAssoParts = JSON.parse(check);
+     console.log("UserTypePageAssoPart:", userTypePageAssoParts)
    
     if (this.leaveIdToUpdate === null) {
-      const attendance = new PageAssociation(null, usertypeId, page);
+      const attendance = new PageAssociation(null, usertypeId, userTypePageAssoParts);
+      console.log("attendance:",attendance)
       this.usertypePageassociationService.createPageAssoList(attendance)
         .subscribe(successCode => {
           // let message = successCode.message;
           this.commonService.hideSpinner();
           this.toastMessage = successCode.message;
-         
+          this.getAllUserTypePageAssoList();
           this.backToCreateArticle();
         },
         errorCode => this.statusCode = errorCode);
     } else {
-      const userType = new PageAssociation(this.leaveIdToUpdate, page, usertypeId);
+      const userType = new PageAssociation(this.leaveIdToUpdate, usertypeId, userTypePageAssoParts);
       this.usertypePageassociationService.updatePageAsso(userType)
         .subscribe(successCode => {
           // let message = successCode.message;
           this.toastMessage = successCode.message;
-   
+          this.getAllUserTypePageAssoList();
           this.backToCreateArticle();
         },
         errorCode => this.statusCode = errorCode);
     }
   }
-  addPage(){
-    const id = ((document.getElementById('page') as HTMLInputElement).value);
-    this.pageService.getPageByIdList(id)
-    .subscribe(
-      data => this.pageAssoIdData = data.data,
+  deletePage(id: string) {
+    this.commonService.startLoadingSpinner();
+    this.preProcessConfigurations();
+    this.usertypePageassociationService.deletePageAsso(id)
+      .subscribe(successCode => {
+        // let message = successCode.message;
+        this.toastMessage = successCode.messag;
+        this.getAllUserTypePageAssoList();
+        this.backToCreateArticle();
+        this.commonService.hideSpinner();
+      },
       errorCode => this.statusCode = errorCode);
-      this.commonService.hideSpinner();
+  }
+  loadPageAssoToEdit(id: string) {
+    this.preProcessConfigurations();
+    this.usertypePageassociationService.getPageAssoById(id)
+      .subscribe(page => {
+       
+        this.leaveTypeIdToUpdate = page.data.id;
+        this.pageAssoForm.setValue({usertype: page.data.usertypeId.id,page:page.data.page.id});
+        this.processValidation = true;
+        this.requestProcessing = false;
+       
+      },
+      errorCode => this.statusCode = errorCode);
+  }
+ addPage(){
+    const id = ((document.getElementById('page') as HTMLInputElement).value);
+    const logid = parseInt(id);
+    for (var i = 0; i < this.allPage.length; i++) {
+      if (this.allPage[i].id == logid) {
+        this.log = this.allPage[i].id;
+        this.pageAssoIdData.push(this.allPage[i].pageName  )
+        console.log("this.log:",  this.pageAssoIdData)
+        this.log = this.allPage[i].id;
+        console.log("this.log:", this.log)
+        this.logvalue += `{"pageId":  ${this.log}}`
+        //console.log("UserTypePageAssoPart:", this.logvalue)
+      }
+    }
   }
   preProcessConfigurations() {
     this.statusCode = null;

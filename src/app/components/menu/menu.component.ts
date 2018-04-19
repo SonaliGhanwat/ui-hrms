@@ -18,9 +18,13 @@ export class MenuComponent implements OnInit {
   // timedOut = false; 
   toast: string;
   myCookie: any;
+
   constructor(private router: Router, private idle: Idle, private keepalive: Keepalive) {
 
-    this.menuList = [{
+ 
+
+  
+  this.menuList = [{
       'name': 'Employee',
       'subMenu': [{
         'name': 'Employee',
@@ -75,7 +79,7 @@ export class MenuComponent implements OnInit {
         'link': '/page'
       }, {
         'name': 'Add New User Type Page',
-        'link': '/pageAssociation'
+        'link': '/userTypePageAssociation'
       }]
     }, {
       'name': 'Holiday',
@@ -90,7 +94,7 @@ export class MenuComponent implements OnInit {
         'link': '/approvals'
       }]
     }];
-
+  }
     /*idle.setIdle(5);
     idle.setTimeout(5000);
     idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
@@ -101,8 +105,19 @@ export class MenuComponent implements OnInit {
       alert(this.toast);
     });
     this.idle.watch();*/
-  }
-  
+ 
+    ngOnInit() {
+      this.loginUserId();
+      //this.getPageList();
+    }
+
+    getPageList(){
+      
+       let  test2 = localStorage.getItem("loginData");
+    
+      let test=  JSON.parse(test2);
+       this.menuList = test.data.pages
+     }
   select(item) {
     this.selected = (this.selected === item ? null : item);
   }
@@ -116,9 +131,7 @@ export class MenuComponent implements OnInit {
     return true;
   }
 
-  ngOnInit() {
-    this.loginUserId();
-  }
+ 
 
   toastMessageDisplay() {
     const x = document.getElementById('toastbar');

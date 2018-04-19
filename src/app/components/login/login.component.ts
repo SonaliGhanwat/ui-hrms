@@ -64,6 +64,9 @@ export class LoginComponent implements OnInit {
      this.loggedIn.emit(loginModel);   
     this.loginService.post(loginModel).subscribe(data => {
       this.spinner.hide();
+      localStorage.setItem('loginData', JSON.stringify(data));
+
+    let pagedata =   localStorage.getItem("loginData")
       if (data.code === 1) {
         this.toastMessage = data.message;
         this.userForm.get('userid').setErrors({'invalidUserid': true});
@@ -75,7 +78,7 @@ export class LoginComponent implements OnInit {
       } else if (data.code === 0) {
         this.redirectToHomePage();
       }
-      const cookie = data.data.value;
+      const cookie = data.cookie.value;
       Cookie.set('cookieName', cookie);
       const myCookie = Cookie.get('cookieName');
     });

@@ -47,10 +47,10 @@ import { MenuComponent } from './components/menu/menu.component';
 import { LeavebalancereportComponent } from './components/leavebalancereport/leavebalancereport.component';
 import { SelfattendanceComponent } from './components/selfattendance/selfattendance.component';
 import { ApplyforleaveComponent } from './components/applyforleave/applyforleave.component';
-import { MyLeaveapplicationComponent } from './components/my-leaveapplication/my-leaveapplication.component';
+import { MyLeaveApplicationComponent  } from './components/my-leaveapplication/my-leaveapplication.component';
 import { PageComponent } from './components/page/page.component';
 import { PageService } from './services/Page/page.service';
-import { UsertypePageassociationComponent } from './components/usertype-pageassociation/usertype-pageassociation.component';
+import { UsertypePageAssociationComponent  } from './components/usertype-pageassociation/usertype-pageassociation.component';
 import { UsertypePageassociationService } from './services/Usertype-PageAssociation/usertype-pageassociation.service';
 @NgModule({
   declarations: [
@@ -74,9 +74,9 @@ import { UsertypePageassociationService } from './services/Usertype-PageAssociat
     LeavebalancereportComponent,
     SelfattendanceComponent,
     ApplyforleaveComponent,
-    MyLeaveapplicationComponent,
+    MyLeaveApplicationComponent ,
     PageComponent,
-    UsertypePageassociationComponent,
+    UsertypePageAssociationComponent ,
 
   ],
   imports: [

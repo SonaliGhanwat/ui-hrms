@@ -13,7 +13,7 @@ import { CommonService } from '../../services/common/common.service';
   templateUrl: './my-leaveapplication.component.html',
   styleUrls: ['./my-leaveapplication.component.css']
 })
-export class MyLeaveapplicationComponent implements OnInit {
+export class MyLeaveApplicationComponent  implements OnInit {
 
   allLeave: Leave[];
   statusCode: number;
