@@ -10,10 +10,7 @@ import { CommonService } from '../../services/common/common.service';
 })
 export class LeavetypeComponent implements OnInit {
   allLeavetypes: LeaveType[];
-  statusCode: number;
-  requestProcessing = false;
   leaveTypeIdToUpdate = null;
-  processValidation = false;
   collection = [];
   toastMessage: string;
   constructor(private commonService: CommonService, private leavetypeService: LeavetypeService, private formBuilder: FormBuilder) { }
@@ -28,12 +25,10 @@ export class LeavetypeComponent implements OnInit {
     this.commonService.startLoadingSpinner();
     this.leavetypeService.getAllLeaveTypeList()
       .subscribe(
-      data => this.allLeavetypes = data,
-      errorCode => this.statusCode = errorCode);
+      data => this.allLeavetypes = data,);
       this.commonService.hideSpinner();
   }
   onLeaveTypeFormSubmit() {
-    this.preProcessConfigurations();
     this.commonService.startLoadingSpinner();
     const name = this.leavetypeForm.get('name').value.trim();
     if (this.leaveTypeIdToUpdate === null) {
@@ -44,9 +39,8 @@ export class LeavetypeComponent implements OnInit {
           this.commonService.hideSpinner();
           this.toastMessage = successCode.message;
           this.getAllLeaveTypes();
-          this.backToCreateArticle();
-        },
-        errorCode => this.statusCode = errorCode);
+          this.leavetypeForm.reset();;
+        },);
     } else {
       const leaveType = new LeaveType(this.leaveTypeIdToUpdate, name);
       this.leavetypeService.updateLeaveType(leaveType)
@@ -54,45 +48,29 @@ export class LeavetypeComponent implements OnInit {
           // let message = successCode.message;
           this.toastMessage = successCode.message;
           this.getAllLeaveTypes();
-          this.backToCreateArticle();
-        },
-        errorCode => this.statusCode = errorCode);
+          this.leavetypeForm.reset();
+        },);
     }
   }
   deleteLeaveType(id: string) {
     this.commonService.startLoadingSpinner();
-    this.preProcessConfigurations();
     this.leavetypeService.deleteLeaveType(id)
       .subscribe(successCode => {
         // let message = successCode.message;
         this.toastMessage = successCode.messag;
         this.getAllLeaveTypes();
-        this.backToCreateArticle();
         this.commonService.hideSpinner();
-      },
-      errorCode => this.statusCode = errorCode);
+      },);
   }
   loadLeaveTypeToEdit(id: string) {
-    this.preProcessConfigurations();
     this.leavetypeService.getLeaveTypeById(id)
       .subscribe(leaveType => {
         this.leaveTypeIdToUpdate = leaveType.id;
         this.leavetypeForm.setValue({ name: leaveType.name });
-        this.processValidation = true;
-        this.requestProcessing = false;
-      },
-      errorCode => this.statusCode = errorCode);
+      },);
   }
-  preProcessConfigurations() {
-    this.statusCode = null;
-    this.requestProcessing = true;
-  }
-  backToCreateArticle() {
-    this.leaveTypeIdToUpdate = null;
-    this.leavetypeForm.reset();
-    this.processValidation = false;
-  }
-  toastMessageDisplay() {
+ 
+  displayToastMessage() {
     this.commonService.displayMessage();
   }
 }

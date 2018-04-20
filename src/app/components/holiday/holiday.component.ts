@@ -11,10 +11,7 @@ import { Router } from '@angular/router';
 })
 export class HolidayComponent implements OnInit {
   allHolidayList: Holiday[];
-  statusCode: number;
-  requestProcessing = false;
   holidayIdToUpdate = null;
-  processValidation = false;
   collection = [];
   toastMessage: string;
 
@@ -32,12 +29,10 @@ export class HolidayComponent implements OnInit {
     this.commonService.startLoadingSpinner();
     this.holidayService.getAllHolidayList()
       .subscribe(
-      data => this.allHolidayList = data,
-      errorCode => this.statusCode = errorCode);
+      data => this.allHolidayList = data,);
       this.commonService.hideSpinner();
   }
   onHolidayFormSubmit() {
-    this.preProcessConfigurations();
     this.commonService.startLoadingSpinner();
     const holidayName = this.holidayForm.get('holidayName').value.trim();
     const holidayDate = this.holidayForm.get('holidayDate').value.trim();
@@ -49,9 +44,8 @@ export class HolidayComponent implements OnInit {
           this.commonService.hideSpinner();
           this.toastMessage = successCode.message;
           this.getAllHolidayList();
-          this.backToCreateArticle();
-        },
-        errorCode => this.statusCode = errorCode);
+          this.holidayForm.reset();
+        },);
     } else {
       const holiday = new Holiday(this.holidayIdToUpdate, holidayName, holidayDate);
       this.holidayService.updateHoliday(holiday)
@@ -59,47 +53,31 @@ export class HolidayComponent implements OnInit {
           // let message = successCode.message;
           this.toastMessage = successCode.message;
           this.getAllHolidayList();
-          this.backToCreateArticle();
-        },
-        errorCode => this.statusCode = errorCode);
+          this.holidayForm.reset();
+        },);
     }
   }
   deleteHoliday(id: string) {
     this.commonService.startLoadingSpinner();
-    this.preProcessConfigurations();
     this.holidayService.deleteHolidayById(id)
       .subscribe(successCode => {
         // let message = successCode.message;
         this.toastMessage = successCode.message;
         this.getAllHolidayList();
-        this.backToCreateArticle();
         this.commonService.hideSpinner();
-      },
-      errorCode => this.statusCode = errorCode);
+      },);
 
   }
   loadHolidayToEdit(id: string) {
-    this.preProcessConfigurations();
     this.holidayService.getHolidayById(id)
       .subscribe(holiday => {
         this.holidayIdToUpdate = holiday.id;
         this.holidayForm.setValue({ holidayName: holiday.holidayName, holidayDate: holiday.holidayDate });
-        this.processValidation = true;
-        this.requestProcessing = false;
-      },
-      errorCode => this.statusCode = errorCode);
+      },);
   }
 
-  preProcessConfigurations() {
-    this.statusCode = null;
-    this.requestProcessing = true;
-  }
-  backToCreateArticle() {
-    this.holidayIdToUpdate = null;
-    this.holidayForm.reset();
-    this.processValidation = false;
-  }
-  toastMessageDisplay() {
+ 
+  displayToastMessage() {
     this.commonService.displayMessage();
   }
 

@@ -17,10 +17,7 @@ export class LeaveComponent implements OnInit {
   allLeave: Leave[];
   allEmployee: Employee[];
   allLeavetypes: LeaveType[];
-  statusCode: number;
-  requestProcessing = false;
   leaveIdToUpdate = null;
-  processValidation = false;
   collection = [];
   toastMessage: string;
 
@@ -46,24 +43,21 @@ export class LeaveComponent implements OnInit {
     this.commonService.startLoadingSpinner();
     this.leaveService.getAllLeave()
       .subscribe(
-      data => this.allLeave = data,
-      errorCode => this.statusCode = errorCode);
+      data => this.allLeave = data,);
       this.commonService.hideSpinner();
   }
   getAllEmployeeList() {
     this.employeeService.getAllEmployeeList()
       .subscribe(
-      data => this.allEmployee = data,
-      errorCode => this.statusCode = errorCode);
+      data => this.allEmployee = data,);
   }
   getAllLeaveTypes() {
     this.leavetypeService.getAllLeaveTypeList()
       .subscribe(
-      data => this.allLeavetypes = data,
-      errorCode => this.statusCode = errorCode);
+      data => this.allLeavetypes = data,);
   }
   onLeaveFormSubmit() {
-    this.preProcessConfigurations();
+ 
     this.commonService.startLoadingSpinner();
     const employeeId = ((document.getElementById('employee') as HTMLInputElement).value);
     const employee = parseInt(employeeId);
@@ -80,9 +74,8 @@ export class LeaveComponent implements OnInit {
           this.commonService.hideSpinner();
           this.toastMessage = successCode.message;
           this.getAllLeaveList();
-          this.backToCreateArticle();
-        },
-        errorCode => this.statusCode = errorCode);
+          this.leaveForm.reset();
+        },);
     } else {
       const userType = new Leave(this.leaveIdToUpdate, employee, subject, fromDate, toDate, leavetype,null);
       this.leaveService.updateLeave(userType)
@@ -90,45 +83,30 @@ export class LeaveComponent implements OnInit {
           // let message = successCode.message;
           this.toastMessage = successCode.message;
           this.getAllLeaveList();
-          this.backToCreateArticle();
-        },
-        errorCode => this.statusCode = errorCode);
+          this.leaveForm.reset();
+        },);
     }
   }
   deleteLeave(id: string) {
-    this.preProcessConfigurations();
     this.commonService.startLoadingSpinner();
     this.leaveService.deleteLeaveById(id)
       .subscribe(successCode => {
         // let message = successCode.message;
         this.toastMessage = successCode.message;
         this.getAllLeaveList();
-        this.backToCreateArticle();
+
         this.commonService.hideSpinner();
-      },
-      errorCode => this.statusCode = errorCode);
+      },);
   }
   loadLeaveToEdit(id: string) {
-    this.preProcessConfigurations();
     this.leaveService.getLeaveById(id)
       .subscribe(data => {
         this.leaveIdToUpdate = data.id;
         this.leaveForm.setValue({ employee: data.employee.id, subject: data.subject, fromDate: data.fromDate, toDate: data.toDate, leavetype: data.leavetype.id });
-        this.processValidation = true;
-        this.requestProcessing = false;
-      },
-      errorCode => this.statusCode = errorCode);
+      },);
   }
-  preProcessConfigurations() {
-    this.statusCode = null;
-    this.requestProcessing = true;
-  }
-  backToCreateArticle() {
-    this.leaveIdToUpdate = null;
-    this.leaveForm.reset();
-    this.processValidation = false;
-  }
-  toastMessageDisplay() {
+ 
+  displayToastMessage() {
     this.commonService.displayMessage();
   }
   toDateValidation() {

@@ -11,8 +11,6 @@ import { CommonService } from '../../services/common/common.service';
 export class EmployeeTypeComponent implements OnInit {
 
   allEmployeetype: EmployeeType[];
-  statusCode: number;
-  requestProcessing = false;
   employeeTypeIdToUpdate = null;
   processValidation = false;
   collection = [];
@@ -35,12 +33,10 @@ export class EmployeeTypeComponent implements OnInit {
     this.commonService.startLoadingSpinner();
     this.employeetypeService.getAllEmployeeTypeList()
       .subscribe(
-      data => this.allEmployeetype = data,
-      errorCode => this.statusCode = errorCode);
+      data => this.allEmployeetype = data,);
       this.commonService.hideSpinner();
   }
   onEmployeeTypeFormSubmit() {
-    this.preProcessConfigurations();
     this.commonService.startLoadingSpinner();
     const type = this.employeetypeForm.get('type').value.trim();
     const seekLeave = this.employeetypeForm.get('seekLeave').value;
@@ -55,9 +51,8 @@ export class EmployeeTypeComponent implements OnInit {
           this.commonService.hideSpinner();
           this.toastMessage = successCode.message;
           this.getAllEmployeetype();
-          this.backToCreateArticle();
-        },
-        errorCode => this.statusCode = errorCode);
+          this.employeetypeForm.reset();
+        },);
     } else {
       const userType = new EmployeeType(this.employeeTypeIdToUpdate, type, seekLeave, paidLeave, totalLeave);
       this.employeetypeService.updateEmployeeType(userType)
@@ -65,37 +60,27 @@ export class EmployeeTypeComponent implements OnInit {
           // let message = successCode.message;
           this.toastMessage = successCode.message;
           this.getAllEmployeetype();
-          this.backToCreateArticle();
-         
-        },
-        errorCode => this.statusCode = errorCode);
+          this.employeetypeForm.reset();
+        },);
     }
   }
   deleteEmployeeType(id: string) {
-    this.preProcessConfigurations();
     this.commonService.startLoadingSpinner();
     this.employeetypeService.deleteEmployeeTypeById(id)
       .subscribe(successCode => {
         // let message = successCode.message;
         this.toastMessage = successCode.message;
         this.getAllEmployeetype();
-        this.backToCreateArticle();
         this.commonService.hideSpinner();
-      },
-      errorCode => this.statusCode = errorCode);
+      },);
 
   }
   loadEmployeeTypeToEdit(id: string) {
-    this.preProcessConfigurations();
     this.employeetypeService.getEmployeeTypeById(id)
       .subscribe(employeeType => {
-
         this.employeeTypeIdToUpdate = employeeType.id;
-        this.employeetypeForm.setValue({ type: employeeType.type, seekLeave: employeeType.seekLeave, paidLeave: employeeType.paidLeave, totalLeave: employeeType.totalLeave });
-        this.processValidation = true;
-        this.requestProcessing = false;
-      },
-      errorCode => this.statusCode = errorCode);
+        this.employeetypeForm.setValue({ type: employeeType.type, seekLeave: employeeType.seekLeave, paidLeave: employeeType.paidLeave, totalLeave: employeeType.totalLeave });   
+      },);
   }
   totalLeave() {
     const seekLeave = this.employeetypeForm.get('seekLeave').value;
@@ -106,16 +91,8 @@ export class EmployeeTypeComponent implements OnInit {
     sessionStorage.setItem('totalleaves', leave);
   }
 
-  preProcessConfigurations() {
-    this.statusCode = null;
-    this.requestProcessing = true;
-  }
-  backToCreateArticle() {
-    this.employeeTypeIdToUpdate = null;
-    this.employeetypeForm.reset();
-    this.processValidation = false;
-  }
-  toastMessageDisplay() {
+  
+  displayToastMessage() {
     this.commonService.displayMessage();
   }
 }

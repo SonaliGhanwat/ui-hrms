@@ -12,9 +12,7 @@ import { CommonService } from '../../services/common/common.service';
 })
 export class ApprovalsComponent implements OnInit {
   allLeave: Leave[];
-  requestProcessing = false;
-  processValidation = false;
-  statusCode: number;
+  
   getStatus: any;
   userid: any;
   checkboxValue: any;
@@ -41,8 +39,7 @@ export class ApprovalsComponent implements OnInit {
         if (code === 1) {
           document.getElementById('data').innerHTML = 'There is no any request for Leave Approval';
         }
-      },
-      errorCode => this.statusCode = errorCode);
+      },);
   }
   onSubmitApprovalStatus() {
     const status = this.getStatus;
@@ -58,8 +55,7 @@ export class ApprovalsComponent implements OnInit {
         // let message = successCode.message;
         document.getElementById('response').innerHTML = successCode.message;
         this.getAllLeaveList();
-      },
-      errorCode => this.statusCode = errorCode);
+      },);
       this.commonService.hideSpinner();
   }
   /*logCheckbox(logid): void {
@@ -106,11 +102,8 @@ export class ApprovalsComponent implements OnInit {
     this.getStatus = statusId;
     this.userid = option;
   }
-  preProcessConfigurations() {
-    this.statusCode = null;
-    this.requestProcessing = true;
-  }
-  toastMessageDisplay() {
+ 
+  displayToastMessage() {
     this.commonService.displayMessage();
   }
 }

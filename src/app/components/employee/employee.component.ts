@@ -21,10 +21,9 @@ export class EmployeeComponent implements OnInit {
   allEmployeetype: EmployeeType[];
   allUsertypes: UserType[];
   allDesignation: Designation[];
-  statusCode: number;
-  requestProcessing = false;
+ 
   employeeIdToUpdate = null;
-  processValidation = false;
+
   collection = [];
   toastMessage: string;
   selectMenu: Employee[];
@@ -64,33 +63,28 @@ export class EmployeeComponent implements OnInit {
   getAllEmployee() {
     this.employeeService.getAllEmployeeList()
       .subscribe(
-      data => this.allEmployee = data,
-      errorCode => this.statusCode = errorCode);
+      data => this.allEmployee = data);
   }
   getAllEmployeetype() {
     this.commonService.startLoadingSpinner();
     this.employeetypeService.getAllEmployeeTypeList()
       .subscribe(
-      data => this.allEmployeetype = data,
-      errorCode => this.statusCode = errorCode);
+      data => this.allEmployeetype = data,);
     this.commonService.hideSpinner();
   }
   getAllUserTypes() {
     this.usertypeService.getAllUserTypes()
       .subscribe(
-      data => this.allUsertypes = data,
-      errorCode => this.statusCode = errorCode);
+      data => this.allUsertypes = data,);
   }
   getAllDesignation(userType: number) {
     const userTypeId = ((document.getElementById('userType') as HTMLInputElement).value);
     userType = parseInt(userTypeId);
     this.designationService.designationListByUsertypeId(userType)
       .subscribe(
-      data => this.allDesignation = data,
-      errorCode => this.statusCode = errorCode);
+      data => this.allDesignation = data,);
   }
   onEmployeeFormSubmit() {
-    this.preProcessConfigurations();
     this.commonService.startLoadingSpinner();
     const userid = this.employeeForm.get('userid').value;
     const password = this.employeeForm.get('password').value;
@@ -119,9 +113,8 @@ export class EmployeeComponent implements OnInit {
           this.commonService.hideSpinner();
           this.toastMessage = successCode.message;
           this.getAllEmployee();
-          this.backToCreateArticle();
-        },
-        errorCode => this.statusCode = errorCode);
+          this.employeeForm.reset();
+        },);
     } else {
       const userType = new Employee(this.employeeIdToUpdate, userid, password, firstName, lastName, phoneNumber, emailid, dateOfJoining, dateOfBirth, address, department, salary, reportTo, usertype, employeetype, designation);
       this.employeeService.updateEmployee(userType)
@@ -129,33 +122,29 @@ export class EmployeeComponent implements OnInit {
           // let message = successCode.message;
           this.toastMessage = successCode.message;
           this.getAllEmployee();
-          this.backToCreateArticle();
-        },
-        errorCode => this.statusCode = errorCode);
+          this.employeeForm.reset();
+
+        },);
     }
     this.commonService.hideSpinner();
   }
   deleteEmployee(id: string) {
     this.commonService.startLoadingSpinner();
-    this.preProcessConfigurations();
     this.employeeService.deleteEmployeeById(id)
       .subscribe(successCode => {
         // let message = successCode.message;
         this.toastMessage = successCode.message;
         this.getAllEmployee();
-        this.backToCreateArticle();
         this.commonService.hideSpinner();
-      },
-      errorCode => this.statusCode = errorCode);
+      },);
   }
   reportTo(designation: number) {
     const designationId = ((document.getElementById('designation') as HTMLInputElement).value);
     designation = parseInt(designationId);
-    this.preProcessConfigurations();
+    
     this.employeeService.employeeForReportTo(designation)
       .subscribe(
-      data => this.selectMenu = data.data,
-      errorCode => this.statusCode = errorCode);
+      data => this.selectMenu = data.data,);
     /*.subscribe(successCode => {
       console.log("successCode:",successCode)
       let selectMenu="";
@@ -173,7 +162,7 @@ export class EmployeeComponent implements OnInit {
     errorCode => this.statusCode = errorCode);*/
   }
   loadEmployeeToEdit(id: string) {
-    this.preProcessConfigurations();
+ 
     this.commonService.startLoadingSpinner();
     this.employeeService.getEmployeeById(id)
       .subscribe(data => {
@@ -195,10 +184,8 @@ export class EmployeeComponent implements OnInit {
           designation: data.designation.id,
           reportTo: data.reportTo
         });
-        this.processValidation = true;
-        this.requestProcessing = false;
-      },
-      errorCode => this.statusCode = errorCode);
+     
+      },);
       this.commonService.hideSpinner();
   }
 
@@ -214,17 +201,9 @@ getCookie() {
   var ca = decodedCookie.split(';');
  
 }
-  preProcessConfigurations() {
-    this.statusCode = null;
-    this.requestProcessing = true;
-  }
-  backToCreateArticle() {
-    this.employeeIdToUpdate = null;
-    this.employeeForm.reset();
-    this.processValidation = false;
-    this.getAllEmployee();
-  }
-  toastMessageDisplay() {
+  
+ 
+  displayToastMessage() {
     this.commonService.displayMessage();
   }
 

@@ -16,10 +16,7 @@ export class UsertypePageAssociationComponent  implements OnInit {
   allPage: PageModel[];
   allUsertypes: UserType[];
   allPageAssoList: PageAssociation[]
-  statusCode: number;
-  requestProcessing = false;
   leaveTypeIdToUpdate = null;
-  processValidation = false;
   leaveIdToUpdate = null;
   collection = [];
   toastMessage: string;
@@ -45,28 +42,24 @@ export class UsertypePageAssociationComponent  implements OnInit {
     this.commonService.startLoadingSpinner();
     this.usertypePageassociationService.getAllUserTypePageAssoList()
       .subscribe(
-      data => this.allPageAssoList = data.data,
-      errorCode => this.statusCode = errorCode);
+      data => this.allPageAssoList = data.data,);
       this.commonService.hideSpinner();
   }
   getAllPages() {
     this.commonService.startLoadingSpinner();
     this.pageService.getAllPageList()
       .subscribe(
-      data => this.allPage = data.data,
-      errorCode => this.statusCode = errorCode);
+      data => this.allPage = data.data,);
       this.commonService.hideSpinner();
   }
   getAllUserTypes() {
     this.commonService.startLoadingSpinner();
     this.usertypeService.getAllUserTypes()
       .subscribe(
-      data => this.allUsertypes = data,
-      errorCode => this.statusCode = errorCode);
+      data => this.allUsertypes = data,);
       this.commonService.hideSpinner();
   }
   onPageAssoFormSubmit() {
-    this.preProcessConfigurations();
     this.commonService.startLoadingSpinner();
     const usertype = this.pageAssoForm.get('usertype').value;
     const usertypeId = parseInt(usertype);
@@ -83,9 +76,8 @@ export class UsertypePageAssociationComponent  implements OnInit {
           this.commonService.hideSpinner();
           this.toastMessage = successCode.message;
           this.getAllUserTypePageAssoList();
-          this.backToCreateArticle();
-        },
-        errorCode => this.statusCode = errorCode);
+          this.pageAssoForm.reset();
+        },);
     } else {
       const userType = new PageAssociation(this.leaveIdToUpdate, usertypeId, userTypePageAssoParts);
       this.usertypePageassociationService.updatePageAsso(userType)
@@ -93,36 +85,27 @@ export class UsertypePageAssociationComponent  implements OnInit {
           // let message = successCode.message;
           this.toastMessage = successCode.message;
           this.getAllUserTypePageAssoList();
-          this.backToCreateArticle();
-        },
-        errorCode => this.statusCode = errorCode);
+          this.pageAssoForm.reset();
+        },);
     }
   }
   deletePage(id: string) {
     this.commonService.startLoadingSpinner();
-    this.preProcessConfigurations();
     this.usertypePageassociationService.deletePageAsso(id)
       .subscribe(successCode => {
         // let message = successCode.message;
         this.toastMessage = successCode.messag;
         this.getAllUserTypePageAssoList();
-        this.backToCreateArticle();
         this.commonService.hideSpinner();
-      },
-      errorCode => this.statusCode = errorCode);
+      },);
   }
   loadPageAssoToEdit(id: string) {
-    this.preProcessConfigurations();
     this.usertypePageassociationService.getPageAssoById(id)
       .subscribe(page => {
        
         this.leaveTypeIdToUpdate = page.data.id;
         this.pageAssoForm.setValue({usertype: page.data.usertypeId.id,page:page.data.page.id});
-        this.processValidation = true;
-        this.requestProcessing = false;
-       
-      },
-      errorCode => this.statusCode = errorCode);
+      },);
   }
  addPage(){
     const id = ((document.getElementById('page') as HTMLInputElement).value);
@@ -139,16 +122,8 @@ export class UsertypePageAssociationComponent  implements OnInit {
       }
     }
   }
-  preProcessConfigurations() {
-    this.statusCode = null;
-    this.requestProcessing = true;
-  }
-  backToCreateArticle() {
-    this.leaveIdToUpdate = null;
-    this.pageAssoForm.reset();
-    this.processValidation = false;
-  }
-  toastMessageDisplay() {
+ 
+  displayToastMessage() {
     this.commonService.displayMessage();
   }
 }

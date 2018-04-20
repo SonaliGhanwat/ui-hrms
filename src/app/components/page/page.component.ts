@@ -11,10 +11,7 @@ import { CommonService } from '../../services/common/common.service';
 export class PageComponent implements OnInit {
 
   allPage: PageModel[];
-  statusCode: number;
-  requestProcessing = false;
   leaveTypeIdToUpdate = null;
-  processValidation = false;
   leaveIdToUpdate = null;
   collection = [];
   toastMessage: string;
@@ -34,12 +31,10 @@ export class PageComponent implements OnInit {
     this.commonService.startLoadingSpinner();
     this.pageService.getAllPageList()
       .subscribe(
-      data => this.allPage = data.data,
-      errorCode => this.statusCode = errorCode);
+      data => this.allPage = data.data);
       this.commonService.hideSpinner();
   }
   onPgeFormSubmit() {
-    this.preProcessConfigurations();
     this.commonService.startLoadingSpinner();
     const menu = this.pageForm.get('menu').value;
     const pageName = this.pageForm.get('pageName').value;
@@ -53,58 +48,41 @@ export class PageComponent implements OnInit {
           // let message = successCode.message;
           this.commonService.hideSpinner();
           this.toastMessage = successCode.message;
-         
-          this.backToCreateArticle();
-        },
-        errorCode => this.statusCode = errorCode);
+          this.pageForm.reset();
+          this.getAllPages();
+        },);
     } else {
       const userType = new PageModel(this.leaveIdToUpdate, menu, pageName, submenu, url,description);
       this.pageService.updatePage(userType)
         .subscribe(successCode => {
           // let message = successCode.message;
           this.toastMessage = successCode.message;
-   
-          this.backToCreateArticle();
-        },
-        errorCode => this.statusCode = errorCode);
+          this.pageForm.reset();
+          this.getAllPages();
+        },);
     }
   }
   deletePage(id: string) {
     this.commonService.startLoadingSpinner();
-    this.preProcessConfigurations();
     this.pageService.deletePage(id)
       .subscribe(successCode => {
         // let message = successCode.message;
         this.toastMessage = successCode.messag;
         this.getAllPages();
-        this.backToCreateArticle();
         this.commonService.hideSpinner();
-      },
-      errorCode => this.statusCode = errorCode);
+      },);
   }
   loadPageToEdit(id: string) {
-    this.preProcessConfigurations();
     this.pageService.getPageById(id)
       .subscribe(page => {
         for (var i = 0; i < page.data.length; i++) {
         this.leaveTypeIdToUpdate = page.data[i].id;
         this.pageForm.setValue({ menu: page.data[i].menu, submenu: page.data[i].submenu, url: page.data[i].url, pageName: page.data[i].pageName, description: page.data[i].description});
-        this.processValidation = true;
-        this.requestProcessing = false;
         }
-      },
-      errorCode => this.statusCode = errorCode);
+      },);
   }
-  preProcessConfigurations() {
-    this.statusCode = null;
-    this.requestProcessing = true;
-  }
-  backToCreateArticle() {
-    this.leaveIdToUpdate = null;
-    this.pageForm.reset();
-    this.processValidation = false;
-  }
-  toastMessageDisplay() {
+  
+  displayToastMessage() {
     this.commonService.displayMessage();
   }
 }

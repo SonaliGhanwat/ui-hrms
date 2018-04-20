@@ -12,8 +12,6 @@ import {CommonService} from '../../services/common/common.service';
 })
 export class UsertypeComponent implements OnInit {
   allUsertypes: UserType[];
-  statusCode: number;
-  requestProcessing = false;
   userTypeIdToUpdate = null;
   processValidation = false;
   toastMessage:string;
@@ -37,12 +35,10 @@ export class UsertypeComponent implements OnInit {
     this.commonService.startLoadingSpinner();
     this.usertypeService.getAllUserTypes()
       .subscribe(
-      data => this.allUsertypes = data,
-      errorCode => this.statusCode = errorCode);
+      data => this.allUsertypes = data,);
       this.commonService.hideSpinner();
   }
   onUserTypeFormSubmit() {
-    this.preProcessConfigurations();
     this.commonService.startLoadingSpinner();
     const usertypeName = this.usertypeForm.get('usertypeName').value.trim();
     const description = this.usertypeForm.get('description').value.trim();
@@ -55,9 +51,9 @@ export class UsertypeComponent implements OnInit {
           this.commonService.hideSpinner();
           this.toastMessage = successCode.message;
           this.getAllUserTypes();
-          this.backToCreateArticle();
-        },
-        errorCode => this.statusCode = errorCode);
+          this.usertypeForm.reset();
+        
+        },);
     } else {
       const userType = new UserType(this.userTypeIdToUpdate, usertypeName, description);
       this.usertypeService.updateUserType(userType)
@@ -65,46 +61,30 @@ export class UsertypeComponent implements OnInit {
           // let message = successCode.message;
           this.toastMessage = successCode.message;
           this.getAllUserTypes();
-          this.backToCreateArticle();
-        },
-        errorCode => this.statusCode = errorCode);
+          this.usertypeForm.reset();
+        },);
     }
   }
   deleteUserType(id: string) {
-    this.preProcessConfigurations();
     this.commonService.startLoadingSpinner();
     this.usertypeService.deleteUserTypeById(id)
       .subscribe(successCode => {
         // let message = successCode.message;
         this.toastMessage = successCode.message;
         this.getAllUserTypes();
-        this.backToCreateArticle();
         this.commonService.hideSpinner();
-      },
-      errorCode => this.statusCode = errorCode);
+      },);
   }
   loadUserTypeToEdit(id: string) {
-    this.preProcessConfigurations();
     this.usertypeService.getUserTypeById(id)
       .subscribe(userType => {
         this.userTypeIdToUpdate = userType.id;
         this.usertypeForm.setValue({ usertypeName: userType.usertypeName, description: userType.description });
         console.log('usertypeName', userType.usertypeName);
-        this.processValidation = true;
-        this.requestProcessing = false;
-      },
-      errorCode => this.statusCode = errorCode);
+      },);
   }
-  preProcessConfigurations() {
-    this.statusCode = null;
-    this.requestProcessing = true;
-  }
-  backToCreateArticle() {
-    this.userTypeIdToUpdate = null;
-    this.usertypeForm.reset();
-    this.processValidation = false;
-  }
-  toastMessageDisplay() {
+  
+  displayToastMessage() {
     this.commonService.displayMessage();
    }
 }

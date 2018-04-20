@@ -17,10 +17,7 @@ import { Ng4LoadingSpinnerModule, Ng4LoadingSpinnerService } from 'ng4-loading-s
 export class AttendanceComponent implements OnInit {
   allAttendance: Attendance[];
   allEmployee: Employee[];
-  statusCode: number;
-  requestProcessing = false;
-  attendanceIdToUpdate = null;
-  processValidation = false;
+  attendanceIdToUpdate = null; 
   selectedEntities: any[];
   Attendance = 'date';
   collection = [];
@@ -55,20 +52,17 @@ export class AttendanceComponent implements OnInit {
     this.commonService.startLoadingSpinner();
     this.attendanceService.getAllAttendance()
       .subscribe(
-      data => this.allAttendance = data,
-      errorCode => this.statusCode = errorCode);
+      data => this.allAttendance = data);
     this.commonService.hideSpinner();
   }
 
   getAllEmployeeList() {
     this.employeeService.getAllEmployeeList()
       .subscribe(
-      data => this.allEmployee = data,
-      errorCode => this.statusCode = errorCode);
+      data => this.allEmployee = data);
   }
   onEmployeeAttendanceFormSubmit() {
-    this.preProcessConfigurations();
-   
+ 
     this.commonService.startLoadingSpinner()
     if (this.attendanceForm.invalid) {
       return;
@@ -96,7 +90,7 @@ export class AttendanceComponent implements OnInit {
         const message = data.message;
         this.toastMessage = message;
         this.getAllAttendanceList();
-        this.backToCreateArticle();
+        this.attendanceForm.reset();
 
       });
     } else {
@@ -106,28 +100,25 @@ export class AttendanceComponent implements OnInit {
           const message = data.message;
           this.toastMessage = message;
           this.getAllAttendanceList();
-          this.backToCreateArticle();
+          this.attendanceForm.reset();
         
-        },
-        errorCode => this.statusCode = errorCode);
+        },);
       this.commonService.hideSpinner();
     }
   }
   deleteEmployeeAttendance(id: string) {
-    this.preProcessConfigurations();
+
     this.commonService.startLoadingSpinner();
     this.attendanceService.deleteEmployeeAttendanceById(id)
       .subscribe(successCode => {
         this.getAllAttendanceList();
-        this.backToCreateArticle();
         // let message = successCode.message;
         this.toastMessage = successCode.message;
-      },
-      errorCode => this.statusCode = errorCode);
+      },);
     this.commonService.hideSpinner();
   }
   loadEmployeeAttendanceToEdit(id: string) {
-    this.preProcessConfigurations();
+
     this.commonService.startLoadingSpinner();
     this.attendanceService.getEmployeeAttendanceById(id)
       .subscribe(data => {
@@ -137,10 +128,8 @@ export class AttendanceComponent implements OnInit {
         }*/
         // this.userid = data.employee.userid
         this.attendanceForm.setValue({ employee: data.employee.id, intime: data.intime, outtime: data.outtime, date: data.date });
-        this.processValidation = true;
-        this.requestProcessing = false;
-      },
-      errorCode => this.statusCode = errorCode);
+     
+      },);
     this.commonService.hideSpinner();
   }
  
@@ -152,17 +141,9 @@ export class AttendanceComponent implements OnInit {
       }
     }
   }
-  preProcessConfigurations() {
-    this.statusCode = null;
-    this.requestProcessing = true;
-  }
-  backToCreateArticle() {
-    this.attendanceIdToUpdate = null;
-    this.attendanceForm.reset();
-    this.processValidation = false;
-    this.getAllAttendanceList();
-  }
-  toastMessageDisplay() {
+  
+  
+  displayToastMessage() {
     this.commonService.displayMessage();
   }
   public setSelectedEntities($event: any) {

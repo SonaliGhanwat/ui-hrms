@@ -13,10 +13,7 @@ export class DesignationComponent implements OnInit {
 
   allDesignation: Designation[];
   allUsertypes: any[];
-  statusCode: number;
-  requestProcessing = false;
   designationIdToUpdate = null;
-  processValidation = false;
   collection = [];
   toastMessage: string;
   constructor(private commonService: CommonService,private usertypeService: UsertypeService, private designationService: DesignationService, private formBuilder: FormBuilder) { }
@@ -35,8 +32,7 @@ export class DesignationComponent implements OnInit {
     this.commonService.startLoadingSpinner();
     this.designationService.getAllDesignationList()
       .subscribe(
-      data => this.allDesignation = data,
-      errorCode => this.statusCode = errorCode);
+      data => this.allDesignation = data,);
     this.commonService.hideSpinner();
   }
 
@@ -44,12 +40,11 @@ export class DesignationComponent implements OnInit {
     this.commonService.startLoadingSpinner();
     this.usertypeService.getAllUserTypes()
       .subscribe(
-      data => this.allUsertypes = data,
-      errorCode => this.statusCode = errorCode);
+      data => this.allUsertypes = data,);
       this.commonService.hideSpinner();
   }
   onDesignationFormSubmit() {
-    this.preProcessConfigurations();
+    
     const name = this.designationForm.get('name').value.trim();
     const band = this.designationForm.get('band').value;
     const level = this.designationForm.get('level').value;
@@ -64,9 +59,8 @@ export class DesignationComponent implements OnInit {
           // let message = successCode.message;
           this.toastMessage = successCode.message;
           this.getAllDesignation();
-          this.backToCreateArticle();
-        },
-        errorCode => this.statusCode = errorCode);
+          this.designationForm.reset();
+        },);
     } else {
       const designation = new Designation(this.designationIdToUpdate, name, band, level,usertype);
       this.designationService.updateDesignation(designation)
@@ -74,48 +68,35 @@ export class DesignationComponent implements OnInit {
           // let message = successCode.message;
           this.toastMessage = successCode.message;
           this.getAllDesignation();
-          this.backToCreateArticle();
-        },
-        errorCode => this.statusCode = errorCode);
+          this.designationForm.reset();
+        },);
     }
   }
   deleteDesignation(id: string) {
-    this.preProcessConfigurations();
     this.commonService.startLoadingSpinner();
     this.designationService.deleteDesignationById(id)
       .subscribe(successCode => {
         // let message = successCode.message;
         this.toastMessage = successCode.message;
         this.getAllDesignation();
-        this.backToCreateArticle();
         this.commonService.hideSpinner();
-      },
-      errorCode => this.statusCode = errorCode);
+      },);
 
   }
   loadDesignationToEdit(id: string) {
-    this.preProcessConfigurations();
+   
     this.designationService.getDesignationById(id)
       .subscribe(designation => {
         this.designationIdToUpdate = designation.id;
         this.designationForm.setValue({ name: designation.name, band: designation.band, level: designation.level ,usertype: designation.usertype.id,});
-        this.processValidation = true;
-        this.requestProcessing = false;
-      },
-      errorCode => this.statusCode = errorCode);
+        
+      },);
   }
 
-  preProcessConfigurations() {
-    this.statusCode = null;
-    this.requestProcessing = true;
-  }
-  backToCreateArticle() {
-    this.designationIdToUpdate = null;
-    this.designationForm.reset();
-    this.processValidation = false;
-  }
+  
+ 
 
-  toastMessageDisplay() {
+  displayToastMessage() {
     this.commonService.displayMessage();
   }
 }

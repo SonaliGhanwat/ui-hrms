@@ -18,10 +18,9 @@ export class ApplyforleaveComponent implements OnInit {
   allLeave: Leave[];
   allEmployee: Employee[];
   allLeavetypes: LeaveType[];
-  statusCode: number;
-  requestProcessing = false;
+ 
   leaveIdToUpdate = null;
-  processValidation = false;
+ 
   collection = [];
   toastMessage: string;
 
@@ -47,14 +46,13 @@ export class ApplyforleaveComponent implements OnInit {
   getAllEmployeeList() {
     this.employeeService.getAllEmployeeList()
       .subscribe(
-      data => this.allEmployee = data,
-      errorCode => this.statusCode = errorCode);
+      data => this.allEmployee = data)
+    
   }
   getAllLeaveTypes() {
     this.leavetypeService.getAllLeaveTypeList()
       .subscribe(
-      data => this.allLeavetypes = data,
-      errorCode => this.statusCode = errorCode);
+      data => this.allLeavetypes = data)
   }
   calculateLeave() {
     this.spinner.show();
@@ -62,12 +60,11 @@ export class ApplyforleaveComponent implements OnInit {
       .subscribe(
       data => {
         this.allLeave = data.data;
-      },
-      errorCode => this.statusCode = errorCode);
+      },);
     this.commonService.hideSpinner();
   }
   onLeaveFormSubmit() {
-    this.preProcessConfigurations();
+
     this.commonService.startLoadingSpinner();
     const employeeId = ((document.getElementById('employee') as HTMLInputElement).value);
     const employee = parseInt(employeeId);
@@ -83,33 +80,23 @@ export class ApplyforleaveComponent implements OnInit {
           // let message = successCode.message;
           this.commonService.hideSpinner();
           this.toastMessage = successCode.message;
-         
-          this.backToCreateArticle();
-        },
-        errorCode => this.statusCode = errorCode);
+          this.leaveForm.reset();
+        },);
     } else {
       const userType = new Leave(this.leaveIdToUpdate, employee, subject, fromDate, toDate, leavetype,null);
       this.leaveService.updateLeave(userType)
         .subscribe(successCode => {
           // let message = successCode.message;
           this.toastMessage = successCode.message;
-   
-          this.backToCreateArticle();
-        },
-        errorCode => this.statusCode = errorCode);
+          this.leaveForm.reset();
+
+        },);
     }
   }
  
-  preProcessConfigurations() {
-    this.statusCode = null;
-    this.requestProcessing = true;
-  }
-  backToCreateArticle() {
-    this.leaveIdToUpdate = null;
-    this.leaveForm.reset();
-    this.processValidation = false;
-  }
-  toastMessageDisplay() {
+ 
+  
+  displayToastMessage() {
     this.commonService.displayMessage();
   }
   toDateValidation() {
