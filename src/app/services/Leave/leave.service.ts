@@ -7,74 +7,82 @@ import 'rxjs/add/operator/catch';
 import { Leave } from '../../models/Leave/Leave.model';
 import { BaseService } from '../base.service';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
+
 @Injectable()
 export class LeaveService extends BaseService {
-  leaveUrl = 'employeeleave/';
-  leavelist_url = 'list';
-  leaveReportUrl = 'leaveBalanceReport'
-  myLeave = 'getlistByUserId/'
-  calculateLeavebyUserid = 'calculateLeaveByUserId/'
-  myCookie: any;
-  constructor(protected http: Http) {
-    super(http);
-  }
-  getAllLeave(): Observable<Leave[]> {
-    this.myCookie = Cookie.get('cookieName');
-    return this.http.get(this.buidURL(this.leaveUrl + this.leavelist_url))
-      .map(this.extractData)
-      .catch(this.handleError);
-  }
+    leaveUrl = 'employeeleave/';
+    leavelist_url = 'list';
+    leaveReportUrl = 'leaveBalanceReport';
+    myLeavesEndpoint = 'getlistByUserId/';
+    calculateLeavebyUserid = 'calculateLeaveByUserId/';
+    myCookie: any;
 
-  getAllLeaveforLeaveBalance(): Observable<any> {
-    return this.http.get(this.buidURL(this.leaveUrl + this.leaveReportUrl))
-      .map(this.extractData,success => success.json())
-      .catch(this.handleError);
-  }
+    constructor(protected http: Http) {
+        super(http);
+    }
 
-  calculateLeaveByUserId(): Observable<any> {
-    this.myCookie = Cookie.get('cookieName');
-    return this.http.get(this.buidURL(this.leaveUrl + this.calculateLeavebyUserid+this.myCookie))
-      .map(this.extractData,success => success.json())
-      .catch(this.handleError);
-  }
-  getLeaveByUserId(): Observable<any> {
-    this.myCookie = Cookie.get('cookieName');
-    return this.http.get(this.buidURL(this.leaveUrl + this.myLeave+this.myCookie))
-      .map(this.extractData,success => success.json())
-      .catch(this.handleError);
-  }
-  createLeave(leave: Leave): Observable<any> {
-    return this.http.post(this.buidURL(this.leaveUrl + this.create_url), leave)
-      .map(success => success.json())
-      .catch(this.handleError);
-  }
-  deleteLeaveById(id: string): Observable<any> {
-    return this.http.delete(this.buidURL(this.leaveUrl + this.delete_url + id))
-      .map(success => success.json())
-      .catch(this.handleError);
-  }
-  getLeaveById(id: string): Observable<Leave> {
-    const cpHeaders = new Headers({ 'Content-Type': 'application/json' });
-    const cpParams = new URLSearchParams();
-    cpParams.set('id', id);
-    const options = new RequestOptions({ headers: cpHeaders, params: cpParams });
-    return this.http.get(this.buidURL(this.leaveUrl + id))
-      .map(this.extractData)
-      .catch(this.handleError);
-  }
-  updateLeave(leave: Leave): Observable<any> {
-    return this.http.put(this.buidURL(this.leaveUrl + this.update_url), leave)
-      .map(success => success.json())
-      .catch(this.handleError);
-  }
-  protected extractData(res: Response) {
-    const body = res.json();
-    console.log('data:',body)
-    return body;
-  }
-  protected handleError(error: Response | any) {
-    console.error(error.message || error);
-    return Observable.throw(error.status);
-  }
+    getAllLeave(): Observable<Leave[]> {
+        return this.http.get(this.buidURL(this.leaveUrl + this.leavelist_url))
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+    getAllLeaveforLeaveBalance(): Observable<any> {
+        return this.http.get(this.buidURL(this.leaveUrl + this.leaveReportUrl))
+            .map(this.extractData, success => success.json())
+            .catch(this.handleError);
+    }
+
+    calculateLeaveByUserId(): Observable<any> {
+        this.myCookie = Cookie.get('cookieName');
+        return this.http.get(this.buidURL(this.leaveUrl + this.calculateLeavebyUserid + this.myCookie))
+            .map(this.extractData, success => success.json())
+            .catch(this.handleError);
+    }
+
+    getLeaveByUserId(userId: string): Observable<any> {
+        return this.http.get(this.buidURL(this.leaveUrl + this.myLeavesEndpoint + userId))
+            .map(this.extractData, success => success.json())
+            .catch(this.handleError);
+    }
+
+    createLeave(leave: Leave): Observable<any> {
+        return this.http.post(this.buidURL(this.leaveUrl + this.create_url), leave)
+            .map(success => success.json())
+            .catch(this.handleError);
+    }
+
+    deleteLeaveById(id: string): Observable<any> {
+        return this.http.delete(this.buidURL(this.leaveUrl + this.delete_url + id))
+            .map(success => success.json())
+            .catch(this.handleError);
+    }
+
+    getLeaveById(id: string): Observable<Leave> {
+        const cpHeaders = new Headers({ 'Content-Type': 'application/json' });
+        const cpParams = new URLSearchParams();
+        cpParams.set('id', id);
+        const options = new RequestOptions({ headers: cpHeaders, params: cpParams });
+        return this.http.get(this.buidURL(this.leaveUrl + id))
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    
+    updateLeave(leave: Leave): Observable<any> {
+        return this.http.put(this.buidURL(this.leaveUrl + this.update_url), leave)
+            .map(success => success.json())
+            .catch(this.handleError);
+    }
+    
+    // protected extractData(res: Response) {
+    //     const body = res.json();
+    //     console.log('data:', body);
+    //     return body;
+    // }
+    
+    // protected handleError(error: Response | any) {
+    //     console.error(error.message || error);
+    //     return Observable.throw(error.status);
+    // }
 
 }

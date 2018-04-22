@@ -1,17 +1,25 @@
 <header id="header">
-  <nav id="main-menu" class="navbar navbar-default navbar-fixed-top" role="banner" style="height: 70px;">
-      <div class="container">
-          <div class="navbar-header">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                  <span class="sr-only">Toggle navigation</span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-              </button>
-              <a class="img-responsive navbar-brand" href="index.html"><img style="margin-left: -30px" src="assets/Images/logo.png" alt="logo"></a>
-          </div>          
-      </div>
-     
-  </nav>
- 
+    <nav id="main-menu" class="navbar navbar-default navbar-fixed-top" role="banner" style="height: 70px;">
+        <div class="container">
+            <div class="row">
+                <div class="navbar-header col-sm-6">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="img-responsive navbar-brand" href="index.html"><img style="margin-left: -30px" src="assets/Images/logo.png" alt="logo"></a>
+                </div>
+
+                <div class="col-sm-3 label-user-name" *ngIf="isUserNameVisible">
+                    < User Name to be displayed here>
+                </div>
+
+                <div class="col-sm-3" *ngIf="isLogoutBtnVisible">
+                    <button class="btn btn-primary btn-logout" type="button" (click)="logout()">Log Out </button>
+                </div>
+            </div>
+        </div>
+    </nav>
 </header>

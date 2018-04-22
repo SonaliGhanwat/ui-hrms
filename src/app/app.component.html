@@ -1,10 +1,6 @@
 <div (load)="handleKeyup($event.target.value)">
 <app-header></app-header>
-
-<div *ngIf="showSelected">
 <app-menu></app-menu>
-</div>
-
 <router-outlet>
     <ng4-loading-spinner> </ng4-loading-spinner>
 </router-outlet>

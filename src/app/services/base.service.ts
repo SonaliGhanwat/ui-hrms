@@ -10,7 +10,6 @@ export class BaseService {
   constructor(protected http: Http) { }
   protected buidURL(endpoint: string): string {
     return this.base_url + endpoint;
-    
   }
   
   protected extractData(res: Response) {

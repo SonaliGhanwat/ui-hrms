@@ -52,6 +52,7 @@ import { PageComponent } from './components/page/page.component';
 import { PageService } from './services/Page/page.service';
 import { UsertypePageAssociationComponent  } from './components/usertype-pageassociation/usertype-pageassociation.component';
 import { UsertypePageassociationService } from './services/Usertype-PageAssociation/usertype-pageassociation.service';
+import { AppDataService } from './services/app-data/app-data.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -117,7 +118,8 @@ import { UsertypePageassociationService } from './services/Usertype-PageAssociat
     HttpClientModule,
     ApprovalsService,
     PageService,
-    UsertypePageassociationService
+    UsertypePageassociationService,
+    AppDataService
   ],
 
   bootstrap: [AppComponent],
