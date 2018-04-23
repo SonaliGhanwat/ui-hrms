@@ -7,19 +7,19 @@ import 'rxjs/add/operator/catch';
 import { Attendance } from '../../models/Attendance/Attendance.model';
 import { BaseService } from '../base.service';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
+import { AppDataService } from '../../services/app-data/app-data.service';
 @Injectable()
 export class AttendanceService extends BaseService {
   
   attendanceUrl = 'employeeattendance/';
   attendancelist_url = 'list';
-  getAttendanceByDate = 'getAttendance/'
-  attendanceWorkinfo = 'calculateAttendanceWorkInfo/'
+  getAttendanceByDate = 'getAttendance/';
+  attendanceWorkinfo = 'calculateAttendanceWorkInfo/';
   myCookie: any;
-  constructor(protected http: Http) {
+  constructor(protected http: Http, private appData: AppDataService,) {
     super(http);
   }
   getAllAttendance(): Observable<Attendance[]> {
-    this.myCookie = Cookie.get('cookieName');
     return this.http.get(this.buidURL(this.attendanceUrl + this.attendancelist_url))
       .map(this.extractData)
       .catch(this.handleError);
@@ -49,14 +49,12 @@ export class AttendanceService extends BaseService {
       .catch(this.handleError);
   }
   getAllAttendanceBYDate(date:Date): Observable<any> {
-    this.myCookie = Cookie.get('cookieName');
-    return this.http.get(this.buidURL(this.attendanceUrl + this.getAttendanceByDate+this.myCookie+'/'+date))
+    return this.http.get(this.buidURL(this.attendanceUrl + this.getAttendanceByDate+this.appData.getUserId()+'/'+date))
       .map(this.extractData)
       .catch(this.handleError);
   }
   calculateAttendanceWork(date:Date): Observable<any> {
-    this.myCookie = Cookie.get('cookieName');
-    return this.http.get(this.buidURL(this.attendanceUrl + this.attendanceWorkinfo+this.myCookie+'/'+date))
+    return this.http.get(this.buidURL(this.attendanceUrl + this.attendanceWorkinfo+this.appData.getUserId()+'/'+date))
       .map(this.extractData)
       .catch(this.handleError);
   }

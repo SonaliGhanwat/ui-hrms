@@ -19,44 +19,43 @@ export class SelfattendanceComponent implements OnInit {
   attendanceWorkInfo: Attendance[];
   statusCode: number;
   requestProcessing = false;
-  date : any;
-   collection = [];
+  date: any;
+  collection = [];
   constructor(private spinner: Ng4LoadingSpinnerService, private commonService: CommonService, private attendanceService: AttendanceService, private formBuilder: FormBuilder, private employeeService: EmployeeService) { }
   attendanceForm = this.formBuilder.group({
-    
-        'date': ['', [Validators.required,ValidationService.currentMonthValidation]],
-      });
-    
+    'date': ['', [Validators.required, ValidationService.currentMonthValidation]],
+  });
+
   ngOnInit() {
-    //this.getAllAttendanceListBYIDandDate();
+    // this.getAllAttendanceListBYIDandDate();
     this.commonService.onPreviousNextPage();
   }
-  getAllAttendanceListBYIDandDate() { 
+  getAllAttendanceListBYIDandDate() {
     this.date = ((document.getElementById('date') as HTMLInputElement).value);
     this.commonService.startLoadingSpinner();
     this.attendanceService.getAllAttendanceBYDate(this.date)
       .subscribe(
-        data => {
-          this.allAttendance = data.data;
-          const code = data.code;
-          console.log('code:',code);
-          if (code === 0) {
-            document.getElementById('data').innerHTML = 'There is no any attendance for this month';
-          }else{
-            document.getElementById('data').innerHTML = '';
-          }
-        },
+      data => {
+        this.allAttendance = data.data;
+        const code = data.code;
+        console.log('code:', code);
+        if (code === 0) {
+          document.getElementById('data').innerHTML = 'There is no any attendance for this month';
+        } else {
+          document.getElementById('data').innerHTML = '';
+        }
+      },
       errorCode => this.statusCode = errorCode);
     this.commonService.hideSpinner();
   }
-  calculateAllAttendanceListBYIDandDate() { 
+  calculateAllAttendanceListBYIDandDate() {
     this.date = ((document.getElementById('date') as HTMLInputElement).value);
     this.commonService.startLoadingSpinner();
     this.attendanceService.calculateAttendanceWork(this.date)
       .subscribe(
-        data => {
-          this.attendanceWorkInfo = data.data;
-        },
+      data => {
+        this.attendanceWorkInfo = data.data;
+      },
       errorCode => this.statusCode = errorCode);
     this.commonService.hideSpinner();
   }

@@ -46,13 +46,13 @@ export class ApplyforleaveComponent implements OnInit {
   getAllEmployeeList() {
     this.employeeService.getAllEmployeeList()
       .subscribe(
-      data => this.allEmployee = data)
+      data => this.allEmployee = data);
     
   }
   getAllLeaveTypes() {
     this.leavetypeService.getAllLeaveTypeList()
       .subscribe(
-      data => this.allLeavetypes = data)
+      data => this.allLeavetypes = data);
   }
   calculateLeave() {
     this.spinner.show();

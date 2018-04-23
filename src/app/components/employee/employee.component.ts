@@ -29,8 +29,7 @@ export class EmployeeComponent implements OnInit {
   selectMenu: Employee[];
   firstName: Employee[];
   myCookie:any;
-
-  exdays:any
+  exdays:any;
   constructor(private employeeService: EmployeeService, private formBuilder: FormBuilder,
     private employeetypeService: EmployeetypeService, private usertypeService: UsertypeService,
     private designationService: DesignationService, private commonService: CommonService) { }
@@ -56,8 +55,6 @@ export class EmployeeComponent implements OnInit {
     this.getAllEmployee();
     this.getAllEmployeetype();
     this.getAllUserTypes();
-   
-    this.setCookie( this.exdays);
     this.commonService.onPreviousNextPage();
   }
   getAllEmployee() {
@@ -188,21 +185,6 @@ export class EmployeeComponent implements OnInit {
       },);
       this.commonService.hideSpinner();
   }
-
-  setCookie( exdays) {
-    this.myCookie = Cookie.get('cookieName');
-  
-    document.cookie =  this.myCookie 
-    this.getCookie();
-}
-getCookie() {
-  
-  var decodedCookie = decodeURIComponent(document.cookie);
-  var ca = decodedCookie.split(';');
- 
-}
-  
- 
   displayToastMessage() {
     this.commonService.displayMessage();
   }

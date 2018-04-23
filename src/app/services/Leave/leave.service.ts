@@ -7,6 +7,7 @@ import 'rxjs/add/operator/catch';
 import { Leave } from '../../models/Leave/Leave.model';
 import { BaseService } from '../base.service';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
+import { AppDataService } from '../../services/app-data/app-data.service';
 
 @Injectable()
 export class LeaveService extends BaseService {
@@ -17,7 +18,7 @@ export class LeaveService extends BaseService {
     calculateLeavebyUserid = 'calculateLeaveByUserId/';
     myCookie: any;
 
-    constructor(protected http: Http) {
+    constructor(protected http: Http,private appData: AppDataService) {
         super(http);
     }
 
@@ -34,8 +35,7 @@ export class LeaveService extends BaseService {
     }
 
     calculateLeaveByUserId(): Observable<any> {
-        this.myCookie = Cookie.get('cookieName');
-        return this.http.get(this.buidURL(this.leaveUrl + this.calculateLeavebyUserid + this.myCookie))
+        return this.http.get(this.buidURL(this.leaveUrl + this.calculateLeavebyUserid + this.appData.getUserId()))
             .map(this.extractData, success => success.json())
             .catch(this.handleError);
     }

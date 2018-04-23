@@ -18,12 +18,12 @@
         </tr>
       </thead>
       <tr *ngFor="let leave of allLeave | paginate: { itemsPerPage: 8, currentPage: p} ">
-        <td class="col-xs-2">{{leave.employee.userid}} </td>
-        <td class="col-xs-2" *ngFor="let totalleave of leave.emplyeeLeaveParts">{{totalleave.seekLeave}}</td>
-        <td class="col-xs-2" *ngFor="let totalleave of leave.emplyeeLeaveParts">{{totalleave.paidLeave}}</td>
-        <td class="col-xs-2" *ngFor="let totalleave of leave.emplyeeLeaveParts">{{totalleave.remaningSeekLeave}}</td>
-        <td class="col-xs-2" *ngFor="let totalleave of leave.emplyeeLeaveParts">{{totalleave.remaningPaidLeave}}</td>
-        <td class="col-xs-2" *ngFor="let totalleave of leave.emplyeeLeaveParts">{{totalleave.pendingLeave}}</td>
+        <td class=" tablerow col-xs-2">{{leave.employee.userid}} </td>
+        <td class="tablerow col-xs-2" *ngFor="let totalleave of leave.emplyeeLeaveParts">{{totalleave.seekLeave}}</td>
+        <td class="tablerow col-xs-2" *ngFor="let totalleave of leave.emplyeeLeaveParts">{{totalleave.paidLeave}}</td>
+        <td class="tablerow col-xs-2" *ngFor="let totalleave of leave.emplyeeLeaveParts">{{totalleave.remaningSeekLeave}}</td>
+        <td class="tablerow col-xs-2" *ngFor="let totalleave of leave.emplyeeLeaveParts">{{totalleave.remaningPaidLeave}}</td>
+        <td class="tablerow col-xs-2" *ngFor="let totalleave of leave.emplyeeLeaveParts">{{totalleave.pendingLeave}}</td>
       </tr>
     </table>
     <div style="margin-left: 60%">

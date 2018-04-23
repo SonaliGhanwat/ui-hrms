@@ -11,8 +11,7 @@ import { CommonService } from '../../services/common/common.service';
 export class PageComponent implements OnInit {
 
   allPage: PageModel[];
-  leaveTypeIdToUpdate = null;
-  leaveIdToUpdate = null;
+  pageIdToUpdate = null;
   collection = [];
   toastMessage: string;
   constructor(private commonService: CommonService, private pageService: PageService, private formBuilder: FormBuilder) { }
@@ -32,7 +31,7 @@ export class PageComponent implements OnInit {
     this.pageService.getAllPageList()
       .subscribe(
       data => this.allPage = data.data);
-      this.commonService.hideSpinner();
+    this.commonService.hideSpinner();
   }
   onPgeFormSubmit() {
     this.commonService.startLoadingSpinner();
@@ -41,25 +40,25 @@ export class PageComponent implements OnInit {
     const submenu = this.pageForm.get('submenu').value;
     const url = this.pageForm.get('url').value;
     const description = this.pageForm.get('description').value;
-    if (this.leaveIdToUpdate === null) {
-      const attendance = new PageModel(null, menu, pageName, submenu, url,description);
-      this.pageService.createPage(attendance)
+    if (this.pageIdToUpdate === null) {
+      const page = new PageModel(null, menu, pageName, submenu, url, description);
+      this.pageService.createPage(page)
         .subscribe(successCode => {
           // let message = successCode.message;
           this.commonService.hideSpinner();
           this.toastMessage = successCode.message;
           this.pageForm.reset();
           this.getAllPages();
-        },);
+        }, );
     } else {
-      const userType = new PageModel(this.leaveIdToUpdate, menu, pageName, submenu, url,description);
-      this.pageService.updatePage(userType)
+      const page = new PageModel(this.pageIdToUpdate, menu, pageName, submenu, url, description);
+      this.pageService.updatePage(page)
         .subscribe(successCode => {
           // let message = successCode.message;
           this.toastMessage = successCode.message;
           this.pageForm.reset();
           this.getAllPages();
-        },);
+        }, );
     }
   }
   deletePage(id: string) {
@@ -70,18 +69,18 @@ export class PageComponent implements OnInit {
         this.toastMessage = successCode.messag;
         this.getAllPages();
         this.commonService.hideSpinner();
-      },);
+      }, );
   }
   loadPageToEdit(id: string) {
     this.pageService.getPageById(id)
       .subscribe(page => {
-        for (var i = 0; i < page.data.length; i++) {
-        this.leaveTypeIdToUpdate = page.data[i].id;
-        this.pageForm.setValue({ menu: page.data[i].menu, submenu: page.data[i].submenu, url: page.data[i].url, pageName: page.data[i].pageName, description: page.data[i].description});
+        for (let i = 0; i < page.data.length; i++) {
+          this.pageIdToUpdate = page.data[i].id;
+          this.pageForm.setValue({ menu: page.data[i].menu, submenu: page.data[i].submenu, url: page.data[i].url, pageName: page.data[i].pageName, description: page.data[i].description });
         }
-      },);
+      }, );
   }
-  
+
   displayToastMessage() {
     this.commonService.displayMessage();
   }

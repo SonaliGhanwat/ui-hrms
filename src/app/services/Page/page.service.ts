@@ -7,7 +7,7 @@ import 'rxjs/add/operator/catch';
 import { PageModel } from '../../models/Page/page.model';
 import { BaseService } from '../base.service';
 @Injectable()
-export class PageService extends BaseService{
+export class PageService extends BaseService {
   pageUrl = 'page/';
   constructor(protected http: Http) {
     super(http);

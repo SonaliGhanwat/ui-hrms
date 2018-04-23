@@ -9,9 +9,9 @@ import { AppDataService } from '../../services/app-data/app-data.service';
 })
 export class HeaderComponent implements OnInit {
 
-    isLogoutBtnVisible: Boolean = false;
-    isUserNameVisible: Boolean = false;
-
+    isLogoutBtnVisible: Boolean = true;
+    isUserNameVisible: Boolean = true;
+    userid: string;
     constructor(private router: Router,
         private appData: AppDataService) { }
 
@@ -20,10 +20,10 @@ export class HeaderComponent implements OnInit {
             console.log('HeaderComponent...');
             this.setHeaderUIData();
         },
-        error => {
-            console.log('error');
-        });
-        
+            error => {
+                console.log('error');
+            });
+        this.setUserId();
     }
 
     setHeaderUIData(): void {
@@ -31,12 +31,13 @@ export class HeaderComponent implements OnInit {
         this.isUserNameVisible = this.appData.getUser() ? true : false;
     }
 
+    setUserId() {
+        this.userid = this.appData.getUserId();
+        console.log('userid:', this.userid);
+    }
     logout(): void {
         this.appData.clearAppData();
         this.setHeaderUIData();
         this.router.navigate(['/login']);
     }
-
-
-
 }

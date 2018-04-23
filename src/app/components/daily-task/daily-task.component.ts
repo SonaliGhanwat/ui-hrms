@@ -19,7 +19,7 @@ export class DailyTaskComponent implements OnInit {
   processValidation = false;
   collection = [];
   toastMessage: string;
-  estimationTime:any
+  estimationTime: any;
   constructor(private commonService: CommonService, private dailytaskService: DailytaskService, private formBuilder: FormBuilder, private employeeService: EmployeeService) { }
   dailyTaskForm = this.formBuilder.group({
     'employee': ['', ([Validators.required])],
@@ -41,13 +41,13 @@ export class DailyTaskComponent implements OnInit {
     this.commonService.startLoadingSpinner();
     this.dailytaskService.getAllDailyTaskList()
       .subscribe(
-      data => this.allDailyTask = data,);
-      this.commonService.hideSpinner();
+      data => this.allDailyTask = data, );
+    this.commonService.hideSpinner();
   }
   getAllEmployeeList() {
     this.employeeService.getAllEmployeeList()
       .subscribe(
-      data => this.allEmployee = data,);
+      data => this.allEmployee = data, );
   }
   onDailyTaskFormSubmit() {
     this.commonService.startLoadingSpinner();
@@ -84,7 +84,7 @@ export class DailyTaskComponent implements OnInit {
           this.toastMessage = successCode.message;
           this.getAllDailyTask();
           this.dailyTaskForm.reset();
-        },);
+        }, );
     } else {
       const userType = new DailyTask(this.dailyTaskIdToUpdate, employee, date, taskName, estimationTime, starttime, endtime, status, description);
       this.dailytaskService.updateDailyTask(userType)
@@ -93,7 +93,7 @@ export class DailyTaskComponent implements OnInit {
           this.toastMessage = successCode.message;
           this.getAllDailyTask();
           this.dailyTaskForm.reset();
-        },);
+        }, );
     }
   }
   deleteDailyTask(id: string) {
@@ -105,7 +105,7 @@ export class DailyTaskComponent implements OnInit {
         this.toastMessage = successCode.message;
         this.getAllDailyTask();
         this.commonService.hideSpinner();
-      },);
+      }, );
 
   }
   loadDailyTaskToEdit(id: string) {
@@ -113,8 +113,8 @@ export class DailyTaskComponent implements OnInit {
       .subscribe(dailyTask => {
         this.dailyTaskIdToUpdate = dailyTask.id;
         this.dailyTaskForm.setValue({ employee: dailyTask.employee.id, date: dailyTask.date, taskName: dailyTask.taskName, estimationTime: dailyTask.estimationTime, starttime: dailyTask.starttime, endtime: dailyTask.endtime, status: dailyTask.status, description: dailyTask.description });
-      
-      },);
+
+      }, );
   }
   timeValidation() {
     const starttime = this.dailyTaskForm.get('starttime').value;
@@ -127,22 +127,22 @@ export class DailyTaskComponent implements OnInit {
     document.getElementById('outtime_validation').innerHTML = '';
     return true;
   }
-  calculateEstimationTime(){
-    let starttime = this.dailyTaskForm.get('starttime').value;
-    let endtime = this.dailyTaskForm.get('endtime').value;
-    let starttime1 = starttime.substring(0, 2)
-    let endtime1 = endtime.substring(0, 2)
-    var date1 = new Date();
-    date1.setHours(starttime1 );
-    var date2 = new Date();
-    date2.setHours(endtime1 );  
-   let totalTime=  date2.getTime() - date1.getTime()
-   this.estimationTime =    totalTime / (60 * 60 * 1000) % 24
-    const leave = document.getElementById('estimationTime').innerHTML = this.estimationTime +' hours';
+  calculateEstimationTime() {
+    const starttime = this.dailyTaskForm.get('starttime').value;
+    const endtime = this.dailyTaskForm.get('endtime').value;
+    const starttime1 = starttime.substring(0, 2);
+    const endtime1 = endtime.substring(0, 2);
+    const date1 = new Date();
+    date1.setHours(starttime1);
+    const date2 = new Date();
+    date2.setHours(endtime1);
+    const totalTime = date2.getTime() - date1.getTime();
+    this.estimationTime = totalTime / (60 * 60 * 1000) % 24;
+    const leave = document.getElementById('estimationTime').innerHTML = this.estimationTime + ' hours';
     sessionStorage.setItem('totalleaves', leave);
   }
-  
- 
+
+
   displayToastMessage() {
     this.commonService.displayMessage();
   }

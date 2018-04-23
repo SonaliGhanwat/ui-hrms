@@ -39,7 +39,7 @@ export class LeavetypeComponent implements OnInit {
           this.commonService.hideSpinner();
           this.toastMessage = successCode.message;
           this.getAllLeaveTypes();
-          this.leavetypeForm.reset();;
+          this.leavetypeForm.reset();
         },);
     } else {
       const leaveType = new LeaveType(this.leaveTypeIdToUpdate, name);

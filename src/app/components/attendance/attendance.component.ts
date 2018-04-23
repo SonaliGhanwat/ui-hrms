@@ -63,7 +63,7 @@ export class AttendanceComponent implements OnInit {
   }
   onEmployeeAttendanceFormSubmit() {
  
-    this.commonService.startLoadingSpinner()
+    this.commonService.startLoadingSpinner();
     if (this.attendanceForm.invalid) {
       return;
     }
@@ -91,6 +91,7 @@ export class AttendanceComponent implements OnInit {
         this.toastMessage = message;
         this.getAllAttendanceList();
         this.attendanceForm.reset();
+        
 
       });
     } else {

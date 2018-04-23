@@ -62,3 +62,8 @@
 .tableft{
     margin-left: 3%
 }
+
+.tablerow {
+    text-align: left;
+    line-height: 3.5rem;
+}

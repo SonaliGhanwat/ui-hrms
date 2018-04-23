@@ -7,9 +7,9 @@ import 'rxjs/add/operator/catch';
 import { PageAssociation } from '../../models/UserType-Pageassociation/UserType-PageAsso.model';
 import { BaseService } from '../base.service';
 @Injectable()
-export class UsertypePageassociationService extends BaseService{
+export class UsertypePageassociationService extends BaseService {
   pageUrl = 'usertypepageassociation/';
-  createUrl = 'createMultiple'
+  createUrl = 'createMultiple';
   constructor(protected http: Http) {
     super(http);
   }
@@ -19,7 +19,7 @@ export class UsertypePageassociationService extends BaseService{
       .map(this.extractData)
       .catch(this.handleError);
   }
-createPageAssoList(page: PageAssociation): Observable<any> {
+  createPageAssoList(page: PageAssociation): Observable<any> {
     return this.http.post(this.buidURL(this.pageUrl + this.createUrl), page)
       .map(success => success.json())
       .catch(this.handleError);

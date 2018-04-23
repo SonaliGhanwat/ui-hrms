@@ -9,7 +9,7 @@ import { BaseService } from '../base.service';
 @Injectable()
 export class DesignationService extends BaseService {
   designationUrl = 'designation/';
-  designationList =  'designationList/'
+  designationList =  'designationList/';
   constructor(protected http: Http) {
     super(http);
   }

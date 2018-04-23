@@ -90,11 +90,7 @@ export class MenuComponent implements OnInit {
         return true;
     }
 
-    toastMessageDisplay() {
-        const x = document.getElementById('toastbar');
-        x.className = 'show';
-        setTimeout(function () { x.className = x.className.replace('show', ''); }, 9000);
-    }
+   
 
     // loginUserId() {
     //     this.myCookie = Cookie.get('cookieName');
