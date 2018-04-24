@@ -91,11 +91,13 @@
 
               </tr>
             </thead>
+            <tbody style="height: 80px">
             <tr *ngFor="let pageAsso of pageAssoIdData | paginate: { itemsPerPage: 8, currentPage: p} let i = index;">
               <td class="tablerow col-xs-6">{{i+1}}</td>
               <td class="tablerow col-xs-6  ">{{pageAsso}}</td>
 
             </tr>
+          </tbody>
           </table>
           <div class="savebtn">
             <button type="submit" class="btn btn-secondary" style="width: 30%;" [disabled]="!pageAssoForm.valid" (click)="displayToastMessage();">{{'Save'|translate}}</button>

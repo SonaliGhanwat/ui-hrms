@@ -39,7 +39,14 @@ export class MyLeaveApplicationComponent implements OnInit {
         this.leaveService.getLeaveByUserId(this.appData.getUserId())
             .subscribe(
             data => {
-                this.allLeave = data;
+                this.allLeave = data.data;
+                const code = data.code;
+                console.log('code:',code);
+                if (code === 1) {
+                    document.getElementById('data').innerHTML = 'There is no any Leave apply';
+                  } else {
+                    document.getElementById('data').innerHTML = '';
+                  }
             },
             errorCode => this.statusCode = errorCode);
         this.commonService.hideSpinner();

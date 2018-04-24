@@ -25,7 +25,9 @@
         <td class="tablerow col-xs-2">{{leave.toDate}}</td>
         <td class="tablerow col-xs-3">{{leave.leavetype.name}}</td>
       </tr>
+      <div id="data" class="norequest"></div>
     </table>
+
     <div style="margin-left: 60%">
       <pagination-controls (pageChange)="p = $event"></pagination-controls>
     </div>
