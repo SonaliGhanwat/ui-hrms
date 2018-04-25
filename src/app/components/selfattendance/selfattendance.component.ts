@@ -9,6 +9,7 @@ import { CommonService } from '../../services/common/common.service';
 import { Http } from '@angular/http';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
 import { Ng4LoadingSpinnerModule, Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-selfattendance',
   templateUrl: './selfattendance.component.html',
@@ -21,7 +22,8 @@ export class SelfattendanceComponent implements OnInit {
   requestProcessing = false;
   date: any;
   collection = [];
-  constructor(private spinner: Ng4LoadingSpinnerService, private commonService: CommonService, private attendanceService: AttendanceService, private formBuilder: FormBuilder, private employeeService: EmployeeService) { }
+  constructor(private spinner: Ng4LoadingSpinnerService, private commonService: CommonService, private attendanceService: AttendanceService, private formBuilder: FormBuilder,
+     private employeeService: EmployeeService,private router: Router) { }
   attendanceForm = this.formBuilder.group({
     'date': ['', [Validators.required, ValidationService.currentMonthValidation]],
   });
@@ -58,5 +60,8 @@ export class SelfattendanceComponent implements OnInit {
       },
       errorCode => this.statusCode = errorCode);
     this.commonService.hideSpinner();
+  }
+  redirectToRegularization() {
+    this.router.navigate(['./regularization']);
   }
 }

@@ -20,7 +20,7 @@ import { ApplyforleaveComponent } from './components/applyforleave/applyforleave
 import { MyLeaveApplicationComponent  } from './components/my-leaveapplication/my-leaveapplication.component';
 import { PageComponent } from './components/page/page.component';
 import { UsertypePageAssociationComponent  } from './components/usertype-pageassociation/usertype-pageassociation.component';
-
+import { RegularizationComponent } from './components/regularization/regularization.component';
 const appRoutes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -41,7 +41,8 @@ const appRoutes: Routes = [
   { path: 'applyleave', component: ApplyforleaveComponent },
   { path: 'myleave', component: MyLeaveApplicationComponent  },
   { path: 'page', component: PageComponent },
-  { path: 'userTypePageAssociation', component: UsertypePageAssociationComponent  }
+  { path: 'userTypePageAssociation', component: UsertypePageAssociationComponent  },
+  { path: 'regularization', component: RegularizationComponent  }
 ];
 @NgModule({
   imports: [RouterModule.forRoot(appRoutes)],

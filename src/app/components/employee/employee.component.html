@@ -51,7 +51,7 @@
       <div id="snackbar" [innerHTML]="toastMessage"></div>
       <div class="modal-content">
         <div class="modal-header dialog">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <button type="button" class="close modalCloseIcon" data-dismiss="modal">&times;</button>
           <h2 class="modal-title modaltitle">{{'Add New Employee'|translate}}</h2>
         </div>
         <div class="modal-body">
@@ -167,7 +167,7 @@
             <div class="col-lg-offset-5">
               <div class=" form-group col-lg-6" [ngClass]="{'has-error':!employeeForm.controls['designation'].valid && employeeForm.controls['designation'].touched}">
                 <label class="label-name control-label"> {{ 'Designation' | translate }}</label>
-                <select class="loginUserid form-control" formControlName="designation" id="designation" name="designation "(click)=getAllDesignation()> 
+                <select class="loginUserid form-control" formControlName="designation" id="designation" name="designation "(click)=getAllDesignation() (load)=getAllDesignation()> 
                   <option *ngFor=" let designation of allDesignation" [value]="designation.id">
                     {{designation.name}}
                   </option>
