@@ -25,7 +25,10 @@ export class ValidationService {
             'dateOfBirth': 'Date of Birth should be 18 years before than today',
             'selectEmployeeId': 'Please Select Employee Id',
             'weekendDate': 'On this date is weekend so you can not allow to apply leave  ',
-            'invalidMonth': 'Please enter current month and year'
+            'invalidMonth': 'Please enter current month and year',
+            'currentRegularizeDate': 'Please do not enter current date',
+            'featureReguDate': 'Please do not enter Feature date',
+            'currentMontReguDate':'Please enter only current month date'
         };
 
         return config[validatorName];
@@ -148,5 +151,22 @@ export class ValidationService {
         } else if (newdate < AttendanceDate1) {
             return { 'pastDateofjoining': true };
         }
+    }
+
+    static currentPastDateValidation(control){
+        const currentDate = new Date();
+        const getreguDate = control.value
+        const reguDate = new Date(getreguDate);
+        const currentMonth = currentDate.getMonth()+ 1 + '-' + currentDate.getFullYear()
+        const reguMonth = reguDate.getMonth()+ 1 + '-' + reguDate.getFullYear()
+        const currentDateFormt =  currentDate.getDate()+ '-' +currentDate.getMonth()+ 1 + '-' + currentDate.getFullYear();
+        const reguDateFormat = reguDate.getDate()+ '-' +reguDate.getMonth()+ 1 + '-' + reguDate.getFullYear();
+        if (currentDateFormt === reguDateFormat) {
+            return { 'currentRegularizeDate': true };
+        }else if (currentDateFormt < reguDateFormat) {
+            return { 'featureReguDate': true };
+        } else if (currentMonth > reguMonth || currentMonth < reguMonth) {
+            return { 'currentMontReguDate': true };
+        } 
     }
 }

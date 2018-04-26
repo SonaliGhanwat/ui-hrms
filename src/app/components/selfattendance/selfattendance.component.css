@@ -69,11 +69,11 @@
 }
 
 .adduser {
-    width: 17%;
+    width: 50%;
     height: 40px;
     background-color: #111111;
     color: white;
-    margin-left: 20px;
+   
 }
 .addbtn {
     margin-top: 3%;

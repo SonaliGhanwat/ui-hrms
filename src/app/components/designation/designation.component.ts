@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { DesignationService } from '../../services/Designation/designation.service';
 import { Designation } from '../../models/designation/Designation.model';
 import { CommonService } from '../../services/common/common.service';
-import { UsertypeService } from '../../services/UserType/usertype.service';
+import { DepartmentService } from '../../services/Department/department.service';
 @Component({
   selector: 'app-designation',
   templateUrl: './designation.component.html',
@@ -12,20 +12,20 @@ import { UsertypeService } from '../../services/UserType/usertype.service';
 export class DesignationComponent implements OnInit {
 
   allDesignation: Designation[];
-  allUsertypes: any[];
+  allDepartment: any[];
   designationIdToUpdate = null;
   collection = [];
   toastMessage: string;
-  constructor(private commonService: CommonService,private usertypeService: UsertypeService, private designationService: DesignationService, private formBuilder: FormBuilder) { }
+  constructor(private commonService: CommonService,private departmentService: DepartmentService, private designationService: DesignationService, private formBuilder: FormBuilder) { }
   designationForm = this.formBuilder.group({
-    'usertype': ['', [Validators.required]],
+    'department': ['', [Validators.required]],
     'name': ['', ([Validators.required])],
     'band': ['', [Validators.required]],
     'level': ['', [Validators.required]],
   });
   ngOnInit(): void {
     this.getAllDesignation();
-    this.getAllUserTypes();
+    this.getAllDepartment();
     this.commonService.onPreviousNextPage();
   }
   getAllDesignation() {
@@ -36,11 +36,11 @@ export class DesignationComponent implements OnInit {
     this.commonService.hideSpinner();
   }
 
-  getAllUserTypes() {
+  getAllDepartment() {
     this.commonService.startLoadingSpinner();
-    this.usertypeService.getAllUserTypes()
+    this.departmentService.getAllDepartmentList()
       .subscribe(
-      data => this.allUsertypes = data,);
+      data => this.allDepartment = data,);
       this.commonService.hideSpinner();
   }
   onDesignationFormSubmit() {
@@ -48,11 +48,11 @@ export class DesignationComponent implements OnInit {
     const name = this.designationForm.get('name').value.trim();
     const band = this.designationForm.get('band').value;
     const level = this.designationForm.get('level').value;
-    const usertypeId = ((document.getElementById('userType') as HTMLInputElement).value);
-    const usertype = parseInt(usertypeId);
+    const departmentId = ((document.getElementById('department') as HTMLInputElement).value);
+    const department = parseInt(departmentId);
     this.commonService.startLoadingSpinner();
     if (this.designationIdToUpdate === null) {
-      const userType = new Designation(null, name, band, level,usertype);
+      const userType = new Designation(null, name, band, level,department);
       this.designationService.createDesignation(userType)
         .subscribe(successCode => {
           this.commonService.hideSpinner();
@@ -62,7 +62,7 @@ export class DesignationComponent implements OnInit {
           this.designationForm.reset();
         },);
     } else {
-      const designation = new Designation(this.designationIdToUpdate, name, band, level,usertype);
+      const designation = new Designation(this.designationIdToUpdate, name, band, level,department);
       this.designationService.updateDesignation(designation)
         .subscribe(successCode => {
           // let message = successCode.message;
@@ -88,7 +88,7 @@ export class DesignationComponent implements OnInit {
     this.designationService.getDesignationById(id)
       .subscribe(designation => {
         this.designationIdToUpdate = designation.id;
-        this.designationForm.setValue({ name: designation.name, band: designation.band, level: designation.level ,usertype: designation.usertype.id,});
+        this.designationForm.setValue({ name: designation.name, band: designation.band, level: designation.level ,department: designation.department.id,});
         
       },);
   }

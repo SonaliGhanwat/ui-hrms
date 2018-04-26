@@ -28,7 +28,7 @@ export class RegularizationComponent implements OnInit {
   regularizationForm = this.formBuilder.group({
     
         'employee': ['', ([Validators.required])],
-        'date': ['', ([Validators.required])],
+        'date': ['', ([Validators.required ,ValidationService.currentPastDateValidation])],
         'totalNumberofHoursworked': ['', [Validators.required]],
         'regularizedHours': ['', [Validators.required]],
         'status': ['', [Validators.required]],

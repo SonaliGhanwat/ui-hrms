@@ -4,7 +4,7 @@
       <div class="heading4">{{'Employee'|translate}} </div>
     </header>
     <div class="addbtn">
-      <button class="btn btn-primary adduser" type="button" data-toggle="modal" data-target="#myModal">{{'Add New Employee'|translate}}
+      <button class="btn btn-primary adduser" type="button" data-toggle="modal" data-target="#myModal"(click)="clearForm()">{{'Add New Employee'|translate}}
       </button>
       <div class="input-group input-group-lg searchButton">
         <input type="text" class="form-control" style="height: 40px" placeholder="Search By Name" [(ngModel)]="firstName">
@@ -138,6 +138,7 @@
             <div class=" form-group col-lg-6" style="margin-left: 35px;"[ngClass]="{'has-error':!employeeForm.controls['employeetype'].valid && employeeForm.controls['employeetype'].touched}">
               <label class="label-name control-label">{{ 'Employee Type' | translate }}</label>
               <select class="loginUserid form-control" formControlName="employeetype" id="employeetype" name="employeetype">
+               
                 <option *ngFor=" let employeetype of allEmployeetype" [value]="employeetype.id">
                   {{employeetype.type}}
                 </option>
@@ -154,20 +155,21 @@
             </div>
           </div>
           <div class="row" style="    margin-top: 30px">
-            <div class=" form-group col-lg-6" style="margin-left: 35px;"[ngClass]="{'has-error':!employeeForm.controls['usertype'].valid && employeeForm.controls['usertype'].touched}">
-              <label class="label-name control-label">{{ 'User Type' | translate }}</label>
-              <select class="loginUserid form-control" formControlName="usertype" id="userType" name="userType">
-                <option *ngFor=" let usertype of allUsertypes" [value]="usertype.id">
-                  {{usertype.usertypeName}}
+            <div class=" form-group col-lg-6" style="margin-left: 35px;"[ngClass]="{'has-error':!employeeForm.controls['department'].valid && employeeForm.controls['department'].touched}">
+              <label class="label-name control-label">{{ 'Department' | translate }}</label>
+              <select class="loginUserid form-control" formControlName="department" id="department" name="department">
+                <option *ngFor=" let department of allDepartment" [value]="department.id">
+                  {{department.name}}
                 </option>
               </select>
-              <app-control-messages [formGroup]="employeeForm" [displayName]="'User Type'" [control]="employeeForm.controls['usertype']"></app-control-messages>
+              <app-control-messages [formGroup]="employeeForm" [displayName]="'department'" [control]="employeeForm.controls['department']"></app-control-messages>
             </div>
 
             <div class="col-lg-offset-5">
               <div class=" form-group col-lg-6" [ngClass]="{'has-error':!employeeForm.controls['designation'].valid && employeeForm.controls['designation'].touched}">
                 <label class="label-name control-label"> {{ 'Designation' | translate }}</label>
                 <select class="loginUserid form-control" formControlName="designation" id="designation" name="designation "(click)=getAllDesignation() (load)=getAllDesignation()> 
+                  <option value="volvo">---Select--</option>
                   <option *ngFor=" let designation of allDesignation" [value]="designation.id">
                     {{designation.name}}
                   </option>
@@ -180,6 +182,7 @@
             <div class=" form-group col-lg-6" style="margin-left: 35px;" [ngClass]="{'has-error':!employeeForm.controls['reportTo'].valid && employeeForm.controls['reportTo'].touched}">
               <label class="label-name control-label">{{ 'Report To' | translate }}</label>
               <select class="loginUserid form-control" formControlName="reportTo" id="reportTo" name="reportTo" (click)=reportTo()  >
+                <option value="volvo">---Select--</option>
                 <option *ngFor=" let menu of selectMenu" [value]="menu.id">
                   {{menu.userid}}
                 </option>
@@ -188,10 +191,14 @@
             </div>
 
             <div class="col-lg-offset-5">
-              <div class=" form-group col-lg-6" [ngClass]="{'has-error':!employeeForm.controls['department'].valid && employeeForm.controls['department'].touched}">
-                <label class="label-name control-label"> {{ 'Department' | translate }}</label>
-                <input type="text" formControlName="department" class="loginUserid form-control">
-                <app-control-messages [formGroup]="employeeForm" [displayName]="'department'" [control]="employeeForm.controls['department']"></app-control-messages>
+              <div class=" form-group col-lg-6" [ngClass]="{'has-error':!employeeForm.controls['usertype'].valid && employeeForm.controls['usertype'].touched}">
+                <label class="label-name control-label">{{ 'User Type' | translate }}</label>
+                <select class="loginUserid form-control" formControlName="usertype" id="userType" name="userType">
+                  <option *ngFor=" let usertype of allUsertypes" [value]="usertype.id">
+                    {{usertype.usertypeName}}
+                  </option>
+                </select>
+                <app-control-messages [formGroup]="employeeForm" [displayName]="'User Type'" [control]="employeeForm.controls['usertype']"></app-control-messages>
               </div>
             </div>
           </div>

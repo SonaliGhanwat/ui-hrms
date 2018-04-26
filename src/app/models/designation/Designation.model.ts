@@ -5,7 +5,7 @@ export class Designation {
         public name: string,
         public band: number,
         public level: number,
-        public usertype:any
+        public department:any
 
         
         

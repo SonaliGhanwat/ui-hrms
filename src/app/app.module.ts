@@ -54,7 +54,10 @@ import { UsertypePageAssociationComponent  } from './components/usertype-pageass
 import { UsertypePageassociationService } from './services/Usertype-PageAssociation/usertype-pageassociation.service';
 import { AppDataService } from './services/app-data/app-data.service';
 import { RegularizationComponent } from './components/regularization/regularization.component';
-import { RegularizationService } from './services/Regularization/regularization.service'
+import { RegularizationService } from './services/Regularization/regularization.service';
+import { DepartmentComponent } from './components/department/department.component'
+import { DepartmentService } from './services/Department/department.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -80,7 +83,8 @@ import { RegularizationService } from './services/Regularization/regularization.
     MyLeaveApplicationComponent ,
     PageComponent,
     UsertypePageAssociationComponent,
-    RegularizationComponent ,
+    RegularizationComponent,
+    DepartmentComponent 
 
   ],
   imports: [
@@ -123,7 +127,8 @@ import { RegularizationService } from './services/Regularization/regularization.
     PageService,
     UsertypePageassociationService,
     AppDataService,
-    RegularizationService
+    RegularizationService,
+    DepartmentService
   ],
 
   bootstrap: [AppComponent],

@@ -11,6 +11,8 @@ import { Designation } from '../../models/designation/Designation.model';
 import { ValidationService } from '../../services/validation.service';
 import { CommonService } from '../../services/common/common.service';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
+import { DepartmentService } from '../../services/Department/department.service';
+import { Department } from '../../models/Department/department.model';
 @Component({
   selector: 'app-employee',
   templateUrl: './employee.component.html',
@@ -21,7 +23,7 @@ export class EmployeeComponent implements OnInit {
   allEmployeetype: EmployeeType[];
   allUsertypes: UserType[];
   allDesignation: Designation[];
- 
+  allDepartment: Department[];
   employeeIdToUpdate = null;
 
   collection = [];
@@ -32,7 +34,8 @@ export class EmployeeComponent implements OnInit {
   exdays:any;
   constructor(private employeeService: EmployeeService, private formBuilder: FormBuilder,
     private employeetypeService: EmployeetypeService, private usertypeService: UsertypeService,
-    private designationService: DesignationService, private commonService: CommonService) { }
+    private designationService: DesignationService, private commonService: CommonService,
+    private departmentService: DepartmentService) { }
   employeeForm = this.formBuilder.group({
     'userid': ['', ([Validators.required, Validators.minLength(4), Validators.pattern(/[a-zA-Z0-9]/)])],
     'password': ['', [Validators.required, Validators.minLength(4)]],
@@ -55,6 +58,7 @@ export class EmployeeComponent implements OnInit {
     this.getAllEmployee();
     this.getAllEmployeetype();
     this.getAllUserTypes();
+    this.getAllDepartment();
     this.commonService.onPreviousNextPage();
   }
   getAllEmployee() {
@@ -74,15 +78,20 @@ export class EmployeeComponent implements OnInit {
       .subscribe(
       data => this.allUsertypes = data,);
   }
-  getAllDesignation(userType: number) {
-    const userTypeId = ((document.getElementById('userType') as HTMLInputElement).value);
-    userType = parseInt(userTypeId);
-    this.designationService.designationListByUsertypeId(userType)
+  getAllDepartment() {
+    this.departmentService.getAllDepartmentList()
+      .subscribe(
+      data => this.allDepartment = data,);
+  }
+  getAllDesignation(department: number) {
+    const departmentId = ((document.getElementById('department') as HTMLInputElement).value);
+    department = parseInt(departmentId);
+    this.designationService.designationListByDepartmentId(department)
       .subscribe(
       data => this.allDesignation = data,);
   }
   onEmployeeFormSubmit() {
-    this.commonService.startLoadingSpinner();
+ 
     const userid = this.employeeForm.get('userid').value;
     const password = this.employeeForm.get('password').value;
     const firstName = this.employeeForm.get('firstName').value;
@@ -92,7 +101,9 @@ export class EmployeeComponent implements OnInit {
     const dateOfJoining = this.employeeForm.get('dateOfJoining').value;
     const dateOfBirth = this.employeeForm.get('dateOfBirth').value;
     const address = this.employeeForm.get('address').value;
-    const department = this.employeeForm.get('department').value;
+    //const department = this.employeeForm.get('department').value;
+    const departmentId = ((document.getElementById('department') as HTMLInputElement).value);
+    const department = parseInt(departmentId);
     const salary = this.employeeForm.get('salary').value;
     const usertypeId = ((document.getElementById('userType') as HTMLInputElement).value);
     const usertype = parseInt(usertypeId);
@@ -102,6 +113,7 @@ export class EmployeeComponent implements OnInit {
     const reportTo = parseInt(reportToId);
     const designationId = ((document.getElementById('designation') as HTMLInputElement).value);
     const designation = parseInt(designationId);
+    this.commonService.startLoadingSpinner();
     if (this.employeeIdToUpdate === null) {
       const attendance = new Employee(null, userid, password, firstName, lastName, phoneNumber, emailid, dateOfJoining, dateOfBirth, address, department, salary, reportTo, usertype, employeetype, designation);
       this.employeeService.createEmployee(attendance)
@@ -111,6 +123,7 @@ export class EmployeeComponent implements OnInit {
           this.toastMessage = successCode.message;
           this.getAllEmployee();
           this.employeeForm.reset();
+          
         },);
     } else {
       const userType = new Employee(this.employeeIdToUpdate, userid, password, firstName, lastName, phoneNumber, emailid, dateOfJoining, dateOfBirth, address, department, salary, reportTo, usertype, employeetype, designation);
@@ -174,7 +187,7 @@ export class EmployeeComponent implements OnInit {
           dateOfJoining: data.dateOfJoining,
           dateOfBirth: data.dateOfBirth,
           address: data.address,
-          department: data.department,
+          department: data.department.id,
           salary: data.salary,
           employeetype: data.employeetype.id,
           usertype: data.usertype.id,
@@ -188,5 +201,7 @@ export class EmployeeComponent implements OnInit {
   displayToastMessage() {
     this.commonService.displayMessage();
   }
-
+  clearForm(){
+    this.employeeForm.reset();
+  }
 }

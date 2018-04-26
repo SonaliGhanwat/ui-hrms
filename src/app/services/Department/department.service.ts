@@ -4,46 +4,47 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import { Designation } from '../../models/designation/Designation.model';
+import { Department } from '../../models/Department/department.model';
 import { BaseService } from '../base.service';
 @Injectable()
-export class DesignationService extends BaseService {
-  designationUrl = 'designation/';
-  designationList =  'designationList/';
+export class DepartmentService extends BaseService {
+
+  departmentUrl = 'department/';
+  departmentList =  'department/';
   constructor(protected http: Http) {
     super(http);
   }
-  getAllDesignationList(): Observable<Designation[]> {
-    return this.http.get(this.buidURL(this.designationUrl + this.list_url))
+  getAllDepartmentList(): Observable<Department[]> {
+    return this.http.get(this.buidURL(this.departmentUrl + this.list_url))
       .map(this.extractData)
       .catch(this.handleError);
   }
-  designationListByDepartmentId(id: number): Observable<any> {
-    return this.http.get(this.buidURL(this.designationUrl+this.designationList + id))
+  DepartmentListByUsertypeId(id: number): Observable<any> {
+    return this.http.get(this.buidURL(this.departmentUrl+this.departmentList + id))
       .map(this.extractData)
       .catch(this.handleError);
   }
-  createDesignation(designation: Designation): Observable<any> {
-    return this.http.post(this.buidURL(this.designationUrl + this.create_url), designation)
+  createDepartment(department: Department): Observable<any> {
+    return this.http.post(this.buidURL(this.departmentUrl + this.create_url), department)
       .map(success => success.json())
       .catch(this.handleError);
   }
-  deleteDesignationById(id: string): Observable<any> {
-    return this.http.delete(this.buidURL(this.designationUrl + this.delete_url + id))
+  deleteDepartmentById(id: string): Observable<any> {
+    return this.http.delete(this.buidURL(this.departmentUrl + this.delete_url + id))
       .map(success => success.json())
       .catch(this.handleError);
   }
-  getDesignationById(id: string): Observable<Designation> {
+  getDepartmentById(id: string): Observable<Department> {
     const cpHeaders = new Headers({ 'Content-Type': 'application/json' });
     const cpParams = new URLSearchParams();
     cpParams.set('id', id);
     const options = new RequestOptions({ headers: cpHeaders, params: cpParams });
-    return this.http.get(this.buidURL(this.designationUrl + id))
+    return this.http.get(this.buidURL(this.departmentUrl + id))
       .map(this.extractData)
       .catch(this.handleError);
   }
-  updateDesignation(designation: Designation): Observable<any> {
-    return this.http.put(this.buidURL(this.designationUrl + this.update_url), designation)
+  updateDepartment(department: Department): Observable<any> {
+    return this.http.put(this.buidURL(this.departmentUrl + this.update_url), department)
       .map(success => success.json())
       .catch(this.handleError);
   }
@@ -56,6 +57,3 @@ export class DesignationService extends BaseService {
     return Observable.throw(error.status);
   }
 }
-
-
-

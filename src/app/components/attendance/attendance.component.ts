@@ -23,6 +23,7 @@ export class AttendanceComponent implements OnInit {
   collection = [];
   toastMessage: string;
   selectedEmployee: any;
+ =
   @Output() loggedIn = new EventEmitter<Attendance>();
   constructor(private spinner: Ng4LoadingSpinnerService, private commonService: CommonService, private attendanceService: AttendanceService, private formBuilder: FormBuilder, private employeeService: EmployeeService) {
   }
@@ -38,6 +39,7 @@ export class AttendanceComponent implements OnInit {
     this.getAllAttendanceList();
     this.getAllEmployeeList();
     this.commonService.onPreviousNextPage();
+    
     // this.timeValidation();
   }
   validate() {
@@ -91,6 +93,7 @@ export class AttendanceComponent implements OnInit {
         this.toastMessage = message;
         this.getAllAttendanceList();
         this.attendanceForm.reset();
+       
         
 
       });
@@ -102,6 +105,7 @@ export class AttendanceComponent implements OnInit {
           this.toastMessage = message;
           this.getAllAttendanceList();
           this.attendanceForm.reset();
+          
         
         },);
       this.commonService.hideSpinner();
@@ -165,6 +169,10 @@ export class AttendanceComponent implements OnInit {
     return true;
   }
 
+  clearForm(){
+    this.attendanceForm.reset();
+  }
+  
 }
 
 

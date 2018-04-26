@@ -59,14 +59,14 @@
         </div>
         <div class="modal-body">
           <div class="row" style="    margin-top: 30px">
-            <div class=" form-group col-lg-6" style="margin-left: 35px;" [ngClass]="{'has-error':!designationForm.controls['usertype'].valid && designationForm.controls['usertype'].touched}">
-              <label class="label-name control-label">{{ 'User Type' | translate }}</label>
-              <select class="loginUserid form-control" formControlName="usertype" id="userType" name="userType">
-                <option *ngFor=" let usertype of allUsertypes" [value]="usertype.id">
-                  {{usertype.usertypeName}}
+            <div class=" form-group col-lg-6" style="margin-left: 35px;" [ngClass]="{'has-error':!designationForm.controls['department'].valid && designationForm.controls['department'].touched}">
+              <label class="label-name control-label">{{ 'Department' | translate }}</label>
+              <select class="loginUserid form-control" formControlName="department" id="department" name="department">
+                <option *ngFor=" let department of allDepartment" [value]="department.id">
+                  {{department.name}}
                 </option>
               </select>
-              <app-control-messages [formGroup]="designationForm" [displayName]="'User Type'" [control]="designationForm.controls['usertype']"></app-control-messages>
+              <app-control-messages [formGroup]="designationForm" [displayName]="'Department'" [control]="designationForm.controls['department']"></app-control-messages>
             </div>
             <div class="col-lg-offset-5">
               <div class=" form-group col-lg-6" [ngClass]="{'has-error':!designationForm.controls['name'].valid && designationForm.controls['name'].touched}">

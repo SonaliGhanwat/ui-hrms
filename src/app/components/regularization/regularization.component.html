@@ -1,133 +1,76 @@
-
 <ng4-loading-spinner> </ng4-loading-spinner>
 <div class=" main-class">
   <div class="primary-container">
     <header class="header">
       <div class="heading4">{{'Regularization ' | translate}}</div>
     </header>
-
-    <div class="addbtn">
-      <button class="btn btn-primary adduser" type="button" data-toggle="modal" data-target="#myModal">{{'Add New Regularization '| translate}}
-      </button>
-      
-    </div>
-    <div layout="row" class="userlist " (load)="startLoadingSpinner()">{{'Regularization List' | translate}}</div>
-    
-    <br>
-    <table class="table table-striped table-hover table-fixed settable" >
-      <thead>
-        <tr>
-          <th class="col-xs-1">{{ 'No' | translate }}</th>
-          <th class="col-xs-2">{{'EmployeeId'|translate}}
-          </th>
-          <th class="col-xs-2">{{ 'Date' | translate }}</th>
-          <th class="col-xs-2">{{ 'Total Number of Hours Worked' | translate }}</th>
-          <th class="col-xs-3" style="margin-right: -20px;">{{ 'Regularized Hours' | translate }}
-          </th>
-          <th class="col-xs-2" style="margin-left: 20px">Action</th>
-        </tr>
-      </thead>
-      <tr *ngFor="let regularization of allRegularization let i = index; ">
-        <td class="tablerow col-xs-1">{{i+1}}</td>
-        <td class="tablerow col-xs-2  ">{{regularization.employee.userid}}</td>
-        <td class="tablerow col-xs-2">{{regularization.date}}</td>
-        <td class="tablerow col-xs-2">{{regularization.totalnumberofHoursworked}}</td>
-        <td class="tablerow  col-xs-3" style="margin-right: -20px;">{{regularization.regularizedHours}}</td>
-        <td class="tablerow col-xs-2 ">
-          <span class="action-link" role="button" tabindex="0" (click)="loadregularizationToEdit(regularization.id)" data-toggle="modal"
-            data-target="#myModal">{{'Edit'| translate}}</span>
-          <span> | </span>
-          <span class="action-link" role="button" tabindex="0"  (click)="deleteregularization(regularization.id)">{{'Delete'|translate}}</span>
-        </td>
-      </tr>
-    </table>
-    <div style="margin-left: 60%">
-      <pagination-controls (pageChange)="p = $event"></pagination-controls>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <form [formGroup]="regularizationForm" (ngSubmit)="onRegularizationFormSubmit()">
-    <div class="modal-dialog modaldialog">
+    <form [formGroup]="regularizationForm" (ngSubmit)="onRegularizationFormSubmit()">
       <div id="snackbar" [innerHTML]="toastMessage"></div>
-      <div class="modal-content">
-        <div class="modal-header dialog">
-          <button type="button" class="close modalCloseIcon" data-dismiss="modal">&times;</button>
-          <h2 class="modal-title modaltitle">{{"Add New Regularization" |translate}}</h2>
+      <div class="row" style="margin-top: 30px">
+        <div class=" form-group col-lg-6" style="margin-left: 35px;" [ngClass]="{'has-error':!regularizationForm.controls['employee'].valid && regularizationForm.controls['employee'].touched}">
+          <label class="label-name control-label">{{ 'Employee Id' | translate }}</label>
+          <select class="loginUserid demo form-control" formControlName="employee" name="employee" id="employee">
+            <option *ngFor=" let employee of allEmployee" [value]="employee.id">
+              {{employee.userid}}
+            </option>
+          </select>
+          <app-control-messages [formGroup]="regularizationForm" [displayName]="'Employe Id'" [control]="regularizationForm.controls['employee']"></app-control-messages>
         </div>
-        <div class="modal-body">
-          <div class="row" style="margin-top: 30px">
-            <div class=" form-group col-lg-6" style="margin-left: 35px;" [ngClass]="{'has-error':!regularizationForm.controls['employee'].valid && regularizationForm.controls['employee'].touched}">
-
-              <label class="label-name control-label">{{ 'Employee Id' | translate }}</label>
-              <select class="loginUserid demo form-control" formControlName="employee" name="employee" id="employee">
-                <option *ngFor=" let employee of allEmployee" [value]="employee.id">
-                  {{employee.userid}}
-                </option>
-
-              </select>
-              <app-control-messages [formGroup]="regularizationForm" [displayName]="'Employe Id'" [control]="regularizationForm.controls['employee']"></app-control-messages>
-            </div>
-            <div class="col-lg-offset-5">
-              <div class=" form-group col-lg-6" [ngClass]="{'has-error':!regularizationForm.controls['date'].valid && regularizationForm.controls['date'].touched}">
-                <label class="label-name control-label "> {{ 'Date' | translate }}</label>
-                <input type="date" formControlName="date" class="loginUserid form-control" id="date">
-                <app-control-messages [formGroup]="regularizationForm" [displayName]="'Date'" [control]="regularizationForm.controls['date']"></app-control-messages>
-              </div>
-            </div>
-          </div>
-          <div class="row" style="    margin-top: 30px">
-            <div class=" form-group col-lg-6" style="margin-left: 35px;" [ngClass]="{'has-error':!regularizationForm.controls['totalNumberofHoursworked'].valid && regularizationForm.controls['totalNumberofHoursworked'].touched}">
-              <label class="label-name control-label">{{ 'Total Number of Hours worked' | translate }}</label>
-              <br>
-              <input type="number"  formControlName="totalNumberofHoursworked" class="loginUserid form-control" >
-              <div class="error" id="outtime_validation"></div>
-              <app-control-messages [formGroup]="regularizationForm" [displayName]="'totalNumberofHoursworked'" [control]="regularizationForm.controls['totalNumberofHoursworked']"></app-control-messages>
-            </div>
-            <div class="col-lg-offset-5">
-              <div class=" form-group col-lg-6" [ngClass]="{'has-error':!regularizationForm.controls['regularizedHours'].valid && regularizationForm.controls['regularizedHours'].touched}">
-                <label class="label-name control-label "> {{ 'Regularized Hours' | translate }}</label>
-                <input type="number" formControlName="regularizedHours" class="loginUserid form-control" id="date">
-                <app-control-messages [formGroup]="regularizationForm" [displayName]="'Regularized Hours'" [control]="regularizationForm.controls['regularizedHours']"></app-control-messages>
-              </div>
-            </div>
-          </div>
-          <div class="row" style="    margin-top: 30px">
-            <div class=" form-group col-lg-6" style="margin-left: 35px;" [ngClass]="{'has-error':!regularizationForm.controls['status'].valid && regularizationForm.controls['status'].touched}">
-              <label class="label-name control-label">{{ 'Status' | translate }}</label>
-              <br>
-              <input type="text"  formControlName="status" class="loginUserid form-control" >
-              <app-control-messages [formGroup]="regularizationForm" [displayName]="'Status'" [control]="regularizationForm.controls['status']"></app-control-messages>
-            </div>
-            <div class="col-lg-offset-5">
-              <div class=" form-group col-lg-6" [ngClass]="{'has-error':!regularizationForm.controls['comments'].valid && regularizationForm.controls['comments'].touched}">
-                <label class="label-name control-label "> {{ 'Comments' | translate }}</label>
-                <input type="text" formControlName="comments" class="loginUserid form-control" id="date">
-                <app-control-messages [formGroup]="regularizationForm" [displayName]="'comments'" [control]="regularizationForm.controls['comments']"></app-control-messages>
-              </div>
-            </div>
-          </div>
-          <div class="row" style="    margin-top: 30px">
-            <div class=" form-group col-lg-6" style="margin-left: 35px;" [ngClass]="{'has-error':!regularizationForm.controls['reason'].valid && regularizationForm.controls['reason'].touched}">
-              <label class="label-name control-label">{{ 'Reason' | translate }}</label>
-              <select class="loginUserid" style="width: 250px" id="reason" formControlName="reason">
-                <option value="Client Visit">Client Visit</option>
-                <option value="Work From Home">Work From Home</option>
-                <option value="On Duty">On Duty</option>
-                
-              </select>
-              <app-control-messages [formGroup]="regularizationForm" [displayName]="'reason'" [control]="regularizationForm.controls['reason']"></app-control-messages>
-            </div>
-          </div>
-          <div class="savebtn">
-            <button type="submit" class="btn btn-secondary" style="width: 30%;" [disabled]="!regularizationForm.valid" (click)="displayToastMessage();">{{'Save'|translate}}</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal" style="width: 30%;
-      margin-left: 20px;">{{'Close'|translate}}</button>
+        <div class="col-lg-offset-5">
+          <div class=" form-group col-lg-6" [ngClass]="{'has-error':!regularizationForm.controls['date'].valid && regularizationForm.controls['date'].touched}">
+            <label class="label-name control-label "> {{ 'Date' | translate }}</label>
+            <input type="date" formControlName="date" class="loginUserid form-control" id="date">
+            <app-control-messages [formGroup]="regularizationForm" [displayName]="'Date'" [control]="regularizationForm.controls['date']"></app-control-messages>
           </div>
         </div>
       </div>
-    </div>
-  </form>
+      <div class="row" style="    margin-top: 30px">
+        <div class=" form-group col-lg-6" style="margin-left: 35px;" [ngClass]="{'has-error':!regularizationForm.controls['totalNumberofHoursworked'].valid && regularizationForm.controls['totalNumberofHoursworked'].touched}">
+          <label class="label-name control-label">{{ 'Total Number of Hours worked' | translate }}</label>
+          <br>
+          <input type="number" formControlName="totalNumberofHoursworked" class="loginUserid form-control">
+          <div class="error" id="outtime_validation"></div>
+          <app-control-messages [formGroup]="regularizationForm" [displayName]="'totalNumberofHoursworked'" [control]="regularizationForm.controls['totalNumberofHoursworked']"></app-control-messages>
+        </div>
+        <div class="col-lg-offset-5">
+          <div class=" form-group col-lg-6" [ngClass]="{'has-error':!regularizationForm.controls['regularizedHours'].valid && regularizationForm.controls['regularizedHours'].touched}">
+            <label class="label-name control-label "> {{ 'Regularized Hours' | translate }}</label>
+            <input type="number" formControlName="regularizedHours" class="loginUserid form-control" id="date">
+            <app-control-messages [formGroup]="regularizationForm" [displayName]="'Regularized Hours'" [control]="regularizationForm.controls['regularizedHours']"></app-control-messages>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="    margin-top: 30px">
+        <div class=" form-group col-lg-6" style="margin-left: 35px;" [ngClass]="{'has-error':!regularizationForm.controls['status'].valid && regularizationForm.controls['status'].touched}">
+          <label class="label-name control-label">{{ 'Status' | translate }}</label>
+          <br>
+          <input type="text" formControlName="status" class="loginUserid form-control">
+          <app-control-messages [formGroup]="regularizationForm" [displayName]="'Status'" [control]="regularizationForm.controls['status']"></app-control-messages>
+        </div>
+        <div class="col-lg-offset-5">
+          <div class=" form-group col-lg-6" [ngClass]="{'has-error':!regularizationForm.controls['comments'].valid && regularizationForm.controls['comments'].touched}">
+            <label class="label-name control-label "> {{ 'Comments' | translate }}</label>
+            <input type="text" formControlName="comments" class="loginUserid form-control" id="date">
+            <app-control-messages [formGroup]="regularizationForm" [displayName]="'comments'" [control]="regularizationForm.controls['comments']"></app-control-messages>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="    margin-top: 30px">
+        <div class=" form-group col-lg-6" style="margin-left: 35px;" [ngClass]="{'has-error':!regularizationForm.controls['reason'].valid && regularizationForm.controls['reason'].touched}">
+          <label class="label-name control-label">{{ 'Reason' | translate }}</label>
+          <select class="loginUserid" style="width: 250px" id="reason" formControlName="reason">
+            <option value="Client Visit">Client Visit</option>
+            <option value="Work From Home">Work From Home</option>
+            <option value="On Duty">On Duty</option>
+          </select>
+          <app-control-messages [formGroup]="regularizationForm" [displayName]="'reason'" [control]="regularizationForm.controls['reason']"></app-control-messages>
+        </div>
+      </div>
+      <div class="savebtn">
+        <button type="submit" class="btn btn-secondary" style="width: 30%;" [disabled]="!regularizationForm.valid" (click)="displayToastMessage();">{{'Save'|translate}}</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="width: 30%;
+      margin-left: 20px;">{{'Close'|translate}}</button>
+      </div>
+    </form>
+  </div>
 </div>
-

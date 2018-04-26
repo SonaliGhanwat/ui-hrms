@@ -11,7 +11,7 @@ export class Employee {
         public dateOfJoining: Date,
         public dateOfBirth: Date,
         public address: String,
-        public department: String,
+        public department: any,
         public salary: String,
         public reportTo: any,
         public usertype: any,

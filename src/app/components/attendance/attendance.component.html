@@ -4,9 +4,9 @@
     <header class="header">
       <div class="heading4">{{'Employee Attendance' | translate}}</div>
     </header>
-
+    <div id="snackbar" [innerHTML]="toastMessage"></div>
     <div class="addbtn">
-      <button class="btn btn-primary adduser" type="button" data-toggle="modal" data-target="#myModal">{{'Add Employee Attendance'| translate}}
+      <button class="btn btn-primary adduser" type="button" data-toggle="modal" data-target="#myModal" (click)="clearForm();">{{'Add Employee Attendance'| translate}}
       </button>
       <div class="input-group input-group-lg searchButton">
         <input type="date" class="form-control" style="height: 40px" placeholder="Search By Name" [(ngModel)]="date">
@@ -52,7 +52,7 @@
           <span class="action-link" role="button" tabindex="0" (click)="loadEmployeeAttendanceToEdit(attendance.id)" data-toggle="modal"
             data-target="#myModal">{{'Edit'| translate}}</span>
           <span> | </span>
-          <span class="action-link" role="button" tabindex="0"  (click)="deleteEmployeeAttendance(attendance.id)">{{'Delete'|translate}}</span>
+          <span class="action-link" role="button" tabindex="0" (click)="deleteEmployeeAttendance(attendance.id)">{{'Delete'|translate}}</span>
         </td>
       </tr>
     </table>
@@ -61,63 +61,65 @@
     </div>
   </div>
 </div>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <form [formGroup]="attendanceForm" (ngSubmit)="onEmployeeAttendanceFormSubmit()">
-    <div class="modal-dialog modaldialog">
-      <div id="snackbar" [innerHTML]="toastMessage"></div>
-      <div class="modal-content">
-        <div class="modal-header dialog">
-          <button type="button" class="close modalCloseIcon" data-dismiss="modal">&times;</button>
-          <h2 class="modal-title modaltitle">{{"Add New Attendance" |translate}}</h2>
-        </div>
-        <div class="modal-body">
-          <div class="row" style="margin-top: 30px">
-            <div class=" form-group col-lg-6" style="margin-left: 35px;" [ngClass]="{'has-error':!attendanceForm.controls['employee'].valid && attendanceForm.controls['employee'].touched}">
 
-              <label class="label-name control-label">{{ 'Employee Id' | translate }}</label>
-              <select class="loginUserid demo form-control" formControlName="employee" name="employee" id="employee">
-                <option *ngFor=" let employee of allEmployee" [value]="employee.id">
-                  {{employee.userid}}
-                </option>
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <form [formGroup]="attendanceForm" (ngSubmit)="onEmployeeAttendanceFormSubmit()">
+      <div class="modal-dialog modaldialog">
 
-              </select>
-              <app-control-messages [formGroup]="attendanceForm" [displayName]="'Employe Id'" [control]="attendanceForm.controls['employee']"></app-control-messages>
-            </div>
-            <div class="col-lg-offset-5">
-              <div class=" form-group col-lg-6" [ngClass]="{'has-error':!attendanceForm.controls['intime'].valid && attendanceForm.controls['intime'].touched}">
-                <label class="label-name control-label "> {{ 'In Time' | translate }}</label>
-                <input type="time" step="0" id="intime" formControlName="intime" class="loginUserid form-control">
-                <app-control-messages [formGroup]="attendanceForm" [displayName]="'In Time'" [control]="attendanceForm.controls['intime']"></app-control-messages>
+        <div class="modal-content">
+          <div class="modal-header dialog">
+            <button type="button" class="close modalCloseIcon" data-dismiss="modal">&times;</button>
+            <h2 class="modal-title modaltitle">{{"Add New Attendance" |translate}}</h2>
+          </div>
+          <div class="modal-body">
+            <div class="row" style="margin-top: 30px">
+              <div class=" form-group col-lg-6" style="margin-left: 35px;" [ngClass]="{'has-error':!attendanceForm.controls['employee'].valid && attendanceForm.controls['employee'].touched}">
+
+                <label class="label-name control-label">{{ 'Employee Id' | translate }}</label>
+                <select class="loginUserid demo form-control" formControlName="employee" name="employee" id="employee">
+                  <option *ngFor=" let employee of allEmployee" [value]="employee.id">
+                    {{employee.userid}}
+                  </option>
+
+                </select>
+                <app-control-messages [formGroup]="attendanceForm" [displayName]="'Employe Id'" [control]="attendanceForm.controls['employee']"></app-control-messages>
+              </div>
+              <div class="col-lg-offset-5">
+                <div class=" form-group col-lg-6" [ngClass]="{'has-error':!attendanceForm.controls['intime'].valid && attendanceForm.controls['intime'].touched}">
+                  <label class="label-name control-label "> {{ 'In Time' | translate }}</label>
+                  <input type="time" step="0" id="intime" formControlName="intime" class="loginUserid form-control">
+                  <app-control-messages [formGroup]="attendanceForm" [displayName]="'In Time'" [control]="attendanceForm.controls['intime']"></app-control-messages>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="row" style="    margin-top: 30px">
-            <div class=" form-group col-lg-6" style="margin-left: 35px;" [ngClass]="{'has-error':!attendanceForm.controls['outtime'].valid && attendanceForm.controls['outtime'].touched}">
-              <label class="label-name control-label">{{ 'Out Time' | translate }}</label>
-              <br>
-              <input type="time" step="0" formControlName="outtime" class="loginUserid form-control" (blur)="timeValidation()" (change)="timeValidation()">
-              <div class="error" id="outtime_validation"></div>
-              <app-control-messages [formGroup]="attendanceForm" [displayName]="'Out Time'" [control]="attendanceForm.controls['outtime']"></app-control-messages>
-            </div>
-            <div class="col-lg-offset-5">
-              <div class=" form-group col-lg-6" [ngClass]="{'has-error':!attendanceForm.controls['date'].valid && attendanceForm.controls['date'].touched}">
-                <label class="label-name control-label "> {{ 'Date' | translate }}</label>
-                <input type="date" formControlName="date" class="loginUserid form-control" id="date">
-                <app-control-messages [formGroup]="attendanceForm" [displayName]="'Date'" [control]="attendanceForm.controls['date']"></app-control-messages>
+            <div class="row" style="    margin-top: 30px">
+              <div class=" form-group col-lg-6" style="margin-left: 35px;" [ngClass]="{'has-error':!attendanceForm.controls['outtime'].valid && attendanceForm.controls['outtime'].touched}">
+                <label class="label-name control-label">{{ 'Out Time' | translate }}</label>
+                <br>
+                <input type="time" step="0" formControlName="outtime" class="loginUserid form-control" (blur)="timeValidation()" (change)="timeValidation()">
+                <div class="error" id="outtime_validation"></div>
+                <app-control-messages [formGroup]="attendanceForm" [displayName]="'Out Time'" [control]="attendanceForm.controls['outtime']"></app-control-messages>
+              </div>
+              <div class="col-lg-offset-5">
+                <div class=" form-group col-lg-6" [ngClass]="{'has-error':!attendanceForm.controls['date'].valid && attendanceForm.controls['date'].touched}">
+                  <label class="label-name control-label "> {{ 'Date' | translate }}</label>
+                  <input type="date" formControlName="date" class="loginUserid form-control" id="date">
+                  <app-control-messages [formGroup]="attendanceForm" [displayName]="'Date'" [control]="attendanceForm.controls['date']"></app-control-messages>
+                </div>
               </div>
             </div>
-          </div>
- 
-          <div class="savebtn">
-            <button type="submit" class="btn btn-secondary" style="width: 30%;" [disabled]="!attendanceForm.valid" (click)="validate(); displayToastMessage();">{{'Save'|translate}}</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal" style="width: 30%;
+
+            <div class="savebtn">
+              <button type="submit" class="btn btn-secondary" style="width: 30%;" [disabled]="!attendanceForm.valid" (click)="validate(); displayToastMessage();"
+                [ngStyle]="{'display':display}">{{'Save'|translate}}</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" style="width: 30%;
       margin-left: 20px;">{{'Close'|translate}}</button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </form>
-</div>
+    </form>
+  </div>
 
 <div id="myModal1" class="modal fade">
   <div class="modal-dialog">
@@ -126,7 +128,8 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         Are you sure want to Delete
       </div>
-      <div class="modal-footer"><button type="button" data-dismiss="modal" class="btn btn-primary">Yes</button>
+      <div class="modal-footer">
+        <button type="button" data-dismiss="modal" class="btn btn-primary">Yes</button>
         <button type="button" data-dismiss="modal" class="btn btn-primary">No</button>
       </div>
     </div>
