@@ -90,7 +90,9 @@ export class EmployeeTypeComponent implements OnInit {
     const leave = document.getElementById('totalLeave').innerHTML = this.totalLeav;
     sessionStorage.setItem('totalleaves', leave);
   }
-
+  clearForm(){
+    this.employeetypeForm.reset();
+  }
   
   displayToastMessage() {
     this.commonService.displayMessage();

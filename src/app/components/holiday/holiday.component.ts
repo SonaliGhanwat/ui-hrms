@@ -76,7 +76,9 @@ export class HolidayComponent implements OnInit {
       },);
   }
 
- 
+  clearForm(){
+    this.holidayForm.reset();
+  }
   displayToastMessage() {
     this.commonService.displayMessage();
   }

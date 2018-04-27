@@ -120,7 +120,9 @@ export class UsertypePageAssociationComponent implements OnInit {
       }
     }
   }
-
+  clearForm(){
+    this.pageAssoForm.reset();
+  }
   displayToastMessage() {
     this.commonService.displayMessage();
   }

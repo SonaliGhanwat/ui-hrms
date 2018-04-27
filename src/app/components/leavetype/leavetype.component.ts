@@ -70,6 +70,9 @@ export class LeavetypeComponent implements OnInit {
       },);
   }
  
+  clearForm(){
+    this.leavetypeForm.reset();
+  }
   displayToastMessage() {
     this.commonService.displayMessage();
   }

@@ -4,7 +4,7 @@
       <div class="heading4">{{'Employee Daily Task' | translate}}</div>
     </header>
     <div class="addbtn">
-      <button class="btn btn-primary adduser" type="button" data-toggle="modal" data-target="#myModal">{{'Add Employee Daily Task' | translate}}
+      <button class="btn btn-primary adduser" type="button" data-toggle="modal" data-target="#myModal"(click)="clearForm()">{{'Add Employee Daily Task' | translate}}
       </button>
     </div>
     <div layout="row" class="userlist ">{{'Daily Task List' | translate}}</div>

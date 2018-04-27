@@ -146,4 +146,7 @@ export class DailyTaskComponent implements OnInit {
   displayToastMessage() {
     this.commonService.displayMessage();
   }
+  clearForm(){
+    this.dailyTaskForm.reset();
+  }
 }

@@ -8,6 +8,7 @@ import { ValidationService } from '../../services/validation.service';
 import { CommonService } from '../../services/common/common.service';
 import { Http } from '@angular/http';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
+import { Router } from '@angular/router';
 import { Ng4LoadingSpinnerModule, Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 @Component({
   selector: 'app-attendance',
@@ -23,9 +24,11 @@ export class AttendanceComponent implements OnInit {
   collection = [];
   toastMessage: string;
   selectedEmployee: any;
- =
+ 
   @Output() loggedIn = new EventEmitter<Attendance>();
-  constructor(private spinner: Ng4LoadingSpinnerService, private commonService: CommonService, private attendanceService: AttendanceService, private formBuilder: FormBuilder, private employeeService: EmployeeService) {
+  constructor(private spinner: Ng4LoadingSpinnerService, private commonService: CommonService, 
+    private attendanceService: AttendanceService, private formBuilder: FormBuilder, 
+    private employeeService: EmployeeService,private router: Router,) {
   }
   attendanceForm = this.formBuilder.group({
 
@@ -103,9 +106,9 @@ export class AttendanceComponent implements OnInit {
         .subscribe(data => {
           const message = data.message;
           this.toastMessage = message;
-          this.getAllAttendanceList();
+        
           this.attendanceForm.reset();
-          
+          this.getAllAttendanceList();
         
         },);
       this.commonService.hideSpinner();
@@ -172,7 +175,7 @@ export class AttendanceComponent implements OnInit {
   clearForm(){
     this.attendanceForm.reset();
   }
-  
+ 
 }
 
 

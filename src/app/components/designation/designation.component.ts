@@ -93,7 +93,9 @@ export class DesignationComponent implements OnInit {
       },);
   }
 
-  
+  clearForm(){
+    this.designationForm.reset();
+  }
  
 
   displayToastMessage() {

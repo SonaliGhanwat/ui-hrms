@@ -81,6 +81,9 @@ export class PageComponent implements OnInit {
       }, );
   }
 
+  clearForm(){
+    this.pageForm.reset();
+  }
   displayToastMessage() {
     this.commonService.displayMessage();
   }

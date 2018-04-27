@@ -88,9 +88,9 @@ export class DepartmentComponent implements OnInit {
       },);
   }
 
-  
- 
-
+  clearForm(){
+    this.departmentForm.reset();
+  }
   displayToastMessage() {
     this.commonService.displayMessage();
   }
