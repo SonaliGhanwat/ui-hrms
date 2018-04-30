@@ -21,6 +21,9 @@ export class CommonService {
       this.ng4LoadingSpinnerService.hide();
     }.bind(this), 1000);*/
   }
+  closeForm(){
+    document.getElementById('myModal').click();
+  }
   showHideMenu() {
     this.showSelected = false;
   }

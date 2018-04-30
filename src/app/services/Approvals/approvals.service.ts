@@ -13,6 +13,8 @@ import { AppDataService } from '../../services/app-data/app-data.service';
 export class ApprovalsService extends BaseService {
   leaveUrl = 'employeeleave/getEmployeeLeaveByStatus/';
   updateStatus = 'employeeleave/statusUpdate';
+  regularizationUrl = 'regularization/getRegularizationByStatus/'
+  updateRegularizatStatus = 'regularization/regularizationStatusUpdate';
   myCookie: any;
   constructor(protected http: Http,private appData: AppDataService) {
     super(http);
@@ -26,6 +28,19 @@ export class ApprovalsService extends BaseService {
     const cpHeaders = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions({ headers: cpHeaders });
     return this.http.post(this.buidURL(this.updateStatus), approval,options)
+      .map(success => success.json())
+      .catch(this.handleError);
+  }
+
+  getAllRegularizationByStatus(): Observable<any> {
+    return this.http.get(this.buidURL(this.regularizationUrl + this.appData.getUserId()))
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+  updateRegularizationStatus(approval: Approval): Observable<any> {
+    const cpHeaders = new Headers({ 'Content-Type': 'application/json' });
+    const options = new RequestOptions({ headers: cpHeaders });
+    return this.http.post(this.buidURL(this.updateRegularizatStatus), approval,options)
       .map(success => success.json())
       .catch(this.handleError);
   }

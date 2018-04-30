@@ -52,6 +52,7 @@ export class UsertypeComponent implements OnInit {
           this.toastMessage = successCode.message;
           this.getAllUserTypes();
           this.usertypeForm.reset();
+          this.commonService.closeForm();
         
         },);
     } else {
@@ -62,6 +63,7 @@ export class UsertypeComponent implements OnInit {
           this.toastMessage = successCode.message;
           this.getAllUserTypes();
           this.usertypeForm.reset();
+          this.commonService.closeForm();
         },);
     }
   }

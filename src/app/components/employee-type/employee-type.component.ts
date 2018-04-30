@@ -52,6 +52,7 @@ export class EmployeeTypeComponent implements OnInit {
           this.toastMessage = successCode.message;
           this.getAllEmployeetype();
           this.employeetypeForm.reset();
+          this.commonService.closeForm();
         },);
     } else {
       const userType = new EmployeeType(this.employeeTypeIdToUpdate, type, seekLeave, paidLeave, totalLeave);
@@ -61,6 +62,7 @@ export class EmployeeTypeComponent implements OnInit {
           this.toastMessage = successCode.message;
           this.getAllEmployeetype();
           this.employeetypeForm.reset();
+          this.commonService.closeForm();
         },);
     }
   }

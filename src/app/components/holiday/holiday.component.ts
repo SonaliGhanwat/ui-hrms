@@ -45,6 +45,7 @@ export class HolidayComponent implements OnInit {
           this.toastMessage = successCode.message;
           this.getAllHolidayList();
           this.holidayForm.reset();
+          this.commonService.closeForm();
         },);
     } else {
       const holiday = new Holiday(this.holidayIdToUpdate, holidayName, holidayDate);
@@ -54,6 +55,7 @@ export class HolidayComponent implements OnInit {
           this.toastMessage = successCode.message;
           this.getAllHolidayList();
           this.holidayForm.reset();
+          this.commonService.closeForm();
         },);
     }
   }

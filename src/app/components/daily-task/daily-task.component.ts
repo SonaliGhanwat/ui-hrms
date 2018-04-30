@@ -84,6 +84,7 @@ export class DailyTaskComponent implements OnInit {
           this.toastMessage = successCode.message;
           this.getAllDailyTask();
           this.dailyTaskForm.reset();
+          this.commonService.closeForm();
         }, );
     } else {
       const userType = new DailyTask(this.dailyTaskIdToUpdate, employee, date, taskName, estimationTime, starttime, endtime, status, description);
@@ -93,6 +94,7 @@ export class DailyTaskComponent implements OnInit {
           this.toastMessage = successCode.message;
           this.getAllDailyTask();
           this.dailyTaskForm.reset();
+          this.commonService.closeForm();
         }, );
     }
   }

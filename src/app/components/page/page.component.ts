@@ -49,6 +49,7 @@ export class PageComponent implements OnInit {
           this.toastMessage = successCode.message;
           this.pageForm.reset();
           this.getAllPages();
+          this.commonService.closeForm();
         }, );
     } else {
       const page = new PageModel(this.pageIdToUpdate, menu, pageName, submenu, url, description);
@@ -58,6 +59,7 @@ export class PageComponent implements OnInit {
           this.toastMessage = successCode.message;
           this.pageForm.reset();
           this.getAllPages();
+          this.commonService.closeForm();
         }, );
     }
   }

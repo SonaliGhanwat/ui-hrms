@@ -40,6 +40,7 @@ export class LeavetypeComponent implements OnInit {
           this.toastMessage = successCode.message;
           this.getAllLeaveTypes();
           this.leavetypeForm.reset();
+          this.commonService.closeForm();
         },);
     } else {
       const leaveType = new LeaveType(this.leaveTypeIdToUpdate, name);
@@ -49,6 +50,7 @@ export class LeavetypeComponent implements OnInit {
           this.toastMessage = successCode.message;
           this.getAllLeaveTypes();
           this.leavetypeForm.reset();
+          this.commonService.closeForm();
         },);
     }
   }

@@ -60,6 +60,7 @@ export class DesignationComponent implements OnInit {
           this.toastMessage = successCode.message;
           this.getAllDesignation();
           this.designationForm.reset();
+          this.commonService.closeForm();
         },);
     } else {
       const designation = new Designation(this.designationIdToUpdate, name, band, level,department);
@@ -69,6 +70,7 @@ export class DesignationComponent implements OnInit {
           this.toastMessage = successCode.message;
           this.getAllDesignation();
           this.designationForm.reset();
+          this.commonService.closeForm();
         },);
     }
   }

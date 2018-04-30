@@ -123,7 +123,7 @@ export class EmployeeComponent implements OnInit {
           this.toastMessage = successCode.message;
           this.getAllEmployee();
           this.employeeForm.reset();
-          
+          this.commonService.closeForm();
         },);
     } else {
       const userType = new Employee(this.employeeIdToUpdate, userid, password, firstName, lastName, phoneNumber, emailid, dateOfJoining, dateOfBirth, address, department, salary, reportTo, usertype, employeetype, designation);
@@ -133,7 +133,7 @@ export class EmployeeComponent implements OnInit {
           this.toastMessage = successCode.message;
           this.getAllEmployee();
           this.employeeForm.reset();
-
+          this.commonService.closeForm();
         },);
     }
     this.commonService.hideSpinner();

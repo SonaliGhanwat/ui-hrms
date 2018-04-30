@@ -4,9 +4,8 @@
     <header class="header">
       <div class="heading4">{{'Approvals'|translate}}</div>
     </header>
-    <div class="row" style="border-bottom: 1px solid #e9e9e9">
-      <button class="btn btn-primary adduser myrequest" type="button">{{'My Requests '|translate}}
-      </button>
+    <div class="row requestName" style="border-bottom: 1px solid #e9e9e9">
+      <div class="heading4">{{'Request for Leave'|translate}}</div>
     </div>
     <div id="snackbar" [innerHTML]="toastMessage"></div>
     <table class="table  table-hover table-bordered ">
@@ -33,6 +32,35 @@
       </tr>
     </table>
     <div id="data" class="norequest"></div>
+
+    <div class="row requestName" style="border-bottom: 1px solid #e9e9e9">
+      <div class="heading4">{{'Request for Regularization'|translate}}</div>
+    </div>
+    <div id="snackbar" [innerHTML]="toastMessage"></div>
+    <table class="table  table-hover table-bordered ">
+      <thead>
+        <tr>
+          <th class="col-xs-2">EmployeeId</th>
+          <th class="col-xs-2">{{ 'Date' | translate }}</th>
+          <th class="col-xs-2">{{ 'Total Number of Hours Worked' | translate }}</th>
+          <th class="col-xs-2">{{ 'Regularized Hours' | translate }}</th>
+          <th class="col-xs-3">Action</th>
+        </tr>
+      </thead>
+      <tr *ngFor="let regularization of allRegularization ;let i = index">
+        <td>{{regularization.employee.userid}} </td>
+        <td>{{regularization.date}}</td>
+        <td>{{regularization.totalNumberofHoursworked}}</td>
+        <td>{{regularization.regularizedHours}}</td>
+        <td (click)="onSelect($event.target.value,regularization.id );onSubmitRegularizationApprovalStatus()" data-toggle="modal" data-target="#myModal">
+          <div>
+            <button type="button" class="btn btn-secondary" value="Approved">{{'Approved Regularization'|translate}}</button>
+          
+          </div>
+        </td>
+      </tr>
+    </table>
+    <div id="data1" class="norequest"></div>
   </div>
 </div>
 <div class="modal fade" id="myModal" role="dialog">

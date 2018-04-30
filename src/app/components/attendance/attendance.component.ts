@@ -96,7 +96,7 @@ export class AttendanceComponent implements OnInit {
         this.toastMessage = message;
         this.getAllAttendanceList();
         this.attendanceForm.reset();
-       
+       this.commonService.closeForm();
         
 
       });
@@ -108,6 +108,7 @@ export class AttendanceComponent implements OnInit {
           this.toastMessage = message;
         
           this.attendanceForm.reset();
+          this.commonService.closeForm();
           this.getAllAttendanceList();
         
         },);
@@ -175,7 +176,7 @@ export class AttendanceComponent implements OnInit {
   clearForm(){
     this.attendanceForm.reset();
   }
- 
+  
 }
 
 

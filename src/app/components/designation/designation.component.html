@@ -3,6 +3,7 @@
     <header class="header">
       <div class="heading4">{{'Designation'|translate}}</div>
     </header>
+    <div id="snackbar" [innerHTML]="toastMessage"></div>
     <div class="addbtn">
       <button class="btn btn-primary adduser" type="button" data-toggle="modal" data-target="#myModal"(click)="clearForm()">{{'Add New Designation'|translate}}
       </button>
@@ -51,7 +52,7 @@
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <form [formGroup]="designationForm" (ngSubmit)="onDesignationFormSubmit()">
     <div class="modal-dialog modaldialog">
-      <div id="snackbar" [innerHTML]="toastMessage"></div>
+
       <div class="modal-content" style="    height: 500px;">
         <div class="modal-header dialog">
           <button type="button" class="close modalCloseIcon" data-dismiss="modal">&times;</button>

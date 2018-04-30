@@ -3,6 +3,7 @@
     <header class="header">
       <div class="heading4">{{'Employee'|translate}} </div>
     </header>
+    <div id="snackbar" [innerHTML]="toastMessage"></div>
     <div class="addbtn">
       <button class="btn btn-primary adduser" type="button" data-toggle="modal" data-target="#myModal"(click)="clearForm()">{{'Add New Employee'|translate}}
       </button>
@@ -48,7 +49,7 @@
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <form [formGroup]="employeeForm" (ngSubmit)="onEmployeeFormSubmit()">
     <div class="modal-dialog modaldialog">
-      <div id="snackbar" [innerHTML]="toastMessage"></div>
+
       <div class="modal-content">
         <div class="modal-header dialog">
           <button type="button" class="close modalCloseIcon" data-dismiss="modal">&times;</button>
@@ -169,7 +170,7 @@
               <div class=" form-group col-lg-6" [ngClass]="{'has-error':!employeeForm.controls['designation'].valid && employeeForm.controls['designation'].touched}">
                 <label class="label-name control-label"> {{ 'Designation' | translate }}</label>
                 <select class="loginUserid form-control" formControlName="designation" id="designation" name="designation "(click)=getAllDesignation() (load)=getAllDesignation()> 
-                  <option value="volvo">---Select--</option>
+                 
                   <option *ngFor=" let designation of allDesignation" [value]="designation.id">
                     {{designation.name}}
                   </option>
@@ -182,7 +183,7 @@
             <div class=" form-group col-lg-6" style="margin-left: 35px;" [ngClass]="{'has-error':!employeeForm.controls['reportTo'].valid && employeeForm.controls['reportTo'].touched}">
               <label class="label-name control-label">{{ 'Report To' | translate }}</label>
               <select class="loginUserid form-control" formControlName="reportTo" id="reportTo" name="reportTo" (click)=reportTo()  >
-                <option value="volvo">---Select--</option>
+                
                 <option *ngFor=" let menu of selectMenu" [value]="menu.id">
                   {{menu.userid}}
                 </option>

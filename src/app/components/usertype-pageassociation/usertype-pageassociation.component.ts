@@ -76,6 +76,7 @@ export class UsertypePageAssociationComponent implements OnInit {
           this.toastMessage = successCode.message;
           this.getAllUserTypePageAssoList();
           this.pageAssoForm.reset();
+          this.commonService.closeForm();
         }, );
     } else {
       const pageAssociation = new PageAssociation(this.pageAssoIdToUpdate, usertypeId, userTypePageAssoParts);
@@ -85,6 +86,7 @@ export class UsertypePageAssociationComponent implements OnInit {
           this.toastMessage = successCode.message;
           this.getAllUserTypePageAssoList();
           this.pageAssoForm.reset();
+          this.commonService.closeForm();
         }, );
     }
   }

@@ -55,6 +55,7 @@ export class DepartmentComponent implements OnInit {
           this.toastMessage = successCode.message;
           this.getAllDepartment();
           this.departmentForm.reset();
+          this.commonService.closeForm();
         },);
     } else {
       const designation = new Department(this.departmentIdToUpdate, name);
@@ -64,6 +65,7 @@ export class DepartmentComponent implements OnInit {
           this.toastMessage = successCode.message;
           this.getAllDepartment();
           this.departmentForm.reset();
+          this.commonService.closeForm();
         },);
     }
   }

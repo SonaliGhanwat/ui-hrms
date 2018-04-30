@@ -4,7 +4,7 @@ import { Approval } from '../../models/Approvals/Approval.model';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApprovalsService } from '../../services/Approvals/approvals.service';
 import { CommonService } from '../../services/common/common.service';
-
+import { Regularization } from '../../models/Regularization/Regularization.model';
 @Component({
   selector: 'app-approvals',
   templateUrl: './approvals.component.html',
@@ -12,7 +12,7 @@ import { CommonService } from '../../services/common/common.service';
 })
 export class ApprovalsComponent implements OnInit {
   allLeave: Leave[];
-  
+  allRegularization: Regularization[];
   getStatus: any;
   userid: any;
   checkboxValue: any;
@@ -28,6 +28,7 @@ export class ApprovalsComponent implements OnInit {
   constructor(private approvalsService: ApprovalsService, private formBuilder: FormBuilder, private commonService: CommonService) { }
   ngOnInit() {
     this.getAllLeaveList();
+    this.getAllRegularizationList();
   }
   getAllLeaveList() {
     this.approvalsService.getAllLeaveByStatus()
@@ -58,6 +59,37 @@ export class ApprovalsComponent implements OnInit {
       },);
       this.commonService.hideSpinner();
   }
+
+  getAllRegularizationList() {
+    this.approvalsService.getAllRegularizationByStatus()
+      .subscribe(
+      data => {
+        this.allRegularization = data.data;
+        const code = data.code;
+        console.log('code:',code);
+        if (code === 1) {
+          document.getElementById('data1').innerHTML = 'There is no any request for Regularization Approval';
+        }
+      },);
+  }
+  onSubmitRegularizationApprovalStatus() {
+    const status = this.getStatus;
+    // let check = `[{'id':  ${this.userid}}]`;
+    // let empLeaveDtos = JSON.parse(check);
+    const id = this.userid;
+    this.commonService.startLoadingSpinner();
+    const regularization = new Approval(status, id);
+    this.approvalsService.updateRegularizationStatus(regularization)
+    
+      .subscribe(successCode => {
+        this.commonService.hideSpinner();
+        // let message = successCode.message;
+        document.getElementById('response').innerHTML = successCode.message;
+        this.getAllRegularizationList();
+      },);
+      this.commonService.hideSpinner();
+  }
+
   /*logCheckbox(logid): void {
     // this.log += `{"id":  ${element.value}}`;
      console.log("logid:", logid) 
