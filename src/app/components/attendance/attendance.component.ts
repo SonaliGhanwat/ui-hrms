@@ -105,8 +105,7 @@ export class AttendanceComponent implements OnInit {
       this.attendanceService.updateEmployeeAttendance(userType)
         .subscribe(data => {
           const message = data.message;
-          this.toastMessage = message;
-        
+          this.toastMessage = message;       
           this.attendanceForm.reset();
           this.commonService.closeForm();
           this.getAllAttendanceList();

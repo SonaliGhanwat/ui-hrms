@@ -56,11 +56,6 @@ export class DailyTaskComponent implements OnInit {
     const date = this.dailyTaskForm.get('date').value;
     const taskName = this.dailyTaskForm.get('taskName').value;
     let estimationTime = this.dailyTaskForm.get('estimationTime').value;
-    if (estimationTime.split(':').length === 2) {
-      estimationTime = this.dailyTaskForm.get('estimationTime').value + ':00';
-    } else {
-      estimationTime = this.dailyTaskForm.get('estimationTime').value;
-    }
     let starttime = this.dailyTaskForm.get('starttime').value;
     if (starttime.split(':').length === 2) {
       starttime = this.dailyTaskForm.get('starttime').value + ':00';

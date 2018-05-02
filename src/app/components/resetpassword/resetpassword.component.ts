@@ -48,10 +48,10 @@ export class ResetpasswordComponent implements OnInit {
       const code = data.code;
       if (code === 1) {
         this.toastMessage = message;
-        this.toastMessageDisplay();
+        this.displayToastMessage();
       } else if (code === 0) {
         this.toastMessage = message;
-        this.toastMessageDisplay();
+        this.displayToastMessage();
         this.resetForm();
         // this.redirectToLoginPage();
       }
@@ -67,7 +67,7 @@ export class ResetpasswordComponent implements OnInit {
     this.router.navigate(['/login']);
     return true;
   }
-  toastMessageDisplay() {
+  displayToastMessage() {
     this.commonService.displayMessage();
   }
   resetForm() {

@@ -88,7 +88,7 @@
             <div class="col-lg-offset-5">
               <div class=" form-group col-lg-6" [ngClass]="{'has-error':!dailyTaskForm.controls['estimationTime'].valid && dailyTaskForm.controls['estimationTime'].touched}">
                 <label class="label-name control-label"> {{ 'EstimationTime' | translate }}</label>
-                <input type="time"  step="0" formControlName="estimationTime" class="loginUserid form-control">
+                <input type="text"  formControlName="estimationTime" class="loginUserid form-control">
                 <app-control-messages [formGroup]="dailyTaskForm" [displayName]="'Estimation Time'" [control]="dailyTaskForm.controls['estimationTime']"></app-control-messages>
               </div>
             </div>

@@ -63,7 +63,8 @@ export class UsertypePageAssociationComponent implements OnInit {
     this.commonService.startLoadingSpinner();
     const usertype = this.pageAssoForm.get('usertype').value;
     const usertypeId = parseInt(usertype);
-    const check = `[ ${this.logvalue}]`;
+    const check = ` ${this.logvalue}`;
+   
     const userTypePageAssoParts = JSON.parse(check);
     console.log('UserTypePageAssoPart:', userTypePageAssoParts);
 
@@ -117,8 +118,8 @@ export class UsertypePageAssociationComponent implements OnInit {
         console.log('this.log:', this.pageAssoIdData);
         this.log = this.allPage[i].id;
         console.log('this.log:', this.log);
-        this.logvalue += `{'pageId':  ${this.log}}`;
-        // console.log("UserTypePageAssoPart:", this.logvalue)
+        this.logvalue += `[{'pageId':  ${this.log}}]`;
+         console.log("UserTypePageAssoPart:", this.logvalue)
       }
     }
   }

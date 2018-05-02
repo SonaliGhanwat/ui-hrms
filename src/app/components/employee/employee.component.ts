@@ -193,8 +193,8 @@ export class EmployeeComponent implements OnInit {
           usertype: data.usertype.id,
           designation: data.designation.id,
           reportTo: data.reportTo
+          
         });
-     
       },);
       this.commonService.hideSpinner();
   }

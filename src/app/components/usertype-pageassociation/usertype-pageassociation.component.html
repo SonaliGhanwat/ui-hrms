@@ -26,7 +26,7 @@
           <th class="col-xs-3">Action</th>
         </tr>
       </thead>
-      <tr *ngFor="let pageAsso of allPageAssoList| paginate: { itemsPerPage: 8, currentPage: p} let i= index">
+      <tr *ngFor="let pageAsso of allPageAssoList|paginate: { itemsPerPage: 8, currentPage: p} let i= index">
         <td class="tablerow col-xs-2">{{i+1}}</td>
         <td class="tablerow col-xs-2">{{pageAsso.usertypeId.usertypeName}}</td>
         <td class="tablerow col-xs-3">{{pageAsso.page.pageName}}</td>
@@ -40,8 +40,8 @@
       </tr>
     </table>
     <div style="margin-left: 60%">
-      <pagination-controls (pageChange)="p = $event"></pagination-controls>
-    </div>
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      </div>
   </div>
 </div>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -95,7 +95,6 @@
             <tr *ngFor="let pageAsso of pageAssoIdData | paginate: { itemsPerPage: 8, currentPage: p} let i = index;">
               <td class="tablerow col-xs-6">{{i+1}}</td>
               <td class="tablerow col-xs-6  ">{{pageAsso}}</td>
-
             </tr>
           </tbody>
           </table>
