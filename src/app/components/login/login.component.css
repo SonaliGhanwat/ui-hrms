@@ -166,10 +166,12 @@ h1 {
   animation: spin 2s linear infinite;
 }
 #snackbar {
+    margin-top: -100px;
+    height: 50px;
     z-index: 1;
     visibility: hidden;
-    min-width: 250px;
-    margin-left: 200px;
+    min-width: 450px;
+    margin-left: 150px;
     background-color: #333;
     color: #fff;
     text-align: center;
@@ -177,8 +179,7 @@ h1 {
     padding: 16px;
     position: fixed;
     z-index: 1;
-    top: 70px;
-    left: 60%;
+    left: 50%;
     font-size: 17px;
 }
 
