@@ -57,7 +57,7 @@ import { RegularizationComponent } from './components/regularization/regularizat
 import { RegularizationService } from './services/Regularization/regularization.service';
 import { DepartmentComponent } from './components/department/department.component'
 import { DepartmentService } from './services/Department/department.service';
-
+import { DatePipe } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
@@ -128,7 +128,8 @@ import { DepartmentService } from './services/Department/department.service';
     UsertypePageassociationService,
     AppDataService,
     RegularizationService,
-    DepartmentService
+    DepartmentService,
+    DatePipe
   ],
 
   bootstrap: [AppComponent],

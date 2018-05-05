@@ -5,6 +5,7 @@ import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Attendance } from '../../models/Attendance/Attendance.model';
+import { EmployeeAttendancePart } from '../../models/AttendanceMultipale/CreateMultipale.model';
 import { BaseService } from '../base.service';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
 import { AppDataService } from '../../services/app-data/app-data.service';
@@ -15,6 +16,7 @@ export class AttendanceService extends BaseService {
   attendancelist_url = 'list';
   getAttendanceByDate = 'getAttendance/';
   attendanceWorkinfo = 'calculateAttendanceWorkInfo/';
+  createMultipale = 'createMultiple'
   myCookie: any;
   constructor(protected http: Http, private appData: AppDataService,) {
     super(http);
@@ -56,6 +58,11 @@ export class AttendanceService extends BaseService {
   calculateAttendanceWork(date:Date): Observable<any> {
     return this.http.get(this.buidURL(this.attendanceUrl + this.attendanceWorkinfo+this.appData.getUserId()+'/'+date))
       .map(this.extractData)
+      .catch(this.handleError);
+  }
+  createMultipaleEmployeeAttendance(attendance: EmployeeAttendancePart): Observable<any> {
+    return this.http.post(this.buidURL(this.attendanceUrl + this.createMultipale), attendance)
+      .map(success => success.json())
       .catch(this.handleError);
   }
   protected extractData(res: Response) {

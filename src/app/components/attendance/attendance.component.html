@@ -108,7 +108,14 @@
                 </div>
               </div>
             </div>
-
+            <div class="row" style="    margin-top: 30px">
+                <div class=" form-group col-lg-6" style="margin-left: 35px;">
+                <label class="label-name control-label "> {{ 'Upload Excel File' | translate }}</label>
+                <br>
+            <input type="file"  (change)="incomingfile($event)" class="uploadExcel" placeholder="Upload file" accept=".xlsx">
+            <button type="button" class="btn btn-secondary uploadBtn" (click)="Upload()" >Upload</button>
+          </div>
+          </div>
             <div class="savebtn">
               <button type="submit" class="btn btn-secondary" style="width: 30%;" [disabled]="!attendanceForm.valid" (click)="validate(); displayToastMessage();"
                 >{{'Save'|translate}}</button>

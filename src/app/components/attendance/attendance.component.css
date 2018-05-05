@@ -69,3 +69,11 @@ butHeight{
     border-radius: 50%;
     margin-left: 15px;
 }
+.uploadExcel{
+    margin-left: 20px;
+    padding: 10px;
+}
+.uploadBtn{
+    margin-left: 50%;
+    margin-top: -60px;
+}

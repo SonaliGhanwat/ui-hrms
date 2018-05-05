@@ -9,7 +9,10 @@ import { CommonService } from '../../services/common/common.service';
 import { Http } from '@angular/http';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
 import { Router } from '@angular/router';
+import * as XLSX from 'ts-xlsx';
 import { Ng4LoadingSpinnerModule, Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+import { EmployeeAttendancePart } from '../../models/AttendanceMultipale/CreateMultipale.model';
+import { DatePipe } from '@angular/common'
 @Component({
   selector: 'app-attendance',
   templateUrl: './attendance.component.html',
@@ -24,11 +27,15 @@ export class AttendanceComponent implements OnInit {
   collection = [];
   toastMessage: string;
   selectedEmployee: any;
+  arrayBuffer: any;
+  file: File;
+  xslxData:any;
+  excelData=[];
  
   @Output() loggedIn = new EventEmitter<Attendance>();
   constructor(private spinner: Ng4LoadingSpinnerService, private commonService: CommonService, 
     private attendanceService: AttendanceService, private formBuilder: FormBuilder, 
-    private employeeService: EmployeeService,private router: Router,) {
+    private employeeService: EmployeeService,private router: Router,public datepipe: DatePipe) {
   }
   attendanceForm = this.formBuilder.group({
 
@@ -90,6 +97,7 @@ export class AttendanceComponent implements OnInit {
 
     if (this.attendanceIdToUpdate === null) {
       const attendance = new Attendance(null, employee, intime, outtime, date);
+      console.log("attendance:",attendance)
       this.loggedIn.emit(new Attendance(null, employee, intime, outtime, date));
       this.attendanceService.createEmployeeAttendance(attendance).subscribe(data => {
         const message = data.message;
@@ -140,7 +148,47 @@ export class AttendanceComponent implements OnInit {
       },);
     this.commonService.hideSpinner();
   }
- 
+  incomingfile(event) {
+    this.file = event.target.files[0];
+}
+Upload() {
+    let fileReader = new FileReader();
+    fileReader.onload = (e) => {
+        this.arrayBuffer = fileReader.result;
+        var data = new Uint8Array(this.arrayBuffer);
+        var arr = new Array();
+        for (var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
+        var bstr = arr.join("");
+        var workbook = XLSX.read(bstr, { type: "binary" });
+        var first_sheet_name = workbook.SheetNames[0];
+        var worksheet = workbook.Sheets[first_sheet_name];
+        console.log(XLSX.utils.sheet_to_json(worksheet));       
+         this.xslxData = XLSX.utils.sheet_to_json(worksheet)
+        for (let index = 0; index < this.xslxData.length; index++) {      
+        const xlsxData = {};
+        xlsxData['employee'] = JSON.parse(this.xslxData[index].employee);
+        xlsxData['intime'] = this.xslxData[index].intime;
+        xlsxData['outtime'] = this.xslxData[index].outtime;
+        //this.xslxData[index].date=new Date();
+        let date =this.datepipe.transform(this.xslxData[index].date, 'yyyy-MM-dd');
+        xlsxData['date'] = date;
+        this.excelData.push(xlsxData); 
+      }
+      
+     const employeeAttendanceParts = this.excelData
+      const ExcelAttendance = new EmployeeAttendancePart(employeeAttendanceParts);
+      console.log("ExcelAttendance...", ExcelAttendance)
+        this.attendanceService.createMultipaleEmployeeAttendance(ExcelAttendance).subscribe(data => {
+          const message = data.message;
+          this.toastMessage = message;
+          this.getAllAttendanceList();
+          this.attendanceForm.reset();
+         this.commonService.closeForm();  
+        });
+    }
+
+    fileReader.readAsArrayBuffer(this.file);
+}
   onSelect(employeeId) {
     this.selectedEmployee = null;
     for (let i = 0; i < this.allEmployee.length; i++) {
