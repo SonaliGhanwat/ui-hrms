@@ -24,3 +24,12 @@
     font-weight: bold;
     font-size: 17px;
 }
+
+.uploadExcel{
+    margin-left: 20px;
+    padding: 10px;
+}
+.uploadBtn{
+    margin-left: 50%;
+    margin-top: -60px;
+}

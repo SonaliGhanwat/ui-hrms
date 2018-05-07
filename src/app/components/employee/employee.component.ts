@@ -13,6 +13,9 @@ import { CommonService } from '../../services/common/common.service';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
 import { DepartmentService } from '../../services/Department/department.service';
 import { Department } from '../../models/Department/department.model';
+import { EmployeePart } from '../../models/EmployeeMultipale/EmployeePart.model';
+import * as XLSX from 'ts-xlsx';
+import { DatePipe } from '@angular/common'
 @Component({
   selector: 'app-employee',
   templateUrl: './employee.component.html',
@@ -32,10 +35,14 @@ export class EmployeeComponent implements OnInit {
   firstName: Employee[];
   myCookie:any;
   exdays:any;
+  arrayBuffer: any;
+  file: File;
+  xslxData:any;
+  excelData=[];
   constructor(private employeeService: EmployeeService, private formBuilder: FormBuilder,
     private employeetypeService: EmployeetypeService, private usertypeService: UsertypeService,
     private designationService: DesignationService, private commonService: CommonService,
-    private departmentService: DepartmentService) { }
+    private departmentService: DepartmentService,public datepipe: DatePipe) { }
   employeeForm = this.formBuilder.group({
     'userid': ['', ([Validators.required, Validators.minLength(4), Validators.pattern(/[a-zA-Z0-9]/)])],
     'password': ['', [Validators.required, Validators.minLength(4)]],
@@ -198,6 +205,61 @@ export class EmployeeComponent implements OnInit {
       },);
       this.commonService.hideSpinner();
   }
+
+  incomingfile(event) {
+    this.file = event.target.files[0];
+}
+Upload() {
+    let fileReader = new FileReader();
+    fileReader.onload = (e) => {
+        this.arrayBuffer = fileReader.result;
+        var data = new Uint8Array(this.arrayBuffer);
+        var arr = new Array();
+        for (var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
+        var bstr = arr.join("");
+        var workbook = XLSX.read(bstr, { type: "binary" });
+        var first_sheet_name = workbook.SheetNames[0];
+        var worksheet = workbook.Sheets[first_sheet_name];
+        console.log(XLSX.utils.sheet_to_json(worksheet));       
+         this.xslxData = XLSX.utils.sheet_to_json(worksheet)
+        for (let index = 0; index < this.xslxData.length; index++) {      
+        const xlsxData = {};
+        xlsxData['userid'] = this.xslxData[index].userid;
+        xlsxData['password'] = this.xslxData[index].password;
+        xlsxData['firstName'] = this.xslxData[index].firstName;
+        xlsxData['lastName'] = this.xslxData[index].lastName;
+        xlsxData['phoneNumber'] = this.xslxData[index].phoneNumber;
+        xlsxData['emailid'] = this.xslxData[index].emailid;
+        let dateOfJoining =this.datepipe.transform(this.xslxData[index].dateOfJoining, 'yyyy-MM-dd');
+        xlsxData['dateOfJoining'] = dateOfJoining;
+        let dateOfBirth =this.datepipe.transform(this.xslxData[index].dateOfBirth, 'yyyy-MM-dd');
+        xlsxData['dateOfBirth'] = dateOfBirth;
+        xlsxData['address'] = this.xslxData[index].address;
+        xlsxData['salary'] = this.xslxData[index].salary;
+        xlsxData['reportTo'] = JSON.parse(this.xslxData[index].reportTo);
+        xlsxData['usertype'] = JSON.parse(this.xslxData[index].usertype);
+        xlsxData['employeetype'] = JSON.parse(this.xslxData[index].employeetype);
+        xlsxData['designation'] = JSON.parse(this.xslxData[index].designation);
+        xlsxData['department'] = JSON.parse(this.xslxData[index].department);
+        //this.xslxData[index].date=new Date();
+        
+        this.excelData.push(xlsxData); 
+      }
+      
+     const employeeParts = this.excelData
+      const ExcelEmployee = new EmployeePart(employeeParts);
+      console.log("ExcelAttendance...", ExcelEmployee)
+        this.employeeService.createMultipaleEmployee(ExcelEmployee).subscribe(data => {
+          const message = data.message;
+          this.toastMessage = message;
+          this.getAllEmployee();
+          this.employeeForm.reset();
+         this.commonService.closeForm();  
+        });
+    }
+
+    fileReader.readAsArrayBuffer(this.file);
+}
   displayToastMessage() {
     this.commonService.displayMessage();
   }

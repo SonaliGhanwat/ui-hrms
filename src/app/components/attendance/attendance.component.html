@@ -113,7 +113,7 @@
                 <label class="label-name control-label "> {{ 'Upload Excel File' | translate }}</label>
                 <br>
             <input type="file"  (change)="incomingfile($event)" class="uploadExcel" placeholder="Upload file" accept=".xlsx">
-            <button type="button" class="btn btn-secondary uploadBtn" (click)="Upload()" >Upload</button>
+            <button type="button" class="btn btn-secondary uploadBtn" (click)="Upload();displayToastMessage();" >Upload</button>
           </div>
           </div>
             <div class="savebtn">

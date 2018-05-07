@@ -123,7 +123,6 @@ export class AttendanceComponent implements OnInit {
     }
   }
   deleteEmployeeAttendance(id: string) {
-
     this.commonService.startLoadingSpinner();
     this.attendanceService.deleteEmployeeAttendanceById(id)
       .subscribe(successCode => {

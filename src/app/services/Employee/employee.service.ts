@@ -5,6 +5,7 @@ import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Employee } from '../../models/Employee/Employee.model';
+import { EmployeePart } from '../../models/EmployeeMultipale/EmployeePart.model';
 import { BaseService } from '../base.service';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
 @Injectable()
@@ -13,6 +14,7 @@ export class EmployeeService extends BaseService {
   reportTo = 'http://localhost:8085/HRMS/designation/reportTo/';
   list_url = 'list';
   myCookie: any;
+  createMultipale = 'createMultiple'
   constructor(protected http: Http) {
     super(http);
   }
@@ -60,6 +62,11 @@ export class EmployeeService extends BaseService {
       .catch(this.handleError);
   }
 
+  createMultipaleEmployee(employee: EmployeePart): Observable<any> {
+    return this.http.post(this.buidURL(this.employeeUrl + this.createMultipale), employee)
+      .map(success => success.json())
+      .catch(this.handleError);
+  }
   protected extractData(res: Response) {
     const body = res.json();
     // console.log('body:', body);
