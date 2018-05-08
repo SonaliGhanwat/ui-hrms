@@ -33,8 +33,8 @@ export class EmployeeTypeComponent implements OnInit {
     this.commonService.startLoadingSpinner();
     this.employeetypeService.getAllEmployeeTypeList()
       .subscribe(
-      data => this.allEmployeetype = data,);
-      this.commonService.hideSpinner();
+      data => this.allEmployeetype = data, );
+    this.commonService.hideSpinner();
   }
   onEmployeeTypeFormSubmit() {
     this.commonService.startLoadingSpinner();
@@ -53,7 +53,7 @@ export class EmployeeTypeComponent implements OnInit {
           this.getAllEmployeetype();
           this.employeetypeForm.reset();
           this.commonService.closeForm();
-        },);
+        }, );
     } else {
       const userType = new EmployeeType(this.employeeTypeIdToUpdate, type, seekLeave, paidLeave, totalLeave);
       this.employeetypeService.updateEmployeeType(userType)
@@ -63,7 +63,7 @@ export class EmployeeTypeComponent implements OnInit {
           this.getAllEmployeetype();
           this.employeetypeForm.reset();
           this.commonService.closeForm();
-        },);
+        }, );
     }
   }
   deleteEmployeeType(id: string) {
@@ -74,15 +74,15 @@ export class EmployeeTypeComponent implements OnInit {
         this.toastMessage = successCode.message;
         this.getAllEmployeetype();
         this.commonService.hideSpinner();
-      },);
+      }, );
 
   }
   loadEmployeeTypeToEdit(id: string) {
     this.employeetypeService.getEmployeeTypeById(id)
       .subscribe(employeeType => {
         this.employeeTypeIdToUpdate = employeeType.id;
-        this.employeetypeForm.setValue({ type: employeeType.type, seekLeave: employeeType.seekLeave, paidLeave: employeeType.paidLeave, totalLeave: employeeType.totalLeave });   
-      },);
+        this.employeetypeForm.setValue({ type: employeeType.type, seekLeave: employeeType.seekLeave, paidLeave: employeeType.paidLeave, totalLeave: employeeType.totalLeave });
+      }, );
   }
   totalLeave() {
     const seekLeave = this.employeetypeForm.get('seekLeave').value;
@@ -92,10 +92,10 @@ export class EmployeeTypeComponent implements OnInit {
     const leave = document.getElementById('totalLeave').innerHTML = this.totalLeav;
     sessionStorage.setItem('totalleaves', leave);
   }
-  clearForm(){
+  clearForm() {
     this.employeetypeForm.reset();
   }
-  
+
   displayToastMessage() {
     this.commonService.displayMessage();
   }

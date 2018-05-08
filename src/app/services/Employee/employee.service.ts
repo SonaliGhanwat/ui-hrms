@@ -14,7 +14,7 @@ export class EmployeeService extends BaseService {
   reportTo = 'http://localhost:8085/HRMS/designation/reportTo/';
   list_url = 'list';
   myCookie: any;
-  createMultipale = 'createMultiple'
+  createMultipale = 'createMultiple';
   constructor(protected http: Http) {
     super(http);
   }

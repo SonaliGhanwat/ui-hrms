@@ -29,8 +29,8 @@ export class HolidayComponent implements OnInit {
     this.commonService.startLoadingSpinner();
     this.holidayService.getAllHolidayList()
       .subscribe(
-      data => this.allHolidayList = data,);
-      this.commonService.hideSpinner();
+      data => this.allHolidayList = data, );
+    this.commonService.hideSpinner();
   }
   onHolidayFormSubmit() {
     this.commonService.startLoadingSpinner();
@@ -46,7 +46,7 @@ export class HolidayComponent implements OnInit {
           this.getAllHolidayList();
           this.holidayForm.reset();
           this.commonService.closeForm();
-        },);
+        }, );
     } else {
       const holiday = new Holiday(this.holidayIdToUpdate, holidayName, holidayDate);
       this.holidayService.updateHoliday(holiday)
@@ -56,7 +56,7 @@ export class HolidayComponent implements OnInit {
           this.getAllHolidayList();
           this.holidayForm.reset();
           this.commonService.closeForm();
-        },);
+        }, );
     }
   }
   deleteHoliday(id: string) {
@@ -67,7 +67,7 @@ export class HolidayComponent implements OnInit {
         this.toastMessage = successCode.message;
         this.getAllHolidayList();
         this.commonService.hideSpinner();
-      },);
+      }, );
 
   }
   loadHolidayToEdit(id: string) {
@@ -75,10 +75,10 @@ export class HolidayComponent implements OnInit {
       .subscribe(holiday => {
         this.holidayIdToUpdate = holiday.id;
         this.holidayForm.setValue({ holidayName: holiday.holidayName, holidayDate: holiday.holidayDate });
-      },);
+      }, );
   }
 
-  clearForm(){
+  clearForm() {
     this.holidayForm.reset();
   }
   displayToastMessage() {

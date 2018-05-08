@@ -13,7 +13,7 @@ import { AppDataService } from '../../services/app-data/app-data.service';
 export class ApprovalsService extends BaseService {
   leaveUrl = 'employeeleave/getEmployeeLeaveByStatus/';
   updateStatus = 'employeeleave/statusUpdate';
-  regularizationUrl = 'regularization/getRegularizationByStatus/'
+  regularizationUrl = 'regularization/getRegularizationByStatus/';
   updateRegularizatStatus = 'regularization/regularizationStatusUpdate';
   myCookie: any;
   constructor(protected http: Http,private appData: AppDataService) {

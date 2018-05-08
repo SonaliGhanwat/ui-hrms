@@ -4,15 +4,15 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import { Regularization }from '../../models/Regularization/Regularization.model'
+import { Regularization } from '../../models/Regularization/Regularization.model';
 import { BaseService } from '../base.service';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
 import { AppDataService } from '../../services/app-data/app-data.service';
 @Injectable()
 export class RegularizationService extends BaseService {
-  regularizationUrl = 'regularization/'
-  regularization_url = 'list'
-  constructor(protected http: Http, private appData: AppDataService,) {
+  regularizationUrl = 'regularization/';
+  regularization_url = 'list';
+  constructor(protected http: Http, private appData: AppDataService, ) {
     super(http);
   }
   getAllRegularization(): Observable<Regularization[]> {

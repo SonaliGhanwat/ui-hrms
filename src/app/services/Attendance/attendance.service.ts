@@ -16,7 +16,7 @@ export class AttendanceService extends BaseService {
   attendancelist_url = 'list';
   getAttendanceByDate = 'getAttendance/';
   attendanceWorkinfo = 'calculateAttendanceWorkInfo/';
-  createMultipale = 'createMultiple'
+  createMultipale = 'createMultiple';
   myCookie: any;
   constructor(protected http: Http, private appData: AppDataService,) {
     super(http);

@@ -55,7 +55,7 @@ import { UsertypePageassociationService } from './services/Usertype-PageAssociat
 import { AppDataService } from './services/app-data/app-data.service';
 import { RegularizationComponent } from './components/regularization/regularization.component';
 import { RegularizationService } from './services/Regularization/regularization.service';
-import { DepartmentComponent } from './components/department/department.component'
+import { DepartmentComponent } from './components/department/department.component';
 import { DepartmentService } from './services/Department/department.service';
 import { DatePipe } from '@angular/common';
 @NgModule({

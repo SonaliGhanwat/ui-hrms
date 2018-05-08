@@ -25,8 +25,8 @@ export class LeavetypeComponent implements OnInit {
     this.commonService.startLoadingSpinner();
     this.leavetypeService.getAllLeaveTypeList()
       .subscribe(
-      data => this.allLeavetypes = data,);
-      this.commonService.hideSpinner();
+      data => this.allLeavetypes = data, );
+    this.commonService.hideSpinner();
   }
   onLeaveTypeFormSubmit() {
     this.commonService.startLoadingSpinner();
@@ -41,7 +41,7 @@ export class LeavetypeComponent implements OnInit {
           this.getAllLeaveTypes();
           this.leavetypeForm.reset();
           this.commonService.closeForm();
-        },);
+        }, );
     } else {
       const leaveType = new LeaveType(this.leaveTypeIdToUpdate, name);
       this.leavetypeService.updateLeaveType(leaveType)
@@ -51,7 +51,7 @@ export class LeavetypeComponent implements OnInit {
           this.getAllLeaveTypes();
           this.leavetypeForm.reset();
           this.commonService.closeForm();
-        },);
+        }, );
     }
   }
   deleteLeaveType(id: string) {
@@ -62,17 +62,17 @@ export class LeavetypeComponent implements OnInit {
         this.toastMessage = successCode.messag;
         this.getAllLeaveTypes();
         this.commonService.hideSpinner();
-      },);
+      }, );
   }
   loadLeaveTypeToEdit(id: string) {
     this.leavetypeService.getLeaveTypeById(id)
       .subscribe(leaveType => {
         this.leaveTypeIdToUpdate = leaveType.id;
         this.leavetypeForm.setValue({ name: leaveType.name });
-      },);
+      }, );
   }
- 
-  clearForm(){
+
+  clearForm() {
     this.leavetypeForm.reset();
   }
   displayToastMessage() {

@@ -83,7 +83,7 @@ export class PageComponent implements OnInit {
       }, );
   }
 
-  clearForm(){
+  clearForm() {
     this.pageForm.reset();
   }
   displayToastMessage() {

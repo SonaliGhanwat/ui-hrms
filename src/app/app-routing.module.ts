@@ -21,7 +21,7 @@ import { MyLeaveApplicationComponent  } from './components/my-leaveapplication/m
 import { PageComponent } from './components/page/page.component';
 import { UsertypePageAssociationComponent  } from './components/usertype-pageassociation/usertype-pageassociation.component';
 import { RegularizationComponent } from './components/regularization/regularization.component';
-import { DepartmentComponent } from './components/department/department.component'
+import { DepartmentComponent } from './components/department/department.component';
 const appRoutes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },

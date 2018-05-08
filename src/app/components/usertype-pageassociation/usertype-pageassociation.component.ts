@@ -23,8 +23,8 @@ export class UsertypePageAssociationComponent implements OnInit {
   pageName: any;
   checked: string[] = [];
   log: any;
-  logvalue = '';  
-  logvalue1 = []
+  logvalue = '';
+  logvalue1 = [];
   constructor(private formBuilder: FormBuilder, private commonService: CommonService, private pageService: PageService, private usertypeService: UsertypeService, private usertypePageassociationService: UsertypePageassociationService) { }
   pageAssoForm = this.formBuilder.group({
     'usertype': ['', ([Validators.required])],
@@ -64,8 +64,8 @@ export class UsertypePageAssociationComponent implements OnInit {
     this.commonService.startLoadingSpinner();
     const usertype = this.pageAssoForm.get('usertype').value;
     const usertypeId = parseInt(usertype);
-    const check = ` [${this.logvalue}]`;  
-    //const data = JSON.stringify(check);
+    const check = ` [${this.logvalue}]`;
+    // const data = JSON.stringify(check);
     const userTypePageAssoParts = this.logvalue1;
     console.log('UserTypePageAssoPart:', userTypePageAssoParts);
 
@@ -116,20 +116,20 @@ export class UsertypePageAssociationComponent implements OnInit {
     for (let i = 0; i < this.allPage.length; i++) {
       if (this.allPage[i].id === logid) {
         this.log = this.allPage[i].id;
-        const  list={};
+        const list = {};
         list['pageId'] = this.log;
-        this.logvalue1.push(list)
-        this.pageAssoIdData.push(this.allPage[i].pageName); 
-       /* this.pageAssoIdData.push(this.allPage[i].pageName);
-        console.log('this.log:', this.pageAssoIdData);
-        this.log = this.allPage[i].id;
-        console.log('this.log:', this.log);
-        this.logvalue += `{'pageId':  ${this.log}}`;
-         console.log("UserTypePageAssoPart:", this.logvalue)*/
+        this.logvalue1.push(list);
+        this.pageAssoIdData.push(this.allPage[i].pageName);
+        /* this.pageAssoIdData.push(this.allPage[i].pageName);
+         console.log('this.log:', this.pageAssoIdData);
+         this.log = this.allPage[i].id;
+         console.log('this.log:', this.log);
+         this.logvalue += `{'pageId':  ${this.log}}`;
+          console.log("UserTypePageAssoPart:", this.logvalue)*/
       }
     }
   }
-  clearForm(){
+  clearForm() {
     this.pageAssoForm.reset();
   }
   displayToastMessage() {

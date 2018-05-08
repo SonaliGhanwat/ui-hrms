@@ -28,7 +28,7 @@ export class ValidationService {
             'invalidMonth': 'Please enter current month and year',
             'currentRegularizeDate': 'Please do not enter current date',
             'featureReguDate': 'Please do not enter Feature date',
-            'currentMontReguDate':'Please enter only current month date'
+            'currentMontReguDate': 'Please enter only current month date'
         };
 
         return config[validatorName];
@@ -94,11 +94,11 @@ export class ValidationService {
         const attendanceDate = new Date(getAttendncedate);
         // const getAttendate = attendanceDate.getDate();
         // const getAttenMonth = attendanceDate.getMonth() + 1;
-        const newdate = joinDate.getMonth() + 1 + '-' + joinDate.getDate();
-        const AttendanceDate1 = attendanceDate.getMonth() + 1 + '-' + attendanceDate.getDate();
-        if (newdate === AttendanceDate1) {
-            return null;
-        } else if (newdate > AttendanceDate1) {
+        const currntDate = joinDate.getDate();
+        const AttendanceDate1 = attendanceDate.getDate();
+        if (currntDate === AttendanceDate1) {
+            return null; 
+        } else if ( AttendanceDate1 <= currntDate ) {
             return { 'pastDate': true };
         }
     }
@@ -153,20 +153,20 @@ export class ValidationService {
         }
     }
 
-    static currentPastDateValidation(control){
+    static currentPastDateValidation(control) {
         const currentDate = new Date();
-        const getreguDate = control.value
+        const getreguDate = control.value;
         const reguDate = new Date(getreguDate);
-        const currentMonth = currentDate.getMonth()+ 1 + '-' + currentDate.getFullYear()
-        const reguMonth = reguDate.getMonth()+ 1 + '-' + reguDate.getFullYear()
-        const currentDateFormt =  currentDate.getDate()+ '-' +currentDate.getMonth()+ 1 + '-' + currentDate.getFullYear();
-        const reguDateFormat = reguDate.getDate()+ '-' +reguDate.getMonth()+ 1 + '-' + reguDate.getFullYear();
+        const currentMonth = currentDate.getMonth() + 1 + '-' + currentDate.getFullYear();
+        const reguMonth = reguDate.getMonth() + 1 + '-' + reguDate.getFullYear();
+        const currentDateFormt = currentDate.getDate() + '-' + currentDate.getMonth() + 1 + '-' + currentDate.getFullYear();
+        const reguDateFormat = reguDate.getDate() + '-' + reguDate.getMonth() + 1 + '-' + reguDate.getFullYear();
         if (currentDateFormt === reguDateFormat) {
             return { 'currentRegularizeDate': true };
-        }else if (currentDateFormt < reguDateFormat) {
+        } else if (currentDateFormt < reguDateFormat) {
             return { 'featureReguDate': true };
         } else if (currentMonth > reguMonth || currentMonth < reguMonth) {
             return { 'currentMontReguDate': true };
-        } 
+        }
     }
 }

@@ -55,7 +55,7 @@ export class DailyTaskComponent implements OnInit {
     const employee = parseInt(employeeId);
     const date = this.dailyTaskForm.get('date').value;
     const taskName = this.dailyTaskForm.get('taskName').value;
-    let estimationTime = this.dailyTaskForm.get('estimationTime').value;
+    const estimationTime = this.dailyTaskForm.get('estimationTime').value;
     let starttime = this.dailyTaskForm.get('starttime').value;
     if (starttime.split(':').length === 2) {
       starttime = this.dailyTaskForm.get('starttime').value + ':00';
@@ -143,7 +143,7 @@ export class DailyTaskComponent implements OnInit {
   displayToastMessage() {
     this.commonService.displayMessage();
   }
-  clearForm(){
+  clearForm() {
     this.dailyTaskForm.reset();
   }
 }

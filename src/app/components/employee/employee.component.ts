@@ -15,7 +15,7 @@ import { DepartmentService } from '../../services/Department/department.service'
 import { Department } from '../../models/Department/department.model';
 import { EmployeePart } from '../../models/EmployeeMultipale/EmployeePart.model';
 import * as XLSX from 'ts-xlsx';
-import { DatePipe } from '@angular/common'
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-employee',
   templateUrl: './employee.component.html',
@@ -33,16 +33,16 @@ export class EmployeeComponent implements OnInit {
   toastMessage: string;
   selectMenu: Employee[];
   firstName: Employee[];
-  myCookie:any;
-  exdays:any;
+  myCookie: any;
+  exdays: any;
   arrayBuffer: any;
   file: File;
-  xslxData:any;
-  excelData=[];
+  xslxData: any;
+  excelData = [];
   constructor(private employeeService: EmployeeService, private formBuilder: FormBuilder,
     private employeetypeService: EmployeetypeService, private usertypeService: UsertypeService,
     private designationService: DesignationService, private commonService: CommonService,
-    private departmentService: DepartmentService,public datepipe: DatePipe) { }
+    private departmentService: DepartmentService, public datepipe: DatePipe) { }
   employeeForm = this.formBuilder.group({
     'userid': ['', ([Validators.required, Validators.minLength(4), Validators.pattern(/[a-zA-Z0-9]/)])],
     'password': ['', [Validators.required, Validators.minLength(4)]],
@@ -50,7 +50,7 @@ export class EmployeeComponent implements OnInit {
     'lastName': ['', [Validators.required]],
     'phoneNumber': ['', ([Validators.required])],
     'emailid': ['', [Validators.required]],
-    'dateOfJoining': ['', [Validators.required,ValidationService.dateOfJoiningValidation]],
+    'dateOfJoining': ['', [Validators.required, ValidationService.dateOfJoiningValidation]],
     'dateOfBirth': ['', [Validators.required, ValidationService.dateOfBirthValidation]],
     'address': ['', ([Validators.required])],
     'department': ['', [Validators.required]],
@@ -77,28 +77,28 @@ export class EmployeeComponent implements OnInit {
     this.commonService.startLoadingSpinner();
     this.employeetypeService.getAllEmployeeTypeList()
       .subscribe(
-      data => this.allEmployeetype = data,);
+      data => this.allEmployeetype = data, );
     this.commonService.hideSpinner();
   }
   getAllUserTypes() {
     this.usertypeService.getAllUserTypes()
       .subscribe(
-      data => this.allUsertypes = data,);
+      data => this.allUsertypes = data, );
   }
   getAllDepartment() {
     this.departmentService.getAllDepartmentList()
       .subscribe(
-      data => this.allDepartment = data,);
+      data => this.allDepartment = data, );
   }
   getAllDesignation(department: number) {
     const departmentId = ((document.getElementById('department') as HTMLInputElement).value);
     department = parseInt(departmentId);
     this.designationService.designationListByDepartmentId(department)
       .subscribe(
-      data => this.allDesignation = data,);
+      data => this.allDesignation = data, );
   }
   onEmployeeFormSubmit() {
- 
+
     const userid = this.employeeForm.get('userid').value;
     const password = this.employeeForm.get('password').value;
     const firstName = this.employeeForm.get('firstName').value;
@@ -108,7 +108,7 @@ export class EmployeeComponent implements OnInit {
     const dateOfJoining = this.employeeForm.get('dateOfJoining').value;
     const dateOfBirth = this.employeeForm.get('dateOfBirth').value;
     const address = this.employeeForm.get('address').value;
-    //const department = this.employeeForm.get('department').value;
+    // const department = this.employeeForm.get('department').value;
     const departmentId = ((document.getElementById('department') as HTMLInputElement).value);
     const department = parseInt(departmentId);
     const salary = this.employeeForm.get('salary').value;
@@ -131,7 +131,7 @@ export class EmployeeComponent implements OnInit {
           this.getAllEmployee();
           this.employeeForm.reset();
           this.commonService.closeForm();
-        },);
+        }, );
     } else {
       const userType = new Employee(this.employeeIdToUpdate, userid, password, firstName, lastName, phoneNumber, emailid, dateOfJoining, dateOfBirth, address, department, salary, reportTo, usertype, employeetype, designation);
       this.employeeService.updateEmployee(userType)
@@ -141,7 +141,7 @@ export class EmployeeComponent implements OnInit {
           this.getAllEmployee();
           this.employeeForm.reset();
           this.commonService.closeForm();
-        },);
+        }, );
     }
     this.commonService.hideSpinner();
   }
@@ -153,15 +153,15 @@ export class EmployeeComponent implements OnInit {
         this.toastMessage = successCode.message;
         this.getAllEmployee();
         this.commonService.hideSpinner();
-      },);
+      }, );
   }
   reportTo(designation: number) {
     const designationId = ((document.getElementById('designation') as HTMLInputElement).value);
     designation = parseInt(designationId);
-    
+
     this.employeeService.employeeForReportTo(designation)
       .subscribe(
-      data => this.selectMenu = data.data,);
+      data => this.selectMenu = data.data, );
     /*.subscribe(successCode => {
       console.log("successCode:",successCode)
       let selectMenu="";
@@ -179,7 +179,7 @@ export class EmployeeComponent implements OnInit {
     errorCode => this.statusCode = errorCode);*/
   }
   loadEmployeeToEdit(id: string) {
- 
+
     this.commonService.startLoadingSpinner();
     this.employeeService.getEmployeeById(id)
       .subscribe(data => {
@@ -200,29 +200,29 @@ export class EmployeeComponent implements OnInit {
           usertype: data.usertype.id,
           designation: data.designation.id,
           reportTo: data.reportTo
-          
+
         });
-      },);
-      this.commonService.hideSpinner();
+      }, );
+    this.commonService.hideSpinner();
   }
 
   incomingfile(event) {
     this.file = event.target.files[0];
-}
-Upload() {
-    let fileReader = new FileReader();
+  }
+  Upload() {
+    const fileReader = new FileReader();
     fileReader.onload = (e) => {
-        this.arrayBuffer = fileReader.result;
-        var data = new Uint8Array(this.arrayBuffer);
-        var arr = new Array();
-        for (var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
-        var bstr = arr.join("");
-        var workbook = XLSX.read(bstr, { type: "binary" });
-        var first_sheet_name = workbook.SheetNames[0];
-        var worksheet = workbook.Sheets[first_sheet_name];
-        console.log(XLSX.utils.sheet_to_json(worksheet));       
-         this.xslxData = XLSX.utils.sheet_to_json(worksheet)
-        for (let index = 0; index < this.xslxData.length; index++) {      
+      this.arrayBuffer = fileReader.result;
+      const data = new Uint8Array(this.arrayBuffer);
+      const arr = new Array();
+      for (var i = 0; i !== data.length; ++i) arr[i] = String.fromCharCode(data[i]);
+      const bstr = arr.join('');
+      const workbook = XLSX.read(bstr, { type: 'binary' });
+      const first_sheet_name = workbook.SheetNames[0];
+      const worksheet = workbook.Sheets[first_sheet_name];
+      console.log(XLSX.utils.sheet_to_json(worksheet));
+      this.xslxData = XLSX.utils.sheet_to_json(worksheet);
+      for (let index = 0; index < this.xslxData.length; index++) {
         const xlsxData = {};
         xlsxData['userid'] = this.xslxData[index].userid;
         xlsxData['password'] = this.xslxData[index].password;
@@ -230,9 +230,9 @@ Upload() {
         xlsxData['lastName'] = this.xslxData[index].lastName;
         xlsxData['phoneNumber'] = this.xslxData[index].phoneNumber;
         xlsxData['emailid'] = this.xslxData[index].emailid;
-        let dateOfJoining =this.datepipe.transform(this.xslxData[index].dateOfJoining, 'yyyy-MM-dd');
+        const dateOfJoining = this.datepipe.transform(this.xslxData[index].dateOfJoining, 'yyyy-MM-dd');
         xlsxData['dateOfJoining'] = dateOfJoining;
-        let dateOfBirth =this.datepipe.transform(this.xslxData[index].dateOfBirth, 'yyyy-MM-dd');
+        const dateOfBirth = this.datepipe.transform(this.xslxData[index].dateOfBirth, 'yyyy-MM-dd');
         xlsxData['dateOfBirth'] = dateOfBirth;
         xlsxData['address'] = this.xslxData[index].address;
         xlsxData['salary'] = this.xslxData[index].salary;
@@ -241,29 +241,29 @@ Upload() {
         xlsxData['employeetype'] = JSON.parse(this.xslxData[index].employeetype);
         xlsxData['designation'] = JSON.parse(this.xslxData[index].designation);
         xlsxData['department'] = JSON.parse(this.xslxData[index].department);
-        //this.xslxData[index].date=new Date();
-        
-        this.excelData.push(xlsxData); 
+        // this.xslxData[index].date=new Date(); 
+
+        this.excelData.push(xlsxData);
       }
-      
-     const employeeParts = this.excelData
+
+      const employeeParts = this.excelData;
       const ExcelEmployee = new EmployeePart(employeeParts);
-      console.log("ExcelAttendance...", ExcelEmployee)
-        this.employeeService.createMultipaleEmployee(ExcelEmployee).subscribe(data => {
-          const message = data.message;
-          this.toastMessage = message;
-          this.getAllEmployee();
-          this.employeeForm.reset();
-         this.commonService.closeForm();  
-        });
-    }
+      // console.log("ExcelAttendance...", ExcelEmployee);
+      this.employeeService.createMultipaleEmployee(ExcelEmployee).subscribe(response => {
+        const message = response.message;
+        this.toastMessage = message;
+        this.getAllEmployee();
+        this.employeeForm.reset();
+        this.commonService.closeForm();
+      });
+    };
 
     fileReader.readAsArrayBuffer(this.file);
-}
+  }
   displayToastMessage() {
     this.commonService.displayMessage();
   }
-  clearForm(){
+  clearForm() {
     this.employeeForm.reset();
   }
 }

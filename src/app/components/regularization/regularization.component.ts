@@ -66,10 +66,10 @@ export class RegularizationComponent implements OnInit {
         const status = this.regularizationForm.get('status').value;
         const comments = this.regularizationForm.get('comments').value;
         const reason = ((document.getElementById('reason') as HTMLInputElement).value);
-        //const leavetype = parseInt(leaveTypeId);
+        // const leavetype = parseInt(leaveTypeId);
         if (this.regularizationIdToUpdate === null) {
           const regularization = new Regularization(null, employee, date, totalnumberofHoursworked, regularizedHours, status,comments,reason);
-          console.log("regularization:",regularization)
+          console.log('regularization:',regularization);
           this.regularizationService.createRegularization(regularization)
             .subscribe(successCode => {
               // let message = successCode.message;

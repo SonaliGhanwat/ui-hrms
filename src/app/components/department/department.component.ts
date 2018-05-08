@@ -15,11 +15,11 @@ export class DepartmentComponent implements OnInit {
   departmentIdToUpdate = null;
   collection = [];
   toastMessage: string;
-  constructor(private commonService: CommonService,private usertypeService: UsertypeService, private departmentService: DepartmentService, private formBuilder: FormBuilder) { }
+  constructor(private commonService: CommonService, private usertypeService: UsertypeService, private departmentService: DepartmentService, private formBuilder: FormBuilder) { }
   departmentForm = this.formBuilder.group({
 
     'name': ['', ([Validators.required])],
-    
+
   });
   ngOnInit(): void {
     this.getAllDepartment();
@@ -30,7 +30,7 @@ export class DepartmentComponent implements OnInit {
     this.commonService.startLoadingSpinner();
     this.departmentService.getAllDepartmentList()
       .subscribe(
-      data => this.allDepartment = data,);
+      data => this.allDepartment = data, );
     this.commonService.hideSpinner();
   }
 
@@ -38,13 +38,13 @@ export class DepartmentComponent implements OnInit {
     this.commonService.startLoadingSpinner();
     this.usertypeService.getAllUserTypes()
       .subscribe(
-      data => this.allUsertypes = data,);
-      this.commonService.hideSpinner();
+      data => this.allUsertypes = data, );
+    this.commonService.hideSpinner();
   }
   onDepartmentFormSubmit() {
-    
+
     const name = this.departmentForm.get('name').value.trim();
-    
+
     this.commonService.startLoadingSpinner();
     if (this.departmentIdToUpdate === null) {
       const userType = new Department(null, name);
@@ -56,7 +56,7 @@ export class DepartmentComponent implements OnInit {
           this.getAllDepartment();
           this.departmentForm.reset();
           this.commonService.closeForm();
-        },);
+        }, );
     } else {
       const designation = new Department(this.departmentIdToUpdate, name);
       this.departmentService.updateDepartment(designation)
@@ -66,7 +66,7 @@ export class DepartmentComponent implements OnInit {
           this.getAllDepartment();
           this.departmentForm.reset();
           this.commonService.closeForm();
-        },);
+        }, );
     }
   }
   deleteDepartment(id: string) {
@@ -77,20 +77,20 @@ export class DepartmentComponent implements OnInit {
         this.toastMessage = successCode.message;
         this.getAllDepartment();
         this.commonService.hideSpinner();
-      },);
+      }, );
 
   }
   loadDepartmentToEdit(id: string) {
-   
+
     this.departmentService.getDepartmentById(id)
       .subscribe(department => {
         this.departmentIdToUpdate = department.id;
-        this.departmentForm.setValue({ name: department.name});
-        
-      },);
+        this.departmentForm.setValue({ name: department.name });
+
+      }, );
   }
 
-  clearForm(){
+  clearForm() {
     this.departmentForm.reset();
   }
   displayToastMessage() {
