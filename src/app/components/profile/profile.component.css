@@ -1,0 +1,21 @@
+.tablerow{
+    
+     text-align: left;
+     line-height: 3.5rem;
+ }
+ .basicinfo{
+    font-weight: bold;
+    font-size: 17px;
+} 
+.form-horizontal {
+    font-size: 14px;
+    margin-top: 40px;
+    margin-left: 30px;
+    border-bottom: 2px solid #F6F7F8;
+    padding-bottom: 4px;
+}
+.norequest{
+    margin-left: 50px;
+    margin-top: 20px;
+    font-size: 30px;
+}

@@ -22,6 +22,7 @@ import { PageComponent } from './components/page/page.component';
 import { UsertypePageAssociationComponent  } from './components/usertype-pageassociation/usertype-pageassociation.component';
 import { RegularizationComponent } from './components/regularization/regularization.component';
 import { DepartmentComponent } from './components/department/department.component';
+import { ProfileComponent } from './components/profile/profile.component';
 const appRoutes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -44,7 +45,8 @@ const appRoutes: Routes = [
   { path: 'page', component: PageComponent },
   { path: 'userTypePageAssociation', component: UsertypePageAssociationComponent  },
   { path: 'regularization', component: RegularizationComponent  },
-  { path: 'department', component: DepartmentComponent  }
+  { path: 'department', component: DepartmentComponent  },
+  { path: 'myProfile', component: ProfileComponent  }
 ];
 @NgModule({
   imports: [RouterModule.forRoot(appRoutes)],

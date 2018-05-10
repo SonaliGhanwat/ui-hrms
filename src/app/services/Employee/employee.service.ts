@@ -8,6 +8,7 @@ import { Employee } from '../../models/Employee/Employee.model';
 import { EmployeePart } from '../../models/EmployeeMultipale/EmployeePart.model';
 import { BaseService } from '../base.service';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
+import { AppDataService } from '../../services/app-data/app-data.service';
 @Injectable()
 export class EmployeeService extends BaseService {
   employeeUrl = 'employee/';
@@ -15,7 +16,8 @@ export class EmployeeService extends BaseService {
   list_url = 'list';
   myCookie: any;
   createMultipale = 'createMultiple';
-  constructor(protected http: Http) {
+  getEmployeeByUserid = 'getEmployeeByUserId/';
+  constructor(protected http: Http,private appData: AppDataService) {
     super(http);
   }
   getAllEmployeeList(): Observable<Employee[]> {
@@ -62,6 +64,11 @@ export class EmployeeService extends BaseService {
       .catch(this.handleError);
   }
 
+  getAllEmployeeByReprotToList(): Observable<any> {
+    return this.http.get(this.buidURL(this.employeeUrl + this.getEmployeeByUserid+this.appData.getUserId()))
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
   createMultipaleEmployee(employee: EmployeePart): Observable<any> {
     return this.http.post(this.buidURL(this.employeeUrl + this.createMultipale), employee)
       .map(success => success.json())

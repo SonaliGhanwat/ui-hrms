@@ -54,7 +54,8 @@
         <td>{{regularization.regularizedHours}}</td>
         <td (click)="onSelect($event.target.value,regularization.id );onSubmitRegularizationApprovalStatus()" data-toggle="modal" data-target="#myModal">
           <div>
-            <button type="button" class="btn btn-secondary" value="Approved">{{'Approved Regularization'|translate}}</button>
+            <button type="button" class="btn btn-secondary" value="Approved">{{'Approved'|translate}}</button>
+            <button type="button" style="margin-left: 30px;" class="btn btn-secondary" value="Reject">{{'Rejected'|translate}}</button>
           
           </div>
         </td>

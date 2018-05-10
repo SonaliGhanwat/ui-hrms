@@ -58,6 +58,7 @@ import { RegularizationService } from './services/Regularization/regularization.
 import { DepartmentComponent } from './components/department/department.component';
 import { DepartmentService } from './services/Department/department.service';
 import { DatePipe } from '@angular/common';
+import { ProfileComponent } from './components/profile/profile.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -84,7 +85,8 @@ import { DatePipe } from '@angular/common';
     PageComponent,
     UsertypePageAssociationComponent,
     RegularizationComponent,
-    DepartmentComponent 
+    DepartmentComponent,
+    ProfileComponent 
 
   ],
   imports: [
