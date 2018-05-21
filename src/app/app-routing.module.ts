@@ -23,6 +23,9 @@ import { UsertypePageAssociationComponent  } from './components/usertype-pageass
 import { RegularizationComponent } from './components/regularization/regularization.component';
 import { DepartmentComponent } from './components/department/department.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { ProjectComponent } from './components/project/project.component';
+import { MyTaskComponent } from './components/my-task/my-task.component';
+import { AssigntaskComponent } from './components/assigntask/assigntask.component';
 const appRoutes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -46,7 +49,10 @@ const appRoutes: Routes = [
   { path: 'userTypePageAssociation', component: UsertypePageAssociationComponent  },
   { path: 'regularization', component: RegularizationComponent  },
   { path: 'department', component: DepartmentComponent  },
-  { path: 'myProfile', component: ProfileComponent  }
+  { path: 'myProfile', component: ProfileComponent  },
+  { path: 'project', component: ProjectComponent  },
+  { path: 'myTask', component: MyTaskComponent  },
+  { path: 'assignTask', component: AssigntaskComponent  }
 ];
 @NgModule({
   imports: [RouterModule.forRoot(appRoutes)],

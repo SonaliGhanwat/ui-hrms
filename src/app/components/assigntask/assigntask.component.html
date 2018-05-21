@@ -1,20 +1,13 @@
 <div class=" main-class">
   <div class="primary-container">
     <header class="header">
-      <div class="heading4">{{'Employee Daily Task' | translate}}</div>
+      <div class="heading4">{{'Assign Task' | translate}}</div>
     </header>
     <div id="snackbar"[innerHTML]="toastMessage"></div>
-   
-    <div layout="row" class="userlist ">{{'Daily Task List' | translate}}</div>
-    <div>
-    <div class="green-circle"></div>
-    <div class="lable-description">Daily Task Complete</div>
-    <div class="red-circle"></div>
-    <div class="lable-description">Daily Task InComplete</div>
-  </div>
-    <br>
     
-    <table class="table table-striped table-hover table-fixed settable" [mfData]="allDailyTask" #mf="mfDataTable">
+    <div layout="row" class="userlist ">{{'Assign Task List' | translate}}</div>
+    
+    <table class="table table-striped table-hover table-fixed settable" [mfData]="tasklist" #mf="mfDataTable">
       <thead >
         <tr>
           <th class="col-xs-1">{{ 'No' | translate }}</th>
@@ -44,4 +37,3 @@
     </div>
   </div>
 </div>
-

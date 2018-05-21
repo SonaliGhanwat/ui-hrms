@@ -7,17 +7,33 @@ import 'rxjs/add/operator/catch';
 import { DailyTask } from '../../models/DailyTask/DailyTask.model';
 import { BaseService } from '../base.service';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
+import { AppDataService } from '../../services/app-data/app-data.service';
 @Injectable()
 export class DailytaskService extends BaseService {
   dailyTaskUrl = 'employeedailytask/';
   dailytasklist_url = 'list';
+  myaskList_url = 'getMYTaskByUserid/';
+  taskListByReportTo = 'getDailyTaskByReportTo/';
   myCookie:any;
-  constructor(protected http: Http) {
+  constructor(protected http: Http,private appData: AppDataService) {
     super(http);
   }
   getAllDailyTaskList(): Observable<any> {
     this.myCookie = Cookie.get('cookieName');
     return this.http.get(this.buidURL(this.dailyTaskUrl + this.dailytasklist_url))
+      .map(this.extractData,success => success.json())
+      .catch(this.handleError);
+  }
+  getAllDailyTaskListBYUserId(): Observable<any> {
+    this.myCookie = Cookie.get('cookieName');
+    return this.http.get(this.buidURL(this.dailyTaskUrl + this.myaskList_url+this.appData.getUserId()))
+      .map(this.extractData,success => success.json())
+      .catch(this.handleError);
+  }
+
+  getAllDailyTaskListBYReportTo(): Observable<any> {
+    this.myCookie = Cookie.get('cookieName');
+    return this.http.get(this.buidURL(this.dailyTaskUrl + this.taskListByReportTo+this.appData.getUserId()))
       .map(this.extractData,success => success.json())
       .catch(this.handleError);
   }

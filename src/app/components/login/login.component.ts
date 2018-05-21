@@ -64,25 +64,26 @@ export class LoginComponent implements OnInit {
         this.appData.setUserId(userId);
         this.loggedIn.emit(loginModel);
         this.loginService.post(loginModel).subscribe(data => {
-            this.spinner.hide();
+
             console.log('data : ', data);
-
-            this.appData.setPages(data.data.pages);
-            this.appData.setUser(data.data.user);
-            // localStorage.setItem('loginData', JSON.stringify(data));
-
-            // let pagedata = localStorage.getItem("loginData")
             if (data.code === 1) {
                 this.toastMessage = data.message;
                 this.userForm.get('userid').setErrors({ 'invalidUserid': true });
-                this.toastMessageDisplay();
+                this.displayToastMessage();
             } else if (data.code === 2) {
                 this.toastMessage = data.message;
                 this.userForm.get('password').setErrors({ 'invalidPassword': true });
-                this.toastMessageDisplay();
+                this.displayToastMessage();
             } else if (data.code === 0) {
                 this.redirectToHomePage();
             }
+            this.appData.setPages(data.data.pages);
+            this.appData.setUser(data.data.user);
+            this.spinner.hide();
+            // localStorage.setItem('loginData', JSON.stringify(data));
+
+            // let pagedata = localStorage.getItem("loginData")
+
             // const cookie = data.cookie.value;
             // Cookie.set('cookieName', cookie);
             // const myCookie = Cookie.get('cookieName');
@@ -99,7 +100,7 @@ export class LoginComponent implements OnInit {
         return true;
     }
 
-    toastMessageDisplay() {
+    displayToastMessage() {
         this.commonService.displayMessage();
     }
 

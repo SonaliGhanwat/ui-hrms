@@ -78,8 +78,9 @@ export class ApplyforleaveComponent implements OnInit {
       this.leaveService.createLeave(attendance)
         .subscribe(successCode => {
           // let message = successCode.message;
-          this.commonService.hideSpinner();
+          
           this.toastMessage = successCode.message;
+          this.commonService.hideSpinner();
           this.leaveForm.reset();
         },);
     } else {
@@ -89,7 +90,6 @@ export class ApplyforleaveComponent implements OnInit {
           // let message = successCode.message;
           this.toastMessage = successCode.message;
           this.leaveForm.reset();
-
         },);
     }
   }

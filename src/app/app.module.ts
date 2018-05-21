@@ -59,6 +59,10 @@ import { DepartmentComponent } from './components/department/department.componen
 import { DepartmentService } from './services/Department/department.service';
 import { DatePipe } from '@angular/common';
 import { ProfileComponent } from './components/profile/profile.component';
+import { ProjectComponent } from './components/project/project.component';
+import { ProjectService } from './services/Project/project.service';
+import { MyTaskComponent } from './components/my-task/my-task.component';
+import { AssigntaskComponent } from './components/assigntask/assigntask.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -86,7 +90,10 @@ import { ProfileComponent } from './components/profile/profile.component';
     UsertypePageAssociationComponent,
     RegularizationComponent,
     DepartmentComponent,
-    ProfileComponent 
+    ProfileComponent,
+    ProjectComponent,
+    MyTaskComponent,
+    AssigntaskComponent 
 
   ],
   imports: [
@@ -131,7 +138,8 @@ import { ProfileComponent } from './components/profile/profile.component';
     AppDataService,
     RegularizationService,
     DepartmentService,
-    DatePipe
+    DatePipe,
+    ProjectService
   ],
 
   bootstrap: [AppComponent],

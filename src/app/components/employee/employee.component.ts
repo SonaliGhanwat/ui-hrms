@@ -140,10 +140,11 @@ export class EmployeeComponent implements OnInit {
           this.toastMessage = successCode.message;
           this.getAllEmployee();
           this.employeeForm.reset();
+          this.commonService.hideSpinner();
           this.commonService.closeForm();
         }, );
     }
-    this.commonService.hideSpinner();
+  
   }
   deleteEmployee(id: string) {
     this.commonService.startLoadingSpinner();
