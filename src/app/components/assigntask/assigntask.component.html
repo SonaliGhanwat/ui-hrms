@@ -3,37 +3,44 @@
     <header class="header">
       <div class="heading4">{{'Assign Task' | translate}}</div>
     </header>
-    <div id="snackbar"[innerHTML]="toastMessage"></div>
-    
+    <div id="snackbar" [innerHTML]="toastMessage"></div>
+
     <div layout="row" class="userlist ">{{'Assign Task List' | translate}}</div>
-    
+    <div>
+      <div class="green-circle"></div>
+      <div class="lable-description">Complete Task</div>
+      <div class="red-circle"></div>
+      <div class="lable-description">InComplete Task</div>
+    </div>
+    <br>
     <table class="table table-striped table-hover table-fixed settable" [mfData]="tasklist" #mf="mfDataTable">
-      <thead >
+      <thead>
         <tr>
           <th class="col-xs-1">{{ 'No' | translate }}</th>
-          <th class="col-xs-2"><mfDefaultSorter by="employee.userid" class="col-xs-2">{{'EmployeeId'|translate}}</mfDefaultSorter></th>
-          <th class="col-xs-2"><mfDefaultSorter by="date" class="col-xs-2">{{ 'Date' | translate }}</mfDefaultSorter> </th>
-          <th class="col-xs-2" >{{ 'TaskName' | translate }}</th>
-          <th class="col-xs-2" >{{ 'Status' | translate }}</th>
-          <th class="col-xs-3">Action</th>
+          <th class="col-xs-3">
+            <mfDefaultSorter by="employee.userid" class="col-xs-2">{{'EmployeeId'|translate}}</mfDefaultSorter>
+          </th>
+          <th class="col-xs-2">
+            <mfDefaultSorter by="date" class="col-xs-2">{{ 'Date' | translate }}</mfDefaultSorter>
+          </th>
+          <th class="col-xs-3">{{ 'TaskName' | translate }}</th>
+          <th class="col-xs-3">{{ 'Status' | translate }}</th>
+
         </tr>
       </thead>
       <tr *ngFor="let dailyTask of mf.data| paginate: { itemsPerPage: 8, currentPage: p}let i = index" [ngStyle]="{'color':dailyTask.status === 'Completed' ? 'green' : 'red' }">
         <td class="tablerow col-xs-1">{{i+1}}</td>
-        <td class="tablerow col-xs-2">{{dailyTask.employee.userid}}</td>
+        <td class="tablerow col-xs-3">{{dailyTask.employee.userid}}</td>
         <td class="tablerow col-xs-2">{{dailyTask.date}}</td>
-        <td class="tablerow col-xs-2">{{dailyTask.taskName}}</td>
-      
-        <td class="tablerow col-xs-2"  >{{dailyTask.status}}</td>
-        <td class="tablerow col-xs-3">
-          <span class="action-link" role="button" tabindex="0" (click)="loadDailyTaskToEdit(dailyTask.id)" data-toggle="modal" data-target="#myModal">{{'Edit'|translate}}</span>
-          <span> | </span>
-          <span class="action-link" role="button" tabindex="0" (click)="deleteDailyTask(dailyTask.id)">{{'Delete'|translate}}</span>
-        </td>
+        <td class="tablerow col-xs-3">{{dailyTask.taskName}}</td>
+        <td class="tablerow col-xs-3">{{dailyTask.status}}</td>
       </tr>
+      <div id="data" class="norequest"></div>
     </table>
+   
     <div style="margin-left: 60%">
       <pagination-controls (pageChange)="p = $event"></pagination-controls>
     </div>
+    
   </div>
 </div>

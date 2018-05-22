@@ -45,9 +45,9 @@ export class MyTaskComponent implements OnInit {
     this.commonService.hideSpinner();
   }
   getAllEmployeeList() {
-    this.employeeService.getAllEmployeeList()
+    this.employeeService.getAllEmployeeListByUseridList()
       .subscribe(
-      data => this.allEmployee = data, );
+      data => this.allEmployee = data.data, );
   }
   onDailyTaskFormSubmit() {
     this.commonService.startLoadingSpinner();

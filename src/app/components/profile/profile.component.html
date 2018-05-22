@@ -17,7 +17,7 @@
           <th class="col-xs-2" style="margin-left: 40px">{{ 'Action' | translate }}</th>
         </tr>
       </thead>
-      <tr *ngFor="let employee of mf.data  let i = index ">
+      <tr *ngFor="let employee of mf.data| paginate: { itemsPerPage: 8, currentPage: p}  let i = index ">
         <td class="tablerow col-xs-1">{{i+1}}</td>
         <td class="tablerow col-xs-2">{{employee.userid}}</td>
         <td class="tablerow col-xs-2">{{employee.firstName}}</td>
@@ -30,7 +30,9 @@
       </tr>
       <div id="data" class="norequest"></div>
     </table>
- 
+    <div style="margin-left: 60%">
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
   </div>
 </div>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

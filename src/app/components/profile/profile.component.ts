@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { EmployeeService } from '../../services/Employee/employee.service';
 import { Employee } from '../../models/Employee/Employee.model';
 import { ValidationService } from '../../services/validation.service';
+import { CommonService } from '../../services/common/common.service';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -11,7 +12,8 @@ import { ValidationService } from '../../services/validation.service';
 export class ProfileComponent implements OnInit {
   allEmployee: Employee[];
   employeeIdToUpdate = null;
-  constructor(private employeeService: EmployeeService, private formBuilder: FormBuilder) { }
+  collection = [];
+  constructor(private employeeService: EmployeeService, private formBuilder: FormBuilder,private commonService: CommonService) { }
   employeeForm = this.formBuilder.group({
     'userid': [{ value: '', disabled: true }],
     'password': [{ value: '', disabled: true }],
@@ -28,6 +30,7 @@ export class ProfileComponent implements OnInit {
   });
   ngOnInit() {
     this.getAllEmployeeByUserId();
+    this.commonService.onPreviousNextPage();
   }
   getAllEmployeeByUserId() {
     this.employeeService.getAllEmployeeByReprotToList()

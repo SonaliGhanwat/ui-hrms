@@ -16,6 +16,7 @@ export class EmployeeService extends BaseService {
   list_url = 'list';
   myCookie: any;
   createMultipale = 'createMultiple';
+  getEmployeeListbyUserid = 'getEmployeeByUserIdinList/';
   getEmployeeByUserid = 'getEmployeeByUserId/';
   constructor(protected http: Http,private appData: AppDataService) {
     super(http);
@@ -30,6 +31,13 @@ export class EmployeeService extends BaseService {
     let options = new RequestOptions({headers:headers ,withCredentials: true });
     console.log('options:',options);*/
     return this.http.get(this.buidURL(this.employeeUrl + this.list_url))
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  getAllEmployeeListByUseridList(): Observable<any> {
+    this.myCookie = Cookie.get('cookieName');
+    return this.http.get(this.buidURL(this.employeeUrl + this.getEmployeeListbyUserid+this.appData.getUserId()))
       .map(this.extractData)
       .catch(this.handleError);
   }

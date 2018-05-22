@@ -22,7 +22,16 @@ export class AssigntaskComponent implements OnInit {
     this.commonService.startLoadingSpinner();
     this.dailytaskService.getAllDailyTaskListBYReportTo()
       .subscribe(
-      data => this.tasklist = data.data, );
+        data => {
+          this.tasklist = data.data;
+          const code = data.code;
+          console.log('code:', code);
+          if (code === 1) {
+            document.getElementById('data').innerHTML = 'There is no any reportee to assign the task';
+          } else {
+            document.getElementById('data').innerHTML = '';
+          }
+        }, );
     this.commonService.hideSpinner();
   }
 }
