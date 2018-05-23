@@ -15,6 +15,8 @@ export class ApprovalsService extends BaseService {
   updateStatus = 'employeeleave/statusUpdate';
   regularizationUrl = 'regularization/getRegularizationByStatus/';
   updateRegularizatStatus = 'regularization/regularizationStatusUpdate';
+  projectUrl = 'project/getProjectByStatus/';
+  projectStatusUpdate = 'project/projectStatusUpdate';
   myCookie: any;
   constructor(protected http: Http,private appData: AppDataService) {
     super(http);
@@ -41,6 +43,18 @@ export class ApprovalsService extends BaseService {
     const cpHeaders = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions({ headers: cpHeaders });
     return this.http.post(this.buidURL(this.updateRegularizatStatus), approval,options)
+      .map(success => success.json())
+      .catch(this.handleError);
+  }
+  getAllProjectByStatus(): Observable<any> {
+    return this.http.get(this.buidURL(this.projectUrl + this.appData.getUserId()))
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+  updateProjctStatus(approval: Approval): Observable<any> {
+    const cpHeaders = new Headers({ 'Content-Type': 'application/json' });
+    const options = new RequestOptions({ headers: cpHeaders });
+    return this.http.post(this.buidURL(this.projectStatusUpdate), approval,options)
       .map(success => success.json())
       .catch(this.handleError);
   }

@@ -12,6 +12,7 @@ import { AppDataService } from '../../services/app-data/app-data.service';
 export class ProjectService extends BaseService{
   projectUrl = 'project/';
   projectList_url = 'list';
+  projectCreate_url = 'create/'
   constructor(protected http: Http, private appData: AppDataService,) {
     super(http);
   }
@@ -21,7 +22,7 @@ export class ProjectService extends BaseService{
       .catch(this.handleError);
   }
   createProject(project: ProjectModel): Observable<any> {
-    return this.http.post(this.buidURL(this.projectUrl + this.create_url), project)
+    return this.http.post(this.buidURL(this.projectUrl + this.projectCreate_url+this.appData.getUserId()), project)
       .map(success => success.json())
       .catch(this.handleError);
   }

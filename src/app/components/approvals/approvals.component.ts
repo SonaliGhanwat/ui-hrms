@@ -5,6 +5,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ApprovalsService } from '../../services/Approvals/approvals.service';
 import { CommonService } from '../../services/common/common.service';
 import { Regularization } from '../../models/Regularization/Regularization.model';
+import { ProjectModel } from '../../models/Project/project.model';
 @Component({
   selector: 'app-approvals',
   templateUrl: './approvals.component.html',
@@ -13,6 +14,7 @@ import { Regularization } from '../../models/Regularization/Regularization.model
 export class ApprovalsComponent implements OnInit {
   allLeave: Leave[];
   allRegularization: Regularization[];
+  allProject: ProjectModel[];
   getStatus: any;
   userid: any;
   checkboxValue: any;
@@ -29,6 +31,7 @@ export class ApprovalsComponent implements OnInit {
   ngOnInit() {
     this.getAllLeaveList();
     this.getAllRegularizationList();
+    this.getAllProjectList();
   }
   getAllLeaveList() {
     this.approvalsService.getAllLeaveByStatus()
@@ -90,6 +93,36 @@ export class ApprovalsComponent implements OnInit {
       this.commonService.hideSpinner();
   }
 
+  getAllProjectList() {
+    this.approvalsService.getAllProjectByStatus()
+      .subscribe(
+      data => {
+        this.allProject = data.data;
+        const code = data.code;
+        console.log('code:',code);
+        if (code === 1) {
+          document.getElementById('data').innerHTML = 'There is no any request for Project Approval';
+        }
+      },);
+  }
+
+  onSubmitProjectApprovalStatus() {
+    const status = this.getStatus;
+    // let check = `[{'id':  ${this.userid}}]`;
+    // let empLeaveDtos = JSON.parse(check);
+    const id = this.userid;
+    this.commonService.startLoadingSpinner();
+    const project = new Approval(status, id);
+    this.approvalsService.updateProjctStatus(project)
+    
+      .subscribe(successCode => {
+        this.commonService.hideSpinner();
+        // let message = successCode.message;
+        document.getElementById('response').innerHTML = successCode.message;
+        this.getAllProjectList();
+      },);
+      this.commonService.hideSpinner();
+  }
   /*logCheckbox(logid): void {
     // this.log += `{"id":  ${element.value}}`;
      console.log("logid:", logid) 

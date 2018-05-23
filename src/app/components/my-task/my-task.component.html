@@ -5,10 +5,10 @@
     </header>
     <div id="snackbar"[innerHTML]="toastMessage"></div>
     <div class="addbtn">
-      <button class="btn btn-primary adduser" type="button" data-toggle="modal" data-target="#myModal"(click)="clearForm()">{{'Add My Daily Task' | translate}}
+      <button class="btn btn-primary adduser" type="button" data-toggle="modal" data-target="#myModal"(click)="clearForm()">{{'Add Task' | translate}}
       </button>
     </div>
-    <div layout="row" class="userlist ">{{'My Task List' | translate}}</div>
+    <div layout="row" class="userlist ">{{'Task List' | translate}}</div>
     <div>
       <div class="green-circle"></div>
       <div class="lable-description">Daily Task Complete</div>
@@ -59,7 +59,7 @@
         <div class="modal-body">
           <div class="row" style="margin-top: 30px">
             <div class=" form-group col-lg-6" style="margin-left: 35px;"[ngClass]="{'has-error':!dailyTaskForm.controls['employee'].valid && dailyTaskForm.controls['employee'].touched}">
-              <label class="label-name control-label">{{ 'Employee Id' | translate }}</label>
+              <label class="label-name control-label">{{ 'Assign To' | translate }}</label>
               <select id="employee" class="loginUserid form-control" formControlName="employee" name="employee" id="employee">
                 <option *ngFor=" let employee of allEmployee" [value]="employee.id">
                   {{employee.userid}}
