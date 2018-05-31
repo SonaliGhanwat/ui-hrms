@@ -65,6 +65,6 @@ export class ProfileComponent implements OnInit {
           salary: data.salary,
         });
       }, );
-    //this.commonService.hideSpinner();
+    // this.commonService.hideSpinner();
   }
 }

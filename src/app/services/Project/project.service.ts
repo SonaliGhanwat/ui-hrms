@@ -4,16 +4,16 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import {ProjectModel} from '../../models/Project/project.model'
+import { ProjectModel } from '../../models/Project/project.model';
 import { BaseService } from '../base.service';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
 import { AppDataService } from '../../services/app-data/app-data.service';
 @Injectable()
-export class ProjectService extends BaseService{
+export class ProjectService extends BaseService {
   projectUrl = 'project/';
   projectList_url = 'list';
-  projectCreate_url = 'create/'
-  constructor(protected http: Http, private appData: AppDataService,) {
+  projectCreate_url = 'create/';
+  constructor(protected http: Http, private appData: AppDataService, ) {
     super(http);
   }
   getAllProject(): Observable<ProjectModel[]> {
@@ -22,7 +22,7 @@ export class ProjectService extends BaseService{
       .catch(this.handleError);
   }
   createProject(project: ProjectModel): Observable<any> {
-    return this.http.post(this.buidURL(this.projectUrl + this.projectCreate_url+this.appData.getUserId()), project)
+    return this.http.post(this.buidURL(this.projectUrl + this.projectCreate_url + this.appData.getUserId()), project)
       .map(success => success.json())
       .catch(this.handleError);
   }

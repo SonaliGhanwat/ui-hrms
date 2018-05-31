@@ -63,6 +63,8 @@ import { ProjectComponent } from './components/project/project.component';
 import { ProjectService } from './services/Project/project.service';
 import { MyTaskComponent } from './components/my-task/my-task.component';
 import { AssigntaskComponent } from './components/assigntask/assigntask.component';
+import { NotificationComponent } from './components/notification/notification.component';
+import { NotificationService } from './services/Notification/notification.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -93,7 +95,8 @@ import { AssigntaskComponent } from './components/assigntask/assigntask.componen
     ProfileComponent,
     ProjectComponent,
     MyTaskComponent,
-    AssigntaskComponent 
+    AssigntaskComponent,
+    NotificationComponent 
 
   ],
   imports: [
@@ -139,7 +142,8 @@ import { AssigntaskComponent } from './components/assigntask/assigntask.componen
     RegularizationService,
     DepartmentService,
     DatePipe,
-    ProjectService
+    ProjectService,
+    NotificationService
   ],
 
   bootstrap: [AppComponent],

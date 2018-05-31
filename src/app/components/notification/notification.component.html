@@ -1,0 +1,57 @@
+<div class=" main-class">
+  <div class="primary-container">
+
+    <header class="header">
+      <div class="heading4">{{'Notification'|translate}}</div>
+    </header>
+    <div class="row requestName" style="border-bottom: 1px solid #e9e9e9">
+      <div class="heading4">{{'Notification for work hours are lesser than expected hours '|translate}}</div>
+    </div>
+    <div id="snackbar" [innerHTML]="toastMessage"></div>
+    <table class="table table-striped table-hover table-fixed settable">
+      <thead>
+        <tr>
+          <th class="col-xs-2">EmployeeId</th>
+          <th class="col-xs-2">{{ 'In Time' | translate }}</th>
+          <th class="col-xs-2">{{ 'Out Time' | translate }}</th>
+          <th class="col-xs-2">{{ 'Total Time' | translate }}</th>
+          <th class="col-xs-3">{{ 'Date' | translate }}</th>
+        </tr>
+      </thead>
+      <tr *ngFor="let attendance of allAttendance | paginate: { itemsPerPage: 8, currentPage: p} ;let i = index">
+        <td class="tablerow col-xs-2">{{attendance.employee.userid}} </td>
+        <td class="tablerow col-xs-2">{{attendance.intime}}</td>
+        <td class="tablerow col-xs-2">{{attendance.outtime}}</td>
+        <td class="tablerow col-xs-2">{{attendance.totaltime}}</td>
+        <td class="tablerow col-xs-3">{{attendance.date}}</td>
+      </tr>
+    </table>
+    <div id="data" class="norequest"></div>
+    <div style="margin-left: 60%">
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
+    <div class="row requestName" style="border-bottom: 1px solid #e9e9e9">
+      <div class="heading4">{{'Notification for absent on a day and not regularized or applied for leave '|translate}}</div>
+    </div>
+    <div id="snackbar" [innerHTML]="toastMessage"></div>
+    <table class="table table-striped table-hover table-fixed settable">
+      <thead>
+        <tr>
+          <th class="col-xs-4">EmployeeId</th>
+          <th class="col-xs-4">{{ 'Date' | translate }}</th>
+          <th class="col-xs-4">{{ 'Status' | translate }}</th>
+        </tr>
+      </thead>
+      <tr *ngFor="let attendance of allAbsentAttendance | paginate: { itemsPerPage: 8, currentPage: p} ;let i = index">
+        <td class="tablerow col-xs-4">{{attendance.employee.userid}} </td>    
+        <td class="tablerow col-xs-4">{{attendance.date}}</td>
+        <th class="tablerow col-xs-4">{{ attendance.status}}</th>
+      </tr>
+    </table>
+    <div id="data" class="norequest"></div>
+    <div style="margin-left: 60%">
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
+    
+  </div>
+</div>

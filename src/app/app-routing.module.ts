@@ -26,6 +26,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { ProjectComponent } from './components/project/project.component';
 import { MyTaskComponent } from './components/my-task/my-task.component';
 import { AssigntaskComponent } from './components/assigntask/assigntask.component';
+import { NotificationComponent } from './components/notification/notification.component';
 const appRoutes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -52,7 +53,8 @@ const appRoutes: Routes = [
   { path: 'myProfile', component: ProfileComponent  },
   { path: 'project', component: ProjectComponent  },
   { path: 'myTask', component: MyTaskComponent  },
-  { path: 'assignTask', component: AssigntaskComponent  }
+  { path: 'assignTask', component: AssigntaskComponent  },
+  { path: 'notification', component: NotificationComponent  }
 ];
 @NgModule({
   imports: [RouterModule.forRoot(appRoutes)],
