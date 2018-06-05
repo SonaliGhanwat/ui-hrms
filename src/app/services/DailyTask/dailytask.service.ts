@@ -11,6 +11,7 @@ import { AppDataService } from '../../services/app-data/app-data.service';
 @Injectable()
 export class DailytaskService extends BaseService {
   dailyTaskUrl = 'employeedailytask/';
+  dailyTaskCreateUrl = 'employeedailytask/create/';
   dailytasklist_url = 'list';
   myaskList_url = 'getMYTaskByUserid/';
   taskListByReportTo = 'getDailyTaskByReportTo/';
@@ -38,7 +39,7 @@ export class DailytaskService extends BaseService {
       .catch(this.handleError);
   }
   createDailyTask(dailyTask: DailyTask): Observable<any> {
-    return this.http.post(this.buidURL(this.dailyTaskUrl + this.create_url), dailyTask)
+    return this.http.post(this.buidURL(this.dailyTaskCreateUrl  +this.appData.getUserId()), dailyTask)
       .map(success => success.json())
       .catch(this.handleError);
   }

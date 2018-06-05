@@ -13,6 +13,7 @@ import { AppDataService } from '../../services/app-data/app-data.service';
 export class NotificationService extends BaseService {
   attendanceUrl = 'employeeattendance/getAttendanceforNotification/';
   attendanceStatusUrl = 'employeeattendance/getAttendanceByStatus/';
+  taskByUserIdurl = 'employeedailytask/getTaskByUserid/'
   constructor(protected http: Http,private appData: AppDataService) {
     super(http);
   }
@@ -25,6 +26,11 @@ export class NotificationService extends BaseService {
 
   getAllAttendanceByStatus(): Observable<any> {
     return this.http.get(this.buidURL(this.attendanceStatusUrl + this.appData.getUserId()))
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+  getAlltaskByUserId(): Observable<any> {
+    return this.http.get(this.buidURL(this.taskByUserIdurl + this.appData.getUserId()))
       .map(this.extractData)
       .catch(this.handleError);
   }

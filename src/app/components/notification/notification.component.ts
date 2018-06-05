@@ -3,6 +3,7 @@ import { Attendance } from '../../models/Attendance/Attendance.model';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NotificationService } from '../../services/Notification/notification.service';
 import { CommonService } from '../../services/common/common.service';
+import { DailyTask } from '../../models/DailyTask/DailyTask.model';
 @Component({
   selector: 'app-notification',
   templateUrl: './notification.component.html',
@@ -11,6 +12,7 @@ import { CommonService } from '../../services/common/common.service';
 export class NotificationComponent implements OnInit {
   allAttendance: Attendance[];
   allAbsentAttendance: Attendance[];
+  dailyTask: DailyTask[];
   collection = [];
   constructor(private notificationService: NotificationService, private formBuilder: FormBuilder,
      private commonService: CommonService) { }
@@ -18,6 +20,7 @@ export class NotificationComponent implements OnInit {
   ngOnInit() {
     this.getAllAttendanceList();
     this.getAllAttendanceListbyStatus();
+    this.getAllTaskListUserId();
     this.commonService.onPreviousNextPage();
   }
   getAllAttendanceList() {
@@ -27,7 +30,7 @@ export class NotificationComponent implements OnInit {
         this.allAttendance = data.data;
         const code = data.code;
         if (code === 0) {
-          document.getElementById('data').innerHTML = 'There is no any request for Leave Approval';
+          document.getElementById('data').innerHTML = 'There is no any request for Notification';
         }
       },);
   }
@@ -39,7 +42,18 @@ export class NotificationComponent implements OnInit {
         this.allAbsentAttendance = data.data;
         const code = data.code;
         if (code === 0) {
-          document.getElementById('data').innerHTML = 'There is no any request for Leave Approval';
+          document.getElementById('data').innerHTML = 'There is no any request for Notification';
+        }
+      },);
+  }
+  getAllTaskListUserId() {
+    this.notificationService.getAlltaskByUserId()
+      .subscribe(
+      data => {
+        this.dailyTask = data.data;
+        const code = data.code;
+        if (code === 0) {
+          document.getElementById('data').innerHTML = 'There is no any request for Notification';
         }
       },);
   }
