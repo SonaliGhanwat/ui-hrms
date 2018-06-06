@@ -27,7 +27,7 @@
         <td class="tablerow col-xs-2">{{attendance.date}}</td>
         <td class="tablerow col-xs-2">
           
-          <button type="button" class="btn btn-secondary" (click)="deleteLeave(leave.id)">{{'Close'|translate}}</button>
+          <button type="button" class="btn btn-secondary" (click)="changeAttendanceHasRead(attendance.id)">{{'Close'|translate}}</button>
         </td>
       </tr>
     </table>
@@ -54,7 +54,7 @@
         <td class="tablerow col-xs-3">{{ attendance.status}}</td>
         <td class="tablerow col-xs-3">
           
-          <button type="button" class="btn btn-secondary" (click)="deleteLeave(leave.id)">{{'Close'|translate}}</button>
+          <button type="button" class="btn btn-secondary" (click)="changeAttendanceAbsentStatusHasRead(attendance.id)">{{'Close'|translate}}</button>
         </td>
       </tr>
     </table>
@@ -83,7 +83,7 @@
         <td class="tablerow col-xs-3">{{ task.taskName}}</td>
         <td class="tablerow col-xs-3">
           
-          <button type="button" class="btn btn-secondary" (click)="deleteLeave(leave.id)">{{'Close'|translate}}</button>
+          <button type="button" class="btn btn-secondary" (click)="changeDailyTaskStatusHasRead(task.id)">{{'Close'|translate}}</button>
         </td>
       </tr>
     </table>

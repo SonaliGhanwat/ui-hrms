@@ -14,6 +14,9 @@ export class NotificationService extends BaseService {
   attendanceUrl = 'employeeattendance/getAttendanceforNotification/';
   attendanceStatusUrl = 'employeeattendance/getAttendanceByStatus/';
   taskByUserIdurl = 'employeedailytask/getTaskByUserid/'
+  attendanceHasRaedUrl = 'employeeattendance/changeHasReadStatus/'
+  attendanceHasReadStatusUrl = 'employeeattendance/changeHasReadAbsentStatus/'
+  taskHasReadUrl = 'employeedailytask/changeHasReadDailyTaskStatus/'
   constructor(protected http: Http,private appData: AppDataService) {
     super(http);
   }
@@ -35,6 +38,23 @@ export class NotificationService extends BaseService {
       .catch(this.handleError);
   }
 
+  changeHasReadAttendanceById(id: string): Observable<any> {
+    return this.http.delete(this.buidURL(this.attendanceHasRaedUrl + id))
+      .map(success => success.json())
+      .catch(this.handleError);
+  }
+
+  changeHasReadAttendanceAbsentById(id: string): Observable<any> {
+    return this.http.delete(this.buidURL(this.attendanceHasReadStatusUrl + id))
+      .map(success => success.json())
+      .catch(this.handleError);
+  }
+
+  changeHasReadDailyTaskById(id: string): Observable<any> {
+    return this.http.delete(this.buidURL(this.taskHasReadUrl + id))
+      .map(success => success.json())
+      .catch(this.handleError);
+  }
   protected extractData(res: Response) {
     const body = res.json();
     console.log('data:', body);

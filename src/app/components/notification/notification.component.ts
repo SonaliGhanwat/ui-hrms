@@ -57,4 +57,37 @@ export class NotificationComponent implements OnInit {
         }
       },);
   }
+
+  changeAttendanceHasRead(id: string) {
+    this.commonService.startLoadingSpinner();
+    this.notificationService.changeHasReadAttendanceById(id)
+      .subscribe(successCode => {
+        this.getAllAttendanceList();
+        // let message = successCode.message;
+       
+      }, );
+    this.commonService.hideSpinner();
+  }
+
+  changeAttendanceAbsentStatusHasRead(id: string) {
+    this.commonService.startLoadingSpinner();
+    this.notificationService.changeHasReadAttendanceAbsentById(id)
+      .subscribe(successCode => {
+        this.getAllAttendanceListbyStatus();
+        // let message = successCode.message;
+       
+      }, );
+    this.commonService.hideSpinner();
+  }
+
+  changeDailyTaskStatusHasRead(id: string) {
+    this.commonService.startLoadingSpinner();
+    this.notificationService.changeHasReadDailyTaskById(id)
+      .subscribe(successCode => {
+        this.getAllTaskListUserId();
+        // let message = successCode.message;
+       
+      }, );
+    this.commonService.hideSpinner();
+  }
 }
